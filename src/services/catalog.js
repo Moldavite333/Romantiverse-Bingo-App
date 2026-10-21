@@ -18,3 +18,10 @@ const res=await fetch(URL+'/rest/v1/tropes?select=id,label,category,season,defin
 if(!res.ok)throw Error('Trope catalog unavailable');
 return res.json();
 }
+
+export async function analyzeOnServer(movie,{signal}={}){
+if(!catalogConfigured)throw Error('Analysis service not configured');
+const res=await fetch(URL+'/functions/v1/analyze-movie',{method:'POST',headers:{'Content-Type':'application/json',apikey:KEY},body:JSON.stringify({title:movie.title,season:movie.season,synopsis:movie.synopsis||''}),signal});
+if(!res.ok)throw Error('Movie analysis unavailable ('+res.status+').');
+return res.json();
+}
