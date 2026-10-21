@@ -54,6 +54,18 @@ const aliases={
 'rival':['romantic rival','former fiance','former fiancée','love triangle'],
 'decorating':['christmas lights','decorates the tree','holiday decorating'],
 };
+// Map our original controlled story facts to original Bingo predictions.
+const FACT_TROPE_HINTS={
+ 'return-home':['hometown','small town'], 'old-flame':['former sweethearts'],
+ 'career-vs-love':['career choice'],'save-the-business':['business at risk'],
+ 'forced-proximity':['travel disruption'],'town-event':['festival','harvest'],
+ 'family-pressure':['family dispute'],'rival':['rivals'],
+ 'deadline':['deadline'],'townspeople':['small town'],
+ 'big-city':['big city'],'small-town-magic':['small town'],
+ 'misunderstanding':['misunderstanding'],'family-heirloom':['inheritance'],
+ 'town-event':['festival','harvest','parade'],'hidden-talent':['baking contest'],
+ 'decorating':['christmas'],'old-flame':['former sweethearts','childhood friends']
+};
 const stop=new Set(['the','and','with','for','from','into','their','this','that','her','his','she','him','they','while','during','about','under','over','after','before','through','back']);
 const contexts={
 Christmas:['christmas','holiday','snow','winter','mistletoe','santa','reindeer','carol','tree','cocoa','gift','december','north pole'],
@@ -65,7 +77,7 @@ export function analyzeMovie(movie){
  const title=String(movie?.title||'').slice(0,250),synopsis=String(movie?.synopsis||movie?.description||'').slice(0,6000),season=inferSeason(movie);
  const text=norm(title+' '+synopsis+' '+factKeywords(movie?.story_facts).join(' ')), wordset=tokens(text);
  const cheese=CHEESE.map(t=>{
- const signals=[...t.signals,...(aliases[t.id]||[])];
+ const signals=[...t.signals,...(aliases[t.id]||[]),...(FACT_TROPE_HINTS[t.id]||[])];
  const hits=signals.filter(s=>{const term=norm(s);return term.includes(' ')?(' '+text+' ').includes(' '+term+' '):wordset.has(term)});
  const confidence=Math.min(.94,Math.max(.25,t.weight+(hits.length?Math.min(.16,.06*hits.length):-.22)));
  return {...t,category:'cheese',confidence,reason:hits.length?'Story fact/title clues: '+hits.slice(0,4).join(', '):'Genre prediction only — no supporting plot clue',evidence:hits.length?'synopsis':'prediction',observable_trigger:t.label,verified:false};
