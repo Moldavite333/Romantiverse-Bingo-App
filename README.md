@@ -1,6 +1,6 @@
 # Romantiverse Bingo
 
-**Brought to you by Cheese Louise Podcast**
+**Brought to you by the Cheese Louise Podcast**
 
 Standalone movie-trope bingo game, designed for solo and social play. Hallmark-first catalog, with a shared engine for future Christmas, horror, and other genre experiences.
 
@@ -18,4 +18,4 @@ Repository initialized. The v0.1 prototype source has not yet been imported into
 
 ## Attribution
 
-Every themed experience must visibly display: **Brought to you by Cheese Louise Podcast**.
+Every themed experience must visibly display: **Brought to you by the Cheese Louise Podcast**.
