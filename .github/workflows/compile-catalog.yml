@@ -1,0 +1,22 @@
+name: Compile free movie intelligence
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 9 * * 1'
+permissions:
+  contents: read
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/validate-catalog.mjs
+      - run: node --test tests/*.test.mjs
+      - run: node scripts/compile-catalog.mjs
+      - name: Confirm compiled output is current
+        run: git diff --exit-code -- public/catalog/trope-suggestions.json
+      - name: Report
+        run: echo "Validated local catalog and predictions. No paid AI, scraping, or third-party calls."
