@@ -21,3 +21,10 @@ Supabase project `yxpamyibhclilgdhgsjd`, separate from the Cheese Louise podcast
 
 ## Important safety
 Do not grant public insert/update/delete policies on multiplayer tables. Only authenticated and authorized server-side functions should mutate room state. The server analysis endpoint currently does not incur LLM token charges, but should receive rate limiting and abuse monitoring before expensive generative inference is enabled.
+
+## Multiplayer implementation update
+- Applied `secure_guest_multiplayer_rooms` migration: `live_rooms`, `live_players`, and `live_actions` with RLS and no client-access policies.
+- Deployed Supabase Edge Function `game-room` version 1 (ACTIVE): create/join/state/start/mark/finish endpoints, 7-character codes, 12-player limit, 12-hour expiry, per-player secret tokens, server-held cards and marks, optimistic revision checks, server-side winning-line calculation.
+- Added React `Play Together` screen with a lobby, independent player cards, 3-second state polling, reconnect using sessionStorage, and server-based mark updates.
+- **Limitations:** not yet independently exercised end-to-end from a browser; not production-hardened against room creation abuse; no durable idempotency event log on requests despite schema; polling is not realtime subscriptions; no authenticated accounts, cross-device session recovery, QR code, chat or calibrated game probabilities. Do not advertise as production-ready.
+- Public unauthenticated guest-room API is subject to abuse. Add rate limits, per-IP throttling, session expiry cleanup, and transaction-level idempotency before large-scale release.
