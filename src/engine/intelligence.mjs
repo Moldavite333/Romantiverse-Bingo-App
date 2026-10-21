@@ -1,3 +1,4 @@
+import {factKeywords} from './storyFacts.mjs';
 // Explainable, deterministic trope analysis. No network/AI model claims.
 export const CHEESE=[
 {id:'meet-cute',label:'An impossibly cute first meeting',signals:['meet','runs into','bumps into','encounter'],weight:0.83},
@@ -62,17 +63,17 @@ Horror:['horror','haunted','ghost','killer','murder','monster','dark','scream','
 export function inferSeason(movie){if(contexts[movie?.season])return movie.season;const text=norm([movie?.title,movie?.synopsis,movie?.description].join(' '));let best='Christmas',score=0;for(const [season,terms] of Object.entries(contexts)){const n=terms.filter(t=>(' '+text+' ').includes(' '+t+' ')).length;if(n>score){best=season;score=n}}return best}
 export function analyzeMovie(movie){
  const title=String(movie?.title||'').slice(0,250),synopsis=String(movie?.synopsis||movie?.description||'').slice(0,6000),season=inferSeason(movie);
- const text=norm(title+' '+synopsis), wordset=tokens(text);
+ const text=norm(title+' '+synopsis+' '+factKeywords(movie?.story_facts).join(' ')), wordset=tokens(text);
  const cheese=CHEESE.map(t=>{
  const signals=[...t.signals,...(aliases[t.id]||[])];
  const hits=signals.filter(s=>{const term=norm(s);return term.includes(' ')?(' '+text+' ').includes(' '+term+' '):wordset.has(term)});
  const confidence=Math.min(.94,Math.max(.25,t.weight+(hits.length?Math.min(.16,.06*hits.length):-.22)));
- return {...t,category:'cheese',confidence,reason:hits.length?'Synopsis/title clues: '+hits.slice(0,4).join(', '):'Genre prediction only — no supporting plot clue',evidence:hits.length?'synopsis':'prediction',observable_trigger:t.label,verified:false};
+ return {...t,category:'cheese',confidence,reason:hits.length?'Story fact/title clues: '+hits.slice(0,4).join(', '):'Genre prediction only — no supporting plot clue',evidence:hits.length?'synopsis':'prediction',observable_trigger:t.label,verified:false};
  }).sort((a,b)=>b.confidence-a.confidence||a.id.localeCompare(b.id));
  const seasonal=(SEASONAL[season]||SEASONAL.Christmas).map((label,i)=>{
  const meaningful=norm(label).split(' ').filter(w=>w.length>3&&!stop.has(w));
  const hits=meaningful.filter(w=>wordset.has(w));
- return {id:'season-'+season+'-'+i,label,category:'seasonal',confidence:Math.min(.86,.53+hits.length*.09),reason:hits.length?'Title/synopsis topic overlap: '+hits.join(', '):'Seasonal convention — not confirmed',evidence:hits.length?'synopsis':'prediction',verified:false,observable_trigger:label};
+ return {id:'season-'+season+'-'+i,label,category:'seasonal',confidence:Math.min(.86,.53+hits.length*.09),reason:hits.length?'Story fact/title topic overlap: '+hits.join(', '):'Seasonal convention — not confirmed',evidence:hits.length?'synopsis':'prediction',verified:false,observable_trigger:label};
  }).sort((a,b)=>b.confidence-a.confidence||a.id.localeCompare(b.id));
  return {cheese,seasonal,season,engine:'offline-explainable-v2',generativeAI:false,verifiedScenes:false,disclaimer:'Plot clues are not scene verification. Only viewers can confirm squares.'};
 }
