@@ -1,14 +1,13 @@
 // Wikimedia's public SPARQL service. Candidate discovery only; no auto-publication.
 // Respect query budgets, 429/Retry-After, and Wikimedia User-Agent policy.
 const ENDPOINT='https://query.wikidata.org/sparql';
-export const QUERY=`SELECT ?item ?itemLabel ?description ?date ?networkLabel WHERE {
-  ?item wdt:P31/wdt:P279* wd:Q11424.
-  ?item wdt:P136 wd:Q860626.
-  OPTIONAL { ?item wdt:P577 ?date. }
+export const QUERY=`SELECT ?item ?itemLabel ?itemDescription ?date ?networkLabel WHERE {
+  ?item wdt:P31 wd:Q11424;
+        wdt:P577 ?date.
+  FILTER(?date >= "2025-01-01T00:00:00Z"^^xsd:dateTime)
   OPTIONAL { ?item wdt:P449 ?network. }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-  BIND(STR(?itemDescription) AS ?description)
-} LIMIT 100`;
+} ORDER BY DESC(?date) LIMIT 100`;
 // Query is intentionally narrow; metadata completeness and film coverage are not guaranteed.
 export function normalizeWikidataResults(data){
  if(!Array.isArray(data?.results?.bindings))throw Error('Unexpected Wikidata SPARQL response');
@@ -21,7 +20,7 @@ export function normalizeWikidataResults(data){
   release_year:b.date?.value?Number(b.date.value.slice(0,4)):null,
   network:b.networkLabel?.value||null,
   synopsis:'', // Wikidata descriptions are not plot synopses.
-  short_description:b.description?.value||'',
+  short_description:b.itemDescription?.value||'',
   editorial_status:'review_required',suitable_for_auto_import:false,
   attribution:'Wikidata contributors (CC0); check downstream source rights for any linked content'};
  }).filter(Boolean);
