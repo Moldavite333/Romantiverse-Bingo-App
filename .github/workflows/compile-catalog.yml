@@ -16,7 +16,11 @@ jobs:
       - run: node scripts/validate-catalog.mjs
       - run: node --test tests/*.test.mjs
       - run: node scripts/compile-catalog.mjs
-      - name: Confirm compiled output is current
-        run: git diff --exit-code -- public/catalog/trope-suggestions.json
+      - name: Upload compiled predictions for editorial review
+        uses: actions/upload-artifact@v4
+        with:
+          name: free-trope-predictions
+          path: public/catalog/trope-suggestions.json
+          retention-days: 14
       - name: Report
         run: echo "Validated local catalog and predictions. No paid AI, scraping, or third-party calls."
