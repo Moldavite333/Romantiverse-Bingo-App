@@ -1,29 +1,23 @@
-# Romantiverse Bingo backend
+# Romantiverse Bingo — live service status
 
 **Brought to you by the Cheese Louise Podcast**
 
-A dedicated Supabase project named **Romantiverse Bingo** was created under the same organization as the Cheese Louise project, but with a separate database.
+Supabase project `yxpamyibhclilgdhgsjd`, separate from the Cheese Louise podcast project.
 
-Project ref: `yxpamyibhclilgdhgsjd`
-Region: `us-west-1`
-URL: `https://yxpamyibhclilgdhgsjd.supabase.co`
+## Live backend deployed
+- Public read-only movie catalog (six real Hallmark movie entries initially, with scene verification explicitly **unverified**).
+- Secure RLS: catalog reads allowed; no anonymous database writes to movies, tropes, multiplayer rooms or events.
+- Curated trope definitions with observable triggers and ambiguity guidance.
+- Supabase Edge Function `analyze-movie` version 1, status **ACTIVE**.
+- The deployed endpoint performs **rules-based server-side analysis** (not generative AI), labels synopsis clues and predictions, and never claims scene verification.
+- GitHub app code now loads live movies and calls the server analysis endpoint, with transparent local fallback.
+- Public publishable key only; no service-role secret is in the browser.
 
-## Applied
-- Initial schema migration: movies, tropes, movie_tropes, game_rooms, game_players, game_events.
-- Row-level security enabled for all six tables.
-- Public **read-only** policies for movie metadata, enabled trope definitions, and movie-trope evidence.
-- No public write policies for multiplayer tables; rooms cannot yet be joined or played through the API.
-- Ten curated starter trope definitions inserted with explicit observable triggers and ambiguity guidance.
+## Still required
+- A real generative AI provider API key configured **server-side** and a validated prompt/schema pipeline. None is connected; never describe rules-based analysis as an LLM.
+- Authenticated multiplayer room creation, joining, membership RLS or server functions, realtime synchronization, reconnect, idempotent scoring and anti-abuse. The database tables exist, but gameplay is **not live**.
+- Catalog enrichment and independent verification of official movie metadata and URLs. No licensed movie posters are loaded.
+- Confirm GitHub Pages build/deployment, HTTP response of Edge Function and browser-level E2E tests. An Edge Function status of ACTIVE is deployment confirmation, not an end-to-end request test.
 
-## Not applied
-- No real movie records or licensed artwork ingested yet.
-- No generative AI API or model credentials connected.
-- No Edge Function for movie analysis deployed.
-- No multiplayer join/auth/claim functions deployed.
-- No GitHub Pages environment variables configured automatically.
-
-## Client setup
-The public catalog service in `src/services/catalog.js` uses `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`. Publishable keys are safe for browser use *when RLS is enforced*, but service-role keys must never be committed. The app still defaults to clearly labeled fictional demos until a real catalog is loaded.
-
-## Security rules
-Only trusted server functions can mutate multiplayer state. Validate membership and turn permissions server-side, implement idempotency, enforce room rate limits, and never trust client-computed scores. Movie AI responses require strict schema validation and provenance checks before inclusion.
+## Important safety
+Do not grant public insert/update/delete policies on multiplayer tables. Only authenticated and authorized server-side functions should mutate room state. The server analysis endpoint currently does not incur LLM token charges, but should receive rate limiting and abuse monitoring before expensive generative inference is enabled.
