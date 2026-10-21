@@ -1,0 +1,13 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {deal,LINES,winningLines,toggle,score} from '../src/engine/bingo.mjs';
+const pool=Array.from({length:35},(_,i)=>'Trope '+i);
+test('seed reproducibility',()=>assert.deepEqual(deal(pool,123),deal(pool,123)));
+test('unique squares and free center',()=>{const card=deal(pool,7);assert.equal(card.length,25);assert.equal(new Set(card).size,25);assert.equal(card[12],'FREE')});
+test('every one of 12 winning patterns',()=>{assert.equal(LINES.length,12);for(const line of LINES)assert.ok(winningLines(line).length>0)});
+test('no premature bingo',()=>assert.equal(score([0,1,2,3]).bingo,false));
+test('free center counts toward diagonal',()=>assert.equal(score([0,6,18,24]).bingo,true));
+test('toggle is reversible',()=>assert.deepEqual(toggle(toggle([],4),4),[]));
+test('free center cannot toggle',()=>assert.deepEqual(toggle([12],12),[12]));
+test('invalid indices rejected',()=>assert.throws(()=>toggle([],25)));
+test('insufficient trope pool rejected',()=>assert.throws(()=>deal(['only one'],1)));
+test('invalid seed rejected',()=>assert.throws(()=>deal(pool,-1)));
+test('no free center requires five marked squares',()=>assert.equal(score([0,1,2,3],false).bingo,false));
