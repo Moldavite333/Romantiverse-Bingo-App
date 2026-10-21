@@ -1,0 +1,34 @@
+name: Automatic conservative movie catalog refresh
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 11 * * 3'
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - name: Run engine tests
+        run: npm test
+      - name: Fetch open metadata and import network-qualified movies
+        run: node scripts/auto-update-catalog.mjs
+      - run: node scripts/validate-catalog.mjs
+      - run: npm run build
+      - name: Commit catalog changes only if validated and different
+        run: |
+          git add public/catalog/movies.json
+          if git diff --cached --quiet; then
+            echo "No eligible new movies this week"
+          else
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "chore: refresh eligible open-data Hallmark titles"
+            git push
+          fi
