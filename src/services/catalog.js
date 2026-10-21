@@ -1,7 +1,7 @@
 // Public read-only Supabase catalog; safe to use in a static client.
 // The publishable key is configured via Vite env, never a service-role key.
-const URL=import.meta.env.VITE_SUPABASE_URL;
-const KEY=import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+const URL=(import.meta.env.VITE_SUPABASE_URL || 'https://yxpamyibhclilgdhgsjd.supabase.co');
+const KEY=(import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_VuLwAjFpSDCXpz7IfZtJjA_o5_-NzOa');
 export const catalogConfigured=Boolean(URL&&KEY);
 export async function searchCatalog(query='',{season,limit=30,signal}={}){
 if(!catalogConfigured)return {items:[],source:'not-configured'};
