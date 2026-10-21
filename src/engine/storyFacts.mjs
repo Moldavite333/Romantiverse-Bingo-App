@@ -1,3 +1,4 @@
+import {recognizeCheeseConcepts} from './cheeseMasterConcepts.mjs';
 // Original, controlled vocabulary. The input description is transient; only tags leave this function.
 // This reduces retention/republication risk; it does not override website access terms.
 const PATTERNS={
@@ -36,7 +37,9 @@ export const FACT_KEYS=Object.freeze(Object.values(PATTERNS).flat());
 export function extractStoryFacts(description){
  const text=String(description||'').slice(0,12000);
  const facts={};
- for(const [category,keys] of Object.entries(PATTERNS))facts[category]=keys.filter(k=>RULES[k].test(text));
+ const concepts=new Set(recognizeCheeseConcepts(text));
+ const mappings={homecoming:'hometown',small_town:'small_town',big_city:'big_city',bakery:'bakery',inn:'inn',bookstore:'bookstore',mountain:'mountains',farm:'farm',restaurant:'restaurant',old_flame:'former_sweethearts',childhood:'childhood_friends',rivals:'rivals',fake_romance:'fake_dating',family_business:'family',career:'career_choice',business_risk:'business_at_risk',inheritance:'inheritance',contest:'competition',misunderstanding:'misunderstanding',estranged:'family_dispute',snow_trap:'travel_disruption',deadline:'deadline',festival:'festival',wedding:'wedding',fundraiser:'fundraiser',cookie_contest:'baking_contest',tree_lighting:'christmas',christmas_magic:'christmas',snow_trap:'snowstorm',fake_engagement:'engaged'};
+ for(const [category,keys] of Object.entries(PATTERNS))facts[category]=keys.filter(k=>RULES[k].test(text)||[...concepts].some(c=>mappings[c]===k));
  return facts;
 }
 export function validateStoryFacts(input){
