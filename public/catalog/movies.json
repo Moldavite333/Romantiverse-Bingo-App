@@ -8,60 +8,126 @@
       "title": "Autumn Dreams",
       "release_year": 2015,
       "season": "Fall",
-      "synopsis": "Former teenage sweethearts discover their youthful marriage may never have been legally dissolved.",
       "source_name": "Editorial starter",
       "verification_status": "unverified",
-      "is_demo": false
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [
+          "former_sweethearts",
+          "married"
+        ],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "machine_inferred_unverified"
     },
     {
       "id": "hallmark-love-fall-order-2019",
       "title": "Love, Fall & Order",
       "release_year": 2019,
       "season": "Fall",
-      "synopsis": "A lawyer returns to her hometown to help her father with a legal dispute involving a fall festival.",
       "source_name": "Editorial starter",
       "verification_status": "unverified",
-      "is_demo": false
+      "is_demo": false,
+      "story_facts": {
+        "setting": [
+          "hometown"
+        ],
+        "relationship": [],
+        "conflict": [
+          "career_choice",
+          "family_dispute"
+        ],
+        "event": [
+          "festival"
+        ]
+      },
+      "facts_status": "machine_inferred_unverified"
     },
     {
       "id": "hallmark-pumpkin-pie-wars-2016",
       "title": "Pumpkin Pie Wars",
       "release_year": 2016,
       "season": "Fall",
-      "synopsis": "Children of rival bakery owners are drawn together while preparing for a pumpkin pie competition.",
       "source_name": "Editorial starter",
       "verification_status": "unverified",
-      "is_demo": false
+      "is_demo": false,
+      "story_facts": {
+        "setting": [
+          "bakery"
+        ],
+        "relationship": [
+          "rivals",
+          "family"
+        ],
+        "conflict": [
+          "competition"
+        ],
+        "event": [
+          "baking_contest"
+        ]
+      },
+      "facts_status": "machine_inferred_unverified"
     },
     {
       "id": "hallmark-a-christmas-detour-2015",
       "title": "A Christmas Detour",
       "release_year": 2015,
       "season": "Christmas",
-      "synopsis": "Two travelers experience an unexpected change of plans on their way to holiday celebrations.",
       "source_name": "Editorial starter",
       "verification_status": "unverified",
-      "is_demo": false
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [
+          "travel_disruption"
+        ],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "machine_inferred_unverified"
     },
     {
       "id": "hallmark-christmas-under-wraps-2014",
       "title": "Christmas Under Wraps",
       "release_year": 2014,
       "season": "Christmas",
-      "synopsis": "A doctor takes a position in a remote Alaskan town and discovers unusual holiday secrets.",
       "source_name": "Editorial starter",
       "verification_status": "unverified",
-      "is_demo": false
+      "is_demo": false,
+      "story_facts": {
+        "setting": [
+          "hospital"
+        ],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "machine_inferred_unverified"
     },
     {
       "id": "hallmark-nine-lives-christmas-2014",
       "title": "The Nine Lives of Christmas",
       "release_year": 2014,
       "season": "Christmas",
-      "synopsis": "A firefighter who adopts a stray cat meets a veterinary student during the holiday season.",
       "source_name": "Editorial starter",
       "verification_status": "unverified",
-      "is_demo": false
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "machine_inferred_unverified"
     }
-  ]
+  ],
+  "data_policy": "No synopsis text retained; controlled-vocabulary story tags only"
 }
