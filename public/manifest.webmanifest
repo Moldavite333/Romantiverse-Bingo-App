@@ -1,0 +1,18 @@
+{
+  "name": "Romantiverse Bingo — Brought to you by the Cheese Louise Podcast",
+  "short_name": "Romantiverse Bingo",
+  "description": "A delightfully dramatic movie-night bingo game. Brought to you by the Cheese Louise Podcast.",
+  "start_url": "/Romantiverse-Bingo-App/",
+  "scope": "/Romantiverse-Bingo-App/",
+  "display": "standalone",
+  "background_color": "#fff9f3",
+  "theme_color": "#6e2542",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
