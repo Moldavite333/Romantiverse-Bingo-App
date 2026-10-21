@@ -1,0 +1,36 @@
+name: Sync public Cheese Master intelligence
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 12 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: sync-cheese-master
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - name: Synchronize pure public concept vocabulary
+        run: node scripts/sync-cheese-master.mjs
+      - name: Verify game after synchronization
+        run: |
+          npm test
+          node scripts/validate-catalog.mjs
+          npm run build
+      - name: Commit validated changes
+        run: |
+          git add src/engine/cheeseMasterConcepts.mjs
+          if git diff --cached --quiet; then
+            echo "No Cheese Master changes"
+          else
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "chore: synchronize public Cheese Master recognition"
+            git push
+          fi
