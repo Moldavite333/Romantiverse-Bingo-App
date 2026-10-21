@@ -56,10 +56,8 @@ const aliases={
 };
 // Map our original controlled story facts to original Bingo predictions.
 const FACT_TROPE_HINTS={
- 'return-home':['hometown','small town'], 'old-flame':['former sweethearts'],
- 'career-vs-love':['career choice'],'save-the-business':['business at risk'],
- 'forced-proximity':['travel disruption'],'town-event':['festival','harvest'],
- 'family-pressure':['family dispute'],'rival':['rivals'],
+ 'return-home':['hometown','small town'],  'career-vs-love':['career choice'],'save-the-business':['business at risk'],
+ 'forced-proximity':['travel disruption'], 'family-pressure':['family dispute'],'rival':['rivals'],
  'deadline':['deadline'],'townspeople':['small town'],
  'big-city':['big city'],'small-town-magic':['small town'],
  'misunderstanding':['misunderstanding'],'family-heirloom':['inheritance'],
