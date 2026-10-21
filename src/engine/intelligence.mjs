@@ -38,8 +38,44 @@ Christmas:['Hot cocoa fixes everything','A town Christmas tree lighting','A snow
 Fall:['Pumpkin patch encounter','Apple cider conversation','A scenic hayride','Autumn leaves everywhere','Harvest festival showdown','A flannel-clad love interest','Bonfire heart-to-heart','Pie contest rivalry','Corn maze mishap','Pumpkin carving','Family orchard crisis','Apple-picking date','A very cozy sweater','Fall decorations montage','Small-town fall fair','A farm stand meet-cute','A harvest dance','An autumn sunset kiss','Pumpkin spice is mentioned','A festival deadline','Scarecrow sighting','A barn party','A leaf-peeping trip','An unexpected autumn storm','A fall tradition'],
 Horror:['Someone ignores a clear warning','A suspiciously unlocked door','A creepy basement visit','Someone splits up','A flashlight fails','A jump scare','A power outage','A mysterious noise','A character has no signal','An ominous reflection','A car refuses to start','A false alarm','A strange symbol','A locked room','A terrifying phone call','An old diary','A character runs upstairs','A suspicious stranger','Footsteps with no explanation','A sudden scream','A door slams','An eerie photograph','A shadow moves','Someone says it is probably nothing','A final survivor']
 };
-const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
-export function analyzeMovie(movie){const text=norm([movie.title,movie.synopsis,movie.description].filter(Boolean).join(' '));const words=text.split(' ').filter(Boolean);const results=CHEESE.map(t=>{const hits=t.signals.filter(s=>text.includes(norm(s)));const confidence=Math.min(.95,Math.max(.3,t.weight+(hits.length?0.06: -0.2)));return {...t,category:'cheese',confidence,reason:hits.length?'Synopsis clue: '+hits.join(', '):'Genre-based prediction only',evidence:hits.length?'synopsis':'prediction'}}).sort((a,b)=>b.confidence-a.confidence||a.id.localeCompare(b.id));const seasonal=(SEASONAL[movie.season]||SEASONAL.Christmas).map((label,i)=>({id:'season-'+movie.season+'-'+i,label,category:'seasonal',confidence:.55+(i%5)*.035,reason:'Seasonal convention; not verified in this movie',evidence:'prediction'}));return {cheese:results,seasonal,disclaimer:'Predictions are not verified scenes. Players decide whether a trope happened.'}}
+// Free, offline, explainable lexical inference. No LLM subscription or network call.
+const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\\s+/g,' ').trim();
+const tokens=s=>new Set(norm(s).split(' ').filter(w=>w.length>2));
+const aliases={
+'return-home':['back to her hometown','back to his hometown','comes home','goes home','returns to her hometown','returns to his hometown'],
+'old-flame':['former sweetheart','former boyfriend','former girlfriend','high school crush','teenage sweetheart','past love','former lover'],
+'career-vs-love':['new position','work opportunity','takes a job','corporate job','professional ambitions'],
+'save-the-business':['save her family','save his family','closing down','financial trouble','family store','family business'],
+'forced-proximity':['stuck together','trapped together','forced to work','unexpected detour','snowed in'],
+'town-event':['tree lighting','harvest festival','christmas festival','annual parade','town celebration'],
+'family-pressure':['family obligations','family tradition','her father','his mother','her mother','his father'],
+'cozy-drink':['hot chocolate','hot cocoa','cup of coffee','warm cider'],
+'rival':['romantic rival','former fiance','former fiancée','love triangle'],
+'decorating':['christmas lights','decorates the tree','holiday decorating'],
+};
+const stop=new Set(['the','and','with','for','from','into','their','this','that','her','his','she','him','they','while','during','about','under','over','after','before','through','back']);
+const contexts={
+Christmas:['christmas','holiday','snow','winter','mistletoe','santa','reindeer','carol','tree','cocoa','gift','december','north pole'],
+Fall:['fall','autumn','harvest','pumpkin','apple','orchard','cider','leaves','festival','farm','october'],
+Horror:['horror','haunted','ghost','killer','murder','monster','dark','scream','haunting','curse','nightmare']
+};
+export function inferSeason(movie){if(contexts[movie?.season])return movie.season;const text=norm([movie?.title,movie?.synopsis,movie?.description].join(' '));let best='Christmas',score=0;for(const [season,terms] of Object.entries(contexts)){const n=terms.filter(t=>(' '+text+' ').includes(' '+t+' ')).length;if(n>score){best=season;score=n}}return best}
+export function analyzeMovie(movie){
+ const title=String(movie?.title||'').slice(0,250),synopsis=String(movie?.synopsis||movie?.description||'').slice(0,6000),season=inferSeason(movie);
+ const text=norm(title+' '+synopsis), wordset=tokens(text);
+ const cheese=CHEESE.map(t=>{
+ const signals=[...t.signals,...(aliases[t.id]||[])];
+ const hits=signals.filter(s=>{const term=norm(s);return term.includes(' ')?(' '+text+' ').includes(' '+term+' '):wordset.has(term)});
+ const confidence=Math.min(.94,Math.max(.25,t.weight+(hits.length?Math.min(.16,.06*hits.length):-.22)));
+ return {...t,category:'cheese',confidence,reason:hits.length?'Synopsis/title clues: '+hits.slice(0,4).join(', '):'Genre prediction only — no supporting plot clue',evidence:hits.length?'synopsis':'prediction',observable_trigger:t.label,verified:false};
+ }).sort((a,b)=>b.confidence-a.confidence||a.id.localeCompare(b.id));
+ const seasonal=(SEASONAL[season]||SEASONAL.Christmas).map((label,i)=>{
+ const meaningful=norm(label).split(' ').filter(w=>w.length>3&&!stop.has(w));
+ const hits=meaningful.filter(w=>wordset.has(w));
+ return {id:'season-'+season+'-'+i,label,category:'seasonal',confidence:Math.min(.86,.53+hits.length*.09),reason:hits.length?'Title/synopsis topic overlap: '+hits.join(', '):'Seasonal convention — not confirmed',evidence:hits.length?'synopsis':'prediction',verified:false,observable_trigger:label};
+ }).sort((a,b)=>b.confidence-a.confidence||a.id.localeCompare(b.id));
+ return {cheese,seasonal,season,engine:'offline-explainable-v2',generativeAI:false,verifiedScenes:false,disclaimer:'Plot clues are not scene verification. Only viewers can confirm squares.'};
+}
 export function seededRandom(seed){let s=seed>>>0;return ()=>{s=(s+0x6d2b79f5)>>>0;let t=Math.imul(s^(s>>>15),1|s);t^=t+Math.imul(t^(t>>>7),61|t);return ((t^(t>>>14))>>>0)/4294967296}}
 export function shuffle(items,rng){const out=[...items];for(let i=out.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[out[i],out[j]]=[out[j],out[i]]}return out}
 export function buildCard(movie,{seed=1,free=true,cheeseRatio=.5,difficulty='balanced',locked={}}={}){if(!Number.isSafeInteger(seed)||seed<0)throw Error('Invalid card seed');if(!Number.isFinite(cheeseRatio)||cheeseRatio<0||cheeseRatio>1)throw Error('Invalid trope ratio');const {cheese,seasonal}=analyzeMovie(movie);const rng=seededRandom(seed);const count=free?24:25;const nCheese=Math.round(count*cheeseRatio);const target=difficulty==='easy'?[.72,1]:difficulty==='hard'?[0,.7]:[0,1];const choose=(arr,n)=>{const eligible=arr.filter(t=>t.confidence>=target[0]&&t.confidence<=target[1]);const preferred=eligible.length>=n?eligible:arr;const ranked=shuffle(preferred,rng).sort((a,b)=>difficulty==='hard'?a.confidence-b.confidence:b.confidence-a.confidence);return ranked.slice(0,n)};let selected=[...choose(cheese,nCheese),...choose(seasonal,count-nCheese)];if(selected.length!==count)throw Error('Not enough distinct tropes');selected=shuffle(selected,rng);
