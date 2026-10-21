@@ -39,7 +39,7 @@ Fall:['Pumpkin patch encounter','Apple cider conversation','A scenic hayride','A
 Horror:['Someone ignores a clear warning','A suspiciously unlocked door','A creepy basement visit','Someone splits up','A flashlight fails','A jump scare','A power outage','A mysterious noise','A character has no signal','An ominous reflection','A car refuses to start','A false alarm','A strange symbol','A locked room','A terrifying phone call','An old diary','A character runs upstairs','A suspicious stranger','Footsteps with no explanation','A sudden scream','A door slams','An eerie photograph','A shadow moves','Someone says it is probably nothing','A final survivor']
 };
 // Free, offline, explainable lexical inference. No LLM subscription or network call.
-const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\\s+/g,' ').trim();
+const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
 const tokens=s=>new Set(norm(s).split(' ').filter(w=>w.length>2));
 const aliases={
 'return-home':['back to her hometown','back to his hometown','comes home','goes home','returns to her hometown','returns to his hometown'],
