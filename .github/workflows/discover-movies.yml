@@ -1,0 +1,24 @@
+name: Discover open-data movie candidates
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 10 * * 3'
+permissions:
+  contents: read
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Query Wikidata once, politely
+        run: node scripts/discover-candidates.mjs
+      - name: Upload research leads, not game catalog
+        uses: actions/upload-artifact@v4
+        with:
+          name: wikidata-movie-candidates
+          path: research/wikidata-candidates.json
+          retention-days: 14
