@@ -83,7 +83,7 @@ export function analyzeMovie(movie){
  const seasonal=(SEASONAL[season]||SEASONAL.Christmas).map((label,i)=>{
  const meaningful=norm(label).split(' ').filter(w=>w.length>3&&!stop.has(w));
  const hits=meaningful.filter(w=>wordset.has(w));
- return {id:'season-'+season+'-'+i,label,category:'seasonal',confidence:Math.min(.86,.53+hits.length*.09),reason:hits.length?'Story fact/title topic overlap: '+hits.join(', '):'Seasonal convention — not confirmed',evidence:hits.length?'synopsis':'prediction',verified:false,observable_trigger:label};
+ return {id:'season-'+season+'-'+i,label,category:'seasonal',confidence:Math.min(.86,.53+hits.length*.09),reason:hits.length?'Story fact/title topic overlap: '+hits.join(', '):'Seasonal convention — not confirmed',evidence:'prediction',verified:false,observable_trigger:label};
  }).sort((a,b)=>b.confidence-a.confidence||a.id.localeCompare(b.id));
  return {cheese,seasonal,season,engine:'offline-explainable-v2',generativeAI:false,verifiedScenes:false,disclaimer:'Plot clues are not scene verification. Only viewers can confirm squares.'};
 }
