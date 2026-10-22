@@ -1,13 +1,15 @@
 // Wikimedia's public SPARQL service. Candidate discovery only; no auto-publication.
 // Respect query budgets, 429/Retry-After, and Wikimedia User-Agent policy.
 const ENDPOINT='https://query.wikidata.org/sparql';
-export const QUERY=`SELECT ?item ?itemLabel ?itemDescription ?date ?networkLabel WHERE {
-  ?item wdt:P31 wd:Q11424;
-        wdt:P577 ?date.
-  FILTER(?date >= "2025-01-01T00:00:00Z"^^xsd:dateTime)
-  OPTIONAL { ?item wdt:P449 ?network. }
+export const QUERY=`SELECT DISTINCT ?item ?itemLabel ?date ?networkLabel WHERE {
+  VALUES ?networkLabel { "Hallmark Channel"@en "Hallmark Movies & Mysteries"@en "Hallmark Movies and Mysteries"@en "Hallmark Mystery"@en "Hallmark Family"@en }
+  ?item wdt:P31/wdt:P279* wd:Q11424;
+        wdt:P577 ?date;
+        wdt:P449 ?network.
+  ?network rdfs:label ?networkLabel.
+  FILTER(?date >= "2020-01-01T00:00:00Z"^^xsd:dateTime)
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-} ORDER BY DESC(?date) LIMIT 100`;
+} ORDER BY DESC(?date) LIMIT 500`;
 // Query is intentionally narrow; metadata completeness and film coverage are not guaranteed.
 export function normalizeWikidataResults(data){
  if(!Array.isArray(data?.results?.bindings))throw Error('Unexpected Wikidata SPARQL response');
