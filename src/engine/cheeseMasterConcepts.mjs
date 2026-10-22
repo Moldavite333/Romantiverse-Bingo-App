@@ -1,5 +1,4 @@
-// Shared recognition vocabulary extracted from Cheese Louise Adaptive Cheese Master v1.32.
-// Pure, offline module; no accounts, source text storage or network calls.
+// Automatically synchronized from Cheese Louise Cheese Master. Pure local rules only.
 export const CM_CONCEPTS = {
   homecoming:/\b(return(?:s|ed|ing)?|come(?:s)?|came|go(?:es)?|went|move(?:s|d)?) (?:back )?(?:home|to (?:her|his|their|the) hometown|to (?:her|his|their) small town)\b|\bback (?:home|in (?:her|his|their) hometown)\b|\bhometown\b/,
   small_town:/\bsmall town\b|\bsmall-town\b|\bquaint town\b|\btight knit community\b|\bclose knit community\b/,
