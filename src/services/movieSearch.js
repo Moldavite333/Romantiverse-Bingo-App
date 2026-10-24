@@ -5,7 +5,7 @@ const ENDPOINT='https://www.wikidata.org/w/api.php';
 export function normalizeMovieSearchResults(payload){
  const entries=Array.isArray(payload?.search)?payload.search:[];
  return entries.filter(x=>/^Q\d+$/.test(x.id||'')&&typeof x.label==='string'&&
-   /(?:\bfilm\b|\bmovie\b|television film|romantic comedy|christmas film|hallmark)/i.test(x.description||''))
+   /(?:film|movie|television|romantic comedy|hallmark|christmas)/i.test(x.description||''))
  .slice(0,12).map(x=>{
    const description=String(x.description||'');
    const yearMatch=description.match(/\b(?:19|20)\d{2}\b/);
@@ -20,7 +20,7 @@ export function normalizeMovieSearchResults(payload){
 export async function searchPublicMovies(query,{signal,fetcher=fetch}={}){
  const q=String(query||'').trim().slice(0,120);
  if(q.length<3)return [];
- const params=new URLSearchParams({action:'wbsearchentities',search:q,language:'en',uselang:'en',type:'item',limit:'25',format:'json',origin:'*'});
+ const params=new URLSearchParams({action:'wbsearchentities',search:q,language:'en',uselang:'en',type:'item',limit:'50',format:'json',origin:'*'});
  const response=await fetcher(ENDPOINT+'?'+params.toString(),{signal});
  if(!response.ok)throw Error('Public movie search temporarily unavailable');
  return normalizeMovieSearchResults(await response.json());
