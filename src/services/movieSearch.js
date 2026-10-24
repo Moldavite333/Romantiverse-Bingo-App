@@ -21,7 +21,7 @@ export async function searchPublicMovies(query,{signal,fetcher=fetch}={}){
  const q=String(query||'').trim().slice(0,120);
  if(q.length<3)return [];
  const params=new URLSearchParams({action:'wbsearchentities',search:q,language:'en',uselang:'en',type:'item',limit:'50',format:'json',origin:'*'});
- const response=await fetcher(ENDPOINT+'?'+params.toString(),{signal});
+ const response=await fetcher(ENDPOINT+'?'+params.toString().replace(/origin=\*/g,'origin=%2A'),{signal});
  if(!response.ok)throw Error('Public movie search temporarily unavailable');
  return normalizeMovieSearchResults(await response.json());
 }
