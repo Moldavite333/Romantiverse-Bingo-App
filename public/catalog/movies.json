@@ -143,6 +143,22 @@
         "event": []
       },
       "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "hallmark-autumn-at-apple-hill-2024",
+      "title": "Autumn at Apple Hill",
+      "release_year": 2024,
+      "season": "Fall",
+      "source_name": "Cheese Louise HQ title",
+      "verification_status": "title_only_unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
     }
   ],
   "data_policy": "No synopsis text retained; controlled-vocabulary story tags only"
