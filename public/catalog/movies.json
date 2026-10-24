@@ -134,7 +134,7 @@
       "release_year": 2006,
       "season": "Christmas",
       "source_name": "Editorial title listing",
-      "verification_status": "title_only_unverified",
+      "verification_status": "unverified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -150,7 +150,7 @@
       "release_year": 2024,
       "season": "Fall",
       "source_name": "Cheese Louise HQ title",
-      "verification_status": "title_only_unverified",
+      "verification_status": "unverified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
