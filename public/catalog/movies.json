@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-21",
+  "updated_at": "2026-10-24",
   "source": "Editorial starter catalog. Metadata requires independent verification; no automated Hallmark scraping.",
   "movies": [
     {
@@ -127,6 +127,22 @@
         ]
       },
       "facts_status": "machine_inferred_unverified"
+    },
+    {
+      "id": "hallmark-the-christmas-card-2006",
+      "title": "The Christmas Card",
+      "release_year": 2006,
+      "season": "Christmas",
+      "source_name": "Editorial title listing",
+      "verification_status": "title_only_unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
     }
   ],
   "data_policy": "No synopsis text retained; controlled-vocabulary story tags only"
