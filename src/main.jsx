@@ -7,6 +7,7 @@ import{loadStaticCatalog}from './services/staticCatalog.js';
 import Multiplayer from './Multiplayer.jsx';
 import {validateCheesePackage,buildSharedCheeseSuggestions} from './engine/sharedCheese.mjs';
 import './style.css';
+import './cinematic-theme.css';
 const BRAND='Brought to you by the Cheese Louise Podcast';
 const KEY='romantiverse-v2',HISTORY='romantiverse-history-v2',FAVORITES='romantiverse-favorites-v2';
 const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
