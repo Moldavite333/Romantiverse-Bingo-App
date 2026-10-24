@@ -27,3 +27,17 @@ body{background:radial-gradient(circle at 82% 4%,rgba(248,138,112,.18),transpare
 :focus-visible{outline:3px solid #e8a85c;outline-offset:3px}
 @media(max-width:600px){.masthead{padding:34px 14px;border-radius:18px}.movie-card:hover{transform:none}.panel,.hero{border-radius:17px}}
 @media(prefers-reduced-motion:reduce){.movie-card,.square,.primary{transition:none!important}.movie-card:hover{transform:none}}
+
+.cheese-tray{margin:24px 0;background:linear-gradient(135deg,#fff8e8,#f8e7d5)}
+.cheese-tray h2{margin:7px 0 14px}
+.tray-period{display:flex;gap:9px;margin:18px 0}
+.tray-period button{border-radius:24px;border:1px solid #d6baa0;background:#fffaf1;padding:9px 18px;color:#173d38;font-weight:700}
+.tray-period button.primary{color:white;border-color:#e97567}
+.tray-ranks{list-style:none;padding:0;margin:0}
+.tray-ranks li{display:flex;align-items:center;gap:12px;padding:13px 9px;border-bottom:1px solid #e5cfb7}
+.tray-ranks li strong{flex:1}
+.tray-rank{font-weight:800;color:#b16a4c;min-width:34px}
+.tray-submit{padding:16px;border-radius:16px;background:#f4e4cf}
+.tray-submit form{display:flex;gap:10px;flex-wrap:wrap}
+.tray-submit input{flex:1;min-width:190px}
+@media(max-width:600px){.tray-ranks li{font-size:.86rem;gap:7px}}
