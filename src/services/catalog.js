@@ -25,3 +25,12 @@ const res=await fetch(URL+'/functions/v1/analyze-movie',{method:'POST',headers:{
 if(!res.ok)throw Error('Movie analysis unavailable ('+res.status+').');
 return res.json();
 }
+
+export async function supabaseRpc(name,payload){
+ if(!catalogConfigured)throw Error('Leaderboard service unavailable');
+ if(!['cheese_tray_top','cheese_tray_submit'].includes(name))throw Error('Unsupported action');
+ const response=await fetch(URL+'/rest/v1/rpc/'+name,{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},body:JSON.stringify(payload)});
+ const data=await response.json();
+ if(!response.ok)throw Error(data?.message||'Leaderboard request failed');
+ return data;
+}
