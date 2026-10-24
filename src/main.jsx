@@ -10,6 +10,7 @@ import {validateCheesePackage,buildSharedCheeseSuggestions} from './engine/share
 import './style.css';
 import './cinematic-theme.css';
 import {searchPublicMovies} from './services/movieSearch.js';
+import {searchCatalog} from './services/catalog.js';
 const BRAND='Brought to you by the Cheese Louise Podcast';
 const KEY='romantiverse-v2',HISTORY='romantiverse-history-v2',FAVORITES='romantiverse-favorites-v2';
 const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
@@ -23,12 +24,12 @@ const [remoteMovies,setRemoteMovies]=useState([]),[remoteLoading,setRemoteLoadin
 const [liveMovies,setLiveMovies]=useState([]),[catalogError,setCatalogError]=useState(''),[catalogLoading,setCatalogLoading]=useState(true);
 const [game,setGame]=useState(()=>read(KEY,null)),[history,setHistory]=useState(()=>read(HISTORY,[])),[favorites,setFavorites]=useState(()=>read(FAVORITES,[]));
 const [tab,setTab]=useState('discover'),[query,setQuery]=useState(''),[season,setSeason]=useState('Christmas'),[custom,setCustom]=useState(''),[free,setFree]=useState(true),[mode,setMode]=useState('classic'),[difficulty,setDifficulty]=useState('balanced'),[ratio,setRatio]=useState(50),[notice,setNotice]=useState(''),[editIndex,setEditIndex]=useState(null),[filter,setFilter]=useState('All'),[showClues,setShowClues]=useState(false);
-useEffect(()=>{const ctrl=new AbortController();loadStaticCatalog({signal:ctrl.signal}).then(r=>{setLiveMovies(r.items);setCatalogError('')}).catch(e=>{if(e.name!=='AbortError')setCatalogError('Bundled catalog unavailable; showing demo movies.')}).finally(()=>setCatalogLoading(false));return()=>ctrl.abort()},[]);
+useEffect(()=>{const ctrl=new AbortController();Promise.allSettled([loadStaticCatalog({signal:ctrl.signal}),searchCatalog('',{limit:100,signal:ctrl.signal})]).then(results=>{if(ctrl.signal.aborted)return;const items=results.flatMap(r=>r.status==='fulfilled'?r.value.items:[]);setLiveMovies(items.map(m=>({...m,story_facts:m.story_facts||{setting:[],relationship:[],conflict:[],event:[]},kind:'CATALOG MOVIE · SCENES UNVERIFIED'})));setCatalogError(items.length?'':'Movie catalog temporarily unavailable. You can still play any title.')}).finally(()=>{if(!ctrl.signal.aborted)setCatalogLoading(false)});return()=>ctrl.abort()},[]);
 useEffect(()=>{
  const term=query.trim();
  if(term.length<3){setRemoteMovies([]);setRemoteLoading(false);setRemoteError('');return;}
  const ctrl=new AbortController();setRemoteLoading(true);setRemoteError('');
- const timeout=setTimeout(()=>searchPublicMovies(term,{signal:ctrl.signal}).then(setRemoteMovies).catch(e=>{if(e.name!=='AbortError'){setRemoteMovies([]);setRemoteError('Live movie search unavailable. Your saved catalog still works.')}}).finally(()=>{if(!ctrl.signal.aborted)setRemoteLoading(false)}),350);
+ const timeout=setTimeout(()=>Promise.allSettled([searchCatalog(term,{limit:50,signal:ctrl.signal}),searchPublicMovies(term,{signal:ctrl.signal})]).then(results=>{if(ctrl.signal.aborted)return;const db=results[0].status==='fulfilled'?results[0].value.items:[];const publicResults=results[1].status==='fulfilled'?results[1].value:[];setRemoteMovies([...db.map(m=>({...m,story_facts:m.story_facts||{setting:[],relationship:[],conflict:[],event:[]},kind:'CATALOG MOVIE · SCENES UNVERIFIED'})),...publicResults]);setRemoteError(results.every(r=>r.status==='rejected')?'Live search unavailable. You can still play any title.':'')}).finally(()=>{if(!ctrl.signal.aborted)setRemoteLoading(false)}),350);
  return()=>{clearTimeout(timeout);ctrl.abort()};
 },[query]);
 useEffect(()=>write(KEY,game),[game]);useEffect(()=>write(HISTORY,history),[history]);useEffect(()=>write(FAVORITES,favorites),[favorites]);
