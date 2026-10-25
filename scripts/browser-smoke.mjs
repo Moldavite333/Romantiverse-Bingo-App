@@ -77,6 +77,21 @@ try{
     assert.equal(typeof payload.invite_id,'string');
     for(const forbidden of ['card','marked','token','session','player_id'])assert.equal(forbidden in payload,false,'Invitation leaked '+forbidden);
    }
+   // Mobile share sheets and clipboard permissions can both fail. Keep a copyable link.
+   await page.evaluate(()=>{
+    Object.defineProperty(navigator,'share',{configurable:true,value:async()=>{throw Error('Share blocked')}});
+    Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw Error('Clipboard blocked')}}});
+   });
+   await page.getByRole('button',{name:/Share Card/}).click();
+   const manual=page.getByRole('textbox',{name:'Direct game invitation link'});
+   await manual.waitFor();
+   const fallback=await manual.inputValue();
+   assert.ok(fallback.startsWith(appUrl+'#invite='),'Manual link must point directly to this game');
+   assert.notEqual(fallback,links[0],'Each share attempt must get a new invitation');
+   assert.notEqual(fallback,links[1],'Fallback invitation must also be unique');
+   assert.match(await page.locator('.toast').innerText(),/Select and copy your invitation link/);
+   await page.getByRole('button',{name:'Copy Link'}).click();
+   assert.match(await page.locator('.toast').innerText(),/Select and copy your invitation link/);
    invitation=links[0];
   }
   console.log('Bingo browser QA passed at '+width+'px.');
