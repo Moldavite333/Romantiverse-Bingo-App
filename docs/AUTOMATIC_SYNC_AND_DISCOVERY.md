@@ -7,7 +7,7 @@ Bingo uses the static movie catalog and its locally bundled inference engine. No
 `.github/workflows/sync-cheese-master.yml` reads only the public `cheese-master.js` code in `Moldavite333/Cheese-Louise`. The parser extracts the declarative `CM_CONCEPTS` regular-expression vocabulary and rejects unexpected executable syntax. It does not read Supabase, personal accounts, podcast notes, private trait feedback, or TMDB tokens. Tests, catalog validation and build must succeed before commit. A commit to main triggers the Pages deployment workflow.
 
 ## Weekly open-data discovery
-`.github/workflows/auto-catalog.yml` requests Wikidata public film metadata. It adds only titles with explicit recognized Hallmark network metadata and a valid year. No source descriptions are stored. Duplicate title/year pairs are rejected. The catalog must pass validation and build before committing.
+`.github/workflows/auto-catalog.yml` requests Wikidata public film metadata. It adds only titles with explicit recognized Hallmark network metadata and a valid year. Titles without a reliable season are labeled `Unspecified`, not silently discarded or categorized as Christmas. Players choose the card theme for those titles; that choice never becomes verified movie metadata. No source descriptions are stored. Duplicate title/year pairs are rejected. The catalog must pass validation and build before committing.
 
 ## Failure policy
 Network errors or changed upstream formats fail closed. The last deployed static app remains usable; a failed scheduled job does not mean the catalog has refreshed. Check GitHub Actions for actual success.

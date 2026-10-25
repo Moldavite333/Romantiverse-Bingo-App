@@ -106,6 +106,26 @@ try{
  assert.deepEqual(errors,[],'Guest invitation caused browser errors');
  console.log('Unique direct-link invitation opened independently with a fresh illustrated card.');
  await context.close();
+ // A scheduled Hallmark catalog update may contain a real title whose season is unknown.
+ // Keep it searchable without silently calling it Christmas.
+ const staticUnknown=await newPage(390);
+ await staticUnknown.page.route(appUrl+'catalog/movies.json',async route=>{
+  const catalog=JSON.parse(await readFile(resolve(root,'catalog/movies.json'),'utf8'));
+  catalog.movies.push({id:'test-hallmark-unclassified',title:'A Winter Wedding',season:'Unspecified',release_year:2026,
+   story_facts:{setting:[],relationship:[],conflict:[],event:[]},verification_status:'unverified',is_demo:false});
+  await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(catalog)});
+ });
+ await staticUnknown.page.goto(appUrl,{waitUntil:'domcontentloaded'});
+ const bundledUnknown=staticUnknown.page.locator('.movie-card').filter({hasText:'A Winter Wedding'});
+ await bundledUnknown.waitFor();
+ assert.match(await bundledUnknown.innerText(),/SEASON UNVERIFIED/,'Bundled unknown-season film must be searchable without inventing a season');
+ await staticUnknown.page.getByLabel('Card theme for movies with no verified season').selectOption('Fall');
+ await bundledUnknown.getByRole('button',{name:'Play This Movie'}).click();
+ assert.match(await staticUnknown.page.locator('.play-heading').innerText(),/FALL CARD.*MOVIE SEASON UNVERIFIED/);
+ assert.equal(await staticUnknown.page.locator('.board .square').count(),25);
+ assert.deepEqual(staticUnknown.errors,[],'Bundled unknown-season film caused browser errors');
+ await staticUnknown.context.close();
+ console.log('Automated catalog films with unknown season remain playable without fabricated metadata.');
  const unknown=await newPage(390);
  await unknown.page.goto(appUrl,{waitUntil:'domcontentloaded'});
  await unknown.page.getByLabel('Search movies by title').fill('Winter Wedding');

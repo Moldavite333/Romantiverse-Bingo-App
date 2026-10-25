@@ -9,7 +9,7 @@ for(const [i,m] of data.movies.entries()){
  if(typeof m.id!=='string'||!m.id.trim()||ids.has(m.id))throw Error('Missing or duplicate ID '+i);
  ids.add(m.id);
  if(typeof m.title!=='string'||!m.title.trim()||m.title.length>250)throw Error('Invalid title '+i);
- if(!['Christmas','Fall','Horror'].includes(m.season))throw Error('Invalid season '+i);
+ if(!['Christmas','Fall','Horror','Unspecified'].includes(m.season))throw Error('Invalid season '+i);
  if('synopsis' in m||'description' in m)throw Error('Do not store source synopsis prose '+i);
  if(!m.story_facts)throw Error('Missing controlled story facts '+i);
  validateStoryFacts(m.story_facts);
