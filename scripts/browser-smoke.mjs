@@ -99,7 +99,7 @@ try{
  assert.match(await result.innerText(),/SEASON UNVERIFIED/,'Public search must not invent a Christmas season');
  await unknown.page.getByLabel('Card theme for movies with no verified season').selectOption('Fall');
  await result.getByRole('button',{name:'Play This Movie'}).click();
- assert.match(await unknown.page.locator('.play-heading').innerText(),/FALL/,'Unclassified title should use the player's selected theme');
+ assert.match(await unknown.page.locator('.play-heading').innerText(),/FALL/,'Unclassified title should use the player\'s selected theme');
  assert.equal(await unknown.page.locator('.board .square').count(),25);
  assert.deepEqual(unknown.errors,[],'Unclassified movie caused browser errors');
  console.log('Unclassified movie search retained the title and respected the chosen card theme.');
