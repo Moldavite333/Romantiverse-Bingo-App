@@ -5,6 +5,6 @@ export async function loadStaticCatalog({signal}={}){
  if(!res.ok)throw Error('Catalog file unavailable ('+res.status+')');
  const body=await res.json();
  if(body?.version!==1||!Array.isArray(body.movies))throw Error('Unsupported catalog format');
- const items=body.movies.filter(m=>typeof m.title==='string'&&m.title.trim()&&['Christmas','Fall','Horror'].includes(m.season)).map(m=>({...m,is_demo:false}));
+ const items=body.movies.filter(m=>typeof m.title==='string'&&m.title.trim()&&['Christmas','Fall','Horror','Unspecified'].includes(m.season)).map(m=>({...m,is_demo:false}));
  return {items,source:'bundled-static',updatedAt:body.updated_at};
 }
