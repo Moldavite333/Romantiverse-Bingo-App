@@ -13,8 +13,8 @@ export function prepareOpenDataMovie(candidate){
  const title=String(candidate.title||'').trim();
  const year=Number(candidate.release_year);
  if(!title||title.length>250||!Number.isInteger(year)||year<2000||year>2100)return null;
- const season=seasonalThemeFromTitle(title);
- if(!season)return null;
+ // Unknown-season films remain discoverable without inventing Christmas or Fall metadata.
+ const season=seasonalThemeFromTitle(title)||'Unspecified';
  return {id:'wikidata-'+candidate.source_id,title,release_year:year,season,story_facts:extractStoryFacts(title),
   facts_status:'title_only_unverified',verification_status:'unverified',source_name:'Wikidata (CC0)',
   source_url:'https://www.wikidata.org/wiki/'+candidate.source_id,network:candidate.network,is_demo:false};
@@ -40,5 +40,5 @@ if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
   catalog.updated_at=new Date().toISOString().slice(0,10);
   fs.writeFileSync(catalogPath,JSON.stringify(catalog,null,2)+'\n');
  }
- console.log('Wikidata season-identifiable Hallmark films added: '+added+'. Unknown-season titles skipped; no synopsis stored.');
+ console.log('Network-qualified Hallmark films added: '+added+'. Unknown seasons remain Unspecified; no synopsis stored.');
 }
