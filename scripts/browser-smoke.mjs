@@ -33,7 +33,7 @@ async function newPage(width){
   if(response.url().startsWith(origin)&&response.status()>=400)errors.push(response.status()+' '+response.url());
  });
  // External catalog data is independently tested; browser QA must be deterministic.
- await page.route('https://*.supabase.co/**',route=>route.fulfill({status:200,contentType:'application/json',body:'{"items":[]}'}));
+ await page.route('https://*.supabase.co/**',route=>route.fulfill({status:200,contentType:'application/json',body:'[]'}));
  await page.route('https://www.wikidata.org/w/api.php**',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({search:[{id:'Q990001',label:'The Winter Wedding',description:'2025 television film'}]})}));
  await page.route('https://fonts.googleapis.com/**',route=>route.abort());
  await page.route('https://fonts.gstatic.com/**',route=>route.abort());
