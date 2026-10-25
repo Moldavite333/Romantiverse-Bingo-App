@@ -1,5 +1,6 @@
 // A room invitation shares only the public join code. Never include the player's session token.
-const ROOM_CODE=/^[A-Z0-9]{7}$/;
+// Match the live game-room service: 0 and 1 are never valid join-code digits.
+const ROOM_CODE=/^[A-Z2-9]{7}$/;
 export function normalizeRoomCode(value){
  if(typeof value!=='string')return null;
  const code=value.trim().toUpperCase();
