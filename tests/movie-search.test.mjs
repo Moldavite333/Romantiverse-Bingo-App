@@ -16,6 +16,7 @@ test('short searches do not make requests',async()=>{
 test('search request uses public origin and normalizes metadata',async()=>{
  let url='';const result=await searchPublicMovies('Holiday Inn',{fetcher:async u=>{url=u;return {ok:true,json:async()=>({search:[{id:'Q444',label:'Holiday Inn',description:'1942 film'}]})}}});
  assert.match(url,/origin=%2A/);assert.match(url,/wbsearchentities/);assert.equal(result[0].title,'Holiday Inn');
+ assert.equal(result[0].season,'Unspecified');
 });
 
 test('public search excludes people, music, TV series and film-industry results',()=>{
@@ -43,4 +44,16 @@ test('public search ignores repeated IDs, empty and oversized titles',()=>{
   {id:'Q303',label:' Second Film ',description:'2022 film'}
  ]});
  assert.deepEqual(result.map(x=>x.title),['First Film','Second Film']);
+});
+
+test('search keeps neutral movie titles without mislabeling them Christmas',()=>{
+ const result=normalizeMovieSearchResults({search:[
+  {id:'Q501',label:'The Winter Wedding',description:'2025 television film'},
+  {id:'Q502',label:'A Holiday Abroad',description:'2024 romantic comedy film'},
+  {id:'Q503',label:'Love at First Sight',description:'2023 film'},
+  {id:'Q504',label:'Christmas Harvest',description:'2022 film'},
+  {id:'Q505',label:'The Pumpkin Promise',description:'2021 film'}
+ ]});
+ assert.deepEqual(result.map(m=>m.season),['Unspecified','Unspecified','Unspecified','Unspecified','Fall']);
+ assert.equal(result.length,5,'Neutral titles remain discoverable');
 });

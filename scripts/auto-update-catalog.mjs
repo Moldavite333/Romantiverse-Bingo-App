@@ -3,19 +3,10 @@
 import fs from 'node:fs';
 import {discoverWikidata} from './sources/wikidata.mjs';
 import {extractStoryFacts} from '../src/engine/storyFacts.mjs';
+import {seasonalThemeFromTitle} from '../src/engine/seasonalTitle.mjs';
+export {seasonalThemeFromTitle};
 export function isHallmarkNetwork(value){
  return /^(hallmark channel|hallmark movies (?:&|and) mysteries|hallmark mystery|hallmark family)$/i.test(String(value||'').trim());
-}
-// A network credit proves neither the story's season nor its scene content.
-// Only import titles whose season can be inferred conservatively from the title.
-// Non-seasonal titles remain discoverable via public search/custom play instead of
-// being incorrectly published as Christmas movies.
-export function seasonalThemeFromTitle(title){
- const text=String(title||'');
- const christmas=/\b(?:christmas|xmas|mistletoe|santa|yuletide|noel)\b/i.test(text);
- const fall=/\b(?:autumn|harvest|pumpkin|thanksgiving)\b/i.test(text) ||
-  (/\bfall\b/i.test(text)&&!/\bfall\s+(?:for|in love)\b/i.test(text));
- return christmas===fall?null:christmas?'Christmas':'Fall';
 }
 export function prepareOpenDataMovie(candidate){
  if(candidate.source!=='wikidata'||!/^Q\d+$/.test(candidate.source_id||'')||!isHallmarkNetwork(candidate.network))return null;

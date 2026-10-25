@@ -1,6 +1,7 @@
 // Public, no-key movie-title discovery for titles missing from our curated catalog.
 // Wikidata's search API returns labels/descriptions under CC0. We do not store
 // descriptions or treat search matches as confirmed movie plot facts.
+import {seasonalThemeFromTitle} from '../engine/seasonalTitle.mjs';
 const ENDPOINT='https://www.wikidata.org/w/api.php';
 
 // Wikidata searches include people, albums, TV series and film-industry topics.
@@ -24,7 +25,8 @@ export function normalizeMovieSearchResults(payload){
   const description=String(x.description||'');
   const yearMatch=description.match(/\b(?:19|20)\d{2}\b/);
   const year=yearMatch?Number(yearMatch[0]):null;
-  const season=/christmas|holiday|mistletoe|santa|winter/i.test(title)?'Christmas':/fall|autumn|harvest|pumpkin/i.test(title)?'Fall':'Christmas';
+  // Unknown titles remain searchable, but the player must choose a card theme.
+  const season=seasonalThemeFromTitle(title)||'Unspecified';
   results.push({id:'wikidata-'+x.id,title,release_year:year,season,story_facts:{setting:[],relationship:[],conflict:[],event:[]},
    verification_status:'search_result_unverified',facts_status:'title_only_unverified',source_name:'Wikidata',
    source_url:'https://www.wikidata.org/wiki/'+x.id,is_demo:false,kind:'PUBLIC MOVIE SEARCH · SCENES UNVERIFIED'});

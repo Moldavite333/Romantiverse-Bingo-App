@@ -33,7 +33,8 @@ async function newPage(width){
   if(response.url().startsWith(origin)&&response.status()>=400)errors.push(response.status()+' '+response.url());
  });
  // External catalog data is independently tested; browser QA must be deterministic.
- await page.route('https://*.supabase.co/**',route=>route.fulfill({status:200,contentType:'application/json',body:'{"items":[]}'}));
+ await page.route('https://*.supabase.co/**',route=>route.fulfill({status:200,contentType:'application/json',body:'[]'}));
+ await page.route('https://www.wikidata.org/w/api.php**',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({search:[{id:'Q990001',label:'The Winter Wedding',description:'2025 television film'}]})}));
  await page.route('https://fonts.googleapis.com/**',route=>route.abort());
  await page.route('https://fonts.gstatic.com/**',route=>route.abort());
  await page.addInitScript(()=>{
@@ -90,6 +91,19 @@ try{
  assert.deepEqual(errors,[],'Guest invitation caused browser errors');
  console.log('Unique direct-link invitation opened independently with a fresh illustrated card.');
  await context.close();
+ const unknown=await newPage(390);
+ await unknown.page.goto(appUrl,{waitUntil:'domcontentloaded'});
+ await unknown.page.getByLabel('Search movies by title').fill('Winter Wedding');
+ const result=unknown.page.locator('.movie-card').filter({hasText:'The Winter Wedding'});
+ await result.waitFor();
+ assert.match(await result.innerText(),/SEASON UNVERIFIED/,'Public search must not invent a Christmas season');
+ await unknown.page.getByLabel('Card theme for movies with no verified season').selectOption('Fall');
+ await result.getByRole('button',{name:'Play This Movie'}).click();
+ assert.match(await unknown.page.locator('.play-heading').innerText(),/FALL/,'Unclassified title should use the player\'s selected theme');
+ assert.equal(await unknown.page.locator('.board .square').count(),25);
+ assert.deepEqual(unknown.errors,[],'Unclassified movie caused browser errors');
+ console.log('Unclassified movie search retained the title and respected the chosen card theme.');
+ await unknown.context.close();
 }finally{
  await browser.close();
  await new Promise(ok=>server.close(ok));
