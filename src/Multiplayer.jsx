@@ -2,11 +2,13 @@ import React,{useEffect,useRef,useState} from 'react';
 import {roomRequest} from './services/rooms.js';
 import {normalizeRoomCode,parseRoomInvite,roomInviteUrl} from './engine/roomInvites.mjs';
 import {tropeArtDataUri} from './engine/tropeArt.mjs';
+import {nextPlayerSnapshot} from './engine/roomState.mjs';
 const KEY='romantiverse-room-v1';
 const saved=()=>{try{return JSON.parse(sessionStorage.getItem(KEY))}catch{return null}};
 export default function Multiplayer({movie,mode='classic'}){
 const [session,setSession]=useState(saved),[room,setRoom]=useState(null),[card,setCard]=useState(null),[marks,setMarks]=useState([]),[revision,setRevision]=useState(0),[name,setName]=useState(''),[code,setCode]=useState(()=>parseRoomInvite(window.location.search)||''),[error,setError]=useState(''),[busy,setBusy]=useState(false),[pending,setPending]=useState(false);
 const active=useRef(false);
+const latestSnapshot=useRef({revision:-1,marked:[]});
 const incomingRoomCode=parseRoomInvite(window.location.search);
 let inviteLink='';
 try{if(session?.code)inviteLink=roomInviteUrl(window.location.href,session.code)}catch{}
@@ -18,11 +20,11 @@ async function copyInviteLink(){
   setError('Room invitation link copied. Each guest gets their own card.');
  }catch{setError('Copy unavailable. Select and copy the invitation link below.');}
 }
-const update=data=>{if(data.room)setRoom(data.room);if(data.card)setCard(data.card);if(data.marked)setMarks(data.marked);if(Number.isInteger(data.revision))setRevision(data.revision)};
+const update=data=>{if(data.room)setRoom(data.room);if(data.card)setCard(data.card);const next=nextPlayerSnapshot(latestSnapshot.current,data);if(next!==latestSnapshot.current){latestSnapshot.current=next;setMarks(next.marked);setRevision(next.revision)}};
 async function call(action,payload={}){setError('');setBusy(true);try{const data=await roomRequest({action,...payload,...(session?{code:session.code,token:session.token}:{})});update(data);if(['create','join'].includes(action)){const next={code:data.room.code,token:data.token,player_id:data.player_id};sessionStorage.setItem(KEY,JSON.stringify(next));setSession(next)}return data}catch(e){setError(e.message);return null}finally{setBusy(false)}}
 useEffect(()=>{if(!session)return;let alive=true;const poll=async()=>{if(!alive||active.current)return;active.current=true;try{const data=await roomRequest({action:'state',code:session.code,token:session.token});if(alive){update(data);setError('')}}catch(e){if(alive)setError('Connection interrupted: '+e.message)}finally{active.current=false}};poll();const timer=setInterval(poll,3000);return()=>{alive=false;clearInterval(timer)}},[session?.code,session?.token]);
 async function mark(index){if(pending||busy)return;setPending(true);try{const data=await roomRequest({action:'mark',code:session.code,token:session.token,index,revision});update(data);setError('')}catch(e){setError(e.message);try{update(await roomRequest({action:'state',code:session.code,token:session.token}))}catch{}}finally{setPending(false)}}
-function leave(){sessionStorage.removeItem(KEY);setSession(null);setRoom(null);setCard(null);setMarks([]);setRevision(0);setError('')}
+function leave(){sessionStorage.removeItem(KEY);latestSnapshot.current={revision:-1,marked:[]};setSession(null);setRoom(null);setCard(null);setMarks([]);setRevision(0);setError('')}
 // The backend enforces host permissions; controls may be shown but unauthorized actions are rejected.
 const myLines=(()=>{const set=new Set(marks);set.add(12);const lines=[...Array.from({length:5},(_,r)=>Array.from({length:5},(_,c)=>r*5+c)),...Array.from({length:5},(_,c)=>Array.from({length:5},(_,r)=>r*5+c)),[0,6,12,18,24],[4,8,12,16,20]];return lines.filter(l=>l.every(i=>set.has(i))).length})();
 return <section className="panel multiplayer"><div className="eyebrow">LIVE MOVIE NIGHT</div><h2>Play Together</h2><p>No login, email, password or account. Pick a nickname, start a room or join with a seven-character code. Up to 12 players can use independent cards.</p>
