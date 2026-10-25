@@ -1,9 +1,6 @@
 // Shared, deterministic, offline SVG illustrations adapted from the Cheese Louise HQ trait-art library.
 // No remote images, tracking, database calls, or user-specific data.
 const TRAIT_ART_COLORS={cream:'#f4ead1',paper:'#fffaf0',green:'#173f36',red:'#c43e46',pink:'#e96b78',gold:'#d4a52e',ink:'#1d2924'};
-let traitArtBackfillStarted=false;
-let traitArtBoardMode=localStorage.getItem('clBingoBoardArtMode')||'illustrated';
-let traitArtExportMode=localStorage.getItem('clBingoExportArtMode')||'illustrated';
 
 function traitArtHash(text){
   let h=2166136261;
