@@ -43,7 +43,7 @@ self.addEventListener('fetch',event=>{
  // Offline fallback for fingerprinted assets and the public catalog only.
  // The Edge Function and other API requests live on a different origin.
  event.respondWith(fetch(req).then(response=>{
-  if(response.ok&&!url.search){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(cache=>cache.put(req,copy))}
+  if(response.ok&&!url.search){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(cache=>cache.put(req,copy)))}
   return response;
  }).catch(()=>caches.match(req)));
 });
