@@ -7,3 +7,14 @@ test('sanitizes imported package and rejects unknown tags',()=>{
  const editorial=buildSharedCheeseSuggestions(pkg.movies[0],pkg.traits);assert.equal(editorial[0].category,'cheese');assert.equal(editorial[0].verified,false);
  const card=buildCard(pkg.movies[0],{seed:22});assert.equal(card.length,25);
 });
+
+test('retired hot-beverage traits cannot return through an imported Cheese Louise package',()=>{
+ const input={format:'cheese-louise-bingo-v1',traits:[
+  {id:'cozy-drink',label:'An emotionally significant hot beverage'},
+  {id:'legacy-drink',label:' AN EMOTIONALLY SIGNIFICANT HOT BEVERAGE '},
+  {id:'old-flame',label:'An old flame reappears'}
+ ],movies:[{id:'one',title:'Autumn Love',season:'Fall',cheese_trait_ids:['cozy-drink','legacy-drink','old-flame']}]};
+ const pkg=validateCheesePackage(input);
+ const suggestions=buildSharedCheeseSuggestions(pkg.movies[0],pkg.traits);
+ assert.deepEqual(suggestions.map(t=>t.id),['cl-old-flame']);
+});
