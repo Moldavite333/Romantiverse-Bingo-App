@@ -16,3 +16,5 @@
  .square-art{width:39px;height:39px;max-width:86%}
  .square-label{font-size:clamp(8px,2vw,10px);line-height:1.1}
 }
+
+.room-invite{margin:14px 0;padding:16px;background:#fff7f1;border:1px solid #e8cdd0;border-radius:12px}.room-invite label{display:block;font-weight:800;margin-bottom:8px}.room-invite-controls{display:flex;gap:9px;flex-wrap:wrap}.room-invite-controls input{flex:1 1 230px;width:100%;min-width:0}.room-invite-controls button{background:#fff5ef;border:1px solid #d8b6bc;color:#7a3250;padding:12px 16px;border-radius:10px;font-weight:800}.room-invite .fineprint{margin-bottom:0}

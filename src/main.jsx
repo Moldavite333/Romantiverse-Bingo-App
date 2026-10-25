@@ -4,6 +4,7 @@ import{score,toggle,winningLines}from './engine/bingo.mjs';
 import{analyzeMovie,buildCard,replaceSquare,balance,CHEESE,SEASONAL}from './engine/intelligence.mjs';
 import{tropeArtDataUri}from './engine/tropeArt.mjs';
 import{encodeInvitation,parseInvitation}from './engine/invitations.mjs';
+import{parseRoomInvite}from './engine/roomInvites.mjs';
 import{movies}from './data/catalog.js';
 import{mergeMovieListings,movieEvidenceLabel}from './engine/movieListings.mjs';
 import{loadStaticCatalog}from './services/staticCatalog.js';
@@ -26,7 +27,7 @@ const [sharedPackage,setSharedPackage]=useState(null);
 const [remoteMovies,setRemoteMovies]=useState([]),[remoteLoading,setRemoteLoading]=useState(false),[remoteError,setRemoteError]=useState('');
 const [liveMovies,setLiveMovies]=useState([]),[catalogError,setCatalogError]=useState(''),[catalogLoading,setCatalogLoading]=useState(true);
 const [game,setGame]=useState(()=>read(KEY,null)),[history,setHistory]=useState(()=>read(HISTORY,[])),[favorites,setFavorites]=useState(()=>read(FAVORITES,[]));
-const [tab,setTab]=useState('discover'),[query,setQuery]=useState(''),[season,setSeason]=useState('Christmas'),[custom,setCustom]=useState(''),[free,setFree]=useState(true),[mode,setMode]=useState('classic'),[difficulty,setDifficulty]=useState('balanced'),[ratio,setRatio]=useState(50),[notice,setNotice]=useState(''),[editIndex,setEditIndex]=useState(null),[filter,setFilter]=useState('All'),[showClues,setShowClues]=useState(false);
+const [tab,setTab]=useState(()=>parseRoomInvite(window.location.search)?'together':'discover'),[query,setQuery]=useState(''),[season,setSeason]=useState('Christmas'),[custom,setCustom]=useState(''),[free,setFree]=useState(true),[mode,setMode]=useState('classic'),[difficulty,setDifficulty]=useState('balanced'),[ratio,setRatio]=useState(50),[notice,setNotice]=useState(''),[editIndex,setEditIndex]=useState(null),[filter,setFilter]=useState('All'),[showClues,setShowClues]=useState(false);
 useEffect(()=>{const ctrl=new AbortController();Promise.allSettled([loadStaticCatalog({signal:ctrl.signal}),searchCatalog('',{limit:100,signal:ctrl.signal})]).then(results=>{if(ctrl.signal.aborted)return;const items=mergeMovieListings(results.map(r=>r.status==='fulfilled'?r.value.items:[]));setLiveMovies(items.map(m=>({...m,story_facts:m.story_facts||{setting:[],relationship:[],conflict:[],event:[]},kind:'CATALOG MOVIE · SCENES UNVERIFIED'})));setCatalogError(items.length?'':'Movie catalog temporarily unavailable. You can still play any title.')}).finally(()=>{if(!ctrl.signal.aborted)setCatalogLoading(false)});return()=>ctrl.abort()},[]);
 useEffect(()=>{
  const term=query.trim();
