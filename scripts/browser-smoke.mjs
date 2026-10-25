@@ -126,6 +126,40 @@ try{
  assert.deepEqual(staticUnknown.errors,[],'Bundled unknown-season film caused browser errors');
  await staticUnknown.context.close();
  console.log('Automated catalog films with unknown season remain playable without fabricated metadata.');
+ // Licensed poster metadata is opt-in. A bare image URL must never publish an
+ // unapproved poster, and failed image requests must restore season artwork.
+ const posterCheck=await newPage(390);
+ await posterCheck.page.route(appUrl+'catalog/movies.json',async route=>{
+  const catalog=JSON.parse(await readFile(resolve(root,'catalog/movies.json'),'utf8'));
+  const common={season:'Fall',release_year:2026,story_facts:{setting:[],relationship:[],conflict:[],event:[]},is_demo:false};
+  catalog.movies.push(
+   {...common,id:'test-approved-poster',title:'Poster Preview',poster_url:'https://image.tmdb.org/t/p/w500/approved.jpg',poster_rights:{status:'approved',credit:'Rights cleared · sample art'}},
+   {...common,id:'test-unapproved-poster',title:'Unapproved Poster Preview',poster_url:'https://image.tmdb.org/t/p/w500/unapproved.jpg'},
+   {...common,id:'test-broken-poster',title:'Broken Poster Preview',poster_url:'https://image.tmdb.org/t/p/w500/broken.jpg',poster_rights:{status:'approved',credit:'Rights cleared · sample art'}}
+  );
+  await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(catalog)});
+ });
+ await posterCheck.page.route('https://image.tmdb.org/t/p/w500/approved.jpg',route=>route.fulfill({status:200,contentType:'image/svg+xml',body:'<svg xmlns="http://www.w3.org/2000/svg" width="120" height="180"><rect width="120" height="180" fill="navy"/></svg>'}));
+ await posterCheck.page.route('https://image.tmdb.org/t/p/w500/broken.jpg',route=>route.fulfill({status:404,body:'Not found'}));
+ await posterCheck.page.goto(appUrl,{waitUntil:'domcontentloaded'});
+ const approvedCard=posterCheck.page.locator('.movie-card').filter({has:posterCheck.page.getByRole('heading',{name:'Poster Preview',exact:true})});
+ await approvedCard.waitFor();
+ const approvedImage=approvedCard.getByRole('img',{name:'Poster Preview movie poster'});
+ await approvedImage.scrollIntoViewIfNeeded();
+ await posterCheck.page.waitForFunction(()=>{const img=document.querySelector('img[alt="Poster Preview movie poster"]');return img?.complete&&img.naturalWidth>0});
+ assert.match(await approvedCard.innerText(),/Rights cleared · sample art/);
+ assert.match(await approvedCard.innerText(),/2026/,'Catalog card shows release year');
+ const unapprovedCard=posterCheck.page.locator('.movie-card').filter({has:posterCheck.page.getByRole('heading',{name:'Unapproved Poster Preview',exact:true})});
+ assert.equal(await unapprovedCard.locator('.movie-poster').count(),0,'Unapproved poster URLs must never be rendered');
+ const brokenCard=posterCheck.page.locator('.movie-card').filter({has:posterCheck.page.getByRole('heading',{name:'Broken Poster Preview',exact:true})});
+ await brokenCard.scrollIntoViewIfNeeded(); // The failed image may already be hidden.
+ await posterCheck.page.waitForFunction(()=>document.querySelector('img[alt="Broken Poster Preview movie poster"]')?.hidden===true);
+ assert.equal(await brokenCard.locator('.poster-credit').isVisible(),false,'Failed poster must fall back to illustrated season art');
+ await approvedCard.getByRole('button',{name:'Add Poster Preview to favorites'}).click();
+ assert.equal(await approvedCard.getByRole('button',{name:'Remove Poster Preview from favorites'}).count(),1);
+ assert.deepEqual(posterCheck.errors,[],'Poster catalog caused browser errors');
+ await posterCheck.context.close();
+ console.log('Rights-cleared posters, fallback art, release years and specific favorite labels passed browser QA.');
  const unknown=await newPage(390);
  await unknown.page.goto(appUrl,{waitUntil:'domcontentloaded'});
  await unknown.page.getByLabel('Search movies by title').fill('Winter Wedding');
