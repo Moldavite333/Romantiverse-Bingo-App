@@ -35,7 +35,7 @@ self.addEventListener('fetch',event=>{
   // A direct invitation may include ?room=CODE. Cache only canonical public HTML,
   // never a URL containing invitation or session parameters.
   event.respondWith(fetch(new Request(req,{cache:'no-store'})).then(response=>{
-   if(response.ok)event.waitUntil(caches.open(CACHE).then(cache=>cache.put(SHELL,response.clone())));
+   if(response.ok){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(cache=>cache.put(SHELL,copy)))}
    return response;
   }).catch(()=>caches.match(SHELL)));
   return;
@@ -43,7 +43,7 @@ self.addEventListener('fetch',event=>{
  // Offline fallback for fingerprinted assets and the public catalog only.
  // The Edge Function and other API requests live on a different origin.
  event.respondWith(fetch(req).then(response=>{
-  if(response.ok&&!url.search)event.waitUntil(caches.open(CACHE).then(cache=>cache.put(req,response.clone())));
+  if(response.ok&&!url.search){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(cache=>cache.put(req,copy))}
   return response;
  }).catch(()=>caches.match(req)));
 });
