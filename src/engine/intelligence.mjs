@@ -25,7 +25,6 @@ export const CHEESE=[
 {id:'last-minute-arrival',label:'Someone arrives at the last possible moment',signals:['deadline','christmas','wedding'],weight:0.77},
 {id:'overheard',label:'Someone overhears the wrong half of a conversation',signals:['secret','misunderstanding'],weight:0.75},
 {id:'family-pressure',label:'Family pressure complicates everything',signals:['family','parents','inherit'],weight:0.72},
-{id:'cozy-drink',label:'An emotionally significant hot beverage',signals:['coffee','cocoa','cafe','christmas'],weight:0.75},
 {id:'big-city',label:'Big-city life is apparently terrible',signals:['city','executive','career'],weight:0.78},
 {id:'perfect-stranger',label:'A stranger knows exactly what to say',signals:['stranger','meets'],weight:0.63},
 {id:'public-confession',label:'Love is confessed in public',signals:['festival','wedding','parade'],weight:0.69},
@@ -50,7 +49,6 @@ const aliases={
 'forced-proximity':['stuck together','trapped together','forced to work','unexpected detour','snowed in'],
 'town-event':['tree lighting','harvest festival','christmas festival','annual parade','town celebration'],
 'family-pressure':['family obligations','family tradition','her father','his mother','her mother','his father'],
-'cozy-drink':['hot chocolate','hot cocoa','cup of coffee','warm cider'],
 'rival':['romantic rival','former fiance','former fiancée','love triangle'],
 'decorating':['christmas lights','decorates the tree','holiday decorating'],
 };
