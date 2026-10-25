@@ -25,12 +25,17 @@ test('seasonal classification never defaults an unknown movie to Christmas',()=>
  assert.equal(seasonalThemeFromTitle('Fall for You'),null);
  assert.equal(seasonalThemeFromTitle('Christmas Harvest'),null);
 });
-test('scheduled import skips unclassified titles without mislabeling them',()=>{
+test('scheduled import keeps network-qualified unknown-season titles without fabricating a season',()=>{
  const unclassified={...movie,source_id:'Q12346',title:'A Winter Wedding'};
- assert.equal(prepareOpenDataMovie(unclassified),null);
+ const unknown=prepareOpenDataMovie(unclassified);
+ assert.equal(unknown.season,'Unspecified');
+ assert.equal(unknown.verification_status,'unverified');
+ assert.equal(unknown.facts_status,'title_only_unverified');
+ assert.ok(!JSON.stringify(unknown).includes('Do not retain'));
  const fall={...movie,source_id:'Q12347',title:'Autumn in the Valley'};
  assert.equal(prepareOpenDataMovie(fall).season,'Fall');
  const result=mergeVerifiedNetworkMetadata({version:1,movies:[]},[unclassified,fall,movie]);
- assert.equal(result.added,2);
- assert.deepEqual(result.catalog.movies.map(m=>m.season).sort(),['Christmas','Fall']);
+ assert.equal(result.added,3);
+ assert.deepEqual(result.catalog.movies.map(m=>m.season).sort(),['Christmas','Fall','Unspecified']);
+ assert.equal(mergeVerifiedNetworkMetadata(result.catalog,[unclassified]).added,0);
 });
