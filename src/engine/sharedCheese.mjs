@@ -1,5 +1,6 @@
 // Public-safe, portable Cheese Louise classifications. No synopsis, account IDs or personal notes.
 import {validateStoryFacts} from './storyFacts.mjs';
+import {isRetiredTrope} from './retiredTropes.mjs';
 const safeText=(v,n=160)=>String(v||'').trim().slice(0,n);
 export function validateCheesePackage(input){
  if(input?.format!=='cheese-louise-bingo-v1'||!Array.isArray(input.movies)||!Array.isArray(input.traits))throw Error('Unsupported Cheese Louise package');
@@ -17,7 +18,7 @@ export function validateCheesePackage(input){
 }
 export function buildSharedCheeseSuggestions(movie,library){
  const ids=new Set(movie.cheese_trait_ids||[]);
- return (library||[]).filter(t=>ids.has(t.id)).map(t=>({
+ return (library||[]).filter(t=>ids.has(t.id)&&!isRetiredTrope(t)).map(t=>({
   id:'cl-'+t.id,label:t.label,category:'cheese',confidence:.92,
   reason:'Cheese Louise editorially selected trait; scene still unverified for this playthrough',
   evidence:'editorial',verified:false,observable_trigger:t.label

@@ -34,3 +34,19 @@ test('current cards and malformed legacy saves are left alone',()=>{
   assert.strictEqual(refreshUntouchedCard(value),value);
  }
 });
+
+test('legacy imported retired squares are replaced only before play starts',()=>{
+ const game=saved();
+ game.card[3]={...retired,id:'cl-cozy-drink'};
+ assert.equal(hasRetiredTrope(refreshUntouchedCard(game)),false);
+ game.card[3]={...retired,id:'old-imported-id',label:' AN EMOTIONALLY SIGNIFICANT HOT BEVERAGE '};
+ assert.equal(hasRetiredTrope(refreshUntouchedCard(game)),false);
+});
+test('a marked center is actual progress on cards without a free square',()=>{
+ const card=buildCard(movie,{seed:30,free:false});
+ card[3]={...retired,id:'cl-cozy-drink'};
+ const played={movie,card,marked:[12],completed:false,free:false,cardTheme:'Christmas'};
+ assert.strictEqual(refreshUntouchedCard(played),played);
+ const untouched={...played,marked:[]};
+ assert.equal(hasRetiredTrope(refreshUntouchedCard(untouched)),false);
+});
