@@ -2,20 +2,35 @@
 // Wikidata's search API returns labels/descriptions under CC0. We do not store
 // descriptions or treat search matches as confirmed movie plot facts.
 const ENDPOINT='https://www.wikidata.org/w/api.php';
+
+// Wikidata searches include people, albums, TV series and film-industry topics.
+// Require an actual film/movie description, not merely "Christmas" or "Hallmark".
+export function isMovieDescription(value){
+ const description=String(value||'').trim();
+ if(!/\b(?:films?|movies?)\b/i.test(description))return false;
+ if(/\b(?:film|movie|television)\s+(?:director|producer|actor|actress|studio|festival|series|franchise|award|genre|character|soundtrack|score|company|poster|trailer|distributor)\b/i.test(description))return false;
+ if(/\b(?:actor|actress|filmmaker|screenwriter|cinematographer|singer|musician)\b/i.test(description))return false;
+ return true;
+}
+
 export function normalizeMovieSearchResults(payload){
  const entries=Array.isArray(payload?.search)?payload.search:[];
- return entries.filter(x=>/^Q\d+$/.test(x.id||'')&&typeof x.label==='string'&&
-   /(?:film|movie|television|romantic comedy|hallmark|christmas)/i.test(x.description||''))
- .slice(0,12).map(x=>{
-   const description=String(x.description||'');
-   const yearMatch=description.match(/\b(?:19|20)\d{2}\b/);
-   const year=yearMatch?Number(yearMatch[0]):null;
-   const title=x.label.trim();
-   const season=/christmas|holiday|mistletoe|santa|winter/i.test(title)?'Christmas':/fall|autumn|harvest|pumpkin/i.test(title)?'Fall':'Christmas';
-   return {id:'wikidata-'+x.id,title,release_year:year,season,story_facts:{setting:[],relationship:[],conflict:[],event:[]},
-     verification_status:'search_result_unverified',facts_status:'title_only_unverified',source_name:'Wikidata',
-     source_url:'https://www.wikidata.org/wiki/'+x.id,is_demo:false,kind:'PUBLIC MOVIE SEARCH · SCENES UNVERIFIED'};
- });
+ const results=[],seen=new Set();
+ for(const x of entries){
+  if(!/^Q\d+$/.test(x?.id||'')||seen.has(x.id)||typeof x.label!=='string'||!isMovieDescription(x.description))continue;
+  const title=x.label.trim();
+  if(!title||title.length>250)continue;
+  seen.add(x.id);
+  const description=String(x.description||'');
+  const yearMatch=description.match(/\b(?:19|20)\d{2}\b/);
+  const year=yearMatch?Number(yearMatch[0]):null;
+  const season=/christmas|holiday|mistletoe|santa|winter/i.test(title)?'Christmas':/fall|autumn|harvest|pumpkin/i.test(title)?'Fall':'Christmas';
+  results.push({id:'wikidata-'+x.id,title,release_year:year,season,story_facts:{setting:[],relationship:[],conflict:[],event:[]},
+   verification_status:'search_result_unverified',facts_status:'title_only_unverified',source_name:'Wikidata',
+   source_url:'https://www.wikidata.org/wiki/'+x.id,is_demo:false,kind:'PUBLIC MOVIE SEARCH · SCENES UNVERIFIED'});
+  if(results.length===12)break;
+ }
+ return results;
 }
 export async function searchPublicMovies(query,{signal,fetcher=fetch}={}){
  const q=String(query||'').trim().slice(0,120);
