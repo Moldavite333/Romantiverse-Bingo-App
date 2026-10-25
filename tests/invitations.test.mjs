@@ -24,3 +24,17 @@ test('malformed, oversized, unsupported and unrelated hashes are rejected',()=>{
  assert.equal(parseInvitation('#invite='+legacy({v:2,movie:{title:'x',season:'Mars'}})),null);
  assert.throws(()=>encodeInvitation({movie:{title:'',season:'Fall'}}));
 });
+
+test('each fresh share creates a unique direct link with the same public movie settings',()=>{
+ const first=encodeInvitation(game),second=encodeInvitation(game);
+ assert.notEqual(first,second);
+ assert.deepEqual(parseInvitation('#invite='+first),game);
+ assert.deepEqual(parseInvitation('#invite='+second),game);
+});
+test('previous version two invitation links still open correctly',()=>{
+ assert.deepEqual(parseInvitation('#invite='+legacy({v:2,...game})),game);
+});
+test('version three invitations reject missing or malformed unique IDs',()=>{
+ assert.equal(parseInvitation('#invite='+legacy({v:3,...game})),null);
+ assert.equal(parseInvitation('#invite='+legacy({v:3,invite_id:'not-random',...game})),null);
+});

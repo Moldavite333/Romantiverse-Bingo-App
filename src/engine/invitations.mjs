@@ -19,10 +19,17 @@ function normalize(payload){
  if(!title||title.length>250||!SEASONS.has(payload.movie.season))return null;
  return {movie:{title,season:payload.movie.season},free:Boolean(payload.free),mode:MODES.has(payload.mode)?payload.mode:'classic',difficulty:DIFFICULTIES.has(payload.difficulty)?payload.difficulty:'balanced',ratio:clampRatio(payload.ratio)};
 }
+function freshInvitationId(){
+ // Each share must produce a distinct invitation URL without exposing a player's card or progress.
+ if(!globalThis.crypto?.getRandomValues)throw Error('Secure random invitations are unavailable');
+ const bytes=new Uint8Array(16);
+ globalThis.crypto.getRandomValues(bytes);
+ return Array.from(bytes,byte=>byte.toString(16).padStart(2,'0')).join('');
+}
 export function encodeInvitation(game){
  const safe=normalize(game);
  if(!safe)throw Error('Cannot share an invalid movie');
- return encodeBase64Url(JSON.stringify({v:2,...safe}));
+ return encodeBase64Url(JSON.stringify({v:3,invite_id:freshInvitationId(),...safe}));
 }
 export function parseInvitation(hash){
  const match=/^#(invite|card)=([A-Za-z0-9_-]+)$/.exec(String(hash||''));
@@ -31,8 +38,13 @@ export function parseInvitation(hash){
  if(encoded.length>(kind==='card'?16000:3000))return null;
  try{
   const payload=JSON.parse(decodeBase64Url(encoded));
-  if(payload.v!==(kind==='card'?1:2))return null;
+  if(kind==='card'){
+   if(payload.v!==1)return null;
+  }else if(payload.v===3){
+   if(typeof payload.invite_id!=='string'||!/^[a-f0-9]{32}$/.test(payload.invite_id))return null;
+  }else if(payload.v!==2)return null;
   // Old #card links contained the sender's 25 squares. Ignore them and deal a new card.
+  // V3 invite IDs make links unique but never affect the recipient's independently randomized card.
   return normalize(payload);
  }catch{return null}
 }
