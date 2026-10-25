@@ -3,6 +3,7 @@ import{createRoot}from'react-dom/client';
 import{score,toggle,winningLines}from './engine/bingo.mjs';
 import{analyzeMovie,buildCard,replaceSquare,balance,CHEESE,SEASONAL}from './engine/intelligence.mjs';
 import{tropeArtDataUri}from './engine/tropeArt.mjs';
+import{encodeInvitation,parseInvitation}from './engine/invitations.mjs';
 import{movies}from './data/catalog.js';
 import{loadStaticCatalog}from './services/staticCatalog.js';
 import Multiplayer from './Multiplayer.jsx';
@@ -16,7 +17,7 @@ const BRAND='Brought to you by the Cheese Louise Podcast';
 const KEY='romantiverse-v2',HISTORY='romantiverse-history-v2',FAVORITES='romantiverse-favorites-v2';
 const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
 const write=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value))}catch{}};
-const seed=()=>Math.floor(Math.random()*4294967295);
+const seed=()=>{if(globalThis.crypto?.getRandomValues){const value=new Uint32Array(1);globalThis.crypto.getRandomValues(value);return value[0]}return Math.floor(Math.random()*4294967295)};
 const MODES=[{id:'classic',name:'Classic Bingo',description:'First complete line wins'},{id:'chase',name:'Cheese Chase',description:'Collect as many lines as you can'},{id:'blackout',name:'Blackout Challenge',description:'Mark every square before credits'},{id:'marathon',name:'Movie Marathon',description:'Build a running movie-night score'}];
 const ICONS={Christmas:'✦',Fall:'❦',Horror:'☾'};
 function App(){
@@ -33,7 +34,24 @@ useEffect(()=>{
  const timeout=setTimeout(()=>Promise.allSettled([searchCatalog(term,{limit:50,signal:ctrl.signal}),searchPublicMovies(term,{signal:ctrl.signal})]).then(results=>{if(ctrl.signal.aborted)return;const db=results[0].status==='fulfilled'?results[0].value.items:[];const publicResults=results[1].status==='fulfilled'?results[1].value:[];setRemoteMovies([...db.map(m=>({...m,story_facts:m.story_facts||{setting:[],relationship:[],conflict:[],event:[]},kind:'CATALOG MOVIE · SCENES UNVERIFIED'})),...publicResults]);setRemoteError(results.every(r=>r.status==='rejected')?'Live search unavailable. You can still play any title.':'')}).finally(()=>{if(!ctrl.signal.aborted)setRemoteLoading(false)}),350);
  return()=>{clearTimeout(timeout);ctrl.abort()};
 },[query]);
-useEffect(()=>{try{const match=location.hash.match(/^#invite=([A-Za-z0-9_-]+)$/);if(!match||match[1].length>3000)return;const raw=match[1].replace(/-/g,'+').replace(/_/g,'/');const payload=JSON.parse(decodeURIComponent(escape(atob(raw))));if(payload.v!==2||!payload.movie||typeof payload.movie.title!=='string'||payload.movie.title.length>250||!['Christmas','Fall','Horror'].includes(payload.movie.season))return;const movie={id:'invite-'+payload.movie.title,title:payload.movie.title,season:payload.movie.season,story_facts:{setting:[],relationship:[],conflict:[],event:[]}};const useFree=Boolean(payload.free);const useDifficulty=['easy','balanced','hard'].includes(payload.difficulty)?payload.difficulty:'balanced';const useRatio=Number.isFinite(payload.ratio)?Math.max(0,Math.min(100,payload.ratio)):50;const card=buildCard(movie,{seed:seed(),free:useFree,difficulty:useDifficulty,cheeseRatio:useRatio/100});setGame({movie,card,marked:useFree?[12]:[],free:useFree,mode:['classic','chase','blackout','marathon'].includes(payload.mode)?payload.mode:'classic',difficulty:useDifficulty,ratio:useRatio,startedAt:new Date().toISOString(),completed:false});setTab('play');setNotice('Your own randomized Bingo card is ready.');window.history.replaceState(null,'',location.pathname+location.search)}catch{setNotice('This game invitation could not be opened.')}},[]);
+useEffect(()=>{
+ const openInvite=()=>{
+  const hash=window.location.hash;
+  if(!hash.startsWith('#invite=')&&!hash.startsWith('#card='))return;
+  const invite=parseInvitation(hash);
+  if(!invite){setNotice('This game invitation could not be opened.');return}
+  try{
+   const movie={id:'invite-'+invite.movie.title,title:invite.movie.title,season:invite.movie.season,story_facts:{setting:[],relationship:[],conflict:[],event:[]}};
+   const card=buildCard(movie,{seed:seed(),free:invite.free,difficulty:invite.difficulty,cheeseRatio:invite.ratio/100});
+   setGame({movie,card,marked:invite.free?[12]:[],free:invite.free,mode:invite.mode,difficulty:invite.difficulty,ratio:invite.ratio,startedAt:new Date().toISOString(),completed:false});
+   setTab('play');setNotice('Your own randomized Bingo card is ready.');
+   window.history.replaceState(null,'',window.location.pathname+window.location.search);
+  }catch{setNotice('This game invitation could not be opened.')}
+ };
+ openInvite();
+ window.addEventListener('hashchange',openInvite);
+ return()=>window.removeEventListener('hashchange',openInvite);
+},[]);
 useEffect(()=>write(KEY,game),[game]);useEffect(()=>write(HISTORY,history),[history]);useEffect(()=>write(FAVORITES,favorites),[favorites]);
 const active=game?.movie||null;const analysis=useMemo(()=>active?analyzeMovie(active):null,[active?.title,active?.synopsis,active?.season]);
 const status=game?score(game.marked,game.free):null;
@@ -48,7 +66,7 @@ function mark(i){if(!game||game.completed)return;setGame(g=>({...g,marked:toggle
 function edit(i,item){try{setGame(g=>({...g,card:replaceSquare(g.card,i,item)}));setEditIndex(null);setNotice('Square updated.')}catch(e){setNotice(e.message)}}
 function finish(){if(!game)return;const entry={id:Date.now(),title:game.movie.title,season:game.movie.season,mode:game.mode,lines:lines.length,marked:game.marked.length-(game.free?1:0),won:Boolean(won),date:new Date().toISOString(),card:game.card.map(t=>t.label)};setHistory(h=>[entry,...h].slice(0,250));setGame(g=>({...g,completed:true}));setTab('results')}
 function restart(){if(!game)return;if(window.confirm('Start a new card for this movie? Your current marks will be replaced.'))create(game.movie)}
-async function share(){if(!game)return;try{const payload={v:2,movie:{title:game.movie.title,season:game.movie.season},free:game.free,mode:game.mode,difficulty:game.difficulty,ratio:game.ratio};const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(payload)))).split('+').join('-').split('/').join('_').replace(/=+$/,'');const url=location.origin+location.pathname+'#invite='+encoded;const text='Play Romantiverse Bingo with me for '+game.movie.title+'! You get your own unique card.';if(navigator.share)await navigator.share({title:'Romantiverse Bingo — '+game.movie.title,text,url});else if(navigator.clipboard){await navigator.clipboard.writeText(url);setNotice('Game invitation link copied!')}else setNotice('Sharing is not supported here.')}catch(e){if(e.name!=='AbortError')setNotice('Could not share this game.')}}
+async function share(){if(!game)return;try{const encoded=encodeInvitation(game);const url=location.origin+location.pathname+'#invite='+encoded;const text='Play Romantiverse Bingo with me for '+game.movie.title+'! You get a fresh randomized card.';if(navigator.share)await navigator.share({title:'Romantiverse Bingo — '+game.movie.title,text,url});else if(navigator.clipboard){await navigator.clipboard.writeText(url);setNotice('Game invitation link copied!')}else setNotice('Sharing is not supported here.')}catch(e){if(e.name!=='AbortError')setNotice('Could not share this game.')}}
 async function importCheesePackage(file){if(!file)return;try{if(file.size>3000000)throw Error('File too large');const parsed=validateCheesePackage(JSON.parse(await file.text()));setSharedPackage(parsed);setNotice('Imported '+parsed.movies.length+' Cheese Louise movies and '+parsed.traits.length+' original Cheese Traits for this session.');}catch(e){setNotice('Import failed: '+e.message)}}
 function toggleFav(id){setFavorites(f=>f.includes(id)?f.filter(x=>x!==id):[...f,id])}
 return <div className="app">
