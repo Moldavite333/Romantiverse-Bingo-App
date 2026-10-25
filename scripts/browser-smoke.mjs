@@ -152,7 +152,7 @@ try{
  const unapprovedCard=posterCheck.page.locator('.movie-card').filter({has:posterCheck.page.getByRole('heading',{name:'Unapproved Poster Preview',exact:true})});
  assert.equal(await unapprovedCard.locator('.movie-poster').count(),0,'Unapproved poster URLs must never be rendered');
  const brokenCard=posterCheck.page.locator('.movie-card').filter({has:posterCheck.page.getByRole('heading',{name:'Broken Poster Preview',exact:true})});
- await brokenCard.locator('.movie-poster').scrollIntoViewIfNeeded();
+ await brokenCard.scrollIntoViewIfNeeded(); // The failed image may already be hidden.
  await posterCheck.page.waitForFunction(()=>document.querySelector('img[alt="Broken Poster Preview movie poster"]')?.hidden===true);
  assert.equal(await brokenCard.locator('.poster-credit').isVisible(),false,'Failed poster must fall back to illustrated season art');
  await approvedCard.getByRole('button',{name:'Add Poster Preview to favorites'}).click();
