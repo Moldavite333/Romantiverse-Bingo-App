@@ -4,3 +4,15 @@
 .intelligence-panel{margin-top:20px}.explain-toggle{width:100%;border:0;background:transparent;color:#78344f;text-align:left;font-weight:800;padding:6px 0}.explain-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;max-height:320px;overflow:auto}.explain-list>div{background:#fff5ec;border:1px solid #ead5d0;border-radius:9px;padding:11px}.explain-list strong,.explain-list span{display:block}.explain-list strong{font-size:13px;color:#632940}.explain-list span{font-size:11px;color:#8e6979;margin-top:4px}@media(max-width:550px){.explain-list{grid-template-columns:1fr}}
 
 .multiplayer>h2{margin:6px 0 12px}.multiplayer>label{display:block;margin:15px 0 8px;font-weight:800}.multiplayer #player-name{width:100%;max-width:440px}.room-join{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:16px 0}.room-join input{max-width:150px;text-transform:uppercase;letter-spacing:2px;font-weight:800}.room-join button:not(.primary),.room-header button,.multiplayer>button:not(.primary){background:#fff5ef;border:1px solid #d8b6bc;color:#7a3250;padding:12px 16px;border-radius:10px;font-weight:800}.room-header{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:17px;background:#f9e9e5;border-radius:14px}.room-header>div{margin-right:auto}.room-header small,.room-header strong{display:block}.room-header small{font-size:10px;color:#8b5c6d;letter-spacing:2px}.room-header strong{font:700 35px 'Playfair Display',Georgia,serif;letter-spacing:5px;color:#842e4e}.player-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:18px 0}.player-list>div{background:#fff5ed;border:1px solid #e7cccb;border-radius:9px;padding:12px}.player-list strong,.player-list span{display:block}.player-list span{font-size:12px;color:#96677b;margin-top:5px}.live-board{margin:22px 0}.room-error{padding:12px;background:#fff0e8;color:#9b2945;border:1px solid #e6b3b6;border-radius:9px}@media(max-width:600px){.player-list{grid-template-columns:repeat(2,minmax(0,1fr))}.room-join .primary{width:100%}.room-header strong{font-size:28px}}
+
+/* Illustrated card tiles: preserve readable labels on narrow phones. */
+.square{min-height:118px;aspect-ratio:auto;flex-direction:column;gap:4px;padding:7px 5px}
+.square-art{display:block;width:68px;height:68px;max-width:75%;object-fit:contain;flex:0 0 auto;border-radius:7px}
+.square-label{display:block;max-width:100%;font-size:clamp(10px,1.25vw,14px);line-height:1.14;overflow-wrap:anywhere;hyphens:auto}
+.square:disabled{opacity:1}
+.square.marked .square-art{filter:saturate(.85) brightness(1.08)}
+@media(max-width:650px){
+ .square{min-height:104px;gap:3px;padding:4px 2px}
+ .square-art{width:39px;height:39px;max-width:86%}
+ .square-label{font-size:clamp(8px,2vw,10px);line-height:1.1}
+}
