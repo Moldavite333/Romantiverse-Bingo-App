@@ -38,3 +38,15 @@ test('version three invitations reject missing or malformed unique IDs',()=>{
  assert.equal(parseInvitation('#invite='+legacy({v:3,...game})),null);
  assert.equal(parseInvitation('#invite='+legacy({v:3,invite_id:'not-random',...game})),null);
 });
+
+test('unverified public movie shares its chosen card theme without inventing a season',()=>{
+ const unknown={...game,movie:{title:'The Winter Wedding',season:'Unspecified'},cardTheme:'Fall'};
+ const first=encodeInvitation(unknown),second=encodeInvitation(unknown);
+ assert.notEqual(first,second);
+ assert.deepEqual(parseInvitation('#invite='+first),unknown);
+ assert.deepEqual(parseInvitation('#invite='+second),unknown);
+ const withoutTheme={...unknown};delete withoutTheme.cardTheme;
+ assert.throws(()=>encodeInvitation(withoutTheme),/invalid movie/);
+ assert.equal(parseInvitation('#invite='+legacy({v:2,...withoutTheme})),null);
+ assert.equal(parseInvitation('#invite='+legacy({v:3,invite_id:'a'.repeat(32),...withoutTheme})),null);
+});
