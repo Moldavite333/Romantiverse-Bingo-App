@@ -37,3 +37,19 @@ test('untrusted poster cannot replace catalog artwork even when claimed locked',
  const [merged]=mergeMovieListings([[movie()],[hq({poster_url:'https://untrusted.example/poster.jpg'})]]);
  assert.equal(merged.poster_url,art('automatic'));
 });
+
+test('HQ-locked poster enriches a curated movie with no is_demo flag when year matches',()=>{
+ const curated={id:'curated',title:'Autumn at Apple Hill',release_year:2024,kind:'CHEESE LOUISE CURATED',season:'Fall',story_facts:{setting:['orchard']}};
+ const [merged]=mergeMovieListings([[curated],[hq()]]);
+ assert.equal(merged.id,'curated');
+ assert.equal(merged.poster_url,art('hq-locked'));
+ assert.equal(merged.poster_locked,true);
+ assert.deepEqual(merged.story_facts,curated.story_facts);
+ assert.equal(curated.poster_url,undefined);
+});
+
+test('HQ poster never leaks onto explicitly fictional curated demo',()=>{
+ const demo={id:'demo',title:'Autumn at Apple Hill',release_year:2024,kind:'DEMO — FICTIONAL'};
+ const [merged]=mergeMovieListings([[demo],[hq()]]);
+ assert.equal(merged.poster_url,undefined);
+});
