@@ -16,7 +16,7 @@ export function normalizeResolvedPosters(payload){
   seen.add(key);
   out.push({id:'poster-cache-'+year+'-'+title.toLowerCase().replace(/[^a-z0-9]+/g,'-'),
    title,release_year:year,poster_url:poster.url,poster_source:'catalog_public',
-   is_demo:false,verification_status:'metadata_verified',season:'Unspecified',
+   is_demo:false,verification_status:'metadata_verified',season:['Christmas','Fall','Horror'].includes(row.season)?row.season:'Unspecified',
    kind:'VERIFIED POSTER · SCENES UNVERIFIED',story_facts:{setting:[],relationship:[],conflict:[],event:[]}});
  }
  return out;
