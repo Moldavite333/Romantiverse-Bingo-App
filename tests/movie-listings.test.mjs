@@ -24,6 +24,8 @@ test('catalog labels distinguish demos, real titles, curated and custom movies',
  assert.equal(movieEvidenceLabel({kind:'CHEESE LOUISE CURATED'}),'CHEESE LOUISE CURATED · SCENES UNVERIFIED');
  assert.equal(movieEvidenceLabel({kind:'CUSTOM'}),'CUSTOM TITLE · SCENES UNVERIFIED');
  assert.equal(movieEvidenceLabel({kind:'PUBLIC MOVIE SEARCH · SCENES UNVERIFIED',is_demo:false}),'PUBLIC SEARCH · TITLE UNVERIFIED');
+ assert.equal(movieEvidenceLabel({verification_status:'unverified',is_demo:false}),'CATALOG TITLE · SCENES UNVERIFIED');
+ assert.equal(movieEvidenceLabel({verification_status:'metadata_verified',is_demo:false}),'REAL TITLE · TROPES PREDICTED');
  assert.equal(movieEvidenceLabel({is_demo:false}),'REAL TITLE · TROPES PREDICTED');
  assert.equal(movieEvidenceLabel({kind:'DEMO — FICTIONAL'}),'FICTIONAL DEMO');
  assert.equal(movieEvidenceLabel({}),'TITLE UNVERIFIED');
