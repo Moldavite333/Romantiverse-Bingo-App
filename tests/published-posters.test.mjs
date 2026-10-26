@@ -52,3 +52,11 @@ test('public fetch uses the read-only RPC and requires successful response',asyn
  assert.equal(movies.length,1);
  await assert.rejects(loadPublishedMoviePosters({fetcher:async()=>({ok:false,status:503})}),/503/);
 });
+
+test('published movie IDs remain stable when HQ publication order changes',()=>{
+ const other={title:'Sweet Autumn',release_year:2020,season:'Fall',poster_url:art,poster_locked:false};
+ const forward=normalizePublishedPosters([feed[0],other]);
+ const reverse=normalizePublishedPosters([other,feed[0]]);
+ const ids=items=>Object.fromEntries(items.map(item=>[item.title,item.id]));
+ assert.deepEqual(ids(forward),ids(reverse));
+});
