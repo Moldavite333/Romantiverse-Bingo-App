@@ -256,7 +256,8 @@ try{
  assert.equal(await liveSquares.nth(12).isDisabled(),true,'Multiplayer free center must not be toggled');
  await liveSquares.first().focus();
  await multi.page.keyboard.press('Space');
- await multi.page.waitForFunction(()=>document.querySelector('.live-board .square')?.getAttribute('aria-pressed')==='true');
+ await multi.page.waitForFunction(()=>document.querySelector('.live-board .square')?.getAttribute('aria-pressed')==='true'&&document.querySelector('.live-board')?.getAttribute('aria-busy')==='false');
+ assert.equal(await liveSquares.first().evaluate(el=>document.activeElement===el),true,'Keyboard focus must survive a server-confirmed multiplayer mark');
  await multi.page.keyboard.press('Space');
  await multi.page.waitForFunction(()=>document.querySelector('.live-board .square')?.getAttribute('aria-pressed')==='false');
  await multi.page.waitForFunction(()=>[...document.querySelectorAll('.live-board .square-art')].length===25&&[...document.querySelectorAll('.live-board .square-art')].every(img=>img.complete&&img.naturalWidth>0));
