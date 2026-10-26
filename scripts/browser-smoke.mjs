@@ -159,15 +159,15 @@ try{
  assert.deepEqual(staticUnknown.errors,[],'Bundled unknown-season film caused browser errors');
  await staticUnknown.context.close();
  console.log('Automated catalog films with unknown season remain playable without fabricated metadata.');
- // Licensed poster metadata is opt-in. A bare image URL must never publish an
- // unapproved poster, and failed image requests must restore season artwork.
+ // Trusted-host posters use explicit attribution, but unknown image hosts
+ // must never render. Failed image requests restore illustrated season art.
  const posterCheck=await newPage(390);
  await posterCheck.page.route(appUrl+'catalog/movies.json',async route=>{
   const catalog=JSON.parse(await readFile(resolve(root,'catalog/movies.json'),'utf8'));
   const common={season:'Fall',release_year:2026,story_facts:{setting:[],relationship:[],conflict:[],event:[]},is_demo:false};
   catalog.movies.push(
    {...common,id:'test-approved-poster',title:'Poster Preview',poster_url:'https://image.tmdb.org/t/p/w500/approved.jpg',poster_rights:{status:'approved',credit:'Rights cleared · sample art'}},
-   {...common,id:'test-unapproved-poster',title:'Unapproved Poster Preview',poster_url:'https://image.tmdb.org/t/p/w500/unapproved.jpg'},
+   {...common,id:'test-unapproved-poster',title:'Unapproved Poster Preview',poster_url:'https://untrusted.example/unapproved.jpg'},
    {...common,id:'test-broken-poster',title:'Broken Poster Preview',poster_url:'https://image.tmdb.org/t/p/w500/broken.jpg',poster_rights:{status:'approved',credit:'Rights cleared · sample art'}}
   );
   await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(catalog)});
@@ -183,7 +183,7 @@ try{
  assert.match(await approvedCard.innerText(),/Rights cleared · sample art/);
  assert.match(await approvedCard.innerText(),/2026/,'Catalog card shows release year');
  const unapprovedCard=posterCheck.page.locator('.movie-card').filter({has:posterCheck.page.getByRole('heading',{name:'Unapproved Poster Preview',exact:true})});
- assert.equal(await unapprovedCard.locator('.movie-poster').count(),0,'Unapproved poster URLs must never be rendered');
+ assert.equal(await unapprovedCard.locator('.movie-poster').count(),0,'Untrusted-host poster URLs must never be rendered');
  const brokenCard=posterCheck.page.locator('.movie-card').filter({has:posterCheck.page.getByRole('heading',{name:'Broken Poster Preview',exact:true})});
  await brokenCard.scrollIntoViewIfNeeded(); // The failed image may already be hidden.
  await posterCheck.page.waitForFunction(()=>document.querySelector('img[alt="Broken Poster Preview movie poster"]')?.hidden===true);
