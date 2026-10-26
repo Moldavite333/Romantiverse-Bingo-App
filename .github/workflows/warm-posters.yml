@@ -16,7 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
-      - name: Request public cache refresh and verify at least one resolved poster
+      - uses: actions/checkout@v4
+      - name: Request public cache refresh and verify full bundled poster coverage
         shell: bash
         run: |
           set -euo pipefail
@@ -25,8 +26,8 @@ jobs:
             curl --fail --silent --show-error --retry 2 --max-time 20 "$url" -o /tmp/bingo-posters.json
             count=$(node -e 'const f=require("/tmp/bingo-posters.json");if(f.version!==1||!Array.isArray(f.movies))process.exit(2);console.log(f.movies.length)')
             echo "Attempt $attempt: $count verified poster(s) in public cache"
-            if [ "$count" -gt 0 ]; then exit 0; fi
+            if node -e 'const fs=require("node:fs");const feed=JSON.parse(fs.readFileSync("/tmp/bingo-posters.json"));const catalog=JSON.parse(fs.readFileSync("public/catalog/movies.json"));const key=m=>m.title.normalize("NFKC").trim().toLowerCase()+"|"+m.release_year;const found=new Set(feed.movies.map(key));const required=catalog.movies.filter(m=>m.is_demo!==true&&Number.isInteger(m.release_year)).map(key);const missing=required.filter(k=>!found.has(k));console.log("Verified catalog posters: "+(required.length-missing.length)+"/"+required.length);if(missing.length)console.log("Missing:",missing.slice(0,10));process.exit(missing.length===0&&required.length>=38?0:1)'; then exit 0; fi
             sleep 20
           done
-          echo 'Poster resolver returned no verified posters after the refresh window' >&2
+          echo 'Poster cache did not reach full bundled catalog coverage after the refresh window' >&2
           exit 1
