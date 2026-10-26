@@ -13,6 +13,7 @@ const now=()=>new Date().toISOString();
 const timeout=(ms:number)=>AbortSignal.timeout(ms);
 const clean=(v:unknown)=>String(v??'').trim().replace(/\s+/g,' ');
 const keyOf=(m:{title:string;release_year:number})=>m.release_year+'|'+m.title;
+const seasonOf=(v:unknown)=>['Christmas','Fall','Horror'].includes(String(v))?String(v):'Unspecified';
 const approved=(value:unknown)=>{
   if(typeof value!=='string')return null;
   try{
@@ -30,7 +31,7 @@ async function service(path:string,init:RequestInit={}){
   return text?JSON.parse(text):null;
 }
 async function cached(){
-  const rows=await service('bingo_poster_cache?select=title,release_year,poster_url,poster_source,match_score,checked_at&limit=200');
+  const rows=await service('bingo_poster_cache?select=title,release_year,season,poster_url,poster_source,match_score,checked_at&limit=200');
   if(!Array.isArray(rows))throw Error('Poster cache returned invalid data');
   return rows;
 }
@@ -50,17 +51,22 @@ async function refresh(){
     const data=await response.json();
     if(data?.version!==1||!Array.isArray(data.movies)||data.movies.length>500)throw Error('Invalid public Bingo catalog');
     const seen=new Set<string>();
-    const candidates:{title:string;release_year:number}[]=[];
+    const candidates:{title:string;release_year:number;season:string}[]=[];
     for(const item of data.movies){
       const title=clean(item?.title),release_year=item?.release_year;
       if(item?.is_demo===true||!title||title.length>250||!Number.isInteger(release_year)||release_year<1900||release_year>2100)continue;
       const key=release_year+'|'+title.toLowerCase();
       if(seen.has(key))continue;
-      seen.add(key);candidates.push({title,release_year});
+      seen.add(key);candidates.push({title,release_year,season:seasonOf(item.season)});
     }
     if(!candidates.length)throw Error('Public Bingo catalog has no eligible titles');
     const previous=await cached();
     const byKey=new Map(previous.map((row:any)=>[keyOf(row),row]));
+    // Update season metadata from the public catalog even when a poster is still fresh.
+    const seasonChanges=candidates.filter(movie=>{
+      const row:any=byKey.get(keyOf(movie));return row&&row.season!==movie.season;
+    }).map(movie=>({...byKey.get(keyOf(movie)),season:movie.season}));
+    if(seasonChanges.length)await service('bingo_poster_cache?on_conflict=title,release_year',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(seasonChanges)});
     const due=candidates.filter(movie=>{
       const row:any=byKey.get(keyOf(movie));
       if(!row?.checked_at)return true;
@@ -83,7 +89,7 @@ async function refresh(){
         const r:any=byResolved.get(keyOf(movie));
         const poster=r?.verified===true&&Number(r?.matched_year)===movie.release_year?approved(r.poster_url):null;
         if(poster)matched++;
-        return {title:movie.title,release_year:movie.release_year,poster_url:poster,
+        return {title:movie.title,release_year:movie.release_year,season:movie.season,poster_url:poster,
           poster_source:poster&&r?.poster_source==='tmdb'?'tmdb':null,
           match_score:Number.isInteger(r?.match_score)?Math.min(100,Math.max(0,r.match_score)):null,checked_at:now()};
       });
@@ -106,7 +112,7 @@ Deno.serve(async req=>{
     // Atomic 15-minute claim prevents anonymous traffic from repeatedly triggering TMDB.
     if(await claim())EdgeRuntime.waitUntil(refresh());
     const movies=rows.filter((r:any)=>approved(r.poster_url)).map((r:any)=>({
-      title:r.title,release_year:r.release_year,poster_url:approved(r.poster_url),
+      title:r.title,release_year:r.release_year,season:seasonOf(r.season),poster_url:approved(r.poster_url),
       poster_source:r.poster_source,match_score:r.match_score
     }));
     return new Response(JSON.stringify({version:1,movies}),{status:200,headers:jsonHeaders});
