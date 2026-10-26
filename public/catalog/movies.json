@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updated_at": "2026-10-24",
-  "source": "Editorial starter catalog. Metadata requires independent verification; no automated Hallmark scraping.",
+  "updated_at": "2026-10-26",
+  "source": "Editorial title listings; release years, distributors and seasons require independent verification. No inferred scene evidence.",
   "movies": [
     {
       "id": "hallmark-autumn-dreams-2015",
@@ -150,6 +150,486 @@
       "release_year": 2024,
       "season": "Fall",
       "source_name": "Cheese Louise HQ title",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-a-biltmore-christmas-2023",
+      "title": "A Biltmore Christmas",
+      "release_year": 2023,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-three-wise-men-and-a-baby-2022",
+      "title": "Three Wise Men and a Baby",
+      "release_year": 2022,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-haul-out-the-holly-2022",
+      "title": "Haul Out the Holly",
+      "release_year": 2022,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-the-christmas-house-2020",
+      "title": "The Christmas House",
+      "release_year": 2020,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-christmas-at-the-plaza-2019",
+      "title": "Christmas at the Plaza",
+      "release_year": 2019,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-a-royal-christmas-2014",
+      "title": "A Royal Christmas",
+      "release_year": 2014,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-crown-for-christmas-2015",
+      "title": "Crown for Christmas",
+      "release_year": 2015,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-christmas-in-evergreen-2017",
+      "title": "Christmas in Evergreen",
+      "release_year": 2017,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-a-christmas-melody-2015",
+      "title": "A Christmas Melody",
+      "release_year": 2015,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-the-christmas-train-2017",
+      "title": "The Christmas Train",
+      "release_year": 2017,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-the-christmas-secret-2014",
+      "title": "The Christmas Secret",
+      "release_year": 2014,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-a-december-bride-2016",
+      "title": "A December Bride",
+      "release_year": 2016,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-christmas-getaway-2017",
+      "title": "Christmas Getaway",
+      "release_year": 2017,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-the-mistletoe-promise-2016",
+      "title": "The Mistletoe Promise",
+      "release_year": 2016,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-the-most-wonderful-time-of-the-year-2008",
+      "title": "The Most Wonderful Time of the Year",
+      "release_year": 2008,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-the-christmas-ornament-2013",
+      "title": "The Christmas Ornament",
+      "release_year": 2013,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-christmas-on-my-mind-2019",
+      "title": "Christmas on My Mind",
+      "release_year": 2019,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-a-very-merry-mix-up-2013",
+      "title": "A Very Merry Mix-Up",
+      "release_year": 2013,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-a-harvest-wedding-2017",
+      "title": "A Harvest Wedding",
+      "release_year": 2017,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-harvest-moon-2015",
+      "title": "Harvest Moon",
+      "release_year": 2015,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-october-kiss-2015",
+      "title": "October Kiss",
+      "release_year": 2015,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-falling-for-vermont-2017",
+      "title": "Falling for Vermont",
+      "release_year": 2017,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-falling-for-you-2018",
+      "title": "Falling for You",
+      "release_year": 2018,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-under-the-autumn-moon-2018",
+      "title": "Under the Autumn Moon",
+      "release_year": 2018,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-roadhouse-romance-2021",
+      "title": "Roadhouse Romance",
+      "release_year": 2021,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-sweet-autumn-2020",
+      "title": "Sweet Autumn",
+      "release_year": 2020,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-love-on-the-sidelines-2016",
+      "title": "Love on the Sidelines",
+      "release_year": 2016,
+      "season": "Unspecified",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-the-lost-valentine-2011",
+      "title": "The Lost Valentine",
+      "release_year": 2011,
+      "season": "Unspecified",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-the-birthday-wish-2017",
+      "title": "The Birthday Wish",
+      "release_year": 2017,
+      "season": "Unspecified",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-all-of-my-heart-2015",
+      "title": "All of My Heart",
+      "release_year": 2015,
+      "season": "Unspecified",
+      "source_name": "Editorial title listing — independent verification pending",
       "verification_status": "unverified",
       "is_demo": false,
       "story_facts": {
