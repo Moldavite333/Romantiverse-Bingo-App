@@ -26,7 +26,8 @@ async function service(path:string,init:RequestInit={}){
   const response=await fetch(SUPABASE_URL+'/rest/v1/'+path,{...init,headers:{...serviceHeaders,...init.headers},signal:timeout(15000)});
   if(!response.ok)throw Error('Poster cache database returned '+response.status);
   if(response.status===204)return null;
-  return await response.json();
+  const text=await response.text();
+  return text?JSON.parse(text):null;
 }
 async function cached(){
   const rows=await service('bingo_poster_cache?select=title,release_year,poster_url,poster_source,match_score,checked_at&limit=200');
