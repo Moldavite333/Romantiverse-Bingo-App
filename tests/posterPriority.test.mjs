@@ -53,3 +53,26 @@ test('HQ poster never leaks onto explicitly fictional curated demo',()=>{
  const [merged]=mergeMovieListings([[demo],[hq()]]);
  assert.equal(merged.poster_url,undefined);
 });
+
+test('public catalog automatic artwork fills a static title only with exact year and approved host',()=>{
+ const bundled={id:'static',title:'Sweet Autumn',release_year:2020,is_demo:false,season:'Fall'};
+ const automatic={id:'db',title:'Sweet Autumn',release_year:2020,is_demo:false,poster_source:'catalog_public',poster_url:art('automatic')};
+ const [merged]=mergeMovieListings([[bundled],[automatic]]);
+ assert.equal(merged.id,'static');
+ assert.equal(merged.poster_url,art('automatic'));
+ assert.equal(merged.poster_locked,false);
+ const wrongYear=mergeMovieListings([[bundled],[{...automatic,release_year:2021}]]);
+ assert.equal(wrongYear.length,2);
+ assert.equal(wrongYear[0].poster_url,undefined);
+ const untrusted=mergeMovieListings([[bundled],[{...automatic,poster_url:'https://attacker.invalid/x.png'}]]);
+ assert.equal(untrusted[0].poster_url,undefined);
+});
+
+test('HQ-locked artwork overrides a public catalog auto match, while unlocked HQ does not',()=>{
+ const staticMovie={id:'static',title:'Sweet Autumn',release_year:2020,is_demo:false,season:'Fall'};
+ const auto={title:'Sweet Autumn',release_year:2020,is_demo:false,poster_source:'catalog_public',poster_url:art('auto')};
+ const locked={title:'Sweet Autumn',release_year:2020,is_demo:false,poster_source:'hq_published',poster_locked:true,poster_url:art('hq')};
+ const unlocked={...locked,poster_locked:false};
+ assert.equal(mergeMovieListings([[staticMovie],[auto],[locked]])[0].poster_url,art('hq'));
+ assert.equal(mergeMovieListings([[staticMovie],[auto],[unlocked]])[0].poster_url,art('auto'));
+});
