@@ -40,6 +40,7 @@ export function movieEvidenceLabel(movie){
  if(kind.includes('CHEESE LOUISE CURATED'))return 'CHEESE LOUISE CURATED · SCENES UNVERIFIED';
  if(kind.includes('CUSTOM'))return 'CUSTOM TITLE · SCENES UNVERIFIED';
  if(movie?.is_demo===true||kind.includes('DEMO'))return 'FICTIONAL DEMO';
+ if(movie?.verification_status==='unverified')return 'CATALOG TITLE · SCENES UNVERIFIED';
  if(movie?.is_demo===false)return 'REAL TITLE · TROPES PREDICTED';
  return 'TITLE UNVERIFIED';
 }
