@@ -75,7 +75,7 @@ try{
   assert.deepEqual(errors,[],'Unexpected browser errors at '+width+'px');
   await page.screenshot({path:'artifacts/bingo-'+width+'.png',fullPage:true});
   if(width===390){
-   originalSquares=await squares.allTextContents();
+   originalSquares=await squares.locator('.square-label').allTextContents();
    await page.getByRole('button',{name:/Share Card/}).click();
    await page.getByRole('button',{name:/Share Card/}).click();
    await page.waitForFunction(()=>window.__testShares?.length===2);
@@ -113,23 +113,24 @@ try{
  const {page,context,errors}=await newPage(390);
  await page.goto(invitation,{waitUntil:'domcontentloaded'});
  await page.locator('.board .square').first().waitFor();
- const guestSquares=await page.locator('.board .square').allTextContents();
+ const guestSquares=await page.locator('.board .square .square-label').allTextContents();
  assert.equal(guestSquares.length,25);
  assert.notDeepEqual(guestSquares,originalSquares,'Invitation recipient must receive a newly randomized card');
+ // Compare stable trope labels: marked squares gain a decorative star in textContent.
  // A guest must keep their card and marks after a refresh, not receive a new
  // random deal merely because they opened the invitation in a browser.
  await page.locator('.board .square').first().click();
  await page.waitForFunction(()=>JSON.parse(localStorage.getItem('romantiverse-v2')||'null')?.marked?.includes(0));
  await page.reload({waitUntil:'domcontentloaded'});
  await page.locator('.board .square').first().waitFor();
- assert.deepEqual(await page.locator('.board .square').allTextContents(),guestSquares,'Refreshing an invitation must preserve the guest card');
+ assert.deepEqual(await page.locator('.board .square .square-label').allTextContents(),guestSquares,'Refreshing an invitation must preserve the guest card');
  assert.equal(await page.locator('.board .square').first().getAttribute('aria-pressed'),'true','Guest marks must survive a refresh');
  // Two guests opening the exact same link in separate browser profiles must
  // each get an independent deal, without sharing sender or guest state.
  const secondGuest=await newPage(390);
  await secondGuest.page.goto(invitation,{waitUntil:'domcontentloaded'});
  await secondGuest.page.locator('.board .square').first().waitFor();
- const secondGuestSquares=await secondGuest.page.locator('.board .square').allTextContents();
+ const secondGuestSquares=await secondGuest.page.locator('.board .square .square-label').allTextContents();
  assert.equal(secondGuestSquares.length,25);
  assert.notDeepEqual(secondGuestSquares,guestSquares,'Guests using one invitation must get independent randomized cards');
  assert.notDeepEqual(secondGuestSquares,originalSquares,'Second guest must not inherit sender squares');
