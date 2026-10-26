@@ -223,6 +223,46 @@ try{
  assert.deepEqual(customCheck.errors,[],'Custom title flows caused browser errors');
  await customCheck.context.close();
  console.log('Uncatalogued search and custom entry preserve unverified movie seasons and chosen card themes.');
+
+ // Guest multiplayer cards must be as usable with screen readers and keyboards
+ // as solo cards. Mock the public room endpoint; never use a real room token.
+ const multi=await newPage(390);
+ const multiCard=Array.from({length:25},(_,i)=>({id:'qa-trope-'+i,label:i===12?'Free Center':'Trope '+i,category:i===12?'free':'cheese',reason:'Illustrated test trope'}));
+ let multiRevision=0;
+ let multiMarks=[12];
+ const multiRoom={code:'ABC2345',status:'playing',movie_title:'Autumn Dreams',players:[{id:'qa-player',name:'Guest QA',lines:0,marked:0}]};
+ await multi.page.route('https://*.supabase.co/functions/v1/game-room',async route=>{
+  const payload=JSON.parse(route.request().postData()||'{}');
+  if(payload.action==='mark'){
+   multiRevision++;
+   multiMarks=multiMarks.includes(payload.index)?multiMarks.filter(i=>i!==payload.index):[...multiMarks,payload.index];
+  }
+  const response={room:multiRoom,card:multiCard,revision:multiRevision,marked:multiMarks};
+  if(payload.action==='create')Object.assign(response,{token:'test-session-only',player_id:'qa-player'});
+  await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(response)});
+ });
+ await multi.page.goto(appUrl,{waitUntil:'domcontentloaded'});
+ await multi.page.getByRole('button',{name:'Play Together'}).click();
+ await multi.page.getByLabel('Your nickname').fill('Guest QA');
+ await multi.page.getByRole('button',{name:/Create Room for/}).click();
+ const liveSquares=multi.page.locator('.live-board .square');
+ await liveSquares.first().waitFor();
+ assert.equal(await liveSquares.count(),25,'Multiplayer must show all 25 squares');
+ assert.match(await liveSquares.nth(0).getAttribute('aria-label'),/^B1: /,'Multiplayer top-left must announce B1');
+ assert.match(await liveSquares.nth(4).getAttribute('aria-label'),/^O1: /,'Multiplayer top-right must announce O1');
+ assert.match(await liveSquares.nth(20).getAttribute('aria-label'),/^B5: /,'Multiplayer bottom-left must announce B5');
+ assert.match(await liveSquares.nth(24).getAttribute('aria-label'),/^O5: /,'Multiplayer bottom-right must announce O5');
+ assert.match(await liveSquares.nth(12).getAttribute('aria-label'),/^N3: .*free center square/i,'Multiplayer free center must be identified');
+ assert.equal(await liveSquares.nth(12).isDisabled(),true,'Multiplayer free center must not be toggled');
+ await liveSquares.first().focus();
+ await multi.page.keyboard.press('Space');
+ await multi.page.waitForFunction(()=>document.querySelector('.live-board .square')?.getAttribute('aria-pressed')==='true');
+ await multi.page.keyboard.press('Space');
+ await multi.page.waitForFunction(()=>document.querySelector('.live-board .square')?.getAttribute('aria-pressed')==='false');
+ await multi.page.waitForFunction(()=>[...document.querySelectorAll('.live-board .square-art')].length===25&&[...document.querySelectorAll('.live-board .square-art')].every(img=>img.complete&&img.naturalWidth>0));
+ assert.deepEqual(multi.errors,[],'Multiplayer card caused browser errors');
+ await multi.context.close();
+ console.log('Multiplayer illustrated card coordinates, free center and keyboard marking passed browser QA.');
 }finally{
  await browser.close();
  await new Promise(ok=>server.close(ok));
