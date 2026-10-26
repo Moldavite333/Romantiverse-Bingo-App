@@ -50,3 +50,14 @@ test('unverified public movie shares its chosen card theme without inventing a s
  assert.equal(parseInvitation('#invite='+legacy({v:2,...withoutTheme})),null);
  assert.equal(parseInvitation('#invite='+legacy({v:3,invite_id:'a'.repeat(32),...withoutTheme})),null);
 });
+
+test('movie release year travels with randomized invitation without exposing card marks',()=>{
+ const movie={title:'Autumn at Apple Hill',season:'Fall',release_year:2024};
+ const shared={...game,movie,marked:[0,1,2],card:[{label:'private'}]};
+ const decoded=parseInvitation('#invite='+encodeInvitation(shared));
+ assert.deepEqual(decoded.movie,movie);
+ assert.equal('marked' in decoded,false);
+ assert.equal('card' in decoded,false);
+ const wrong={...game,movie:{...movie,release_year:9999}};
+ assert.equal('release_year' in parseInvitation('#invite='+encodeInvitation(wrong)).movie,false);
+});
