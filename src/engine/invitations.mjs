@@ -22,7 +22,9 @@ function normalize(payload){
  if(!title||title.length>250||(!SEASONS.has(movieSeason)&&movieSeason!=='Unspecified'))return null;
  const cardTheme=movieSeason==='Unspecified'?payload.cardTheme:movieSeason;
  if(!SEASONS.has(cardTheme))return null;
- return {movie:{title,season:movieSeason},...(movieSeason==='Unspecified'?{cardTheme}:{}),free:Boolean(payload.free),mode:MODES.has(payload.mode)?payload.mode:'classic',difficulty:DIFFICULTIES.has(payload.difficulty)?payload.difficulty:'balanced',ratio:clampRatio(payload.ratio)};
+ const year=payload.movie.release_year;
+ const publicYear=Number.isInteger(year)&&year>=1900&&year<=2100?{release_year:year}:{};
+ return {movie:{title,season:movieSeason,...publicYear},...(movieSeason==='Unspecified'?{cardTheme}:{}),free:Boolean(payload.free),mode:MODES.has(payload.mode)?payload.mode:'classic',difficulty:DIFFICULTIES.has(payload.difficulty)?payload.difficulty:'balanced',ratio:clampRatio(payload.ratio)};
 }
 function freshInvitationId(){
  // Each share must produce a distinct invitation URL without exposing a player's card or progress.
