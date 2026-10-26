@@ -10,7 +10,11 @@ if(query.trim())params.set('title','ilike.*'+query.trim().replace(/[*,().]/g,'')
 if(season&&season!=='All')params.set('season','eq.'+season);
 const res=await fetch(URL+'/rest/v1/movies?'+params,{headers:{apikey:KEY,Accept:'application/json'},signal});
 if(!res.ok)throw Error('Movie catalog is unavailable ('+res.status+').');
-return {items:await res.json(),source:'supabase'};
+// Mark only rows returned by this public, read-only catalog as catalog artwork.
+// Merge logic still requires an exact title/year and an approved image host.
+const items=await res.json();
+if(!Array.isArray(items))throw Error('Invalid public movie catalog');
+return {items:items.map(item=>({...item,poster_source:'catalog_public'})),source:'supabase'};
 }
 export async function loadCuratedTropes({signal}={}){
 if(!catalogConfigured)return [];
