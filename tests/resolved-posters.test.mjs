@@ -38,7 +38,7 @@ test('wrong-year remakes and demos do not inherit cached artwork',()=>{
  assert.equal(mergeMovieListings([[demo],normalizeResolvedPosters(payload)])[0].poster_url,undefined);
 });
 test('rejects malicious hosts, invalid years, duplicates, and unexpected response format',()=>{
- const rows=normalizeResolvedPosters({version:1,movies:...payload.movies,{...payload.movies[0],poster_url:'https://evil.example/a.jpg'},{...payload.movies[0],release_year:2200},{...payload.movies[0]}]});
+ const rows=normalizeResolvedPosters({version:1,movies:[...payload.movies,{...payload.movies[0],poster_url:'https://evil.example/a.jpg'},{...payload.movies[0],release_year:2200},{...payload.movies[0]}]});
  assert.equal(rows.length,1);
  assert.throws(()=>normalizeResolvedPosters({version:2,movies:[]}),/Invalid/);
  assert.throws(()=>normalizeResolvedPosters({version:1,movies:{}}),/Invalid/);
