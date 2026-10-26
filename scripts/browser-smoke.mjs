@@ -56,6 +56,19 @@ try{
   await page.getByRole('button',{name:'Play This Movie'}).first().click();
   const squares=page.locator('.board .square');
   assert.equal(await squares.count(),25,'Expected complete 5×5 Bingo card');
+  // Screen readers need square coordinates to understand five-in-a-row wins.
+  // Verify that coordinates follow B-I-N-G-O columns, not DOM tab order alone.
+  assert.match(await squares.nth(0).getAttribute('aria-label'),/^B1: /,'Top-left square must announce B1');
+  assert.match(await squares.nth(4).getAttribute('aria-label'),/^O1: /,'Top-right square must announce O1');
+  assert.match(await squares.nth(20).getAttribute('aria-label'),/^B5: /,'Bottom-left square must announce B5');
+  assert.match(await squares.nth(24).getAttribute('aria-label'),/^O5: /,'Bottom-right square must announce O5');
+  assert.match(await squares.nth(12).getAttribute('aria-label'),/^N3: .*free center square/i,'Free center must be identifiable');
+  assert.equal(await squares.nth(12).isDisabled(),true,'Free center must remain protected from marking');
+  await squares.first().focus();
+  await page.keyboard.press('Space');
+  assert.equal(await squares.first().getAttribute('aria-pressed'),'true','Keyboard activation must mark a square');
+  await page.keyboard.press('Space');
+  assert.equal(await squares.first().getAttribute('aria-pressed'),'false','Keyboard activation must undo a mark');
   await page.waitForFunction(()=>[...document.querySelectorAll('.board .square-art')].length===25&&[...document.querySelectorAll('.board .square-art')].every(img=>img.complete&&img.naturalWidth>0));
   const dimensions=await page.evaluate(()=>({document:document.documentElement.scrollWidth,viewport:document.documentElement.clientWidth}));
   assert.ok(dimensions.document<=dimensions.viewport+2,'Horizontal overflow at '+width+'px: '+JSON.stringify(dimensions));
