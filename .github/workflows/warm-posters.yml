@@ -1,0 +1,32 @@
+name: Warm verified Bingo poster cache
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - public/catalog/movies.json
+      - supabase/functions/bingo-public-posters/**
+      - .github/workflows/warm-posters.yml
+  schedule:
+    - cron: '17 12 * * *'
+permissions:
+  contents: read
+jobs:
+  warm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Request public cache refresh and verify at least one resolved poster
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://wgvsnmukiaobcbyqhkkt.supabase.co/functions/v1/bingo-public-posters'
+          for attempt in {1..8}; do
+            curl --fail --silent --show-error --retry 2 --max-time 20 "$url" -o /tmp/bingo-posters.json
+            count=$(node -e 'const f=require("/tmp/bingo-posters.json");if(f.version!==1||!Array.isArray(f.movies))process.exit(2);console.log(f.movies.length)')
+            echo "Attempt $attempt: $count verified poster(s) in public cache"
+            if [ "$count" -gt 0 ]; then exit 0; fi
+            sleep 20
+          done
+          echo 'Poster resolver returned no verified posters after the refresh window' >&2
+          exit 1
