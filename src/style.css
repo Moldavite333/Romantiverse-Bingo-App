@@ -29,3 +29,8 @@
 
 .poster-attribution{display:block;max-width:44rem;margin:10px auto 0;font-size:.76rem;line-height:1.45;opacity:.85}
 .poster-attribution a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+
+/* Keep verified artwork visible on a playing card, including opened invitations. */
+.play-heading{display:flow-root}
+.playing-poster{float:right;width:112px;max-width:30%;height:auto;max-height:174px;object-fit:contain;border-radius:10px;margin:0 0 12px 16px;box-shadow:0 5px 18px #45203b38;background:#fff8f1}
+@media(max-width:480px){.playing-poster{width:82px;max-height:130px;margin-left:10px}}
