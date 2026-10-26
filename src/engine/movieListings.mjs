@@ -1,7 +1,7 @@
 // Build a single public movie list from independent catalogs without mixing in private HQ data.
 // Groups are ordered by priority: locally curated titles, bundled catalog, remote catalog,
 // fictional demos, then public search results. Earlier entries win ties.
-// Later rights-cleared artwork can enrich an exact title+year match, without
+// Later approved-host public-catalog artwork can enrich an exact title+year match, without
 // overriding the selected movie identity, plot facts, or editorial priority.
 import {approvedMoviePoster} from './posters.mjs';
 function titleKey(title){
@@ -24,7 +24,7 @@ export function mergeMovieListings(groups){
     // poster takes priority over automated artwork, never over movie facts.
     const sameYear=year!==null&&duplicate.year===year;
     const trustedHq=movie.poster_source==='hq_published';
-    const approvedEnrichment=movie.poster_rights?.status==='approved';
+    const approvedEnrichment=movie.poster_rights?.status==='approved'||movie.poster_source==='catalog_public';
     // Curated HQ selections may omit is_demo; a known-year exact match is safe
     // to enrich unless either record is explicitly fictional or a demo.
     const chosenIsReal=chosen.is_demo!==true&&!/DEMO/i.test(String(chosen.kind||''));
