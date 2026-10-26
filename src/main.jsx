@@ -5,6 +5,7 @@ import{analyzeMovie,buildCard,replaceSquare,balance,CHEESE,SEASONAL}from './engi
 import{refreshUntouchedCard,hasRetiredTrope}from './engine/retiredTropes.mjs';
 import{tropeArtDataUri}from './engine/tropeArt.mjs';
 import{approvedMoviePoster}from './engine/posters.mjs';
+import{orderMoviesForBrowsing}from './engine/posterOrdering.mjs';
 import{encodeInvitation,parseInvitation}from './engine/invitations.mjs';
 import{parseRoomInvite}from './engine/roomInvites.mjs';
 import{movies}from './data/catalog.js';
@@ -81,13 +82,13 @@ const active=game?.movie||null;const analysis=useMemo(()=>active?analyzeMovie({.
 const status=game?score(game.marked,game.free):null;
 const won=game&&(game.mode==='blackout'?game.marked.length===25:status.bingo);
 const lines=game?winningLines(game.marked,game.free):[];
-const available=mergeMovieListings([
+const available=orderMoviesForBrowsing(mergeMovieListings([
  (sharedPackage?.movies||[]).map(m=>({...m,kind:'CHEESE LOUISE CURATED'})),
  liveMovies.map(m=>({...m,kind:'REAL MOVIE · SCENES UNVERIFIED'})),
  movies,
  remoteMovies,
  publishedMovies
-]).filter(m=>(filter==='All'||m.season===filter)&&(m.title+' '+(m.synopsis||'')+' '+Object.values(m.story_facts||{}).flat().join(' ')).toLowerCase().includes(query.toLowerCase()));
+]).filter(m=>(filter==='All'||m.season===filter)&&(m.title+' '+(m.synopsis||'')+' '+Object.values(m.story_facts||{}).flat().join(' ')).toLowerCase().includes(query.toLowerCase())),query);
 function create(movie,selectedTheme=season){try{const unclassified=movie.season==='Unspecified';const cardTheme=unclassified?selectedTheme:movie.season;const playable={...movie,season:cardTheme};let card=buildCard(playable,{seed:seed(),free,difficulty,cheeseRatio:ratio/100});
  const editorial=buildSharedCheeseSuggestions(playable,sharedPackage?.traits);
  if(editorial.length){const seen=new Set(card.map(t=>t.id));let j=0;card=card.map(t=>{if(t.category!=='cheese')return t;while(j<editorial.length&&seen.has(editorial[j].id))j++;if(j>=editorial.length)return t;const next=editorial[j++];seen.add(next.id);return next})}
