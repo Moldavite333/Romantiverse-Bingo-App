@@ -193,6 +193,35 @@ try{
  assert.deepEqual(posterCheck.errors,[],'Poster catalog caused browser errors');
  await posterCheck.context.close();
  console.log('Rights-cleared posters, fallback art, release years and specific favorite labels passed browser QA.');
+ // A poster deliberately locked in HQ must win over the same movie's automatic
+ // catalog artwork, while retaining its original movie identity and year.
+ const hqCheck=await newPage(390);
+ await hqCheck.page.route(appUrl+'catalog/movies.json',async route=>{
+  const catalog=JSON.parse(await readFile(resolve(root,'catalog/movies.json'),'utf8'));
+  catalog.movies.push({id:'test-hq-lock',title:'HQ Lock Preview',release_year:2026,season:'Fall',is_demo:false,
+   story_facts:{setting:[],relationship:[],conflict:[],event:[]},
+   poster_url:'https://image.tmdb.org/t/p/w500/automatic.jpg'});
+  await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(catalog)});
+ });
+ await hqCheck.page.route('https://wgvsnmukiaobcbyqhkkt.supabase.co/rest/v1/rpc/published_movie_posters',route=>route.fulfill({
+  status:200,contentType:'application/json',body:JSON.stringify([{title:'HQ Lock Preview',release_year:2026,
+   season:'Fall',poster_url:'https://image.tmdb.org/t/p/w500/locked.jpg',poster_locked:true,
+   notes:'PRIVATE HQ NOTES',workspace_id:'PRIVATE WORKSPACE'}])
+ }));
+ await hqCheck.page.route('https://image.tmdb.org/t/p/w500/locked.jpg',route=>route.fulfill({
+  status:200,contentType:'image/svg+xml',
+  body:'<svg xmlns="http://www.w3.org/2000/svg" width="120" height="180"><rect width="120" height="180" fill="green"/></svg>'
+ }));
+ await hqCheck.page.goto(appUrl,{waitUntil:'domcontentloaded'});
+ const lockedCard=hqCheck.page.locator('.movie-card').filter({has:hqCheck.page.getByRole('heading',{name:'HQ Lock Preview',exact:true})});
+ await lockedCard.waitFor();
+ await hqCheck.page.waitForFunction(()=>document.querySelector('img[alt="HQ Lock Preview movie poster"]')?.src.includes('/locked.jpg'));
+ assert.match(await lockedCard.locator('.movie-poster').getAttribute('src'),/\/locked\.jpg$/,'HQ lock must override automatic poster');
+ assert.ok(!(await lockedCard.innerText()).includes('PRIVATE'),'Private HQ fields must never render');
+ assert.deepEqual(hqCheck.errors,[],'HQ poster overlay caused browser errors');
+ await hqCheck.context.close();
+ console.log('HQ locked poster precedence and public metadata isolation passed browser QA.');
+
  const unknown=await newPage(390);
  await unknown.page.goto(appUrl,{waitUntil:'domcontentloaded'});
  await unknown.page.getByLabel('Search movies by title').fill('Winter Wedding');
