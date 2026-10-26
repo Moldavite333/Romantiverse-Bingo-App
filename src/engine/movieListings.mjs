@@ -25,7 +25,10 @@ export function mergeMovieListings(groups){
     const sameYear=year!==null&&duplicate.year===year;
     const trustedHq=movie.poster_source==='hq_published';
     const approvedEnrichment=movie.poster_rights?.status==='approved';
-    const canEnrich=sameYear&&chosen.is_demo===false&&movie.is_demo===false&&
+    // Curated HQ selections may omit is_demo; a known-year exact match is safe
+    // to enrich unless either record is explicitly fictional or a demo.
+    const chosenIsReal=chosen.is_demo!==true&&!/DEMO/i.test(String(chosen.kind||''));
+    const canEnrich=sameYear&&chosenIsReal&&movie.is_demo===false&&
       approvedMoviePoster(movie)&&(trustedHq||approvedEnrichment);
     if(canEnrich&&((trustedHq&&movie.poster_locked===true)||!approvedMoviePoster(chosen))){
      result[duplicate.index]={...chosen,poster_url:movie.poster_url,
