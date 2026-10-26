@@ -186,6 +186,30 @@ try{
  assert.deepEqual(unknown.errors,[],'Unclassified movie caused browser errors');
  console.log('Unclassified movie search retained the title and respected the chosen card theme.');
  await unknown.context.close();
+ // Custom titles can choose a card theme, but that theme must not be
+ // presented as verified metadata about the movie.
+ const customCheck=await newPage(390);
+ await customCheck.page.goto(appUrl,{waitUntil:'domcontentloaded'});
+ await customCheck.page.getByLabel('Search movies by title').fill('A Totally Unlisted Winter Romance');
+ const unlisted=customCheck.page.getByRole('button',{name:'Play “A Totally Unlisted Winter Romance”'});
+ await unlisted.waitFor();
+ await customCheck.page.getByLabel('Card theme for movies with no verified season').selectOption('Fall');
+ await unlisted.click();
+ assert.match(await customCheck.page.locator('.play-heading').innerText(),/FALL CARD.*MOVIE SEASON UNVERIFIED/);
+ await customCheck.page.getByRole('button',{name:/Share Card/}).click();
+ await customCheck.page.waitForFunction(()=>window.__testShares?.length===1);
+ const customInvite=await customCheck.page.evaluate(()=>window.__testShares[0].url);
+ const customPayload=JSON.parse(Buffer.from(new URL(customInvite).hash.slice(8),'base64url').toString('utf8'));
+ assert.equal(customPayload.movie.season,'Unspecified');
+ assert.equal(customPayload.cardTheme,'Fall');
+ await customCheck.page.getByRole('button',{name:'Discover'}).click();
+ await customCheck.page.getByLabel('Custom movie title').fill('A Different Unlisted Christmas Movie');
+ await customCheck.page.getByLabel('Card theme for custom movie').selectOption('Horror');
+ await customCheck.page.getByRole('button',{name:'Create Card'}).click();
+ assert.match(await customCheck.page.locator('.play-heading').innerText(),/HORROR CARD.*MOVIE SEASON UNVERIFIED/);
+ assert.deepEqual(customCheck.errors,[],'Custom title flows caused browser errors');
+ await customCheck.context.close();
+ console.log('Uncatalogued search and custom entry preserve unverified movie seasons and chosen card themes.');
 }finally{
  await browser.close();
  await new Promise(ok=>server.close(ok));
