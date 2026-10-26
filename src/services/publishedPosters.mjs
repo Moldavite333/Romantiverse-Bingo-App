@@ -14,7 +14,7 @@ export function normalizePublishedPosters(rows){
   const season=['Christmas','Fall'].includes(row.season)?row.season:'Unspecified';
   const poster_url=approvedMoviePoster({poster_url:row.poster_url})?.url||null;
   out.push({
-   id:'hq-published-'+out.length+'-'+title.toLowerCase().replace(/[^a-z0-9]+/g,'-'),
+   id:'hq-published-'+(release_year||'unknown')+'-'+title.toLowerCase().replace(/[^a-z0-9]+/g,'-'),
    title,release_year,season,poster_url,
    poster_locked:row.poster_locked===true,poster_source:'hq_published',
    is_demo:false,verification_status:'metadata_verified',
