@@ -116,8 +116,27 @@ try{
  const guestSquares=await page.locator('.board .square').allTextContents();
  assert.equal(guestSquares.length,25);
  assert.notDeepEqual(guestSquares,originalSquares,'Invitation recipient must receive a newly randomized card');
- assert.deepEqual(errors,[],'Guest invitation caused browser errors');
- console.log('Unique direct-link invitation opened independently with a fresh illustrated card.');
+ // A guest must keep their card and marks after a refresh, not receive a new
+ // random deal merely because they opened the invitation in a browser.
+ await page.locator('.board .square').first().click();
+ await page.waitForFunction(()=>JSON.parse(localStorage.getItem('romantiverse-v2')||'null')?.marked?.includes(0));
+ await page.reload({waitUntil:'domcontentloaded'});
+ await page.locator('.board .square').first().waitFor();
+ assert.deepEqual(await page.locator('.board .square').allTextContents(),guestSquares,'Refreshing an invitation must preserve the guest card');
+ assert.equal(await page.locator('.board .square').first().getAttribute('aria-pressed'),'true','Guest marks must survive a refresh');
+ // Two guests opening the exact same link in separate browser profiles must
+ // each get an independent deal, without sharing sender or guest state.
+ const secondGuest=await newPage(390);
+ await secondGuest.page.goto(invitation,{waitUntil:'domcontentloaded'});
+ await secondGuest.page.locator('.board .square').first().waitFor();
+ const secondGuestSquares=await secondGuest.page.locator('.board .square').allTextContents();
+ assert.equal(secondGuestSquares.length,25);
+ assert.notDeepEqual(secondGuestSquares,guestSquares,'Guests using one invitation must get independent randomized cards');
+ assert.notDeepEqual(secondGuestSquares,originalSquares,'Second guest must not inherit sender squares');
+ assert.deepEqual(secondGuest.errors,[],'Second guest invitation caused browser errors');
+ assert.deepEqual(errors,[],'Guest invitation or refresh caused browser errors');
+ console.log('Direct invitation passed independent two-guest deals, refresh autosave and illustrated-card checks.');
+ await secondGuest.context.close();
  await context.close();
  // A scheduled Hallmark catalog update may contain a real title whose season is unknown.
  // Keep it searchable without silently calling it Christmas.
