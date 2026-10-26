@@ -26,3 +26,6 @@
 .movie-art .movie-poster[hidden]{display:none}
 .movie-art .poster-credit{position:absolute;z-index:2;bottom:0;left:0;right:0;letter-spacing:0;font-size:11px;line-height:1.4;padding:14px 10px 8px;background:linear-gradient(transparent,#19161ad9);color:#fff!important;text-align:center}
 .movie-art .movie-poster[hidden]~.poster-credit{display:none}
+
+.poster-attribution{display:block;max-width:44rem;margin:10px auto 0;font-size:.76rem;line-height:1.45;opacity:.85}
+.poster-attribution a{color:inherit;text-decoration:underline;text-underline-offset:2px}
