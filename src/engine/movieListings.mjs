@@ -20,10 +20,16 @@ export function mergeMovieListings(groups){
    const duplicate=prior.find(existing=>existing.year===year||existing.year===null||year===null);
    if(duplicate){
     const chosen=result[duplicate.index];
-    // Never assign artwork across ambiguous remakes or fictional demo entries.
-    if(year!==null&&duplicate.year===year&&chosen.is_demo===false&&movie.is_demo===false&&
-       !approvedMoviePoster(chosen)&&approvedMoviePoster(movie)){
-     result[duplicate.index]={...chosen,poster_url:movie.poster_url,poster_rights:movie.poster_rights};
+    // Enrich only exact known-year real titles. A deliberately HQ-locked
+    // poster takes priority over automated artwork, never over movie facts.
+    const sameYear=year!==null&&duplicate.year===year;
+    const trustedHq=movie.poster_source==='hq_published';
+    const approvedEnrichment=movie.poster_rights?.status==='approved';
+    const canEnrich=sameYear&&chosen.is_demo===false&&movie.is_demo===false&&
+      approvedMoviePoster(movie)&&(trustedHq||approvedEnrichment);
+    if(canEnrich&&((trustedHq&&movie.poster_locked===true)||!approvedMoviePoster(chosen))){
+     result[duplicate.index]={...chosen,poster_url:movie.poster_url,
+      poster_rights:movie.poster_rights,poster_locked:trustedHq&&movie.poster_locked===true};
     }
     continue;
    }
