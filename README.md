@@ -2,37 +2,34 @@
 
 **Brought to you by the Cheese Louise Podcast**
 
-A cinematic romance movie-night bingo game. React + Vite, deterministic bingo scoring, explainable movie trope analysis, and an installable PWA.
+React + Vite movie-night bingo game with a deterministic 5×5 scoring engine, themed illustrated squares, public movie search, and shareable invitations.
 
-## Current playable features
-- 5×5 bingo board with all 12 winning lines, free-center option, mark/undo, autosave
-- Four modes: Classic, Cheese Chase, Blackout, Movie Marathon (movie-night history)
-- Card Workshop: swap non-free squares without duplicates
-- Curated Cheese Trait ontology and season-specific trope vocabulary
-- Explainable synopsis clues versus **unverified** genre predictions
-- Seeded deterministic cards, configurable Cheese Trait ratio (default 50/50), difficulty presets
-- Search and filter **three clearly labeled fictional demo movies**; custom movie title support
-- Favorites, shareable text card, local Cheese Tray history and results
-- Responsive cinematic romance UI, manifest and service-worker foundation
+## Implemented in the repository
 
-## Not connected yet
-- Real Hallmark movie catalog, licensed posters or real scene evidence
-- Generative AI provider, semantic model, or live movie-watching AI
-- Real-time multiplayer, room codes, cloud accounts or Supabase sync
-- QR-code joining, remote authoritative scoring or server-side AI verification
-- User-verified production release or full browser-device regression suite
+- Four Bingo modes, independent randomized cards, free center, autosave, mark/undo, and scoring.
+- Direct-link v3 invitations share only movie identity and game settings; recipients receive independently randomized cards. Sender marks and private HQ data are never included.
+- 38 bundled real movie titles, a separate public Supabase movie catalog, and public Wikidata title search.
+- Read-only `published_movie_posters` RPC from Cheese Louise HQ, restricted to explicitly published Bingo movies. This exposes a small public projection, **not** private HQ tables or notes.
+- Both Bingo and the Cheese Louise public website fetch the same published HQ poster feed on load, on returning to the tab, and every five minutes. HQ-locked artwork wins over automatic catalog artwork for exact known title/year matches.
+- Poster URLs are accepted only from approved TMDB and Wikimedia Commons image paths. The default movie browser puts entries with real posters before missing-poster placeholders; searching retains relevance order.
+- Automated regression tests for poster precedence, title/year isolation, public metadata privacy, and browsing order.
 
-Do not confuse planned features with completed functionality. Technical specifications and proposed schema are in [docs/INTELLIGENCE_AND_GAME_DESIGN.md](docs/INTELLIGENCE_AND_GAME_DESIGN.md) and [docs/MULTIPLAYER_SCHEMA.sql](docs/MULTIPLAYER_SCHEMA.sql).
+## Known launch limitations
+
+- The 38-title bundled catalog has no embedded poster URLs. Published HQ titles may enrich matching entries at runtime, but **most bundled titles still need a verified external poster-matching/enrichment source**. A working HQ feed is not the same as complete poster coverage.
+- No claim is made here that the latest GitHub commit is deployed or that the end-to-end live site has been verified. Verify GitHub Actions and test the public website and Bingo in a real browser before announcing launch readiness.
+- Live authoritative multiplayer and the complete production-release QA suite remain separate milestones. See `docs/INTELLIGENCE_AND_GAME_DESIGN.md` and `docs/MULTIPLAYER_SCHEMA.sql`.
 
 ## Development
+
 ```bash
 npm install
 npm test
-npm run dev
 npm run build
 ```
 
-GitHub Actions runs tests and builds before deploying to GitHub Pages on pushes to `main`. The intended Pages address is https://moldavite333.github.io/Romantiverse-Bingo-App/ . Check the Actions tab for the actual deployment result.
+GitHub Actions is configured to test and build on pushes to `main`. The intended public game URL is https://moldavite333.github.io/Romantiverse-Bingo-App/ .
 
 ## Attribution
-Always use the exact text **“Brought to you by the Cheese Louise Podcast”** across the game, installable app, and future genre variants.
+
+Display **“Brought to you by the Cheese Louise Podcast”** throughout the game and future themed experiences.
