@@ -17,6 +17,7 @@ import './style.css';
 import './cinematic-theme.css';
 import {searchPublicMovies} from './services/movieSearch.js';
 import {searchCatalog} from './services/catalog.js';
+import {loadPublishedMoviePosters} from './services/publishedPosters.mjs';
 const BRAND='Brought to you by the Cheese Louise Podcast';
 const KEY='romantiverse-v2',HISTORY='romantiverse-history-v2',FAVORITES='romantiverse-favorites-v2';
 const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
@@ -29,9 +30,25 @@ const [sharedPackage,setSharedPackage]=useState(null);
 const [shareUrl,setShareUrl]=useState('');
 const [remoteMovies,setRemoteMovies]=useState([]),[remoteLoading,setRemoteLoading]=useState(false),[remoteError,setRemoteError]=useState('');
 const [liveMovies,setLiveMovies]=useState([]),[catalogError,setCatalogError]=useState(''),[catalogLoading,setCatalogLoading]=useState(true);
+const [publishedMovies,setPublishedMovies]=useState([]);
 const [game,setGame]=useState(()=>refreshUntouchedCard(read(KEY,null))),[history,setHistory]=useState(()=>read(HISTORY,[])),[favorites,setFavorites]=useState(()=>read(FAVORITES,[]));
 const [tab,setTab]=useState(()=>{if(parseRoomInvite(window.location.search))return 'together';try{if(sessionStorage.getItem('romantiverse-last-tab')==='play'&&read(KEY,null))return 'play'}catch{}return 'discover'}),[query,setQuery]=useState(''),[season,setSeason]=useState('Christmas'),[custom,setCustom]=useState(''),[free,setFree]=useState(true),[mode,setMode]=useState('classic'),[difficulty,setDifficulty]=useState('balanced'),[ratio,setRatio]=useState(50),[notice,setNotice]=useState(''),[editIndex,setEditIndex]=useState(null),[filter,setFilter]=useState('All'),[showClues,setShowClues]=useState(false);
 useEffect(()=>{const ctrl=new AbortController();Promise.allSettled([loadStaticCatalog({signal:ctrl.signal}),searchCatalog('',{limit:100,signal:ctrl.signal})]).then(results=>{if(ctrl.signal.aborted)return;const items=mergeMovieListings(results.map(r=>r.status==='fulfilled'?r.value.items:[]));setLiveMovies(items.map(m=>({...m,story_facts:m.story_facts||{setting:[],relationship:[],conflict:[],event:[]},kind:'CATALOG MOVIE · SCENES UNVERIFIED'})));setCatalogError(items.length?'':'Movie catalog temporarily unavailable. You can still play any title.')}).finally(()=>{if(!ctrl.signal.aborted)setCatalogLoading(false)});return()=>ctrl.abort()},[]);
+useEffect(()=>{
+ // HQ changes propagate automatically on page load, when returning to the tab,
+ // and every five minutes without a public connection to private HQ tables.
+ let controller=null;
+ const refresh=async()=>{
+  controller?.abort();const next=new AbortController();controller=next;
+  try{const items=await loadPublishedMoviePosters({signal:next.signal});if(!next.signal.aborted)setPublishedMovies(items)}
+  catch(error){if(!next.signal.aborted)console.warn('Public HQ artwork refresh unavailable',error)}
+ };
+ const onVisible=()=>{if(document.visibilityState==='visible')refresh()};
+ refresh();
+ const timer=window.setInterval(refresh,300000);
+ document.addEventListener('visibilitychange',onVisible);
+ return()=>{controller?.abort();window.clearInterval(timer);document.removeEventListener('visibilitychange',onVisible)};
+},[]);
 useEffect(()=>{
  const term=query.trim();
  if(term.length<3){setRemoteMovies([]);setRemoteLoading(false);setRemoteError('');return;}
@@ -68,7 +85,8 @@ const available=mergeMovieListings([
  (sharedPackage?.movies||[]).map(m=>({...m,kind:'CHEESE LOUISE CURATED'})),
  liveMovies.map(m=>({...m,kind:'REAL MOVIE · SCENES UNVERIFIED'})),
  movies,
- remoteMovies
+ remoteMovies,
+ publishedMovies
 ]).filter(m=>(filter==='All'||m.season===filter)&&(m.title+' '+(m.synopsis||'')+' '+Object.values(m.story_facts||{}).flat().join(' ')).toLowerCase().includes(query.toLowerCase()));
 function create(movie,selectedTheme=season){try{const unclassified=movie.season==='Unspecified';const cardTheme=unclassified?selectedTheme:movie.season;const playable={...movie,season:cardTheme};let card=buildCard(playable,{seed:seed(),free,difficulty,cheeseRatio:ratio/100});
  const editorial=buildSharedCheeseSuggestions(playable,sharedPackage?.traits);
