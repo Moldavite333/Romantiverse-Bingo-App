@@ -20,7 +20,7 @@ function selectText(input,doc){
   return true;
  }catch{return false}
 }
-export async function copyRoomInvite(url,{nav=globalThis.navigator,doc=globalThis.document,input=null}={}){
+export async function copyRoomInvite(url,{nav=globalThis.navigator,doc=globalThis.document,input=null,timeoutMs=1500}={}){
  const value=new URL(String(url||''));
  if(!['https:','http:'].includes(value.protocol))throw Error('Invalid invitation link');
  // Start BOTH methods during the original click activation. Some Samsung
@@ -37,7 +37,17 @@ export async function copyRoomInvite(url,{nav=globalThis.navigator,doc=globalThi
  if(selectText(input,doc)){
   try{legacy=doc.execCommand?.('copy')===true}catch{}
  }
- if(modern&&await modern)return 'copied';
+ // A pending Android permission request must never hold the copy action open forever.
+ // The UI already exposes manual copy immediately; this deadline also settles
+ // the button's status and makes legacy/manual fallback deterministic.
+ if(modern){
+  let timer;
+  try{
+   const deadline=Math.max(1,Math.min(5000,Number(timeoutMs)||1500));
+   const copied=await Promise.race([modern,new Promise(resolve=>{timer=setTimeout(()=>resolve(false),deadline)})]);
+   if(copied)return 'copied';
+  }finally{clearTimeout(timer)}
+ }
  if(legacy)return 'copied';
  selectText(input,doc);
  return 'manual';
