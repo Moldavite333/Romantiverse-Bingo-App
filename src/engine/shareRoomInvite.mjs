@@ -21,14 +21,22 @@ function selectText(input,doc){
 export async function copyRoomInvite(url,{nav=globalThis.navigator,doc=globalThis.document,input=null}={}){
  const value=new URL(String(url||''));
  if(!['https:','http:'].includes(value.protocol))throw Error('Invalid invitation link');
- // Try the legacy selection route *synchronously* in the click handler.
- // Waiting for a denied Clipboard API promise can lose transient user activation.
- if(selectText(input,doc)){
-  try{if(doc.execCommand?.('copy')===true)return 'copied'}catch{}
- }
+ // Start BOTH methods during the original click activation. Some Samsung
+ // browsers report execCommand('copy') success without updating the clipboard;
+ // trying the modern API too avoids trusting that legacy result alone.
+ // Never await one method before starting the other: Android may revoke the
+ // transient user gesture while the first permission promise is pending.
+ let modern=null;
  if(typeof nav?.clipboard?.writeText==='function'){
-  try{await nav.clipboard.writeText(value.href);return 'copied'}catch{}
+  try{modern=Promise.resolve(nav.clipboard.writeText(value.href)).then(()=>true,()=>false)}
+  catch{modern=Promise.resolve(false)}
  }
+ let legacy=false;
+ if(selectText(input,doc)){
+  try{legacy=doc.execCommand?.('copy')===true}catch{}
+ }
+ if(modern&&await modern)return 'copied';
+ if(legacy)return 'copied';
  selectText(input,doc);
  return 'manual';
 }
