@@ -71,6 +71,26 @@ async function mark(index){if(pending||busy)return;setPending(true);try{const da
 function leave(){try{sessionStorage.removeItem(KEY)}catch{};latestSnapshot.current={revision:-1,marked:[]};setSession(null);setRoom(null);setCard(null);setMarks([]);setRevision(0);setError('');setNotice('')}
 // The backend enforces host permissions; controls may be shown but unauthorized actions are rejected.
 const myLines=(()=>{const set=new Set(marks);set.add(12);const lines=[...Array.from({length:5},(_,r)=>Array.from({length:5},(_,c)=>r*5+c)),...Array.from({length:5},(_,c)=>Array.from({length:5},(_,r)=>r*5+c)),[0,6,12,18,24],[4,8,12,16,20]];return lines.filter(l=>l.every(i=>set.has(i))).length})();
+const joinForm=<section className="room-join-panel" aria-label="Join a game"><h3>{incomingRoomCode?"You've been invited to play!":'Join a Game'}</h3>
+  {preview&&<MovieDetails movie={preview} theme={preview.season} heading="YOU'RE INVITED TO WATCH"/>}
+  <label htmlFor="join-nickname">Your nickname</label><input id="join-nickname" maxLength="32" placeholder="Your nickname" value={name} onChange={e=>setName(e.target.value)}/>
+  <label htmlFor="join-code">Room code</label><div className="room-join"><input id="join-code" aria-label="Room code" placeholder="Seven-character code" maxLength="7" inputMode="text" autoCapitalize="characters" autoCorrect="off" spellCheck={false} value={code} onChange={e=>setCode(e.target.value.toUpperCase())}/><button className="primary" disabled={!name.trim()||!normalizeRoomCode(code)||busy} onClick={()=>call('join',{name:name.trim(),code:normalizeRoomCode(code)})}>Join Game</button></div>
+  <p className="fineprint">Enter a nickname to enable Join Game. Your invitation fills in the code automatically. You do not need to select a movie.</p>
+ </section>;
+const hostForm=<section className="room-host-panel" aria-label="Host a game"><h3>Host a Game</h3>
+  <p>Pick the movie and Bingo theme here. Everyone joining automatically sees the same movie and collection.</p>
+  <label htmlFor="host-nickname">Your nickname</label><input id="host-nickname" maxLength="32" placeholder="Your nickname" value={name} onChange={e=>setName(e.target.value)}/>
+  <label htmlFor="host-movie-search">Choose your movie</label><input id="host-movie-search" placeholder="Search movie catalog…" value={search} onChange={e=>{setSearch(e.target.value);setSelected(null)}}/>
+  {searching&&<p className="fineprint" role="status">Searching more movies…</p>}
+  {!selected&&search.trim()&&<div className="room-movie-options" role="group" aria-label="Choose movie">{choices.map(m=><button type="button" key={m.id||m.title+'-'+m.release_year} onClick={()=>selectMovie(m)}><strong>{m.title}</strong><span>{Number.isInteger(m.release_year)?m.release_year+' · ':''}{m.season==='Unspecified'?'Collection unverified':m.season}</span></button>)}
+   {!searching&&search.trim().length>=3&&<button type="button" onClick={()=>selectMovie({id:'custom-'+search.trim(),title:search.trim(),season:'Unspecified',kind:'CUSTOM · TITLE UNVERIFIED'})}>Use “{search.trim()}” as an unverified title</button>}
+  </div>}
+  {chosen&&<><MovieDetails movie={chosen} theme={theme} heading="SELECTED MOVIE"/><button type="button" onClick={()=>{setSelected(null);setSearch('')}}>Change Movie</button></>}
+  <label htmlFor="host-theme">Bingo card theme</label><select id="host-theme" value={theme} onChange={e=>setTheme(e.target.value)}>{THEMES.map(t=><option key={t}>{t}</option>)}</select>
+  <p className="fineprint">The Bingo theme does not change the movie's actual catalog collection. Unverified titles remain labeled unverified.</p>
+  <label htmlFor="host-mode">Game mode</label><select id="host-mode" value={hostMode} onChange={e=>setHostMode(e.target.value)}><option value="classic">Classic Bingo</option><option value="chase">Cheese Chase</option><option value="blackout">Blackout</option><option value="marathon">Movie Marathon</option></select>
+  <button className="primary room-create-button" disabled={!name.trim()||!chosen?.title||busy} onClick={()=>call('create',{name:name.trim(),movie_title:chosen.title,movie_collection:chosen.season||'Unspecified',poster_url:approvedMoviePoster(chosen)?.url||null,release_year:Number.isInteger(chosen.release_year)?chosen.release_year:null,season:theme,mode:hostMode})}>Create Room</button>
+ </section>;
 return <section className="panel multiplayer"><div className="eyebrow">LIVE MOVIE NIGHT</div><h2>Play Together</h2>
 <p>No accounts or passwords. The host chooses the movie and Bingo theme; guests enter a nickname and receive their own randomized cards.</p>
 {session?<>
@@ -88,27 +108,8 @@ return <section className="panel multiplayer"><div className="eyebrow">LIVE MOVI
  {card&&<><div className="board live-board" role="group" aria-label="Multiplayer Bingo card" aria-busy={pending}>{'BINGO'.split('').map((l,i)=><div className="letter" key={'letter-'+i}>{l}</div>)}{card.map((t,i)=>{const marked=i===12||marks.includes(i);return <button key={i} className={'square '+(marked?'marked':'')} aria-label={'BINGO'[i%5]+(Math.floor(i/5)+1)+': '+t.label+(i===12?' (free center square)':'')} aria-pressed={marked} aria-disabled={pending||room?.status!=='playing'||i===12} disabled={room?.status!=='playing'||i===12||pending} onClick={()=>mark(i)} title={t.reason||t.label}><img className="square-art" src={tropeArtDataUri(t)} alt="" aria-hidden="true" decoding="async"/><span className="square-label">{t.label}</span>{marked&&<b aria-hidden="true">✦</b>}</button>})}</div><p className="fineprint">{myLines} completed lines. Marks are saved on the server and restored after reconnection.</p></>}
  {room?.status==='playing'&&<button disabled={busy} onClick={()=>call('finish')}>Finish Movie (host only)</button>}
  {room?.status==='finished'&&<p>Movie night complete. Results are preserved until the room expires.</p>}
-</>:<div className={'room-entry-layout '+(incomingRoomCode?'room-invited':'room-host-first')}>
- <section className="room-join-panel" aria-label="Join a game"><h3>{incomingRoomCode?"You've been invited to play!":'Join a Game'}</h3>
-  {preview&&<MovieDetails movie={preview} theme={preview.season} heading="YOU'RE INVITED TO WATCH"/>}
-  <label htmlFor="join-nickname">Your nickname</label><input id="join-nickname" maxLength="32" placeholder="Your nickname" value={name} onChange={e=>setName(e.target.value)}/>
-  <label htmlFor="join-code">Room code</label><div className="room-join"><input id="join-code" aria-label="Room code" placeholder="Seven-character code" maxLength="7" inputMode="text" autoCapitalize="characters" autoCorrect="off" spellCheck={false} value={code} onChange={e=>setCode(e.target.value.toUpperCase())}/><button className="primary" disabled={!name.trim()||!normalizeRoomCode(code)||busy} onClick={()=>call('join',{name:name.trim(),code:normalizeRoomCode(code)})}>Join Game</button></div>
-  <p className="fineprint">Enter a nickname to enable Join Game. Your invitation fills in the code automatically. You do not need to select a movie.</p>
- </section>
- <section className="room-host-panel" aria-label="Host a game"><h3>Host a Game</h3>
-  <p>Pick the movie and Bingo theme here. Everyone joining automatically sees the same movie and collection.</p>
-  <label htmlFor="host-nickname">Your nickname</label><input id="host-nickname" maxLength="32" placeholder="Your nickname" value={name} onChange={e=>setName(e.target.value)}/>
-  <label htmlFor="host-movie-search">Choose your movie</label><input id="host-movie-search" placeholder="Search movie catalog…" value={search} onChange={e=>{setSearch(e.target.value);setSelected(null)}}/>
-  {searching&&<p className="fineprint" role="status">Searching more movies…</p>}
-  {!selected&&search.trim()&&<div className="room-movie-options" role="group" aria-label="Choose movie">{choices.map(m=><button type="button" key={m.id||m.title+'-'+m.release_year} onClick={()=>selectMovie(m)}><strong>{m.title}</strong><span>{Number.isInteger(m.release_year)?m.release_year+' · ':''}{m.season==='Unspecified'?'Collection unverified':m.season}</span></button>)}
-   {!searching&&search.trim().length>=3&&<button type="button" onClick={()=>selectMovie({id:'custom-'+search.trim(),title:search.trim(),season:'Unspecified',kind:'CUSTOM · TITLE UNVERIFIED'})}>Use “{search.trim()}” as an unverified title</button>}
-  </div>}
-  {chosen&&<><MovieDetails movie={chosen} theme={theme} heading="SELECTED MOVIE"/><button type="button" onClick={()=>{setSelected(null);setSearch('')}}>Change Movie</button></>}
-  <label htmlFor="host-theme">Bingo card theme</label><select id="host-theme" value={theme} onChange={e=>setTheme(e.target.value)}>{THEMES.map(t=><option key={t}>{t}</option>)}</select>
-  <p className="fineprint">The Bingo theme does not change the movie's actual catalog collection. Unverified titles remain labeled unverified.</p>
-  <label htmlFor="host-mode">Game mode</label><select id="host-mode" value={hostMode} onChange={e=>setHostMode(e.target.value)}><option value="classic">Classic Bingo</option><option value="chase">Cheese Chase</option><option value="blackout">Blackout</option><option value="marathon">Movie Marathon</option></select>
-  <button className="primary room-create-button" disabled={!name.trim()||!chosen?.title||busy} onClick={()=>call('create',{name:name.trim(),movie_title:chosen.title,movie_collection:chosen.season||'Unspecified',poster_url:approvedMoviePoster(chosen)?.url||null,release_year:Number.isInteger(chosen.release_year)?chosen.release_year:null,season:theme,mode:hostMode})}>Create Room</button>
- </section>
-</div>}
+</>:<>
+ {incomingRoomCode?<>{joinForm}{hostForm}</>:<>{hostForm}{joinForm}</>}
+</>}
 {error&&<p role="alert" className="room-error">{error}</p>}{notice&&<p role="status" className="room-notice">{notice}</p>}
 <p className="fineprint">Free multiplayer early access · Up to 12 players · Room expires after 12 hours · No chat or automatic scene verification.</p></section>}
