@@ -1,5 +1,5 @@
 // Offline-ready static app shell. Room state and private tokens are never cached.
-const CACHE='romantiverse-v4-shell';
+const CACHE='romantiverse-v5-shell';
 const BASE='/Romantiverse-Bingo-App/';
 const SHELL=BASE+'index.html';
 const PRECACHE=[BASE+'catalog/movies.json',BASE+'manifest.webmanifest',BASE+'icon.svg'];
