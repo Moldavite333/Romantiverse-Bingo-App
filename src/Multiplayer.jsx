@@ -71,6 +71,7 @@ async function shareInviteLink(){
  setNotice('Opening sharing… If Android stalls, long-press the invitation text below.');
  try{const result=await shareRoomInvite(inviteLink,room?.movie_title||'Movie Night',{input:inviteInput.current,collection:room?.movie_collection||'Unspecified',theme:room?.season||''});
   if(result==='shared')setNotice('Android sharing opened.');
+  if(result==='cancelled')setNotice('Sharing cancelled. Your invitation link remains available below.');
   if(result==='copied'){setManualInvite(true);setNotice('Copy attempted. Paste to confirm, or use the invitation text below.');}
   if(result==='manual'){setManualInvite(true);setNotice('Sharing and copying are unavailable here. Long-press the invitation text below to copy it.');}
  }catch{setError('Share unavailable. Long-press the link to copy it.')}
