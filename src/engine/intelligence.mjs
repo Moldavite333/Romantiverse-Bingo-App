@@ -1,31 +1,31 @@
 import {factKeywords} from './storyFacts.mjs';
 // Explainable, deterministic trope analysis. No network/AI model claims.
 export const CHEESE=[
-{id:'meet-cute',label:'An impossibly cute first meeting',signals:['meet','runs into','bumps into','encounter'],weight:0.83},
+{id:'meet-cute',label:'First meeting',signals:['meet','runs into','bumps into','encounter'],weight:0.83},
 {id:'career-vs-love',label:'Career versus love dilemma',signals:['career','promotion','job','executive','lawyer','business'],weight:0.78},
 {id:'return-home',label:'Big-city person returns home',signals:['returns home','hometown','back home','small town'],weight:0.88},
 {id:'old-flame',label:'An old flame reappears',signals:['old flame','childhood sweetheart','ex-boyfriend','ex-girlfriend','first love'],weight:0.85},
 {id:'save-the-business',label:'A beloved business must be saved',signals:['save the','struggling','closure','family bakery','inn'],weight:0.79},
-{id:'misunderstanding',label:'A completely avoidable misunderstanding',signals:['secret','misunderstanding','mistake'],weight:0.81},
-{id:'interruption',label:'A perfectly timed interruption',signals:['surprise','unexpected'],weight:0.7},
-{id:'grand-gesture',label:'A wildly dramatic romantic gesture',signals:['love','romance','reconnects'],weight:0.68},
+{id:'misunderstanding',label:'A misunderstanding',signals:['secret','misunderstanding','mistake'],weight:0.81},
+{id:'interruption',label:'An interruption',signals:['surprise','unexpected'],weight:0.7},
+{id:'grand-gesture',label:'A romantic gesture',signals:['love','romance','reconnects'],weight:0.68},
 {id:'wise-relative',label:'A relative gives unsolicited love advice',signals:['family','mother','father','grandmother'],weight:0.7},
 {id:'almost-kiss',label:'The almost-kiss',signals:['romance','love','flame'],weight:0.8},
 {id:'townspeople',label:'The entire town gets involved',signals:['town','festival','community'],weight:0.78},
 {id:'deadline',label:'A romantic deadline approaches',signals:['christmas eve','wedding','festival','deadline'],weight:0.78},
 {id:'misplaced-priorities',label:'Someone learns the true meaning of life',signals:['career','work','business'],weight:0.76},
-{id:'coincidence',label:'An absurdly convenient coincidence',signals:['unexpected','surprise','chance'],weight:0.74},
+{id:'coincidence',label:'A coincidence',signals:['unexpected','surprise','chance'],weight:0.74},
 {id:'rival',label:'An inconvenient romantic rival',signals:['ex','fiancé','rival'],weight:0.58},
 {id:'decorating',label:'Decorating turns into accidental flirting',signals:['holiday','christmas','renovation'],weight:0.72},
 {id:'awkward-date',label:'An awkward date',signals:['dating','romance','love'],weight:0.68},
 {id:'forced-proximity',label:'Two people are forced to spend time together',signals:['snowstorm','stranded','work together','inherit'],weight:0.8},
 {id:'town-event',label:'A town event saves the day',signals:['festival','fundraiser','parade','contest'],weight:0.79},
 {id:'hidden-talent',label:'Someone reveals a secret talent',signals:['music','baking','singing','contest'],weight:0.64},
-{id:'late-realization',label:'A very late romantic realization',signals:['love','reconnects'],weight:0.84},
+{id:'late-realization',label:'A romantic realization',signals:['love','reconnects'],weight:0.84},
 {id:'last-minute-arrival',label:'Someone arrives at the last possible moment',signals:['deadline','christmas','wedding'],weight:0.77},
 {id:'overheard',label:'Someone overhears the wrong half of a conversation',signals:['secret','misunderstanding'],weight:0.75},
 {id:'family-pressure',label:'Family pressure complicates everything',signals:['family','parents','inherit'],weight:0.72},
-{id:'big-city',label:'Big-city life is apparently terrible',signals:['city','executive','career'],weight:0.78},
+{id:'big-city',label:'Big-city life loses its appeal',signals:['city','executive','career'],weight:0.78},
 {id:'perfect-stranger',label:'A stranger knows exactly what to say',signals:['stranger','meets'],weight:0.63},
 {id:'public-confession',label:'Love is confessed in public',signals:['festival','wedding','parade'],weight:0.69},
 {id:'too-perfect',label:'The love interest has no apparent flaws',signals:['charming','perfect'],weight:0.68},
@@ -39,8 +39,8 @@ export const CHEESE=[
 {id:'free-food',label:'Free food',signals:['free food','complimentary meal','on the house','free dinner'],weight:0.58},
 ];
 export const SEASONAL={
-Christmas:['Hot cocoa fixes everything','A town Christmas tree lighting','A snowstorm changes plans','Mistletoe appears at the perfect time','Christmas cookies are plot-critical','A festive fundraiser','An impossibly charming Christmas market','A Christmas Eve deadline','A tree-decorating scene','A magical snowfall','A holiday parade','A Christmas wish','A perfectly timed carol','An ugly Christmas sweater','A last-minute Christmas gift','A cozy fireplace moment','A holiday baking contest','A Christmas miracle','An unexpected sleigh ride','A family holiday tradition','Christmas lights everywhere','A charming tree farm','An overdecorated small town','An emotional holiday reunion','A festive kiss','Meddling Santas','Snowball fights','Snow angels'],
-Fall:['Pumpkin patch encounter','Apple cider conversation','A scenic hayride','Autumn leaves everywhere','Harvest festival showdown','A flannel-clad love interest','Bonfire heart-to-heart','Pie contest rivalry','Corn maze mishap','Pumpkin carving','Family orchard crisis','Apple-picking date','A very cozy sweater','Fall decorations montage','Small-town fall fair','A farm stand meet-cute','A harvest dance','An autumn sunset kiss','Pumpkin spice is mentioned','A festival deadline','Scarecrow sighting','A barn party','A leaf-peeping trip','An unexpected autumn storm','A fall tradition'],
+Christmas:['Hot cocoa fixes everything','A town Christmas tree lighting','A snowstorm changes plans','Mistletoe appears at the perfect time','Christmas cookies are plot-critical','A festive fundraiser','A Christmas market','A Christmas Eve deadline','A tree-decorating scene','A magical snowfall','A holiday parade','A Christmas wish','A Christmas carol','An ugly Christmas sweater','A last-minute Christmas gift','A cozy fireplace moment','A holiday baking contest','A Christmas miracle','An unexpected sleigh ride','A family holiday tradition','Christmas lights everywhere','A charming tree farm','An overdecorated small town','An emotional holiday reunion','A festive kiss','Meddling Santas','Snowball fights','Snow angels'],
+Fall:['Pumpkin patch encounter','Apple cider conversation','A scenic hayride','Autumn leaves everywhere','Harvest festival showdown','A flannel-clad love interest','Bonfire heart-to-heart','Pie contest rivalry','Corn maze mishap','Pumpkin carving','Family orchard crisis','Apple-picking date','A cozy sweater','Fall decorations montage','Small-town fall fair','A farm stand meet-cute','A harvest dance','An autumn sunset kiss','Pumpkin spice is mentioned','A festival deadline','Scarecrow sighting','A barn party','A leaf-peeping trip','An unexpected autumn storm','A fall tradition'],
 Horror:['Someone ignores a clear warning','A suspiciously unlocked door','A creepy basement visit','Someone splits up','A flashlight fails','A jump scare','A power outage','A mysterious noise','A character has no signal','An ominous reflection','A car refuses to start','A false alarm','A strange symbol','A locked room','A terrifying phone call','An old diary','A character runs upstairs','A suspicious stranger','Footsteps with no explanation','A sudden scream','A door slams','An eerie photograph','A shadow moves','Someone says it is probably nothing','A final survivor']
 };
 // Free, offline, explainable lexical inference. No LLM subscription or network call.
