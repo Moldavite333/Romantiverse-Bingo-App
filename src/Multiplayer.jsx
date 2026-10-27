@@ -65,6 +65,10 @@ async function copyInviteLink(){
 }
 async function shareInviteLink(){
  if(!inviteLink)return;
+ // Android's native share sheet may hang without resolving. Keep the complete
+ // invitation selectable immediately, even while the share promise is pending.
+ setManualInvite(true);
+ setNotice('Opening sharing… If Android stalls, long-press the invitation text below.');
  try{const result=await shareRoomInvite(inviteLink,room?.movie_title||'Movie Night',{input:inviteInput.current,collection:room?.movie_collection||'Unspecified',theme:room?.season||''});
   if(result==='shared')setNotice('Android sharing opened.');
   if(result==='copied'){setManualInvite(true);setNotice('Copy attempted. Paste to confirm, or use the invitation text below.');}
