@@ -63,7 +63,7 @@ test('share text includes actual movie and collection plus public join URL',asyn
  assert.match(shared.text,/Fall collection/);
  assert.match(shared.text,/Bingo theme: Fall/);
  assert.ok(shared.text.includes(url));
- assert.ok(shared.text.includes('Brought to you by Cheese Louise Podcast'));
+ assert.ok(shared.text.includes('Brought to you by the Cheese Louise Podcast'));
  assert.equal(shared.url,url);
  assert.ok(!shared.text.includes('token='));
 });
@@ -91,7 +91,7 @@ test('host theme is stated without inventing a movie collection',()=>{
  const message=roomInviteMessage(url,'Unknown Film','Unspecified','Christmas');
  assert.match(message,/Bingo theme: Christmas/);
  assert.doesNotMatch(message,/Christmas collection/);
- assert.match(message,/Brought to you by Cheese Louise Podcast/);
+ assert.match(message,/Brought to you by the Cheese Louise Podcast/);
 });
 test('unsupported room theme is never represented as verified',()=>{
  const message=roomInviteMessage(url,'Unknown Film','Unspecified','Unverified');
