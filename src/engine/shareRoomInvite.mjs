@@ -7,7 +7,7 @@ export function roomInviteMessage(url,movieTitle='Movie Night',collection='Unspe
  const title=String(movieTitle||'Movie Night').trim().slice(0,200);
  const kind=String(collection||'Unspecified').trim().slice(0,40);
  const collectionText=kind&&kind!=='Unspecified'?' ('+kind+' collection)':'';
- return 'Join me for Romantiverse Bingo: '+title+collectionText+'! Enter your nickname and join my game: '+link.href;
+ return 'Join me for Romantiverse Bingo: '+title+collectionText+'! Enter your nickname and join my game: '+link.href+'\nBrought to you by Cheese Louise Podcast';
 }
 function selectText(input,doc){
  if(!input||!doc)return false;
