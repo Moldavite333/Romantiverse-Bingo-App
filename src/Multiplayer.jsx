@@ -4,7 +4,7 @@ import {searchCatalog} from './services/catalog.js';
 import {searchPublicMovies} from './services/movieSearch.js';
 import {mergeMovieListings} from './engine/movieListings.mjs';
 import {approvedMoviePoster} from './engine/posters.mjs';
-import {copyRoomInvite,shareRoomInvite} from './engine/shareRoomInvite.mjs';
+import {copyRoomInvite,shareRoomInvite,roomInviteMessage} from './engine/shareRoomInvite.mjs';
 import {normalizeRoomCode,parseRoomInvite,roomInviteUrl} from './engine/roomInvites.mjs';
 import {tropeArtDataUri} from './engine/tropeArt.mjs';
 import {nextPlayerSnapshot} from './engine/roomState.mjs';
@@ -25,7 +25,7 @@ function MovieDetails({movie,theme,heading='TONIGHT’S MOVIE'}){
 export default function Multiplayer({catalog=[],mode='classic'}){
 const [session,setSession]=useState(saved),[room,setRoom]=useState(null),[card,setCard]=useState(null),[marks,setMarks]=useState([]),[revision,setRevision]=useState(0),[name,setName]=useState(''),[code,setCode]=useState(()=>parseRoomInvite(window.location.search)||''),[error,setError]=useState(''),[busy,setBusy]=useState(false),[pending,setPending]=useState(false);
 const [selected,setSelected]=useState(null),[theme,setTheme]=useState('Romance'),[hostMode,setHostMode]=useState(mode);
-const [search,setSearch]=useState(''),[remoteMovies,setRemoteMovies]=useState([]),[searching,setSearching]=useState(false),[preview,setPreview]=useState(null),[notice,setNotice]=useState('');
+const [search,setSearch]=useState(''),[remoteMovies,setRemoteMovies]=useState([]),[searching,setSearching]=useState(false),[preview,setPreview]=useState(null),[notice,setNotice]=useState(''),[manualInvite,setManualInvite]=useState(false);
 const inviteInput=useRef(null);
 const active=useRef(false);
 const chosen=selected?mergeMovieListings([[selected],catalog,remoteMovies])[0]:null;
@@ -51,24 +51,25 @@ const latestSnapshot=useRef({revision:-1,marked:[]});
 const incomingRoomCode=parseRoomInvite(window.location.search);
 let inviteLink='';
 try{if(session?.code)inviteLink=roomInviteUrl(window.location.href,session.code)}catch{}
+const invitationText=inviteLink?roomInviteMessage(inviteLink,room?.movie_title||'Movie Night',room?.movie_collection||'Unspecified'):'';
 async function copyInviteLink(){
  if(!inviteLink)return;
- try{const result=await copyRoomInvite(inviteLink,{input:inviteInput.current});setNotice(result==='copied'?'Invitation link copied. Paste it into a message.':'Clipboard blocked. The link is selected. Long-press to copy or tap Share Invite.')}
+ try{const result=await copyRoomInvite(inviteLink,{input:inviteInput.current});setManualInvite(result==='manual');setNotice(result==='copied'?'Invitation link copied. Paste it into a message.':'Clipboard blocked. Use Share Invite, or copy the ready-to-send text below.')}
  catch{setError('Copy unavailable. Use Share Invite or long-press the link.')}
 }
 async function shareInviteLink(){
  if(!inviteLink)return;
- try{const result=await shareRoomInvite(inviteLink,room?.movie_title||'Movie Night',{input:inviteInput.current});
+ try{const result=await shareRoomInvite(inviteLink,room?.movie_title||'Movie Night',{input:inviteInput.current,collection:room?.movie_collection||'Unspecified'});
   if(result==='shared')setNotice('Android sharing opened.');
   if(result==='copied')setNotice('Invitation link copied.');
-  if(result==='manual')setNotice('Long-press the selected link to copy it.');
+  if(result==='manual'){setManualInvite(true);setNotice('Sharing and copying are unavailable here. Long-press the invitation text below to copy it.');}
  }catch{setError('Share unavailable. Long-press the link to copy it.')}
 }
 const update=data=>{if(data.room)setRoom(data.room);if(data.card)setCard(data.card);const next=nextPlayerSnapshot(latestSnapshot.current,data);if(next!==latestSnapshot.current){latestSnapshot.current=next;setMarks(next.marked);setRevision(next.revision)}};
 async function call(action,payload={}){setError('');setBusy(true);try{const data=await roomRequest({action,...payload,...(session?{code:session.code,token:session.token}:{})});update(data);if(['create','join'].includes(action)){const next={code:data.room.code,token:data.token,player_id:data.player_id};sessionStorage.setItem(KEY,JSON.stringify(next));setSession(next)}return data}catch(e){setError(e.message);return null}finally{setBusy(false)}}
 useEffect(()=>{if(!session)return;let alive=true;const poll=async()=>{if(!alive||active.current)return;active.current=true;try{const data=await roomRequest({action:'state',code:session.code,token:session.token});if(alive){update(data);setError('')}}catch(e){if(alive)setError('Connection interrupted: '+e.message)}finally{active.current=false}};poll();const timer=setInterval(poll,3000);return()=>{alive=false;clearInterval(timer)}},[session?.code,session?.token]);
 async function mark(index){if(pending||busy)return;setPending(true);try{const data=await roomRequest({action:'mark',code:session.code,token:session.token,index,revision});update(data);setError('')}catch(e){setError(e.message);try{update(await roomRequest({action:'state',code:session.code,token:session.token}))}catch{}}finally{setPending(false)}}
-function leave(){try{sessionStorage.removeItem(KEY)}catch{};latestSnapshot.current={revision:-1,marked:[]};setSession(null);setRoom(null);setCard(null);setMarks([]);setRevision(0);setError('');setNotice('')}
+function leave(){try{sessionStorage.removeItem(KEY)}catch{};latestSnapshot.current={revision:-1,marked:[]};setSession(null);setRoom(null);setCard(null);setMarks([]);setRevision(0);setError('');setNotice('');setManualInvite(false)}
 // The backend enforces host permissions; controls may be shown but unauthorized actions are rejected.
 const myLines=(()=>{const set=new Set(marks);set.add(12);const lines=[...Array.from({length:5},(_,r)=>Array.from({length:5},(_,c)=>r*5+c)),...Array.from({length:5},(_,c)=>Array.from({length:5},(_,r)=>r*5+c)),[0,6,12,18,24],[4,8,12,16,20]];return lines.filter(l=>l.every(i=>set.has(i))).length})();
 const joinForm=<section className="room-join-panel" aria-label="Join a game"><h3>{incomingRoomCode?"You've been invited to play!":'Join a Game'}</h3>
@@ -100,7 +101,8 @@ return <section className="panel multiplayer"><div className="eyebrow">LIVE MOVI
  {inviteLink&&<div className="room-invite"><label htmlFor="room-invite-url">Invite friends with this unique room link</label>
   <input ref={inviteInput} id="room-invite-url" aria-label="Room invitation link" readOnly value={inviteLink} onFocus={e=>e.target.select()} onClick={e=>e.currentTarget.select()}/>
   <div className="room-invite-controls"><button className="primary" type="button" onClick={copyInviteLink}>Copy Invite Link</button><button type="button" onClick={shareInviteLink}>Share Invite</button></div>
-  <p className="fineprint">On Samsung, Share Invite opens Android sharing. If copying is blocked, long-press the link above and choose Copy. The URL contains only the room code, never your private session token.</p>
+  {manualInvite&&<div className="room-invite-fallback" role="group" aria-label="Manual invitation text"><label htmlFor="room-invite-message">Ready-to-send invitation — long-press to copy</label><textarea id="room-invite-message" readOnly rows={4} value={invitationText} onFocus={e=>e.currentTarget.select()} onClick={e=>e.currentTarget.select()}/><button type="button" onClick={()=>{const el=document.getElementById('room-invite-message');el?.focus();el?.select()}}>Select Invitation Text</button></div>}
+  <p className="fineprint">On Samsung, Share Invite opens Android sharing when supported. If copying is blocked, the complete invitation text appears above. The URL contains only the room code, never your private session token.</p>
  </div>}
  <p><strong>{room?.movie_title||'Loading movie…'}</strong> · {room?.status||'connecting'}</p>
  <div className="player-list" aria-label="Players in room">{room?.players?.map(p=><div key={p.id}><strong>{p.name}{p.id===session.player_id?' (you)':''}</strong><span>{p.lines} lines · {p.marked} marked</span></div>)}</div>
