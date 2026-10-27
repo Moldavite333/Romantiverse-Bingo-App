@@ -58,11 +58,12 @@ test('when all copying is denied, never claim success; leave text selected',asyn
 test('share text includes actual movie and collection plus public join URL',async()=>{
  let shared;
  const nav={async share(value){shared=value}};
- assert.equal(await shareRoomInvite(url,'Autumn Dreams',{nav,collection:'Fall'}),'shared');
+ assert.equal(await shareRoomInvite(url,'Autumn Dreams',{nav,collection:'Fall',theme:'Fall'}),'shared');
  assert.match(shared.text,/Autumn Dreams/);
  assert.match(shared.text,/Fall collection/);
+ assert.match(shared.text,/Bingo theme: Fall/);
  assert.ok(shared.text.includes(url));
- assert.ok(shared.text.includes('Brought to you by Cheese Louise Podcast'));
+ assert.ok(shared.text.includes('Brought to you by the Cheese Louise Podcast'));
  assert.equal(shared.url,url);
  assert.ok(!shared.text.includes('token='));
 });
@@ -80,7 +81,19 @@ test('unverified collection stays unverified in invitation text',()=>{
  const message=roomInviteMessage(url,'Unknown Film','Unspecified');
  assert.match(message,/Unknown Film/);
  assert.doesNotMatch(message,/Unspecified collection/);
+ assert.doesNotMatch(message,/Bingo theme:/);
 });
 test('reject javascript scheme links',async()=>{
  await assert.rejects(()=>copyRoomInvite('javascript:alert(1)'),/Invalid invitation link/);
+});
+
+test('host theme is stated without inventing a movie collection',()=>{
+ const message=roomInviteMessage(url,'Unknown Film','Unspecified','Christmas');
+ assert.match(message,/Bingo theme: Christmas/);
+ assert.doesNotMatch(message,/Christmas collection/);
+ assert.match(message,/Brought to you by the Cheese Louise Podcast/);
+});
+test('unsupported room theme is never represented as verified',()=>{
+ const message=roomInviteMessage(url,'Unknown Film','Unspecified','Unverified');
+ assert.doesNotMatch(message,/Bingo theme:/);
 });
