@@ -34,3 +34,35 @@
 .play-heading{display:flow-root}
 .playing-poster{float:right;width:112px;max-width:30%;height:auto;max-height:174px;object-fit:contain;border-radius:10px;margin:0 0 12px 16px;box-shadow:0 5px 18px #45203b38;background:#fff8f1}
 @media(max-width:480px){.playing-poster{width:82px;max-height:130px;margin-left:10px}}
+
+
+/* Play Together: host setup, guest invite preview and reliable Android sharing. */
+.room-join-panel,.room-host-panel{padding:19px;margin:20px 0;border:1px solid #e4c9c4;border-radius:16px;background:#fff8f2}
+.room-join-panel h3,.room-host-panel h3{margin:0 0 12px}
+.room-join-panel>label,.room-host-panel>label{display:block;margin:16px 0 7px;font-weight:800;color:#63354a}
+.room-join-panel>input,.room-host-panel>input,.room-host-panel>select{display:block;width:100%;max-width:520px}
+.room-join-panel .room-join input{max-width:240px;flex:1 1 150px}
+.room-host-panel .room-create-button{display:block;margin-top:18px;min-width:190px}
+.room-movie-options{display:grid;gap:7px;max-height:310px;overflow-y:auto;margin:8px 0 15px}
+.room-movie-options button{text-align:left;padding:11px 13px;border:1px solid #e6c9c5;background:white;border-radius:10px;color:#573047}
+.room-movie-options button strong,.room-movie-options button span{display:block}
+.room-movie-options button span{font-size:12px;color:#8c6b75;margin-top:3px}
+.room-movie-details{display:flex;align-items:flex-start;gap:18px;margin:15px 0;padding:18px;background:linear-gradient(115deg,#f8e8dc,#fffaf2);border:1px solid #dfc2b8;border-radius:16px}
+.room-movie-poster{width:115px;height:170px;flex:0 0 115px;object-fit:contain;border-radius:9px;background:#3d2b3b;box-shadow:0 5px 18px #40233336}
+.room-movie-placeholder{width:115px;height:150px;flex:0 0 115px;display:grid;place-items:center;font-size:48px;border-radius:9px;background:#64374e}
+.room-movie-copy{display:flex;flex-direction:column;gap:7px;min-width:0}
+.room-movie-copy small{letter-spacing:2px;font-weight:800;color:#9a596b;font-size:11px}
+.room-movie-copy strong{font:700 clamp(21px,3.5vw,32px)/1.15 'Playfair Display',Georgia,serif;color:#5d2942;overflow-wrap:anywhere}
+.room-movie-copy span{font-size:13px;color:#624454}
+.room-invite>input{display:block;width:100%;margin:10px 0;font-size:14px;user-select:all;-webkit-user-select:all}
+.room-invite-controls .primary{background:linear-gradient(135deg,#ff8b78,#ec6b61);color:white;border-color:#e97567}
+.room-notice{padding:12px;border:1px solid #a9c6b4;border-radius:10px;background:#eaf5ec;color:#28513a}
+@media(max-width:600px){
+ .room-join-panel,.room-host-panel{padding:14px}
+ .room-movie-details{gap:11px;padding:12px}
+ .room-movie-poster{width:84px;height:126px;flex-basis:84px}
+ .room-movie-placeholder{width:84px;height:110px;flex-basis:84px;font-size:36px}
+ .room-movie-copy strong{font-size:21px}
+ .room-invite-controls button{flex:1 1 130px}
+ .room-join-panel .room-join input{max-width:none;width:100%}
+}
