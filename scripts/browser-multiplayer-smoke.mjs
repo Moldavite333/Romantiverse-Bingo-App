@@ -46,8 +46,10 @@ async function contextFor(width,mobile){
  await page.route('https://*.supabase.co/**',async route=>{
   const url=route.request().url();
   if(url.endsWith('/functions/v1/game-room')){
+   const headers={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'content-type,apikey,authorization','Access-Control-Allow-Methods':'POST,OPTIONS'};
+   if(route.request().method()==='OPTIONS')return route.fulfill({status:204,headers,body:''});
    const payload=JSON.parse(route.request().postData()||'{}');
-   return route.fulfill({status:200,contentType:'application/json',headers:{'Access-Control-Allow-Origin':'*'},body:JSON.stringify(responseFor(payload))});
+   return route.fulfill({status:200,contentType:'application/json',headers,body:JSON.stringify(responseFor(payload))});
   }
   if(url.includes('bingo-public-posters'))return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({version:1,movies:[{title:'Autumn Dreams',release_year:2015,season:'Fall',poster_url:poster}]})});
   return route.fulfill({status:200,contentType:'application/json',body:'[]'});
