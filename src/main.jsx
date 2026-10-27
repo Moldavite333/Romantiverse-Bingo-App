@@ -93,6 +93,19 @@ useEffect(()=>{
  window.addEventListener('hashchange',openInvite);
  return()=>window.removeEventListener('hashchange',openInvite);
 },[]);
+useEffect(()=>{
+ // Browsers may restore a stale scroll position on reload, particularly on Android.
+ // Center the playable card on entry; otherwise open at the beginning of the page.
+ const previous=window.history.scrollRestoration;
+ window.history.scrollRestoration='manual';
+ const place=()=>{
+  const board=tab==='play'?document.querySelector('.board:not(.live-board)'):tab==='together'?document.querySelector('.live-board'):null;
+  if(board){const y=window.scrollY+board.getBoundingClientRect().top-(window.innerHeight-board.getBoundingClientRect().height)/2;window.scrollTo({top:Math.max(0,y),behavior:'instant'});}
+  else if(tab!=='together')window.scrollTo({top:0,behavior:'instant'});
+ };
+ const frame=requestAnimationFrame(()=>requestAnimationFrame(place));
+ return()=>{cancelAnimationFrame(frame);window.history.scrollRestoration=previous};
+},[tab,game?.movie?.id]);
 useEffect(()=>write(KEY,game),[game]);useEffect(()=>{try{sessionStorage.setItem('romantiverse-last-tab',tab)}catch{}},[tab]);useEffect(()=>write(HISTORY,history),[history]);useEffect(()=>write(FAVORITES,favorites),[favorites]);
 const active=game?.movie||null;const analysis=useMemo(()=>active?analyzeMovie({...active,season:game?.cardTheme||active.season}):null,[active?.title,active?.synopsis,active?.season,game?.cardTheme]);
 const scoredHistory=useMemo(()=>bestMovieScores(history),[history]);
