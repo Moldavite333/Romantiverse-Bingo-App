@@ -21,7 +21,7 @@ import {searchPublicMovies} from './services/movieSearch.js';
 import {searchCatalog} from './services/catalog.js';
 import {loadPublishedMoviePosters} from './services/publishedPosters.mjs';
 import {loadResolvedPosters} from './services/resolvedPosters.mjs';
-const BRAND='Brought to you by Cheese Louise Podcast';
+const BRAND='Brought to you by the Cheese Louise Podcast';
 const KEY='romantiverse-v2',HISTORY='romantiverse-history-v2',FAVORITES='romantiverse-favorites-v2';
 const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}};
 const write=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value))}catch{}};
