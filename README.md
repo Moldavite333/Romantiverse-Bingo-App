@@ -1,6 +1,6 @@
 # Romantiverse Bingo
 
-**Brought to you by the Cheese Louise Podcast**
+**Brought to you by Cheese Louise Podcast**
 
 React + Vite movie-night bingo game with a deterministic 5×5 scoring engine, themed illustrated squares, public movie search, and shareable invitations.
 
@@ -37,4 +37,4 @@ GitHub Actions is configured to test and build on pushes to `main`. The intended
 
 ## Attribution
 
-Display **“Brought to you by the Cheese Louise Podcast”** throughout the game and future themed experiences.
+Display **“Brought to you by Cheese Louise Podcast”** throughout the game and future themed experiences.

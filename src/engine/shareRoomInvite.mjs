@@ -9,7 +9,7 @@ export function roomInviteMessage(url,movieTitle='Movie Night',collection='Unspe
  const collectionText=kind&&kind!=='Unspecified'?' ('+kind+' collection)':'';
  // The theme is the host's actual room setting, not a guess about the film.
  const themeText=['Romance','Christmas','Fall','Horror'].includes(theme)?' Bingo theme: '+theme+'.':'';
- return 'Join me for Romantiverse Bingo: '+title+collectionText+'!'+themeText+' Enter your nickname and join my game: '+link.href+'\nBrought to you by the Cheese Louise Podcast';
+ return 'Join me for Romantiverse Bingo: '+title+collectionText+'!'+themeText+' Enter your nickname and join my game: '+link.href+'\nBrought to you by Cheese Louise Podcast';
 }
 function selectText(input,doc){
  if(!input||!doc)return false;
