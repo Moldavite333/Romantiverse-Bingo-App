@@ -44,6 +44,7 @@ test('share text includes actual movie and collection plus public join URL',asyn
  assert.match(shared.text,/Autumn Dreams/);
  assert.match(shared.text,/Fall collection/);
  assert.ok(shared.text.includes(url));
+ assert.ok(shared.text.includes('Brought to you by Cheese Louise Podcast'));
  assert.equal(shared.url,url);
  assert.ok(!shared.text.includes('token='));
 });
