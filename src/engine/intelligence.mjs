@@ -31,7 +31,7 @@ export const CHEESE=[
 {id:'too-perfect',label:'The love interest has no apparent flaws',signals:['charming','perfect'],weight:0.68},
 {id:'small-town-magic',label:'Small-town magic fixes a real-world problem',signals:['small town','hometown','community'],weight:0.79},
 {id:'obvious-ending',label:'Everyone knows the ending except the leads',signals:['love','romance','flame'],weight:0.9},
-{id:'family-heirloom',label:'A sentimental family heirloom matters',signals:['inherit','family','old'],weight:0.65}
+{id:'family-heirloom',label:'A sentimental family heirloom matters',signals:['inherit','family','old'],weight:0.65},
 {id:'stranded-in-town',label:'Breaking down / stuck in town',signals:['breakdown','car trouble','stranded','stuck in town','car breaks down'],weight:0.75},
 {id:'family-tragedy',label:'Family tragedy',signals:['family tragedy','loss of a parent','family loss','grief','bereavement'],weight:0.65},
 {id:'objects-alive',label:'Objects come to life',signals:['comes to life','come to life','magical object','living doll'],weight:0.65},
