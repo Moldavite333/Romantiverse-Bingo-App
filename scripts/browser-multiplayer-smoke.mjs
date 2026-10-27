@@ -82,6 +82,16 @@ try{
  assert.equal(parsed.searchParams.get('room'),code);
  assert.ok(!invite.includes('token'));
  assert.match(await host.page.locator('.room-movie-details').innerText(),/Autumn Dreams[\s\S]*Collection: Fall/);
+ // A stalled Android share sheet must not hide the ready-to-send invitation.
+ await host.page.evaluate(()=>{
+  Object.defineProperty(navigator,'share',{configurable:true,value:()=>new Promise(()=>{})});
+ });
+ await host.page.getByRole('button',{name:'Share Invite'}).click();
+ await host.page.locator('#room-invite-message').waitFor({state:'visible',timeout:1500});
+ assert.ok((await host.page.locator('#room-invite-message').inputValue()).includes(invite),'Pending Android share sheet must not block manual invitation');
+ await host.page.evaluate(()=>{
+  Object.defineProperty(navigator,'share',{configurable:true,value:async data=>{window.__shares=(window.__shares||[]).concat([data])}});
+ });
  // Samsung can leave the clipboard permission request unresolved indefinitely.
  // The user must still see a usable invitation without waiting for that promise.
  await host.page.evaluate(()=>{
