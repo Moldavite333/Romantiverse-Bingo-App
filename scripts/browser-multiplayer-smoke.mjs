@@ -109,14 +109,14 @@ try{
  const manualText=await host.page.locator('#room-invite-message').inputValue();
  assert.ok(manualText.includes(invite),'Samsung copy attempt must always expose manual invitation');
  assert.match(manualText,/Autumn Dreams[\s\S]*Fall collection[\s\S]*Bingo theme: Fall/);
- assert.ok(manualText.includes('Brought to you by Cheese Louise Podcast'));
+ assert.ok(manualText.includes('Brought to you by the Cheese Louise Podcast'));
  await host.page.getByRole('button',{name:'Share Invite'}).click();
  await host.page.waitForFunction(()=>window.__shares?.length===1);
  const share=await host.page.evaluate(()=>window.__shares[0]);
  assert.equal(share.url,invite);
  assert.ok(share.text.includes(invite),'Android share text must include the actual URL');
  assert.match(share.text,/Bingo theme: Fall/);
- assert.ok(share.text.includes('Brought to you by Cheese Louise Podcast'));
+ assert.ok(share.text.includes('Brought to you by the Cheese Louise Podcast'));
  assert.equal(await host.page.locator('.board.live-board .square').count(),25);
  const hostLabels=await host.page.locator('.board.live-board .square-label').allTextContents();
  const hostOverflow=await host.page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
