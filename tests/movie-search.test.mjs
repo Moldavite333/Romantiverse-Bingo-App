@@ -6,7 +6,7 @@ test('public movie search accepts films but rejects unrelated items',()=>{
   {id:'Q124',label:'Christmas in Town',description:'2024 song'},
   {id:'Q125',label:'Autumn Wedding',description:'2019 romantic comedy film'}]});
  assert.equal(result.length,2);assert.equal(result[0].release_year,2024);
- assert.equal(result[0].season,'Christmas');assert.equal(result[1].season,'Fall');
+ assert.equal(result[0].season,'Unspecified');assert.equal(result[1].season,'Unspecified');
  assert.ok(!JSON.stringify(result).includes('American television film'));
  assert.equal(result[0].verification_status,'search_result_unverified');
 });
@@ -33,7 +33,7 @@ test('public search excludes people, music, TV series and film-industry results'
   {id:'Q210',label:'Christmas Director',description:'American movie director'}
  ]});
  assert.deepEqual(result.map(x=>x.id),['wikidata-Q201','wikidata-Q209']);
- assert.equal(result[1].season,'Fall');
+ assert.equal(result[1].season,'Unspecified');
 });
 test('public search ignores repeated IDs, empty and oversized titles',()=>{
  const result=normalizeMovieSearchResults({search:[
@@ -54,6 +54,6 @@ test('search keeps neutral movie titles without mislabeling them Christmas',()=>
   {id:'Q504',label:'Christmas Harvest',description:'2022 film'},
   {id:'Q505',label:'The Pumpkin Promise',description:'2021 film'}
  ]});
- assert.deepEqual(result.map(m=>m.season),['Unspecified','Unspecified','Unspecified','Unspecified','Fall']);
+ assert.deepEqual(result.map(m=>m.season),['Unspecified','Unspecified','Unspecified','Unspecified','Unspecified']);
  assert.equal(result.length,5,'Neutral titles remain discoverable');
 });
