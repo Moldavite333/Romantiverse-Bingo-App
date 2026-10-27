@@ -51,7 +51,7 @@ try{
   const {page,context,errors}=await newPage(width);
   await page.goto(appUrl,{waitUntil:'domcontentloaded'});
   await page.locator('.movie-card').first().waitFor();
-  assert.equal(await page.locator('.brand').innerText(),'Brought to you by the Cheese Louise Podcast');
+  assert.equal(await page.locator('.brand').innerText(),'Brought to you by Cheese Louise Podcast');
   assert.ok(await page.getByRole('button',{name:'Play This Movie'}).count()>0,'Bundled movie catalog must work without network');
   await page.getByRole('button',{name:'Play This Movie'}).first().click();
   const squares=page.locator('.board .square');
