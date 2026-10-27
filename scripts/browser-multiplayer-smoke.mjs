@@ -72,6 +72,7 @@ try{
  await host.page.locator('#host-movie-search').fill('Autumn Dreams');
  await host.page.locator('.room-movie-options button').filter({hasText:'Autumn Dreams'}).first().click();
  assert.match(await host.page.locator('.room-host-panel .room-movie-details').innerText(),/Autumn Dreams[\s\S]*Collection: Fall[\s\S]*Bingo theme: Fall/);
+ assert.equal(await host.page.locator('.room-host-panel .room-movie-poster').getAttribute('src'),poster,'Host must see the actual selected movie poster before creating the room');
  await host.page.getByRole('button',{name:'Create Room'}).click();
  const inviteInput=host.page.locator('#room-invite-url');
  await inviteInput.waitFor();
@@ -104,6 +105,7 @@ try{
  await guest.page.locator('#join-nickname').waitFor();
  await guest.page.locator('.room-join-panel .room-movie-details').waitFor();
  assert.match(await guest.page.locator('.room-join-panel .room-movie-details').innerText(),/Autumn Dreams[\s\S]*Collection: Fall/);
+ assert.equal(await guest.page.locator('.room-join-panel .room-movie-poster').getAttribute('src'),poster,'Invited guest must see the same movie poster before joining');
  await guest.page.locator('#join-nickname').fill('Jenny');
  assert.equal(await guest.page.locator('#join-code').inputValue(),code);
  await guest.page.getByRole('button',{name:'Join Game'}).click();
