@@ -291,11 +291,12 @@ try{
   await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(response)});
  });
  await multi.page.goto(appUrl,{waitUntil:'domcontentloaded'});
- // Multiplayer rooms require a movie selected from Discover before creation.
- await multi.page.getByRole('button',{name:'Play This Movie'}).first().click();
+ // Multiplayer hosts choose their movie inside Play Together.
  await multi.page.getByRole('button',{name:'Play Together'}).click();
- await multi.page.getByLabel('Your nickname').fill('Guest QA');
- await multi.page.getByRole('button',{name:/Create Room for/}).click();
+ await multi.page.locator('#host-nickname').fill('Guest QA');
+ await multi.page.locator('#host-movie-search').fill('Autumn Dreams');
+ await multi.page.locator('.room-movie-options button').filter({hasText:'Autumn Dreams'}).first().click();
+ await multi.page.getByRole('button',{name:'Create Room'}).click();
  const liveSquares=multi.page.locator('.live-board .square');
  await liveSquares.first().waitFor();
  assert.equal(await liveSquares.count(),25,'Multiplayer must show all 25 squares');
