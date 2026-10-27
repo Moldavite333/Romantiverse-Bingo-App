@@ -56,6 +56,9 @@
 .room-movie-copy span{font-size:13px;color:#624454}
 .room-invite>input{display:block;width:100%;margin:10px 0;font-size:14px;user-select:all;-webkit-user-select:all}
 .room-invite-controls .primary{background:linear-gradient(135deg,#ff8b78,#ec6b61);color:white;border-color:#e97567}
+.room-invite-fallback{margin:14px 0;padding:12px;border:1px dashed #bd8f9e;border-radius:10px;background:#fffdf9}
+.room-invite-fallback textarea{display:block;box-sizing:border-box;width:100%;min-height:110px;resize:vertical;padding:12px;border:1px solid #bb9aa3;border-radius:8px;font:14px/1.5 system-ui,sans-serif;color:#352430;background:white;overflow-wrap:anywhere;user-select:text;-webkit-user-select:text}
+.room-invite-fallback button{margin-top:10px;padding:10px 14px;border:1px solid #b78c9a;border-radius:8px;background:#fff4ed;color:#60334c;font-weight:700}
 .room-notice{padding:12px;border:1px solid #a9c6b4;border-radius:10px;background:#eaf5ec;color:#28513a}
 @media(max-width:600px){
  .room-join-panel,.room-host-panel{padding:14px}
