@@ -66,3 +66,6 @@
  .room-invite-controls button{flex:1 1 130px}
  .room-join-panel .room-join input{max-width:none;width:100%}
 }
+
+.room-entry-layout{display:flex;flex-direction:column}
+.room-host-first .room-host-panel{order:-1}
