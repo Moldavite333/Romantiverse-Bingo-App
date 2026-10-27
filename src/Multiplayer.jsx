@@ -54,8 +54,14 @@ try{if(session?.code)inviteLink=roomInviteUrl(window.location.href,session.code)
 const invitationText=inviteLink?roomInviteMessage(inviteLink,room?.movie_title||'Movie Night',room?.movie_collection||'Unspecified',room?.season||''):'';
 async function copyInviteLink(){
  if(!inviteLink)return;
- try{const result=await copyRoomInvite(inviteLink,{input:inviteInput.current});setManualInvite(true);setNotice(result==='copied'?'Copy attempted. Paste the link to confirm; if it is missing, use Share Invite or the ready-to-send text below.':'Clipboard blocked. Use Share Invite, or long-press the ready-to-send text below.')}
- catch{setError('Copy unavailable. Use Share Invite or long-press the link.')}
+ // Android may leave navigator.clipboard.writeText pending while permission UI
+ // is open. Expose a selectable invitation immediately, before any await.
+ setManualInvite(true);
+ setNotice('Copying link… If Android blocks it, long-press the invitation text below or use Share Invite.');
+ try{
+  const result=await copyRoomInvite(inviteLink,{input:inviteInput.current});
+  setNotice(result==='copied'?'Copy attempted. Paste the link to confirm; if it is missing, use Share Invite or the ready-to-send text below.':'Clipboard blocked. Use Share Invite, or long-press the ready-to-send text below.');
+ }catch{setError('Copy unavailable. Use Share Invite or long-press the invitation text below.')}
 }
 async function shareInviteLink(){
  if(!inviteLink)return;
