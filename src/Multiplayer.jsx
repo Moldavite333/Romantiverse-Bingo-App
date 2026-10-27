@@ -51,17 +51,17 @@ const latestSnapshot=useRef({revision:-1,marked:[]});
 const incomingRoomCode=parseRoomInvite(window.location.search);
 let inviteLink='';
 try{if(session?.code)inviteLink=roomInviteUrl(window.location.href,session.code)}catch{}
-const invitationText=inviteLink?roomInviteMessage(inviteLink,room?.movie_title||'Movie Night',room?.movie_collection||'Unspecified'):'';
+const invitationText=inviteLink?roomInviteMessage(inviteLink,room?.movie_title||'Movie Night',room?.movie_collection||'Unspecified',room?.season||''):'';
 async function copyInviteLink(){
  if(!inviteLink)return;
- try{const result=await copyRoomInvite(inviteLink,{input:inviteInput.current});setManualInvite(result==='manual');setNotice(result==='copied'?'Invitation link copied. Paste it into a message.':'Clipboard blocked. Use Share Invite, or copy the ready-to-send text below.')}
+ try{const result=await copyRoomInvite(inviteLink,{input:inviteInput.current});setManualInvite(true);setNotice(result==='copied'?'Copy attempted. Paste the link to confirm; if it is missing, use Share Invite or the ready-to-send text below.':'Clipboard blocked. Use Share Invite, or long-press the ready-to-send text below.')}
  catch{setError('Copy unavailable. Use Share Invite or long-press the link.')}
 }
 async function shareInviteLink(){
  if(!inviteLink)return;
- try{const result=await shareRoomInvite(inviteLink,room?.movie_title||'Movie Night',{input:inviteInput.current,collection:room?.movie_collection||'Unspecified'});
+ try{const result=await shareRoomInvite(inviteLink,room?.movie_title||'Movie Night',{input:inviteInput.current,collection:room?.movie_collection||'Unspecified',theme:room?.season||''});
   if(result==='shared')setNotice('Android sharing opened.');
-  if(result==='copied')setNotice('Invitation link copied.');
+  if(result==='copied'){setManualInvite(true);setNotice('Copy attempted. Paste to confirm, or use the invitation text below.');}
   if(result==='manual'){setManualInvite(true);setNotice('Sharing and copying are unavailable here. Long-press the invitation text below to copy it.');}
  }catch{setError('Share unavailable. Long-press the link to copy it.')}
 }
