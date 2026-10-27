@@ -42,6 +42,25 @@ export async function verifyLiveRoom(siteUrl){
  assert.equal(preview.room.season,movie.season);
  assert.equal(preview.room.poster_url,poster);
  assert.deepEqual(preview.room.players,[],'Preview must not leak players');
+ // Verify two real rooms receive distinct invitation URLs, even when created
+ // consecutively. An unclassified catalog title must never acquire an
+ // invented collection from its separately selected Bingo card theme.
+ const unclassified=catalog.movies.find(m=>m.season==='Unspecified'&&!m.is_demo&&Number.isInteger(m.release_year));
+ assert.ok(unclassified,'Need a real catalog movie with unverified collection metadata');
+ const secondPoster=posterFeed.movies.find(m=>m.title===unclassified.title&&m.release_year===unclassified.release_year)?.poster_url;
+ assert.ok(secondPoster?.startsWith('https://image.tmdb.org/t/p/'),'Unclassified movie must still have verified poster artwork');
+ const second=await post('create',{name:'Bingo Launch QA Second Host',movie_title:unclassified.title,movie_collection:unclassified.season,poster_url:secondPoster,release_year:unclassified.release_year,season:'Romance',mode:'classic'});
+ assert.notEqual(second.room.code,host.room.code,'Consecutive live rooms must have unique join codes');
+ const secondInvite=roomInviteUrl(site.toString(),second.room.code);
+ assert.notEqual(secondInvite,invite,'Each real game must have a distinct public invitation URL');
+ assert.equal(parseRoomInvite(new URL(secondInvite).search),second.room.code);
+ assert.ok(!secondInvite.includes(second.token),'Second invitation must not expose its private session token');
+ const secondPreview=await post('preview',{code:second.room.code});
+ assert.equal(secondPreview.room.movie_title,unclassified.title);
+ assert.equal(secondPreview.room.movie_collection,'Unspecified','Unknown collection must stay unverified, not inferred from the theme');
+ assert.equal(secondPreview.room.season,'Romance','Chosen Bingo theme must remain separate from movie collection');
+ assert.equal(secondPreview.room.poster_url,secondPoster);
+ assert.deepEqual(secondPreview.room.players,[],'Second preview must not leak players');
  const guest=await post('join',{code:host.room.code,name:'Bingo Launch QA Guest'});
  assert.equal(guest.room.movie_title,movie.title);
  assert.equal(guest.room.season,movie.season);
