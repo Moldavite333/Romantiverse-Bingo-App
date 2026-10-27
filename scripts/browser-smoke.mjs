@@ -291,6 +291,8 @@ try{
   await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(response)});
  });
  await multi.page.goto(appUrl,{waitUntil:'domcontentloaded'});
+ // Multiplayer rooms require a movie selected from Discover before creation.
+ await multi.page.getByRole('button',{name:'Play This Movie'}).first().click();
  await multi.page.getByRole('button',{name:'Play Together'}).click();
  await multi.page.getByLabel('Your nickname').fill('Guest QA');
  await multi.page.getByRole('button',{name:/Create Room for/}).click();
