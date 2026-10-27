@@ -1,59 +1,114 @@
-import React,{useEffect,useRef,useState} from 'react';
+import React,{useEffect,useMemo,useRef,useState} from 'react';
 import {roomRequest} from './services/rooms.js';
+import {searchCatalog} from './services/catalog.js';
+import {searchPublicMovies} from './services/movieSearch.js';
+import {mergeMovieListings} from './engine/movieListings.mjs';
+import {approvedMoviePoster} from './engine/posters.mjs';
+import {copyRoomInvite,shareRoomInvite} from './engine/shareRoomInvite.mjs';
 import {normalizeRoomCode,parseRoomInvite,roomInviteUrl} from './engine/roomInvites.mjs';
 import {tropeArtDataUri} from './engine/tropeArt.mjs';
 import {nextPlayerSnapshot} from './engine/roomState.mjs';
 const KEY='romantiverse-room-v1';
 const saved=()=>{try{return JSON.parse(sessionStorage.getItem(KEY))}catch{return null}};
-export default function Multiplayer({movie,mode='classic'}){
+const THEMES=['Romance','Christmas','Fall','Horror'];
+function MovieDetails({movie,theme,heading='TONIGHT’S MOVIE'}){
+ if(!movie)return null;
+ const title=movie.movie_title||movie.title;
+ const poster=approvedMoviePoster(movie);
+ const collection=movie.movie_collection||movie.season||'Unspecified';
+ return <div className="room-movie-details" aria-label="Selected multiplayer movie">
+  {poster?<img className="room-movie-poster" src={poster.url} alt={title+' movie poster'} referrerPolicy="no-referrer" decoding="async" onError={e=>{e.currentTarget.hidden=true}}/>:<div className="room-movie-placeholder" aria-hidden="true">🎬</div>}
+  <div className="room-movie-copy"><small>{heading}</small><strong>{title}</strong>{Number.isInteger(movie.release_year)&&<span>{movie.release_year}</span>}
+   <span>Collection: {collection==='Unspecified'?'Unverified':collection}</span><span>Bingo theme: {theme||'Romance'}</span>
+  </div></div>;
+}
+export default function Multiplayer({catalog=[],mode='classic'}){
 const [session,setSession]=useState(saved),[room,setRoom]=useState(null),[card,setCard]=useState(null),[marks,setMarks]=useState([]),[revision,setRevision]=useState(0),[name,setName]=useState(''),[code,setCode]=useState(()=>parseRoomInvite(window.location.search)||''),[error,setError]=useState(''),[busy,setBusy]=useState(false),[pending,setPending]=useState(false);
+const [selected,setSelected]=useState(null),[theme,setTheme]=useState('Romance'),[hostMode,setHostMode]=useState(mode);
+const [search,setSearch]=useState(''),[remoteMovies,setRemoteMovies]=useState([]),[searching,setSearching]=useState(false),[preview,setPreview]=useState(null),[notice,setNotice]=useState('');
+const inviteInput=useRef(null);
 const active=useRef(false);
+const chosen=selected?mergeMovieListings([[selected],catalog,remoteMovies])[0]:null;
+const choices=useMemo(()=>mergeMovieListings([catalog,remoteMovies]).filter(m=>(m.title+' '+(m.release_year||'')).toLowerCase().includes(search.trim().toLowerCase())).slice(0,12),[catalog,remoteMovies,search]);
+function selectMovie(m){setSelected(m);setTheme(THEMES.includes(m.season)?m.season:'Romance');setSearch(m.title);setError('')}
+useEffect(()=>{
+ const term=search.trim();
+ if(term.length<3){setRemoteMovies([]);setSearching(false);return}
+ const ctrl=new AbortController();setSearching(true);
+ const timer=setTimeout(()=>Promise.allSettled([searchCatalog(term,{limit:35,signal:ctrl.signal}),searchPublicMovies(term,{signal:ctrl.signal})]).then(results=>{
+  if(ctrl.signal.aborted)return;
+  setRemoteMovies(mergeMovieListings([results[0].status==='fulfilled'?results[0].value.items:[],results[1].status==='fulfilled'?results[1].value:[]]));
+ }).finally(()=>{if(!ctrl.signal.aborted)setSearching(false)}),350);
+ return()=>{clearTimeout(timer);ctrl.abort()};
+},[search]);
+useEffect(()=>{
+ if(session){setPreview(null);return}
+ const normalized=normalizeRoomCode(code);if(!normalized){setPreview(null);return}
+ let alive=true;const timer=setTimeout(()=>roomRequest({action:'preview',code:normalized}).then(data=>{if(alive)setPreview(data.room||null)}).catch(()=>{if(alive)setPreview(null)}),250);
+ return()=>{alive=false;clearTimeout(timer)};
+},[session?.code,code]);
 const latestSnapshot=useRef({revision:-1,marked:[]});
 const incomingRoomCode=parseRoomInvite(window.location.search);
 let inviteLink='';
 try{if(session?.code)inviteLink=roomInviteUrl(window.location.href,session.code)}catch{}
 async function copyInviteLink(){
  if(!inviteLink)return;
- const field=document.getElementById('room-invite-url');
- try{
-  if(navigator.clipboard?.writeText&&window.isSecureContext){
-   await navigator.clipboard.writeText(inviteLink);
-   setError('Room invitation link copied. Each guest gets their own card.');
-   return;
-  }
- }catch{}
- // Android browsers and embedded webviews may deny Clipboard API access.
- // Keep a real, selectable room URL in the UI regardless of copy support.
- try{
-  field?.focus();
-  field?.select();
-  field?.setSelectionRange(0,inviteLink.length);
-  if(document.execCommand?.('copy')){
-   setError('Room invitation link copied. Each guest gets their own card.');
-   return;
-  }
- }catch{}
- setError('Your invitation link is selected above. Long-press it to copy, or tap Share Invite.');
+ try{const result=await copyRoomInvite(inviteLink,{input:inviteInput.current});setNotice(result==='copied'?'Invitation link copied. Paste it into a message.':'Clipboard blocked. The link is selected. Long-press to copy or tap Share Invite.')}
+ catch{setError('Copy unavailable. Use Share Invite or long-press the link.')}
 }
 async function shareInviteLink(){
  if(!inviteLink)return;
- try{
-  if(navigator.share){
-   await navigator.share({title:'Romantiverse Bingo — '+(room?.movie_title||'Movie Night'),text:'Join my Romantiverse Bingo game!',url:inviteLink});
-   return;
-  }
- }catch(error){if(error?.name==='AbortError')return}
- await copyInviteLink();
+ try{const result=await shareRoomInvite(inviteLink,room?.movie_title||'Movie Night',{input:inviteInput.current});
+  if(result==='shared')setNotice('Android sharing opened.');
+  if(result==='copied')setNotice('Invitation link copied.');
+  if(result==='manual')setNotice('Long-press the selected link to copy it.');
+ }catch{setError('Share unavailable. Long-press the link to copy it.')}
 }
 const update=data=>{if(data.room)setRoom(data.room);if(data.card)setCard(data.card);const next=nextPlayerSnapshot(latestSnapshot.current,data);if(next!==latestSnapshot.current){latestSnapshot.current=next;setMarks(next.marked);setRevision(next.revision)}};
 async function call(action,payload={}){setError('');setBusy(true);try{const data=await roomRequest({action,...payload,...(session?{code:session.code,token:session.token}:{})});update(data);if(['create','join'].includes(action)){const next={code:data.room.code,token:data.token,player_id:data.player_id};sessionStorage.setItem(KEY,JSON.stringify(next));setSession(next)}return data}catch(e){setError(e.message);return null}finally{setBusy(false)}}
 useEffect(()=>{if(!session)return;let alive=true;const poll=async()=>{if(!alive||active.current)return;active.current=true;try{const data=await roomRequest({action:'state',code:session.code,token:session.token});if(alive){update(data);setError('')}}catch(e){if(alive)setError('Connection interrupted: '+e.message)}finally{active.current=false}};poll();const timer=setInterval(poll,3000);return()=>{alive=false;clearInterval(timer)}},[session?.code,session?.token]);
 async function mark(index){if(pending||busy)return;setPending(true);try{const data=await roomRequest({action:'mark',code:session.code,token:session.token,index,revision});update(data);setError('')}catch(e){setError(e.message);try{update(await roomRequest({action:'state',code:session.code,token:session.token}))}catch{}}finally{setPending(false)}}
-function leave(){sessionStorage.removeItem(KEY);latestSnapshot.current={revision:-1,marked:[]};setSession(null);setRoom(null);setCard(null);setMarks([]);setRevision(0);setError('')}
+function leave(){try{sessionStorage.removeItem(KEY)}catch{};latestSnapshot.current={revision:-1,marked:[]};setSession(null);setRoom(null);setCard(null);setMarks([]);setRevision(0);setError('');setNotice('')}
 // The backend enforces host permissions; controls may be shown but unauthorized actions are rejected.
 const myLines=(()=>{const set=new Set(marks);set.add(12);const lines=[...Array.from({length:5},(_,r)=>Array.from({length:5},(_,c)=>r*5+c)),...Array.from({length:5},(_,c)=>Array.from({length:5},(_,r)=>r*5+c)),[0,6,12,18,24],[4,8,12,16,20]];return lines.filter(l=>l.every(i=>set.has(i))).length})();
-return <section className="panel multiplayer"><div className="eyebrow">LIVE MOVIE NIGHT</div><h2>Play Together</h2><p>No login, email, password or account. Pick a nickname, start a room or join with a seven-character code. Up to 12 players can use independent cards.</p>
-<div className="room-movie-details" aria-label="Selected multiplayer movie"><small>SELECTED MOVIE</small><strong>{session?(room?.movie_title||'Loading room…'):(movie?.title||'Choose a movie in game setup')}</strong><span>Season: {session?(room?.season||'Loading…'):(movie?.season||'Not selected')}</span><span>Game mode: {session?(room?.mode||mode):mode}</span></div>
-{session&&incomingRoomCode&&incomingRoomCode!==session.code&&<p role="status" className="room-error">You opened an invitation to room {incomingRoomCode}, but this device is still connected to room {session.code}. Choose “Leave This Device” below, then join the invited room using the prefilled code.</p>}
-{!session?<><label htmlFor="player-name">Your nickname</label><input id="player-name" maxLength="32" placeholder="Movie-night nickname" value={name} onChange={e=>setName(e.target.value)}/><div className="room-join"><button className="primary" disabled={!name.trim()||!movie?.title||busy} onClick={()=>call('create',{name,movie_title:movie.title,season:movie.season,mode})}>Create Room for {movie?.title||'Selected Movie'}</button><input aria-label="Room code" aria-describedby="room-code-help" placeholder="Room code" maxLength="7" inputMode="text" autoCapitalize="characters" autoCorrect="off" spellCheck={false} value={code} onChange={e=>setCode(e.target.value.toUpperCase())}/><button disabled={!name.trim()||!normalizeRoomCode(code)||busy} onClick={()=>call('join',{name,code:normalizeRoomCode(code)})}>Join Room</button></div><p className="fineprint" id="room-code-help">Room codes use seven letters or digits 2–9 (never 0 or 1).</p><p className="fineprint">Creating a room uses the selected movie and mode from your game setup. Sessions last up to 12 hours. Keep your join code private.</p></>:<><div className="room-header"><div><small>YOUR ROOM CODE</small><strong>{session.code}</strong></div><button onClick={()=>navigator.clipboard?.writeText(session.code).then(()=>setError('Room code copied.')).catch(()=>setError('Copy unavailable.'))}>Copy Code</button><button onClick={leave}>Leave This Device</button></div>{inviteLink&&<div className="room-invite"><label htmlFor="room-invite-url">Invite friends with a direct link</label><div className="room-invite-controls"><input id="room-invite-url" aria-label="Room invitation link" readOnly value={inviteLink} onFocus={e=>e.target.select()}/><button type="button" onClick={copyInviteLink}>Copy Invite Link</button><button type="button" onClick={shareInviteLink}>Share Invite</button></div><p className="fineprint">The link contains only the room code, not your private session token. Guests choose their own nickname and receive independent cards.</p></div>}<p><strong>{room?.movie_title||'Loading room…'}</strong> · {room?.status||'connecting'}</p><div className="player-list">{room?.players?.map(p=><div key={p.id}><strong>{p.name}{p.id===session.player_id?' (you)':''}</strong><span>{p.lines} lines · {p.marked} marked</span></div>)}</div>{room?.status==='lobby'&&<><p>Everyone joins before the host starts the movie.</p><button className="primary" disabled={busy} onClick={()=>call('start')}>Start Movie (host only)</button></>}{card&&<><div className="board live-board" role="group" aria-label="Multiplayer Bingo card" aria-busy={pending}>{'BINGO'.split('').map((l,i)=><div className="letter" key={'letter-'+i}>{l}</div>)}{card.map((t,i)=>{const marked=i===12||marks.includes(i);return <button key={i} className={'square '+(marked?'marked':'')} aria-label={'BINGO'[i%5]+(Math.floor(i/5)+1)+': '+t.label+(i===12?' (free center square)':'')} aria-pressed={marked} aria-disabled={pending||room?.status!=='playing'||i===12} disabled={room?.status!=='playing'||i===12} onClick={()=>mark(i)} title={t.reason||t.label}><img className="square-art" src={tropeArtDataUri(t)} alt="" aria-hidden="true" decoding="async"/><span className="square-label">{t.label}</span>{marked&&<b aria-hidden="true">✦</b>}</button>})}</div><p className="fineprint">{myLines} completed lines. Marks are saved on the server and restored after reconnection.</p></>}{room?.status==='playing'&&<button disabled={busy} onClick={()=>call('finish')}>Finish Movie (host only)</button>}{room?.status==='finished'&&<p>Movie night complete. Results are preserved until the room expires.</p>}</>}
-{error&&<p role="status" className="room-error">{error}</p>}<p className="fineprint">Early-access guest multiplayer: no account needed, no chat, and no verified scene detection. A room token is stored in this browser session. Avoid sharing the token itself.</p></section>}
+return <section className="panel multiplayer"><div className="eyebrow">LIVE MOVIE NIGHT</div><h2>Play Together</h2>
+<p>No accounts or passwords. The host chooses the movie and Bingo theme; guests enter a nickname and receive their own randomized cards.</p>
+{session?<>
+ {incomingRoomCode&&incomingRoomCode!==session.code&&<p role="status" className="room-error">This device is still in room {session.code}. <button type="button" onClick={leave}>Switch to invited room {incomingRoomCode}</button></p>}
+ <MovieDetails movie={room} theme={room?.season} heading="YOUR SHARED MOVIE"/>
+ <div className="room-header"><div><small>YOUR ROOM CODE</small><strong>{session.code}</strong></div><button onClick={leave}>Leave This Device</button></div>
+ {inviteLink&&<div className="room-invite"><label htmlFor="room-invite-url">Invite friends with this unique room link</label>
+  <input ref={inviteInput} id="room-invite-url" aria-label="Room invitation link" readOnly value={inviteLink} onFocus={e=>e.target.select()} onClick={e=>e.currentTarget.select()}/>
+  <div className="room-invite-controls"><button className="primary" type="button" onClick={copyInviteLink}>Copy Invite Link</button><button type="button" onClick={shareInviteLink}>Share Invite</button></div>
+  <p className="fineprint">On Samsung, Share Invite opens Android sharing. If copying is blocked, long-press the link above and choose Copy. The URL contains only the room code, never your private session token.</p>
+ </div>}
+ <p><strong>{room?.movie_title||'Loading movie…'}</strong> · {room?.status||'connecting'}</p>
+ <div className="player-list" aria-label="Players in room">{room?.players?.map(p=><div key={p.id}><strong>{p.name}{p.id===session.player_id?' (you)':''}</strong><span>{p.lines} lines · {p.marked} marked</span></div>)}</div>
+ {room?.status==='lobby'&&<><p>Wait until everyone has joined before starting the movie.</p><button className="primary" disabled={busy} onClick={()=>call('start')}>Start Movie (host only)</button></>}
+ {card&&<><div className="board live-board" role="group" aria-label="Multiplayer Bingo card" aria-busy={pending}>{'BINGO'.split('').map((l,i)=><div className="letter" key={'letter-'+i}>{l}</div>)}{card.map((t,i)=>{const marked=i===12||marks.includes(i);return <button key={i} className={'square '+(marked?'marked':'')} aria-label={'BINGO'[i%5]+(Math.floor(i/5)+1)+': '+t.label+(i===12?' (free center square)':'')} aria-pressed={marked} aria-disabled={pending||room?.status!=='playing'||i===12} disabled={room?.status!=='playing'||i===12||pending} onClick={()=>mark(i)} title={t.reason||t.label}><img className="square-art" src={tropeArtDataUri(t)} alt="" aria-hidden="true" decoding="async"/><span className="square-label">{t.label}</span>{marked&&<b aria-hidden="true">✦</b>}</button>})}</div><p className="fineprint">{myLines} completed lines. Marks are saved on the server and restored after reconnection.</p></>}
+ {room?.status==='playing'&&<button disabled={busy} onClick={()=>call('finish')}>Finish Movie (host only)</button>}
+ {room?.status==='finished'&&<p>Movie night complete. Results are preserved until the room expires.</p>}
+</>:<>
+ <section className="room-join-panel" aria-label="Join a game"><h3>{incomingRoomCode?"You've been invited to play!":'Join a Game'}</h3>
+  {preview&&<MovieDetails movie={preview} theme={preview.season} heading="YOU'RE INVITED TO WATCH"/>}
+  <label htmlFor="join-nickname">Your nickname</label><input id="join-nickname" maxLength="32" placeholder="Your nickname" value={name} onChange={e=>setName(e.target.value)}/>
+  <label htmlFor="join-code">Room code</label><div className="room-join"><input id="join-code" aria-label="Room code" placeholder="Seven-character code" maxLength="7" inputMode="text" autoCapitalize="characters" autoCorrect="off" spellCheck={false} value={code} onChange={e=>setCode(e.target.value.toUpperCase())}/><button className="primary" disabled={!name.trim()||!normalizeRoomCode(code)||busy} onClick={()=>call('join',{name:name.trim(),code:normalizeRoomCode(code)})}>Join Game</button></div>
+  <p className="fineprint">Enter a nickname to enable Join Game. Your invitation fills in the code automatically. You do not need to select a movie.</p>
+ </section>
+ <section className="room-host-panel" aria-label="Host a game"><h3>Host a Game</h3>
+  <p>Pick the movie and Bingo theme here. Everyone joining automatically sees the same movie and collection.</p>
+  <label htmlFor="host-nickname">Your nickname</label><input id="host-nickname" maxLength="32" placeholder="Your nickname" value={name} onChange={e=>setName(e.target.value)}/>
+  <label htmlFor="host-movie-search">Choose your movie</label><input id="host-movie-search" placeholder="Search movie catalog…" value={search} onChange={e=>{setSearch(e.target.value);setSelected(null)}}/>
+  {searching&&<p className="fineprint" role="status">Searching more movies…</p>}
+  {!selected&&search.trim()&&<div className="room-movie-options" role="group" aria-label="Choose movie">{choices.map(m=><button type="button" key={m.id||m.title+'-'+m.release_year} onClick={()=>selectMovie(m)}><strong>{m.title}</strong><span>{Number.isInteger(m.release_year)?m.release_year+' · ':''}{m.season==='Unspecified'?'Collection unverified':m.season}</span></button>)}
+   {!searching&&search.trim().length>=3&&<button type="button" onClick={()=>selectMovie({id:'custom-'+search.trim(),title:search.trim(),season:'Unspecified',kind:'CUSTOM · TITLE UNVERIFIED'})}>Use “{search.trim()}” as an unverified title</button>}
+  </div>}
+  {chosen&&<><MovieDetails movie={chosen} theme={theme} heading="SELECTED MOVIE"/><button type="button" onClick={()=>{setSelected(null);setSearch('')}}>Change Movie</button></>}
+  <label htmlFor="host-theme">Bingo card theme</label><select id="host-theme" value={theme} onChange={e=>setTheme(e.target.value)}>{THEMES.map(t=><option key={t}>{t}</option>)}</select>
+  <p className="fineprint">The Bingo theme does not change the movie's actual catalog collection. Unverified titles remain labeled unverified.</p>
+  <label htmlFor="host-mode">Game mode</label><select id="host-mode" value={hostMode} onChange={e=>setHostMode(e.target.value)}><option value="classic">Classic Bingo</option><option value="chase">Cheese Chase</option><option value="blackout">Blackout</option><option value="marathon">Movie Marathon</option></select>
+  <button className="primary room-create-button" disabled={!name.trim()||!chosen?.title||busy} onClick={()=>call('create',{name:name.trim(),movie_title:chosen.title,movie_collection:chosen.season||'Unspecified',poster_url:approvedMoviePoster(chosen)?.url||null,release_year:Number.isInteger(chosen.release_year)?chosen.release_year:null,season:theme,mode:hostMode})}>Create Room</button>
+ </section>
+</>}
+{error&&<p role="alert" className="room-error">{error}</p>}{notice&&<p role="status" className="room-notice">{notice}</p>}
+<p className="fineprint">Free multiplayer early access · Up to 12 players · Room expires after 12 hours · No chat or automatic scene verification.</p></section>}
