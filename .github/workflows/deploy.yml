@@ -32,3 +32,5 @@ jobs:
         uses: actions/deploy-pages@v4
       - name: Verify live Pages HTML, scripts, styles and movie catalog
         run: node scripts/verify-live-deployment.mjs "${{ steps.deployment.outputs.page_url }}"
+      - name: Verify real two-player room invitation and independent cards
+        run: node scripts/verify-live-room.mjs "${{ steps.deployment.outputs.page_url }}"
