@@ -38,7 +38,7 @@ test('Native Android sharing includes the unique room URL and actual collection/
  assert.equal(shared.url,url);
  assert.match(shared.text,/Autumn Dreams \(Fall collection\)/);
  assert.match(shared.text,/Bingo theme: Fall/);
- assert.match(shared.text,/Brought to you by Cheese Louise Podcast/);
+ assert.match(shared.text,/Brought to you by the Cheese Louise Podcast/);
 });
 test('Invitation does not manufacture a movie collection',()=>{
  const message=roomInviteMessage(url,'Unknown Title','Unspecified','Christmas');
