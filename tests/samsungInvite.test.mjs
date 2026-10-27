@@ -16,14 +16,32 @@ test('unique room invitation strips unrelated query/hash and never contains a pl
  assert.equal(invite.hash,'');
  assert.equal(parseRoomInvite(invite.search),'ABC2DEF');
 });
-test('Samsung legacy copy happens synchronously before a denied clipboard promise',async()=>{
+test('Samsung starts modern and legacy copy under the same click even when modern denies',async()=>{
  const input=field();let legacy=0;let modern=0;
  const doc={execCommand(command){assert.equal(command,'copy');legacy++;return true}};
  const nav={clipboard:{async writeText(){modern++;throw Error('blocked')}}};
  assert.equal(await copyRoomInvite(url,{doc,nav,input}),'copied');
- assert.equal(legacy,1);assert.equal(modern,0);
+ assert.equal(legacy,1);assert.equal(modern,1);
  assert.ok(input.events.includes('select'));
 });
+
+test('Samsung starts both copy methods before waiting on permission',async()=>{
+ const events=[];let resolveModern;
+ const nav={clipboard:{writeText(v){events.push('modern');assert.equal(v,url);return new Promise(resolve=>{resolveModern=resolve})}}};
+ const doc={execCommand(command){events.push('legacy');assert.equal(command,'copy');return false}};
+ const input={value:url,focus(){events.push('focus')},select(){events.push('select')},setSelectionRange(){}};
+ const pending=copyRoomInvite(url,{doc,nav,input});
+ assert.deepEqual(events.slice(0,3),['modern','focus','select']);
+ assert.ok(events.includes('legacy'));
+ resolveModern();
+ assert.equal(await pending,'copied');
+});
+test('Samsung legacy success remains a fallback when modern clipboard is denied',async()=>{
+ const doc={execCommand(){return true}};
+ const nav={clipboard:{writeText(){return Promise.reject(Error('permission denied'))}}};
+ assert.equal(await copyRoomInvite(url,{doc,nav,input:field()}),'copied');
+});
+
 test('modern clipboard succeeds if legacy copying is blocked',async()=>{
  const input=field();let copied='';
  const doc={execCommand(){return false}};
