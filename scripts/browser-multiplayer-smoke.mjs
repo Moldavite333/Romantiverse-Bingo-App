@@ -117,6 +117,16 @@ try{
  assert.ok(share.text.includes(invite),'Android share text must include the actual URL');
  assert.match(share.text,/Bingo theme: Fall/);
  assert.ok(share.text.includes('Brought to you by the Cheese Louise Podcast'));
+ // Dismissing the Android share sheet must not leave a misleading
+ // "Opening sharing" status or hide the manual invitation.
+ await host.page.evaluate(()=>{
+  Object.defineProperty(navigator,'share',{configurable:true,value:async()=>{
+   const error=new Error('User dismissed sharing');error.name='AbortError';throw error;
+  }});
+ });
+ await host.page.getByRole('button',{name:'Share Invite'}).click();
+ await host.page.getByRole('status').filter({hasText:'Sharing cancelled.'}).waitFor();
+ assert.ok((await host.page.locator('#room-invite-message').inputValue()).includes(invite),'Cancelled share must retain the complete selectable invitation');
  assert.equal(await host.page.locator('.board.live-board .square').count(),25);
  const hostLabels=await host.page.locator('.board.live-board .square-label').allTextContents();
  const hostOverflow=await host.page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
