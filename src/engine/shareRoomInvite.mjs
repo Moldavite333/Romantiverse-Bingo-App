@@ -1,13 +1,15 @@
 // Clipboard permissions vary across Samsung Internet, Chrome and Android WebViews.
 // Keep both a selectable URL and a ready-to-send text invitation as fallbacks.
 // Never report a copy as successful unless a supported copy method reports success.
-export function roomInviteMessage(url,movieTitle='Movie Night',collection='Unspecified'){
+export function roomInviteMessage(url,movieTitle='Movie Night',collection='Unspecified',theme=''){
  const link=new URL(String(url||''));
  if(!['https:','http:'].includes(link.protocol))throw Error('Invalid invitation link');
  const title=String(movieTitle||'Movie Night').trim().slice(0,200);
  const kind=String(collection||'Unspecified').trim().slice(0,40);
  const collectionText=kind&&kind!=='Unspecified'?' ('+kind+' collection)':'';
- return 'Join me for Romantiverse Bingo: '+title+collectionText+'! Enter your nickname and join my game: '+link.href+'\nBrought to you by Cheese Louise Podcast';
+ // The theme is the host's actual room setting, not a guess about the film.
+ const themeText=['Romance','Christmas','Fall','Horror'].includes(theme)?' Bingo theme: '+theme+'.':'';
+ return 'Join me for Romantiverse Bingo: '+title+collectionText+'!'+themeText+' Enter your nickname and join my game: '+link.href+'\nBrought to you by the Cheese Louise Podcast';
 }
 function selectText(input,doc){
  if(!input||!doc)return false;
@@ -40,8 +42,8 @@ export async function copyRoomInvite(url,{nav=globalThis.navigator,doc=globalThi
  selectText(input,doc);
  return 'manual';
 }
-export async function shareRoomInvite(url,movieTitle,{nav=globalThis.navigator,doc=globalThis.document,input=null,collection='Unspecified'}={}){
- const message=roomInviteMessage(url,movieTitle,collection);
+export async function shareRoomInvite(url,movieTitle,{nav=globalThis.navigator,doc=globalThis.document,input=null,collection='Unspecified',theme=''}={}){
+ const message=roomInviteMessage(url,movieTitle,collection,theme);
  const title='Romantiverse Bingo — '+String(movieTitle||'Movie Night').slice(0,200);
  if(typeof nav?.share==='function'){
   try{
