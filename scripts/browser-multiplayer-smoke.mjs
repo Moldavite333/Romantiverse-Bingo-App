@@ -82,6 +82,18 @@ try{
  assert.equal(parsed.searchParams.get('room'),code);
  assert.ok(!invite.includes('token'));
  assert.match(await host.page.locator('.room-movie-details').innerText(),/Autumn Dreams[\s\S]*Collection: Fall/);
+ // Samsung can leave the clipboard permission request unresolved indefinitely.
+ // The user must still see a usable invitation without waiting for that promise.
+ await host.page.evaluate(()=>{
+  Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:()=>new Promise(()=>{})}});
+  document.execCommand=()=>false;
+ });
+ await host.page.getByRole('button',{name:'Copy Invite Link'}).click();
+ await host.page.locator('#room-invite-message').waitFor({state:'visible',timeout:1500});
+ assert.ok((await host.page.locator('#room-invite-message').inputValue()).includes(invite),'Pending clipboard permission must not hide manual invitation');
+ await host.page.evaluate(()=>{
+  Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw Error('Samsung clipboard denied')}}});
+ });
  await host.page.getByRole('button',{name:'Copy Invite Link'}).click();
  assert.equal(await inviteInput.inputValue(),invite,'Blocked clipboard must preserve selectable link');
  const manualText=await host.page.locator('#room-invite-message').inputValue();
