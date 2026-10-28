@@ -168,7 +168,8 @@ try{
  for(const index of [0,1,2,3,4])await host.page.locator('.live-board .square').nth(index).click();
  await host.page.locator('.live-board.winner').waitFor();
  assert.equal(await host.page.locator('.live-board .square.in-line').count(),5);
- assert.match(await host.page.locator('.multiplayer .victory').innerText(),/BINGO![\\s\\S]*1 completed line/);
+ assert.match(await host.page.locator('.multiplayer .victory').innerText(),/BINGO!/);
+ assert.match(await host.page.locator('.multiplayer .victory').innerText(),/1 completed line/);
  assert.equal(await guest.page.locator('.live-board.winner').count(),0,'Host wins must not mark guest card');
  await host.page.emulateMedia({reducedMotion:'reduce'});
  assert.equal(await host.page.locator('.live-board.winner').evaluate(el=>getComputedStyle(el).animationName),'none');
