@@ -1,5 +1,6 @@
 package com.cheeselouise.romantiverse
 
+import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.ComponentActivity
@@ -53,8 +54,11 @@ private const val ATTRIBUTION = "Brought to you by the Cheese Louise Podcast"
 private val themes = listOf("Romance", "Christmas", "Fall", "Horror")
 
 class MainActivity : ComponentActivity() {
+    private var incomingCode by mutableStateOf<String?>(null)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        incomingCode = RoomInvites.fromUrl(intent?.dataString)
         setContent {
             MaterialTheme(
                 colorScheme = darkColorScheme(
@@ -65,13 +69,19 @@ class MainActivity : ComponentActivity() {
                     onSurface = cream,
                     onBackground = cream
                 )
-            ) { NativeBingoApp() }
+            ) { NativeBingoApp(incomingCode) }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        incomingCode = RoomInvites.fromUrl(intent.dataString)
     }
 }
 
 @Composable
-private fun NativeBingoApp() {
+private fun NativeBingoApp(incomingCode: String?) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
     val prefs = remember { context.getSharedPreferences("bingo-native-v1", 0) }
@@ -83,6 +93,9 @@ private fun NativeBingoApp() {
     // Reopen an in-progress card after the app is restarted, rather than losing the movie-night context.
     var tab by rememberSaveable {
         mutableStateOf(if (selectedId.isBlank()) "discover" else "play")
+    }
+    LaunchedEffect(incomingCode) {
+        if (incomingCode != null) tab = "together"
     }
     var haptics by rememberSaveable { mutableStateOf(prefs.getBoolean("haptics", true)) }
     var posters by remember { mutableStateOf(PosterRepository.cached(context)) }
@@ -127,11 +140,11 @@ private fun NativeBingoApp() {
         containerColor = Color.Transparent,
         bottomBar = {
             NavigationBar(containerColor = plum) {
-                listOf("discover" to "Movies", "play" to "My card").forEach { (id, label) ->
+                listOf("discover" to "Movies", "play" to "My card", "together" to "Together").forEach { (id, label) ->
                     NavigationBarItem(
                         selected = tab == id,
                         onClick = { tab = id },
-                        icon = { Text(if (id == "discover") "✦" else "▦", fontSize = 21.sp) },
+                        icon = { Text(when (id) { "discover" -> "✦"; "play" -> "▦"; else -> "♡" }, fontSize = 21.sp) },
                         label = { Text(label) },
                         colors = NavigationBarItemDefaults.colors(
                             selectedIconColor = gold,
@@ -163,6 +176,8 @@ private fun NativeBingoApp() {
             ) { current ->
                 if (current == "discover") {
                     DiscoverMovies(movies, posters, ::choose)
+                } else if (current == "together") {
+                    LiveRoomScreen(movie, movie?.let { posters[it.key]?.url }, incomingCode)
                 } else if (movie == null) {
                     Column(
                         Modifier.fillMaxSize().padding(24.dp),
