@@ -35,6 +35,9 @@ jobs:
           gradle-version: '8.9'
       - name: Test native game rules and build real Android APK
         run: gradle -p android --no-daemon :app:testDebugUnitTest :app:assembleDebug
+      - name: Verify APK contains the public offline catalog
+        run: |
+          unzip -p android/app/build/outputs/apk/debug/app-debug.apk assets/movies.json | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["version"] == 1; assert len(d["movies"]) >= 38; assert all(not m.get("is_demo", False) for m in d["movies"]); print("Offline public movie catalog:",len(d["movies"]))'
       - uses: actions/upload-artifact@v4
         with:
           name: romantiverse-native-debug-apk
