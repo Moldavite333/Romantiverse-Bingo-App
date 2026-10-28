@@ -34,6 +34,9 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.Hyphens
+import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -530,6 +533,7 @@ private fun LiveBingoSquare(
             }
             Text(
                 BingoSquarePresentation.shortLabel(label),
+                style = TextStyle(lineBreak = LineBreak.Simple, hyphens = Hyphens.None),
                 color = if (free) ink else parchment,
                 textAlign = TextAlign.Center,
                 fontSize = if (free) 9.sp else 10.sp,
