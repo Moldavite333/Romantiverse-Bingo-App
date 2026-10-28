@@ -133,4 +133,32 @@ class LiveRoomClientTest {
         assertEquals(9, next.revision)
         assertEquals(prior.session, next.session)
     }
+
+    @Test fun processRestartRestoresRoomFromTokenlessServerState() {
+        // Real state responses contain player_id/card/marks/revision but never
+        // echo the player's secret token. This must work with no prior snapshot.
+        val restored = LiveSession(code, token, "player-1")
+        val state = snapshot(7, "0,1,12").replace("\"token\":\"$token\",", "")
+        assertFalse(state.contains("\"token\""))
+        val next = LiveRoomProtocol.parse(state, authenticatedSession = restored)
+        assertEquals(restored, next.session)
+        assertEquals(setOf(0, 1, 12), next.marks)
+        assertEquals(25, next.card.size)
+        assertEquals(7, next.revision)
+        assertTrue(RoomResponseGuard.accepts(3, 3, code, restored, next))
+        // An unauthenticated preview or join cannot borrow restored credentials.
+        assertNull(LiveRoomProtocol.parse(state).session)
+    }
+
+    @Test fun restoredCredentialsNeverCrossRoomsOrPlayers() {
+        val restored = LiveSession(code, token, "player-1")
+        val state = snapshot(2, "0,12").replace("\"token\":\"$token\",", "")
+        val otherRoom = state.replace("\"code\":\"$code\"", "\"code\":\"WXYZ345\"")
+        assertNull(LiveRoomProtocol.parse(otherRoom, authenticatedSession = restored).session)
+        val otherPlayer = state.replace("\"player_id\":\"player-1\"",
+            "\"player_id\":\"player-2\"")
+        assertNull(LiveRoomProtocol.parse(otherPlayer, authenticatedSession = restored).session)
+        val prior = LiveRoomProtocol.parse(snapshot(1, "12"))
+        assertNull(LiveRoomProtocol.parse(otherPlayer, prior, restored).session)
+    }
 }
