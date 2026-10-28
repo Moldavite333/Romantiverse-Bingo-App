@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
@@ -508,16 +509,26 @@ private fun LiveMovieHeader(
     title: String, collection: String, theme: String, year: Int?,
     poster: String?, heading: String
 ) {
+    // Offline play and broken poster links should still look intentional.
+    // Reuse the native, original scenic illustration rather than a blank image.
+    var posterFailed by remember(title, poster) { mutableStateOf(false) }
     Card(colors = CardDefaults.cardColors(containerColor = evergreen),
         shape = RoundedCornerShape(16.dp)) {
         Row(Modifier.fillMaxWidth().padding(12.dp),
             verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.width(90.dp).height(126.dp).clip(RoundedCornerShape(9.dp))
                 .background(ink), contentAlignment = Alignment.Center) {
-                if (poster != null) AsyncImage(model = poster,
-                    contentDescription = "Poster for $title",
-                    modifier = Modifier.fillMaxSize())
-                else Text("🎬", fontSize = 36.sp)
+                if (poster == null || posterFailed) {
+                    MovieArtwork(Modifier.fillMaxSize(), collection)
+                } else {
+                    AsyncImage(
+                        model = poster,
+                        contentDescription = "Poster for $title",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize(),
+                        onError = { posterFailed = true }
+                    )
+                }
             }
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f)) {

@@ -45,6 +45,18 @@ class BingoEngineTest {
         }
     }
 
+    @Test fun soloSquareLabelsAreFullAndWinningStatesAreSpoken() {
+        val longTrope = "A sentimental family heirloom becomes important"
+        assertEquals("B1: $longTrope", LiveSquareAccessibility.label(0, longTrope))
+        assertEquals("O5: A heartfelt apology",
+            LiveSquareAccessibility.label(24, "A heartfelt apology"))
+        assertEquals("Not marked", LiveSquareAccessibility.state(0, false, false))
+        assertEquals("Marked", LiveSquareAccessibility.state(0, true, false))
+        assertEquals("Marked, part of a completed Bingo line",
+            LiveSquareAccessibility.state(0, true, true))
+        assertEquals("Free center square", LiveSquareAccessibility.state(12, true, true))
+    }
+
     @Test fun eachSeasonHasEnoughUniqueTropes() {
         for (season in listOf("Romance", "Christmas", "Fall", "Horror")) {
             assertEquals(25, BingoEngine.deal(BingoEngine.pool(season), 1).size)
