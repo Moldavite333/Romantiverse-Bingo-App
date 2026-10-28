@@ -605,11 +605,15 @@ private fun BingoSquare(
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize().padding(horizontal = 2.dp, vertical = 3.dp)
         ) {
-            Text(
-                if (isFree) "♥" else if (marked) "✓" else BingoSquarePresentation.glyph(label),
-                color = if (isFree) plum else if (inLine) gold else burgundy,
-                fontSize = 14.sp, lineHeight = 16.sp
-            )
+            if (isFree || marked) {
+                Text(
+                    if (isFree) "♥" else "✓",
+                    color = if (isFree) plum else if (inLine) gold else burgundy,
+                    fontSize = 14.sp, lineHeight = 16.sp
+                )
+            } else {
+                TropeArtwork(label, burgundy)
+            }
             Text(
                 BingoSquarePresentation.shortLabel(label),
                 textAlign = TextAlign.Center,
