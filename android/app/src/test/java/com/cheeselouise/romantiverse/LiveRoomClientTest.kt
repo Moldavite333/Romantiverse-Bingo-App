@@ -94,6 +94,18 @@ class LiveRoomClientTest {
         assertEquals(marked.card, stale.card)
     }
 
+    @Test fun olderPollCannotReopenLobbyOrRollBackPlayerRoster() {
+        val current = LiveRoomProtocol.parse(snapshot(8, "0,1,2,3,4,12")
+            .replace("\"status\":\"playing\"", "\"status\":\"finished\"")
+            .replace("\"name\":\"Host\"", "\"name\":\"Host Updated\""))
+        val stale = LiveRoomProtocol.parse(snapshot(7, "12")
+            .replace("\"status\":\"playing\"", "\"status\":\"lobby\""), current)
+        assertEquals(current, stale)
+        assertEquals("finished", stale.room.movie.status)
+        assertEquals("Host Updated", stale.room.players.single().name)
+        assertEquals(100, stale.score)
+    }
+
     @Test fun roomPreviewsNeverExposeSessionTokens() {
         val preview = """{
             "room":{"code":"$code","movie_title":"A Movie","movie_collection":"Unspecified",
