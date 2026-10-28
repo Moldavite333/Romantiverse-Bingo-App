@@ -58,6 +58,60 @@ class MovieCatalogTest {
         }
     }
 
+    @Test fun sameSizeOrLargerReplacementCannotErasePreviouslySavedMovies() {
+        val current = MovieCatalog.parse(catalog(
+            row("one", "First Movie", year = 2024),
+            row("two", "Second Movie", year = 2025)
+        ))
+        val sameSizeReplacement = MovieCatalog.parse(catalog(
+            row("one", "First Movie", year = 2024),
+            row("three", "Third Movie", year = 2026)
+        ))
+        val largerReplacement = MovieCatalog.parse(catalog(
+            row("one", "First Movie", year = 2024),
+            row("three", "Third Movie", year = 2026),
+            row("four", "Fourth Movie", year = 2027)
+        ))
+        assertFalse(MovieCatalog.acceptableUpdate(current, sameSizeReplacement))
+        assertFalse(MovieCatalog.acceptableUpdate(current, largerReplacement))
+    }
+
+    @Test fun updatePreservesMovieAndPosterIdentityButAllowsVerifiedCollectionCorrection() {
+        val current = MovieCatalog.parse(catalog(
+            row("one", "First Movie", "Unspecified", 2024),
+            row("two", "Second Movie", "Fall", 2025)
+        ))
+        val corrected = MovieCatalog.parse(catalog(
+            row("one", "First Movie", "Christmas", 2024),
+            row("two", "Second Movie", "Fall", 2025),
+            row("three", "Third Movie", "Horror", 2026)
+        ))
+        val changedTitle = MovieCatalog.parse(catalog(
+            row("one", "A Different Movie", "Christmas", 2024),
+            row("two", "Second Movie", "Fall", 2025),
+            row("three", "Third Movie", "Horror", 2026)
+        ))
+        val changedId = MovieCatalog.parse(catalog(
+            row("renamed-one", "First Movie", "Christmas", 2024),
+            row("two", "Second Movie", "Fall", 2025),
+            row("three", "Third Movie", "Horror", 2026)
+        ))
+        assertTrue(MovieCatalog.acceptableUpdate(current, corrected))
+        assertFalse(MovieCatalog.acceptableUpdate(current, changedTitle))
+        assertFalse(MovieCatalog.acceptableUpdate(current, changedId))
+    }
+
+    @Test fun duplicateIdsCannotCrashTheNativeMovieList() {
+        val parsed = MovieCatalog.parse(catalog(
+            row("shared-id", "First Movie", year = 2024),
+            row("shared-id", "Second Movie", year = 2025),
+            row("unique-id", "Third Movie", year = 2026)
+        ))
+        assertEquals(2, parsed.size)
+        assertEquals(2, parsed.map { it.id }.toSet().size)
+        assertTrue(parsed.any { it.title == "First Movie" })
+    }
+
     @Test fun truncatedRemoteCatalogCannotShrinkExistingOfflineOrCachedCatalog() {
         val bundled = MovieCatalog.parse(catalog(
             row("one", "One", year = 2024),
