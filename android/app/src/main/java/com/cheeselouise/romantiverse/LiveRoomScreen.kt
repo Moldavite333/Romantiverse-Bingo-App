@@ -97,7 +97,7 @@ fun LiveRoomScreen(
     }
 
     fun accept(response: String, requestGeneration: Int, expectedCode: String? = null) {
-        val next = LiveRoomProtocol.parse(response, snapshot)
+        val next = LiveRoomProtocol.parse(response, snapshot, session)
         if (!RoomResponseGuard.accepts(
                 requestGeneration, roomGeneration, expectedCode, session, next
             )) return
