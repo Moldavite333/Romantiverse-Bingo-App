@@ -68,9 +68,14 @@ class MainActivity : ComponentActivity() {
                 colorScheme = darkColorScheme(
                     primary = gold,
                     onPrimary = plum,
+                    secondary = burgundy,
+                    onSecondary = cream,
                     background = plum,
-                    surface = burgundy,
+                    surface = sage,
                     onSurface = cream,
+                    surfaceVariant = Color(0xFF38304F),
+                    onSurfaceVariant = pale,
+                    outline = Color(0xFF81738D),
                     onBackground = cream
                 )
             ) { NativeBingoApp(incomingCode) }
