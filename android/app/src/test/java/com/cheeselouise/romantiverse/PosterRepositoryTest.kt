@@ -29,6 +29,60 @@ class PosterRepositoryTest {
         assertEquals(entry("newer"), result[newer])
     }
 
+    @Test fun successfulPublishedRefreshRevokesUnpublishedLockedPoster() {
+        val key = PosterRepository.key("Autumn Dreams", 2015)
+        val result = PosterRepository.merge(
+            mapOf(key to entry("previous-hq", locked = true)),
+            listOf(key to entry("automatic")),
+            emptyList(),
+            publishedAuthoritative = true
+        )
+        assertEquals(entry("automatic"), result[key])
+    }
+
+    @Test fun successfulPublishedRefreshRemovesRevokedPosterWhenNoFallbackExists() {
+        val key = PosterRepository.key("Autumn Dreams", 2015)
+        val result = PosterRepository.merge(
+            mapOf(key to entry("previous-hq", locked = true)),
+            emptyList(),
+            emptyList(),
+            publishedAuthoritative = true
+        )
+        assertFalse(result.containsKey(key))
+    }
+
+    @Test fun unavailablePublishedFeedKeepsPreviouslyPublishedArtworkOffline() {
+        val key = PosterRepository.key("Autumn Dreams", 2015)
+        val result = PosterRepository.merge(
+            mapOf(key to entry("previous-hq", locked = true)),
+            listOf(key to entry("automatic")),
+            emptyList()
+        )
+        assertEquals(entry("previous-hq", locked = true), result[key])
+    }
+
+    @Test fun unlockedPublishedPosterDoesNotRemainPinnedAboveAutomaticArt() {
+        val key = PosterRepository.key("Autumn Dreams", 2015)
+        val result = PosterRepository.merge(
+            mapOf(key to entry("previous-hq", locked = true)),
+            listOf(key to entry("automatic")),
+            listOf(key to entry("new-hq", locked = false)),
+            publishedAuthoritative = true
+        )
+        assertEquals(entry("automatic"), result[key])
+    }
+
+    @Test fun stillPublishedLockedPosterWinsAfterAuthoritativeReconciliation() {
+        val key = PosterRepository.key("Autumn Dreams", 2015)
+        val result = PosterRepository.merge(
+            mapOf(key to entry("previous-hq", locked = true)),
+            listOf(key to entry("automatic")),
+            listOf(key to entry("current-hq", locked = true)),
+            publishedAuthoritative = true
+        )
+        assertEquals(entry("current-hq", locked = true), result[key])
+    }
+
     @Test fun onlyTrustedHttpsImageHostsAreAccepted() {
         assertNull(PosterRepository.approved("http://image.tmdb.org/t/p/w500/x.jpg"))
         assertNull(PosterRepository.approved("https://evil.example/t/p/w500/x.jpg"))
