@@ -80,7 +80,10 @@ private fun NativeBingoApp() {
     var theme by rememberSaveable { mutableStateOf(prefs.getString("theme", "Romance") ?: "Romance") }
     var seed by rememberSaveable { mutableLongStateOf(prefs.getLong("seed", 1L)) }
     var marks by remember { mutableStateOf(BingoEngine.decodeMarks(prefs.getString("marks", "") ?: "")) }
-    var tab by rememberSaveable { mutableStateOf("discover") }
+    // Reopen an in-progress card after the app is restarted, rather than losing the movie-night context.
+    var tab by rememberSaveable {
+        mutableStateOf(if (selectedId.isBlank()) "discover" else "play")
+    }
     var haptics by rememberSaveable { mutableStateOf(prefs.getBoolean("haptics", true)) }
     var posters by remember { mutableStateOf(PosterRepository.cached(context)) }
     val reduceMotion = remember(context) {
