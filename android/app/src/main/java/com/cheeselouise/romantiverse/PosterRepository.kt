@@ -48,13 +48,17 @@ object PosterRepository {
         current: Map<String, Entry>,
         cache: List<Pair<String, Entry>>,
         published: List<Pair<String, Entry>>,
-        publishedAuthoritative: Boolean = false
+        publishedAuthoritative: Boolean = false,
+        cacheAuthoritative: Boolean = false
     ): Map<String, Entry> {
-        val result = if (publishedAuthoritative) {
-            current.filterValues { !it.locked }.toMutableMap()
-        } else {
-            current.toMutableMap()
-        }
+        // A successfully fetched automatic feed is authoritative for automatic art.
+        // Do not keep an old, potentially misidentified poster after it disappears
+        // from the public cache. Preserve HQ locks if HQ is offline, and preserve
+        // all last-known artwork when both feeds are unavailable.
+        val result = current.filterValues { entry ->
+            (!cacheAuthoritative || entry.locked) &&
+                (!publishedAuthoritative || !entry.locked)
+        }.toMutableMap()
         for ((key, value) in cache) {
             if (result[key]?.locked != true) result[key] = value.copy(locked = false)
         }
@@ -64,13 +68,13 @@ object PosterRepository {
         return result
     }
 
-    private fun entries(json: String, isPublished: Boolean): List<Pair<String, Entry>> {
+    internal fun entries(json: String, isPublished: Boolean): List<Pair<String, Entry>> {
         val rows: JSONArray = if (isPublished) {
             JSONArray(json)
         } else {
             val parsed = JSONObject(json)
-            if (parsed.optInt("version") != 1) return emptyList()
-            parsed.optJSONArray("movies") ?: return emptyList()
+            require(parsed.getInt("version") == 1) { "Unsupported poster feed version" }
+            parsed.getJSONArray("movies")
         }
         val output = mutableListOf<Pair<String, Entry>>()
         for (i in 0 until minOf(rows.length(), 500)) {
@@ -114,10 +118,11 @@ object PosterRepository {
         val cache = runCatching { entries(fetch(CACHE_URL, false), false) }.getOrNull()
         val published = runCatching { entries(fetch(HQ_URL, true), true) }.getOrNull()
         if (cache == null && published == null) return@withContext old
-        // Only a successful HQ fetch can revoke a previously published lock.
-        // Network failures must not masquerade as an empty authoritative feed.
+        // Only a validated successful feed may revoke its own previously
+        // cached entries. A failed fetch must never masquerade as an empty feed.
         val merged = merge(old, cache.orEmpty(), published.orEmpty(),
-            publishedAuthoritative = published != null)
+            publishedAuthoritative = published != null,
+            cacheAuthoritative = cache != null)
         val json = JSONObject()
         for ((key, value) in merged) {
             json.put(key, JSONObject().put("url", value.url).put("locked", value.locked))
