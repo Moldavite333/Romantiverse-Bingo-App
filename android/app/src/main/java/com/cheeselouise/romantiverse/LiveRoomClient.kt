@@ -63,7 +63,11 @@ data class LiveSnapshot(
 
 /** Parse server-authoritative cards and marks; do not regenerate a shared card locally. */
 object LiveRoomProtocol {
-    fun parse(json: String, previous: LiveSnapshot? = null): LiveSnapshot {
+    fun parse(
+        json: String,
+        previous: LiveSnapshot? = null,
+        authenticatedSession: LiveSession? = null
+    ): LiveSnapshot {
         val root = JSONObject(json)
         val roomData = root.getJSONObject("room")
         val code = RoomInvites.normalize(roomData.getString("code"))
@@ -98,9 +102,15 @@ object LiveRoomProtocol {
         val revision = root.optInt("revision", previousForRoom?.revision ?: 0)
         val token = root.optString("token")
         val playerId = root.optString("player_id")
-        val session = if (token.isNotBlank() && playerId.isNotBlank()) {
+        // State/mark/start/finish responses intentionally never echo the secret token.
+        // After a process restart there is no previous snapshot, so use the restored
+        // authenticated session only for this exact room and matching player ID.
+        // A preview or join without credentials must never gain a session this way.
+        val fallbackSession = previousForRoom?.session
+            ?: authenticatedSession?.takeIf { it.code == code && it.valid() }
+        val session = if (token.isNotBlank()) {
             LiveSession(code, token, playerId).takeIf { it.valid() }
-        } else previousForRoom?.session
+        } else fallbackSession?.takeIf { playerId.isBlank() || playerId == it.playerId }
         val next = LiveSnapshot(LiveRoom(code, movie, players), card, marks, revision, session)
         // Poll responses may arrive after a successful mark. Never roll a card back.
         return if (previousForRoom != null && revision < previousForRoom.revision) {
