@@ -20,6 +20,18 @@ class BingoEngineTest {
         assertEquals(0, BingoEngine.score(setOf(0, 1, 2)))
     }
 
+    @Test fun lifetimeBestSurvivesUndoAndReplay() {
+        val firstLine = setOf(0, 1, 2, 3, 4)
+        val earned = BingoEngine.bestScore(0, firstLine)
+        assertEquals(100, earned)
+        assertEquals(100, BingoEngine.bestScore(earned, setOf(0, 1, 2)))
+        assertEquals(100, BingoEngine.bestScore(earned, emptySet()))
+        val secondLine = firstLine + setOf(5, 6, 7, 8, 9)
+        assertEquals(200, BingoEngine.bestScore(earned, secondLine))
+        assertEquals(200, BingoEngine.bestScore(200, firstLine))
+        assertEquals(0, BingoEngine.bestScore(-5, emptySet()))
+    }
+
     @Test fun freeCenterCountsButCannotBeToggled() {
         assertEquals(100, BingoEngine.score(setOf(2, 7, 17, 22)))
         assertEquals(emptySet<Int>(), BingoEngine.toggle(emptySet(), 12))
