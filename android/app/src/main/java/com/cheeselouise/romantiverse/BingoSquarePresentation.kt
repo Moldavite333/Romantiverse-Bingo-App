@@ -9,18 +9,25 @@ object BingoSquarePresentation {
     fun shortLabel(label: String): String = when (label) {
         BingoEngine.FREE_LABEL -> "CHEESE\nLOUISE\nPOD"
         "A misunderstanding" -> "Mixed signals"
+        "The almost-kiss" -> "Near kiss"
+        "The big confession" -> "Truth revealed"
         "An inconvenient deadline" -> "Deadline"
         "A last-minute arrival" -> "Late arrival"
         "A sudden change of plans" -> "Plans change"
         "A public declaration" -> "Public speech"
-        "A small-town celebration" -> "Town celebration"
-        "A community fundraiser" -> "Fundraiser"
+        "A small-town celebration" -> "Town party"
+        "A community fundraiser" -> "Charity event"
         "A scenic foliage drive" -> "Foliage drive"
         "A mysterious warning" -> "Warning"
+        "A hometown reunion" -> "Home reunion"
+        "An unexpected kiss" -> "Surprise kiss"
+        "A meaningful look" -> "Long look"
+        "A fall fundraiser" -> "Fall charity"
+        "A flashlight fails" -> "Light goes out"
         "An eerie phone call" -> "Eerie call"
         "A surprise invitation" -> "Surprise invite"
         "A missed phone call" -> "Missed call"
-        "A sentimental gift" -> "Sentimental gift"
+        "A sentimental gift" -> "Keepsake gift"
         else -> label.removePrefix("A ").removePrefix("An ").removePrefix("The ")
     }
 

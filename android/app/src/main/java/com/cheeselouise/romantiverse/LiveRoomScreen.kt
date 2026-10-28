@@ -92,6 +92,8 @@ fun LiveRoomScreen(
     var roomGeneration by remember { mutableIntStateOf(0) }
     var error by remember { mutableStateOf("") }
     var notice by remember { mutableStateOf("") }
+    var celebration by remember { mutableStateOf<BingoCelebration?>(null) }
+    var celebrationId by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(selectedMovie?.id) {
         if (selectedMovie != null) theme = selectedMovie.collection
@@ -122,6 +124,15 @@ fun LiveRoomScreen(
         if (!RoomResponseGuard.accepts(
                 requestGeneration, roomGeneration, expectedCode, session, next
             )) return
+        val newLines = BingoCelebrationRules.newlyConfirmed(snapshot, next)
+        val blackoutMode = next.room.movie.mode == "blackout"
+        if (next.room.movie.status == "playing" && newLines.isNotEmpty() &&
+            (!blackoutMode || (snapshot?.blackout == false && next.blackout))
+        ) {
+            celebrationId++
+            celebration = BingoCelebration(celebrationId, newLines.size, blackoutMode)
+            if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+        }
         snapshot = next
         next.session?.let { new ->
             if (session != new) {
@@ -206,6 +217,7 @@ fun LiveRoomScreen(
         context.getSharedPreferences(sessionPrefs, Context.MODE_PRIVATE).edit().clear().apply()
         session = null
         snapshot = null
+        celebration = null
         preview = null
         error = ""
         notice = ""
@@ -220,6 +232,7 @@ fun LiveRoomScreen(
             invitation
     } else invitation.orEmpty()
 
+    Box(Modifier.fillMaxSize()) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
@@ -437,6 +450,12 @@ fun LiveRoomScreen(
                 fontSize = 11.sp, textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp))
         }
+    }
+    celebration?.let { event ->
+        BingoWinOverlay(event, reduceMotion) {
+            if (celebration?.id == event.id) celebration = null
+        }
+    }
     }
 }
 
