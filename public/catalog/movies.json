@@ -1,74 +1,61 @@
 {
   "version": 1,
-  "updated_at": "2026-10-26",
+  "updated_at": "2026-10-28",
   "source": "Editorial title listings; release years, distributors and seasons require independent verification. No inferred scene evidence.",
   "movies": [
     {
-      "id": "hallmark-autumn-dreams-2015",
-      "title": "Autumn Dreams",
-      "release_year": 2015,
-      "season": "Fall",
-      "source_name": "Editorial starter",
+      "id": "wikidata-q96776808",
+      "title": "A Beautiful Place to Die: A Martha's Vineyard Mystery",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q96776808",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-a-biltmore-christmas-2023",
+      "title": "A Biltmore Christmas",
+      "release_year": 2023,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
       "verification_status": "unverified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
-        "relationship": [
-          "former_sweethearts",
-          "married"
-        ],
+        "relationship": [],
         "conflict": [],
         "event": []
       },
-      "facts_status": "machine_inferred_unverified"
+      "facts_status": "title_only_unverified"
     },
     {
-      "id": "hallmark-love-fall-order-2019",
-      "title": "Love, Fall & Order",
-      "release_year": 2019,
-      "season": "Fall",
-      "source_name": "Editorial starter",
-      "verification_status": "unverified",
-      "is_demo": false,
+      "id": "wikidata-q109978514",
+      "title": "A Christmas Carousel",
+      "release_year": 2020,
+      "season": "Christmas",
       "story_facts": {
-        "setting": [
-          "hometown"
-        ],
+        "setting": [],
         "relationship": [],
-        "conflict": [
-          "career_choice",
-          "family_dispute"
-        ],
+        "conflict": [],
         "event": [
-          "festival"
+          "christmas"
         ]
       },
-      "facts_status": "machine_inferred_unverified"
-    },
-    {
-      "id": "hallmark-pumpkin-pie-wars-2016",
-      "title": "Pumpkin Pie Wars",
-      "release_year": 2016,
-      "season": "Fall",
-      "source_name": "Editorial starter",
+      "facts_status": "title_only_unverified",
       "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [
-          "bakery"
-        ],
-        "relationship": [
-          "rivals",
-          "family"
-        ],
-        "conflict": [
-          "competition"
-        ],
-        "event": [
-          "baking_contest"
-        ]
-      },
-      "facts_status": "machine_inferred_unverified"
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q109978514",
+      "network": "Hallmark Channel",
+      "is_demo": false
     },
     {
       "id": "hallmark-a-christmas-detour-2015",
@@ -91,79 +78,9 @@
       "facts_status": "machine_inferred_unverified"
     },
     {
-      "id": "hallmark-christmas-under-wraps-2014",
-      "title": "Christmas Under Wraps",
-      "release_year": 2014,
-      "season": "Christmas",
-      "source_name": "Editorial starter",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [
-          "hospital"
-        ],
-        "relationship": [],
-        "conflict": [],
-        "event": [
-          "christmas"
-        ]
-      },
-      "facts_status": "machine_inferred_unverified"
-    },
-    {
-      "id": "hallmark-nine-lives-christmas-2014",
-      "title": "The Nine Lives of Christmas",
-      "release_year": 2014,
-      "season": "Christmas",
-      "source_name": "Editorial starter",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": [
-          "christmas"
-        ]
-      },
-      "facts_status": "machine_inferred_unverified"
-    },
-    {
-      "id": "hallmark-the-christmas-card-2006",
-      "title": "The Christmas Card",
-      "release_year": 2006,
-      "season": "Christmas",
-      "source_name": "Editorial title listing",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "hallmark-autumn-at-apple-hill-2024",
-      "title": "Autumn at Apple Hill",
-      "release_year": 2024,
-      "season": "Fall",
-      "source_name": "Cheese Louise HQ title",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-a-biltmore-christmas-2023",
-      "title": "A Biltmore Christmas",
-      "release_year": 2023,
+      "id": "catalog-a-christmas-melody-2015",
+      "title": "A Christmas Melody",
+      "release_year": 2015,
       "season": "Christmas",
       "source_name": "Editorial title listing — independent verification pending",
       "verification_status": "unverified",
@@ -177,42 +94,31 @@
       "facts_status": "title_only_unverified"
     },
     {
-      "id": "catalog-three-wise-men-and-a-baby-2022",
-      "title": "Three Wise Men and a Baby",
-      "release_year": 2022,
-      "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-haul-out-the-holly-2022",
-      "title": "Haul Out the Holly",
-      "release_year": 2022,
-      "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-the-christmas-house-2020",
-      "title": "The Christmas House",
+      "id": "wikidata-q3548803",
+      "title": "A Christmas Wedding Tail",
       "release_year": 2020,
       "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "wedding",
+          "christmas"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q3548803",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-a-december-bride-2016",
+      "title": "A December Bride",
+      "release_year": 2016,
+      "season": "Christmas",
       "source_name": "Editorial title listing — independent verification pending",
       "verification_status": "unverified",
       "is_demo": false,
@@ -225,10 +131,30 @@
       "facts_status": "title_only_unverified"
     },
     {
-      "id": "catalog-christmas-at-the-plaza-2019",
-      "title": "Christmas at the Plaza",
-      "release_year": 2019,
+      "id": "wikidata-q109833543",
+      "title": "A Glenbrooke Christmas",
+      "release_year": 2020,
       "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q109833543",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-a-harvest-wedding-2017",
+      "title": "A Harvest Wedding",
+      "release_year": 2017,
+      "season": "Fall",
       "source_name": "Editorial title listing — independent verification pending",
       "verification_status": "unverified",
       "is_demo": false,
@@ -239,6 +165,24 @@
         "event": []
       },
       "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "wikidata-q105100934",
+      "title": "A New Year's Resolution",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q105100934",
+      "network": "Hallmark Channel",
+      "is_demo": false
     },
     {
       "id": "catalog-a-royal-christmas-2014",
@@ -257,9 +201,204 @@
       "facts_status": "title_only_unverified"
     },
     {
-      "id": "catalog-crown-for-christmas-2015",
-      "title": "Crown for Christmas",
+      "id": "catalog-a-very-merry-mix-up-2013",
+      "title": "A Very Merry Mix-Up",
+      "release_year": 2013,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "wikidata-q105486763",
+      "title": "A Winter Getaway",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q105486763",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-all-of-my-heart-2015",
+      "title": "All of My Heart",
       "release_year": 2015,
+      "season": "Unspecified",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "wikidata-q96774720",
+      "title": "Aurora Teagarden Mysteries: Heist and Seek",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q96774720",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q106087262",
+      "title": "Aurora Teagarden Mysteries: How to Con a Con",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q106087262",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q101164893",
+      "title": "Aurora Teagarden Mysteries: Reunited and it Feels So Deadly",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q101164893",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "hallmark-autumn-at-apple-hill-2024",
+      "title": "Autumn at Apple Hill",
+      "release_year": 2024,
+      "season": "Fall",
+      "source_name": "Cheese Louise HQ title",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "hallmark-autumn-dreams-2015",
+      "title": "Autumn Dreams",
+      "release_year": 2015,
+      "season": "Fall",
+      "source_name": "Editorial starter",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [
+          "former_sweethearts",
+          "married"
+        ],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "machine_inferred_unverified"
+    },
+    {
+      "id": "wikidata-q105606067",
+      "title": "Beverly Hills Wedding",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "wedding"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q105606067",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-christmas-at-the-plaza-2019",
+      "title": "Christmas at the Plaza",
+      "release_year": 2019,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "wikidata-q109810288",
+      "title": "Christmas by Starlight",
+      "release_year": 2020,
+      "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q109810288",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-christmas-getaway-2017",
+      "title": "Christmas Getaway",
+      "release_year": 2017,
       "season": "Christmas",
       "source_name": "Editorial title listing — independent verification pending",
       "verification_status": "unverified",
@@ -289,8 +428,196 @@
       "facts_status": "title_only_unverified"
     },
     {
-      "id": "catalog-a-christmas-melody-2015",
-      "title": "A Christmas Melody",
+      "id": "wikidata-q105917009",
+      "title": "Christmas in Evergreen: Bells are Ringing",
+      "release_year": 2020,
+      "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q105917009",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-christmas-on-my-mind-2019",
+      "title": "Christmas on My Mind",
+      "release_year": 2019,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "hallmark-christmas-under-wraps-2014",
+      "title": "Christmas Under Wraps",
+      "release_year": 2014,
+      "season": "Christmas",
+      "source_name": "Editorial starter",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [
+          "hospital"
+        ],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "machine_inferred_unverified"
+    },
+    {
+      "id": "wikidata-q110090152",
+      "title": "Christmas Waltz",
+      "release_year": 2020,
+      "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q110090152",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q104147001",
+      "title": "Christmas with the Darlings",
+      "release_year": 2020,
+      "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q104147001",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q105689997",
+      "title": "Chronicle Mysteries: Helped to Death",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q105689997",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q101627783",
+      "title": "Cranberry Christmas",
+      "release_year": 2020,
+      "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q101627783",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q97139528",
+      "title": "Crossword Mysteries: Abracadaver",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q97139528",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q106728423",
+      "title": "Crossword Mysteries: Riddle Me Dead",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q106728423",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q105594674",
+      "title": "Crossword Mysteries: Terminal Descent",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q105594674",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-crown-for-christmas-2015",
+      "title": "Crown for Christmas",
       "release_year": 2015,
       "season": "Christmas",
       "source_name": "Editorial title listing — independent verification pending",
@@ -305,9 +632,807 @@
       "facts_status": "title_only_unverified"
     },
     {
-      "id": "catalog-the-christmas-train-2017",
-      "title": "The Christmas Train",
+      "id": "wikidata-q108894088",
+      "title": "Don't Forget I Love You",
+      "release_year": 2022,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q108894088",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-falling-for-vermont-2017",
+      "title": "Falling for Vermont",
       "release_year": 2017,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-falling-for-you-2018",
+      "title": "Falling for You",
+      "release_year": 2018,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "wikidata-q126095953",
+      "title": "Five More Minutes",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q126095953",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q104876273",
+      "title": "Five Star Christmas",
+      "release_year": 2020,
+      "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q104876273",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q107974375",
+      "title": "From the Heart",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q107974375",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-harvest-moon-2015",
+      "title": "Harvest Moon",
+      "release_year": 2015,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-haul-out-the-holly-2022",
+      "title": "Haul Out the Holly",
+      "release_year": 2022,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "wikidata-q130582183",
+      "title": "Holiday Date",
+      "release_year": 2022,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q130582183",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q101171543",
+      "title": "Holly & Ivy",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q101171543",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q97354773",
+      "title": "Just My Type",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q97354773",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q89786925",
+      "title": "Love in Winterland",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q89786925",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-love-on-the-sidelines-2016",
+      "title": "Love on the Sidelines",
+      "release_year": 2016,
+      "season": "Unspecified",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "wikidata-q99293339",
+      "title": "Love Under the Olive Tree",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q99293339",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q115132941",
+      "title": "Love, Classified",
+      "release_year": 2022,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q115132941",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "hallmark-love-fall-order-2019",
+      "title": "Love, Fall & Order",
+      "release_year": 2019,
+      "season": "Fall",
+      "source_name": "Editorial starter",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [
+          "hometown"
+        ],
+        "relationship": [],
+        "conflict": [
+          "career_choice",
+          "family_dispute"
+        ],
+        "event": [
+          "festival"
+        ]
+      },
+      "facts_status": "machine_inferred_unverified"
+    },
+    {
+      "id": "wikidata-q115247552",
+      "title": "Love's Portrait",
+      "release_year": 2022,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q115247552",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q99292771",
+      "title": "Marrying Father Christmas",
+      "release_year": 2020,
+      "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [
+          "family"
+        ],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q99292771",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q96739783",
+      "title": "Matchmaker Mysteries: A Fatal Romance",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q96739783",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q106729193",
+      "title": "MatchMaker Mysteries: The Art of the Kill",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q106729193",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q106897265",
+      "title": "Mix Up in the Mediterranean",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [
+          "misunderstanding"
+        ],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q106897265",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q107033028",
+      "title": "Morning Show Mysteries: Murder Ever After",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q107033028",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q106397224",
+      "title": "Mystery 101: Killer Timing",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q106397224",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q126949140",
+      "title": "Never Kiss a Man in a Christmas Sweater",
+      "release_year": 2020,
+      "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q126949140",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q114842565",
+      "title": "Noel Next Door",
+      "release_year": 2022,
+      "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q114842565",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-october-kiss-2015",
+      "title": "October Kiss",
+      "release_year": 2015,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "wikidata-q96739585",
+      "title": "Picture Perfect Mysteries: Dead Over Diamonds",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q96739585",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q101166959",
+      "title": "Picture Perfect Mysteries: Exit Stage Death",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q101166959",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q106775314",
+      "title": "Playing Cupid",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q106775314",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q106887727",
+      "title": "Poisoned in Paradise: A Martha's Vineyard Mystery",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q106887727",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "hallmark-pumpkin-pie-wars-2016",
+      "title": "Pumpkin Pie Wars",
+      "release_year": 2016,
+      "season": "Fall",
+      "source_name": "Editorial starter",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [
+          "bakery"
+        ],
+        "relationship": [
+          "rivals",
+          "family"
+        ],
+        "conflict": [
+          "competition"
+        ],
+        "event": [
+          "baking_contest"
+        ]
+      },
+      "facts_status": "machine_inferred_unverified"
+    },
+    {
+      "id": "wikidata-q99293243",
+      "title": "Return to Christmas Creek",
+      "release_year": 2023,
+      "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q99293243",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q96776822",
+      "title": "Riddled with Deceit: A Martha's Vineyard Mystery",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q96776822",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-roadhouse-romance-2021",
+      "title": "Roadhouse Romance",
+      "release_year": 2021,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "wikidata-q98384414",
+      "title": "Roux the Day: A Gourmet Detective Mystery",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q98384414",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q96742752",
+      "title": "Ruby Herring Mysteries: Prediction Murder",
+      "release_year": 2020,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q96742752",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q105070509",
+      "title": "Ships in the Night: A Martha's Vineyard Mystery",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q105070509",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q105491422",
+      "title": "Snowkissed",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q105491422",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-sweet-autumn-2020",
+      "title": "Sweet Autumn",
+      "release_year": 2020,
+      "season": "Fall",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "wikidata-q105630361",
+      "title": "Swept Up by Christmas",
+      "release_year": 2020,
+      "season": "Christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [
+          "deadline"
+        ],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q105630361",
+      "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "wikidata-q105072018",
+      "title": "Taking a Shot at Love",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q105072018",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-the-birthday-wish-2017",
+      "title": "The Birthday Wish",
+      "release_year": 2017,
+      "season": "Unspecified",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "hallmark-the-christmas-card-2006",
+      "title": "The Christmas Card",
+      "release_year": 2006,
+      "season": "Christmas",
+      "source_name": "Editorial title listing",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-the-christmas-house-2020",
+      "title": "The Christmas House",
+      "release_year": 2020,
+      "season": "Christmas",
+      "source_name": "Editorial title listing — independent verification pending",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "catalog-the-christmas-ornament-2013",
+      "title": "The Christmas Ornament",
+      "release_year": 2013,
       "season": "Christmas",
       "source_name": "Editorial title listing — independent verification pending",
       "verification_status": "unverified",
@@ -337,9 +1462,9 @@
       "facts_status": "title_only_unverified"
     },
     {
-      "id": "catalog-a-december-bride-2016",
-      "title": "A December Bride",
-      "release_year": 2016,
+      "id": "catalog-the-christmas-train-2017",
+      "title": "The Christmas Train",
+      "release_year": 2017,
       "season": "Christmas",
       "source_name": "Editorial title listing — independent verification pending",
       "verification_status": "unverified",
@@ -353,10 +1478,10 @@
       "facts_status": "title_only_unverified"
     },
     {
-      "id": "catalog-christmas-getaway-2017",
-      "title": "Christmas Getaway",
-      "release_year": 2017,
-      "season": "Christmas",
+      "id": "catalog-the-lost-valentine-2011",
+      "title": "The Lost Valentine",
+      "release_year": 2011,
+      "season": "Unspecified",
       "source_name": "Editorial title listing — independent verification pending",
       "verification_status": "unverified",
       "is_demo": false,
@@ -401,9 +1526,45 @@
       "facts_status": "title_only_unverified"
     },
     {
-      "id": "catalog-the-christmas-ornament-2013",
-      "title": "The Christmas Ornament",
-      "release_year": 2013,
+      "id": "hallmark-nine-lives-christmas-2014",
+      "title": "The Nine Lives of Christmas",
+      "release_year": 2014,
+      "season": "Christmas",
+      "source_name": "Editorial starter",
+      "verification_status": "unverified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": [
+          "christmas"
+        ]
+      },
+      "facts_status": "machine_inferred_unverified"
+    },
+    {
+      "id": "wikidata-q3549131",
+      "title": "The Wishing Well",
+      "release_year": 2021,
+      "season": "Unspecified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q3549131",
+      "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "catalog-three-wise-men-and-a-baby-2022",
+      "title": "Three Wise Men and a Baby",
+      "release_year": 2022,
       "season": "Christmas",
       "source_name": "Editorial title listing — independent verification pending",
       "verification_status": "unverified",
@@ -417,116 +1578,22 @@
       "facts_status": "title_only_unverified"
     },
     {
-      "id": "catalog-christmas-on-my-mind-2019",
-      "title": "Christmas on My Mind",
-      "release_year": 2019,
-      "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
+      "id": "wikidata-q104903150",
+      "title": "Two for the Win",
+      "release_year": 2021,
+      "season": "Unspecified",
       "story_facts": {
         "setting": [],
         "relationship": [],
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-a-very-merry-mix-up-2013",
-      "title": "A Very Merry Mix-Up",
-      "release_year": 2013,
-      "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
+      "facts_status": "title_only_unverified",
       "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-a-harvest-wedding-2017",
-      "title": "A Harvest Wedding",
-      "release_year": 2017,
-      "season": "Fall",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-harvest-moon-2015",
-      "title": "Harvest Moon",
-      "release_year": 2015,
-      "season": "Fall",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-october-kiss-2015",
-      "title": "October Kiss",
-      "release_year": 2015,
-      "season": "Fall",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-falling-for-vermont-2017",
-      "title": "Falling for Vermont",
-      "release_year": 2017,
-      "season": "Fall",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-falling-for-you-2018",
-      "title": "Falling for You",
-      "release_year": 2018,
-      "season": "Fall",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q104903150",
+      "network": "Hallmark Channel",
+      "is_demo": false
     },
     {
       "id": "catalog-under-the-autumn-moon-2018",
@@ -545,100 +1612,42 @@
       "facts_status": "title_only_unverified"
     },
     {
-      "id": "catalog-roadhouse-romance-2021",
-      "title": "Roadhouse Romance",
-      "release_year": 2021,
-      "season": "Fall",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-sweet-autumn-2020",
-      "title": "Sweet Autumn",
+      "id": "wikidata-q109914253",
+      "title": "USS Christmas",
       "release_year": 2020,
-      "season": "Fall",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
+      "season": "Christmas",
       "story_facts": {
         "setting": [],
         "relationship": [],
         "conflict": [],
-        "event": []
+        "event": [
+          "christmas"
+        ]
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "verification_status": "unverified",
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q109914253",
+      "network": "Hallmark Mystery",
+      "is_demo": false
     },
     {
-      "id": "catalog-love-on-the-sidelines-2016",
-      "title": "Love on the Sidelines",
-      "release_year": 2016,
+      "id": "wikidata-q101245049",
+      "title": "Winter in Vail",
+      "release_year": 2020,
       "season": "Unspecified",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
       "story_facts": {
         "setting": [],
         "relationship": [],
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-the-lost-valentine-2011",
-      "title": "The Lost Valentine",
-      "release_year": 2011,
-      "season": "Unspecified",
-      "source_name": "Editorial title listing — independent verification pending",
+      "facts_status": "title_only_unverified",
       "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-the-birthday-wish-2017",
-      "title": "The Birthday Wish",
-      "release_year": 2017,
-      "season": "Unspecified",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
-    },
-    {
-      "id": "catalog-all-of-my-heart-2015",
-      "title": "All of My Heart",
-      "release_year": 2015,
-      "season": "Unspecified",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
-      "is_demo": false,
-      "story_facts": {
-        "setting": [],
-        "relationship": [],
-        "conflict": [],
-        "event": []
-      },
-      "facts_status": "title_only_unverified"
+      "source_name": "Wikidata (CC0)",
+      "source_url": "https://www.wikidata.org/wiki/Q101245049",
+      "network": "Hallmark Channel",
+      "is_demo": false
     }
   ],
   "data_policy": "No synopsis text retained; controlled-vocabulary story tags only"
