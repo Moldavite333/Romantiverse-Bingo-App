@@ -83,6 +83,64 @@ class PosterRepositoryTest {
         assertEquals(entry("current-hq", locked = true), result[key])
     }
 
+    @Test fun successfulAutomaticRefreshRemovesWithdrawnPoster() {
+        val key = PosterRepository.key("Autumn Dreams", 2015)
+        val result = PosterRepository.merge(
+            mapOf(key to entry("incorrect-automatic")),
+            emptyList(),
+            emptyList(),
+            cacheAuthoritative = true
+        )
+        assertFalse(result.containsKey(key))
+    }
+
+    @Test fun failedAutomaticRefreshKeepsOfflinePoster() {
+        val key = PosterRepository.key("Autumn Dreams", 2015)
+        val result = PosterRepository.merge(
+            mapOf(key to entry("last-known-automatic")),
+            emptyList(),
+            emptyList()
+        )
+        assertEquals(entry("last-known-automatic"), result[key])
+    }
+
+    @Test fun automaticRefreshCannotRevokeHQLockWhilePublishedFeedIsOffline() {
+        val key = PosterRepository.key("Autumn Dreams", 2015)
+        val result = PosterRepository.merge(
+            mapOf(key to entry("editorial", locked = true)),
+            emptyList(),
+            emptyList(),
+            cacheAuthoritative = true
+        )
+        assertEquals(entry("editorial", locked = true), result[key])
+    }
+
+    @Test fun bothSuccessfulFeedsRemoveWithdrawnArtwork() {
+        val automaticKey = PosterRepository.key("Autumn Dreams", 2015)
+        val lockedKey = PosterRepository.key("Christmas Wishes", 2020)
+        val result = PosterRepository.merge(
+            mapOf(
+                automaticKey to entry("incorrect-automatic"),
+                lockedKey to entry("unpublished-hq", locked = true)
+            ),
+            emptyList(),
+            emptyList(),
+            cacheAuthoritative = true,
+            publishedAuthoritative = true
+        )
+        assertTrue(result.isEmpty())
+    }
+
+    @Test fun malformedAutomaticFeedIsNotAnAuthoritativeEmptyRefresh() {
+        assertThrows(org.json.JSONException::class.java) {
+            PosterRepository.entries("""{"version":1}""", false)
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            PosterRepository.entries("""{"version":2,"movies":[]}""", false)
+        }
+        assertTrue(PosterRepository.entries("""{"version":1,"movies":[]}""", false).isEmpty())
+    }
+
     @Test fun onlyTrustedHttpsImageHostsAreAccepted() {
         assertNull(PosterRepository.approved("http://image.tmdb.org/t/p/w500/x.jpg"))
         assertNull(PosterRepository.approved("https://evil.example/t/p/w500/x.jpg"))
