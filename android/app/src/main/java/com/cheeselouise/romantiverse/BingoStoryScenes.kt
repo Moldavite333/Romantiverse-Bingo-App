@@ -82,7 +82,7 @@ private object StoryInk {
 /** Lightweight 48-unit mini-paintings, legible in a narrow five-column board. */
 @Composable
 internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modifier) {
-    Canvas(modifier.size(36.dp)) {
+    Canvas(modifier.size(30.dp)) {
         val unit = size.minDimension / 48f
         withTransform({ scale(unit, unit, pivot = Offset.Zero) }) {
             val p = StoryInk
