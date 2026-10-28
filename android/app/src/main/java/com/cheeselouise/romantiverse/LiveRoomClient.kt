@@ -147,10 +147,11 @@ object LiveRoomProtocol {
             LiveSession(code, token, playerId).takeIf { it.valid() }
         } else fallbackSession?.takeIf { playerId.isBlank() || playerId == it.playerId }
         val next = LiveSnapshot(LiveRoom(code, movie, players), card, marks, revision, session)
-        // Poll responses may arrive after a successful mark. Never roll a card back.
+        // Poll responses may arrive after a successful mark or room transition.
+        // An older revision must not roll back *any* authoritative room state:
+        // restoring only the card/marks would still regress the status and roster.
         return if (previousForRoom != null && revision < previousForRoom.revision) {
-            next.copy(card = previousForRoom.card,
-                marks = previousForRoom.marks, revision = previousForRoom.revision)
+            previousForRoom
         } else next
     }
 }
