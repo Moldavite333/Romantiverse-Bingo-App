@@ -519,11 +519,15 @@ private fun LiveBingoSquare(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                if (free) "♥" else if (marked) "✓" else BingoSquarePresentation.glyph(label),
-                color = if (free) ink else if (winning) accent else rose,
-                fontSize = 14.sp, lineHeight = 16.sp
-            )
+            if (free || marked) {
+                Text(
+                    if (free) "♥" else "✓",
+                    color = if (free) ink else if (winning) accent else rose,
+                    fontSize = 14.sp, lineHeight = 16.sp
+                )
+            } else {
+                TropeArtwork(label, rose)
+            }
             Text(
                 BingoSquarePresentation.shortLabel(label),
                 color = if (free) ink else parchment,
