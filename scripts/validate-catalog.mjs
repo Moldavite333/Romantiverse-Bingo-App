@@ -6,7 +6,8 @@ if(data.version!==1||!Array.isArray(data.movies))throw Error('Expected catalog v
 const ids=new Set(),titles=new Set();
 for(const [i,m] of data.movies.entries()){
  if(!m||typeof m!=='object')throw Error('Movie '+i+' must be an object');
- if(typeof m.id!=='string'||!m.id.trim()||ids.has(m.id))throw Error('Missing or duplicate ID '+i);
+ // Match the native Android MovieCatalog ID contract before publishing.
+ if(typeof m.id!=='string'||!/^[a-z0-9][a-z0-9-]{0,119}$/.test(m.id)||ids.has(m.id))throw Error('Invalid or duplicate native-compatible ID '+i);
  ids.add(m.id);
  if(typeof m.title!=='string'||!m.title.trim()||m.title.length>250)throw Error('Invalid title '+i);
  if(!['Christmas','Fall','Horror','Unspecified'].includes(m.season))throw Error('Invalid season '+i);
