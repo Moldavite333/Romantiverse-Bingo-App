@@ -52,14 +52,14 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
-private val ink = Color(0xFF121024)
-private val parchment = Color(0xFFF8F6FF)
-private val accent = Color(0xFFFFCC79)
-private val evergreen = Color(0xFF282342)
-private val rose = Color(0xFFF45A9D)
-private val unmarkedSquare = Color(0xFF292541)
-private val markedSquare = Color(0xFF74355F)
-private val winningSquare = Color(0xFF146C78)
+private val ink = StorybookPalette.background
+private val parchment = StorybookPalette.paper
+private val accent = StorybookPalette.gold
+private val evergreen = StorybookPalette.surface
+private val rose = StorybookPalette.cranberry
+private val unmarkedSquare = StorybookPalette.tile
+private val markedSquare = StorybookPalette.marked
+private val winningSquare = StorybookPalette.evergreen
 private const val sessionPrefs = "romantiverse-live-session"
 
 private fun restore(context: Context): LiveSession? {
@@ -383,7 +383,7 @@ fun LiveRoomScreen(
                         Modifier.fillMaxWidth()
                             .clip(RoundedCornerShape(18.dp))
                             .background(Brush.verticalGradient(
-                                listOf(Color(0xFF322849), Color(0xFF211D38))
+                                listOf(StorybookPalette.boardTop, StorybookPalette.boardBottom)
                             ))
                             .border(1.dp, rose.copy(alpha = .3f), RoundedCornerShape(18.dp))
                             .padding(6.dp)
@@ -525,7 +525,7 @@ private fun LiveBingoSquare(
             if (free || marked) {
                 Text(
                     if (free) "♥" else "✓",
-                    color = if (free) ink else if (winning) accent else rose,
+                    color = if (free) ink else if (winning) accent else parchment,
                     fontSize = 14.sp, lineHeight = 16.sp
                 )
             } else {
@@ -534,7 +534,7 @@ private fun LiveBingoSquare(
             Text(
                 BingoSquarePresentation.shortLabel(label),
                 style = TextStyle(lineBreak = LineBreak.Simple, hyphens = Hyphens.None),
-                color = if (free) ink else parchment,
+                color = if (free || !marked) ink else parchment,
                 textAlign = TextAlign.Center,
                 fontSize = if (free) 9.sp else 10.sp,
                 lineHeight = 11.sp,
