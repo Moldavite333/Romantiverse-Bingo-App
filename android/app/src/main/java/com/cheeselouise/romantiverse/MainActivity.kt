@@ -13,7 +13,8 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -46,12 +47,13 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import java.security.SecureRandom
 
-private val burgundy = Color(0xFF63283F)
-private val plum = Color(0xFF321C35)
-private val cream = Color(0xFFFFF4DE)
-private val gold = Color(0xFFEAC078)
-private val sage = Color(0xFF284B46)
-private val pale = Color(0xFFF9E6CF)
+// Modern native palette: midnight, electric rose, warm light and violet glass.
+private val burgundy = Color(0xFFF45A9D)
+private val plum = Color(0xFF121024)
+private val cream = Color(0xFFF8F6FF)
+private val gold = Color(0xFFFFCC79)
+private val sage = Color(0xFF282342)
+private val pale = Color(0xFFD7D3EA)
 private const val ATTRIBUTION = "Brought to you by the Cheese Louise Podcast"
 private val themes = listOf("Romance", "Christmas", "Fall", "Horror")
 
@@ -169,7 +171,7 @@ private fun NativeBingoApp(incomingCode: String?) {
     Scaffold(
         containerColor = Color.Transparent,
         bottomBar = {
-            NavigationBar(containerColor = plum) {
+            NavigationBar(containerColor = Color(0xFF17142D)) {
                 listOf("discover" to "Movies", "play" to "My card", "together" to "Together").forEach { (id, label) ->
                     NavigationBarItem(
                         selected = tab == id,
@@ -179,7 +181,7 @@ private fun NativeBingoApp(incomingCode: String?) {
                         colors = NavigationBarItemDefaults.colors(
                             selectedIconColor = gold,
                             selectedTextColor = cream,
-                            indicatorColor = burgundy,
+                            indicatorColor = Color(0xFF49304E),
                             unselectedIconColor = pale,
                             unselectedTextColor = pale
                         )
@@ -190,13 +192,15 @@ private fun NativeBingoApp(incomingCode: String?) {
     ) { padding ->
         Column(
             Modifier.fillMaxSize().padding(padding)
-                .background(Brush.verticalGradient(listOf(plum, burgundy, plum)))
+                .background(Brush.verticalGradient(listOf(plum, Color(0xFF241631), plum)))
         ) {
-            Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp)) {
-                Text("ROMANTIVERSE", color = gold, fontWeight = FontWeight.Black,
-                    fontSize = 19.sp, letterSpacing = 2.sp)
-                Text("B I N G O", color = cream, fontWeight = FontWeight.SemiBold,
-                    fontSize = 13.sp, letterSpacing = 3.sp)
+            Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically) {
+                Text("ROMANTIVERSE", color = cream, fontWeight = FontWeight.Black,
+                    fontSize = 16.sp, letterSpacing = 1.sp)
+                Spacer(Modifier.width(9.dp))
+                Text("BINGO", color = gold, fontWeight = FontWeight.Black,
+                    fontSize = 11.sp, letterSpacing = 2.sp)
             }
             HorizontalDivider(color = gold.copy(alpha = .28f))
             Crossfade(
@@ -304,7 +308,7 @@ private fun DiscoverMovies(
         items(filtered, key = { it.id }) { movie ->
             Card(
                 modifier = Modifier.fillMaxWidth().clickable { onChoose(movie) },
-                colors = CardDefaults.cardColors(containerColor = cream),
+                colors = CardDefaults.cardColors(containerColor = sage),
                 shape = RoundedCornerShape(15.dp)
             ) {
                 Row(Modifier.fillMaxWidth().padding(10.dp),
@@ -313,15 +317,15 @@ private fun DiscoverMovies(
                         Modifier.width(82.dp).height(112.dp))
                     Spacer(Modifier.width(14.dp))
                     Column(Modifier.weight(1f)) {
-                        Text(movie.title, color = plum, fontSize = 17.sp,
+                        Text(movie.title, color = cream, fontSize = 17.sp,
                             fontWeight = FontWeight.Bold, maxLines = 2,
                             overflow = TextOverflow.Ellipsis)
                         Spacer(Modifier.height(5.dp))
                         Text(listOfNotNull(movie.year?.toString(),
                             movie.collection.takeUnless { it == "Unspecified" }).joinToString(" · ")
-                            .ifBlank { "Collection unverified" }, color = burgundy, fontSize = 12.sp)
+                            .ifBlank { "Collection unverified" }, color = pale, fontSize = 12.sp)
                         Spacer(Modifier.height(12.dp))
-                        Text("PLAY THIS MOVIE  ›", color = burgundy,
+                        Text("PLAY THIS MOVIE  ›", color = gold,
                             fontWeight = FontWeight.Bold, fontSize = 12.sp)
                     }
                 }
@@ -348,54 +352,70 @@ private fun PlayCard(
 ) {
     val completed = BingoEngine.winningLines(marks)
     val winningIndices = completed.flatten().toSet()
+    var confirmNewCard by remember(movie.id) { mutableStateOf(false) }
+    var pendingTheme by remember(movie.id) { mutableStateOf<String?>(null) }
+
     LazyColumn(
-        contentPadding = PaddingValues(14.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(start = 12.dp, end = 12.dp, top = 10.dp, bottom = 24.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         item {
-            Card(colors = CardDefaults.cardColors(containerColor = sage),
-                shape = RoundedCornerShape(16.dp)) {
-                Row(Modifier.fillMaxWidth().padding(12.dp),
-                    verticalAlignment = Alignment.CenterVertically) {
-                    PosterThumbnail(movie, posterUrl, Modifier.width(90.dp).height(122.dp))
-                    Spacer(Modifier.width(14.dp))
-                    Column(Modifier.weight(1f)) {
-                        Text("TONIGHT'S FEATURE", color = gold, fontSize = 11.sp,
-                            fontWeight = FontWeight.Bold)
-                        Text(movie.title, color = cream, fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold, lineHeight = 23.sp)
-                        Text(listOfNotNull(movie.year?.toString(),
-                            movie.collection.takeUnless { it == "Unspecified" })
-                            .joinToString(" · ").ifBlank { "Collection unverified" },
-                            color = pale, fontSize = 12.sp)
-                        Spacer(Modifier.height(8.dp))
-                        Text("Scenes are predictions until you mark them.",
-                            color = pale, fontSize = 11.sp)
-                    }
-                }
-            }
-        }
-        item {
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween) {
-                Column {
-                    Text("MY BINGO CARD", color = gold, fontSize = 13.sp,
+            Row(
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
+                    .background(Brush.horizontalGradient(listOf(sage, Color(0xFF352447))))
+                    .border(1.dp, burgundy.copy(alpha = .22f), RoundedCornerShape(18.dp))
+                    .padding(10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                PosterThumbnail(movie, posterUrl, Modifier.width(58.dp).height(78.dp))
+                Spacer(Modifier.width(12.dp))
+                Column(Modifier.weight(1f)) {
+                    Text("NOW PLAYING", color = gold, fontSize = 10.sp,
                         fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
-                    Text("${completed.size} lines  ·  ${BingoEngine.score(marks)} points",
-                        color = cream, fontSize = 15.sp)
-                    Text("Personal best for this movie: $bestScore points",
-                        color = pale, fontSize = 12.sp)
+                    Text(movie.title, color = cream, fontSize = 17.sp,
+                        fontWeight = FontWeight.Bold, lineHeight = 19.sp,
+                        maxLines = 2, overflow = TextOverflow.Ellipsis)
+                    Text(listOfNotNull(movie.year?.toString(),
+                        movie.collection.takeUnless { it == "Unspecified" })
+                        .joinToString(" · ").ifBlank { "Collection unverified" },
+                        color = pale, fontSize = 11.sp)
                 }
-                OutlinedButton(onClick = onNewCard) { Text("New card") }
             }
         }
         item {
-            Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
-                .background(cream).padding(5.dp)) {
-                Row(Modifier.fillMaxWidth()) {
+            Row(
+                Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 2.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(Modifier.weight(1f)) {
+                    Text("YOUR CARD", color = gold, fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
+                    Text("${completed.size} lines  ·  ${BingoEngine.score(marks)} pts",
+                        color = cream, fontSize = 19.sp, fontWeight = FontWeight.Bold)
+                }
+                Column(horizontalAlignment = Alignment.End) {
+                    Text("PERSONAL BEST", color = pale, fontSize = 10.sp,
+                        fontWeight = FontWeight.SemiBold)
+                    Text("$bestScore pts", color = cream, fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold)
+                }
+            }
+        }
+        item {
+            Column(
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
+                    .background(Brush.verticalGradient(
+                        listOf(Color(0xFF322849), Color(0xFF211D38))
+                    ))
+                    .border(1.dp, burgundy.copy(alpha = .3f), RoundedCornerShape(18.dp))
+                    .padding(6.dp)
+            ) {
+                Row(Modifier.fillMaxWidth().padding(bottom = 3.dp)) {
                     "BINGO".forEach { letter ->
-                        Text(letter.toString(), Modifier.weight(1f), textAlign = TextAlign.Center,
-                            color = burgundy, fontWeight = FontWeight.Black, fontSize = 22.sp)
+                        Text(letter.toString(), Modifier.weight(1f),
+                            textAlign = TextAlign.Center, color = gold,
+                            fontWeight = FontWeight.Black, fontSize = 17.sp)
                     }
                 }
                 for (row in 0..4) {
@@ -409,19 +429,36 @@ private fun PlayCard(
                                 inLine = index in winningIndices,
                                 reducedMotion = reducedMotion,
                                 onClick = { onMark(index) },
-                                modifier = Modifier.weight(1f).aspectRatio(1f)
+                                // Taller cells allow readable multi-line labels on narrow phones.
+                                modifier = Modifier.weight(1f).aspectRatio(.78f)
                             )
                         }
                     }
                 }
             }
         }
+        item {
+            OutlinedButton(
+                onClick = {
+                    if (marks.isEmpty()) onNewCard() else confirmNewCard = true
+                },
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                shape = RoundedCornerShape(14.dp)
+            ) {
+                Text("New card", maxLines = 1, softWrap = false)
+            }
+            Text("Tap to mark · hold a square to read its full trope",
+                color = pale, fontSize = 11.sp,
+                modifier = Modifier.fillMaxWidth().padding(top = 6.dp),
+                textAlign = TextAlign.Center)
+        }
         if (completed.isNotEmpty()) {
             item {
-                Card(colors = CardDefaults.cardColors(containerColor = sage)) {
-                    Column(Modifier.fillMaxWidth().padding(16.dp),
+                Card(colors = CardDefaults.cardColors(containerColor = Color(0xFF185965)),
+                    shape = RoundedCornerShape(16.dp)) {
+                    Column(Modifier.fillMaxWidth().padding(14.dp),
                         horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("✦  BINGO!  ✦", color = gold, fontSize = 27.sp,
+                        Text("✦  BINGO!  ✦", color = gold, fontSize = 25.sp,
                             fontWeight = FontWeight.Black)
                         Text("${completed.size} completed ${if (completed.size == 1) "line" else "lines"}",
                             color = cream)
@@ -430,12 +467,17 @@ private fun PlayCard(
             }
         }
         item {
-            Text("Bingo card theme (independent of the movie's actual collection)",
-                color = pale, fontSize = 12.sp)
+            Text("CARD THEME", color = gold, fontSize = 11.sp,
+                fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
             Row(Modifier.horizontalScroll(rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                 themes.forEach { item ->
-                    FilterChip(selected = theme == item, onClick = { onTheme(item) },
+                    FilterChip(selected = theme == item,
+                        onClick = {
+                            if (item != theme) {
+                                if (marks.isEmpty()) onTheme(item) else pendingTheme = item
+                            }
+                        },
                         label = { Text(item) })
                 }
             }
@@ -449,8 +491,37 @@ private fun PlayCard(
         }
         item { Attribution() }
     }
+
+    if (confirmNewCard || pendingTheme != null) {
+        val changingTheme = pendingTheme != null
+        AlertDialog(
+            onDismissRequest = {
+                confirmNewCard = false
+                pendingTheme = null
+            },
+            title = { Text(if (changingTheme) "Change card theme?" else "Deal a new card?") },
+            text = {
+                Text("Your marked squares will be cleared. Your personal-best score stays saved.")
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    val nextTheme = pendingTheme
+                    confirmNewCard = false
+                    pendingTheme = null
+                    if (nextTheme != null) onTheme(nextTheme) else onNewCard()
+                }) { Text("Continue") }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    confirmNewCard = false
+                    pendingTheme = null
+                }) { Text("Cancel") }
+            }
+        )
+    }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun BingoSquare(
     label: String,
@@ -463,23 +534,27 @@ private fun BingoSquare(
 ) {
     val shade by animateColorAsState(
         targetValue = when {
-            inLine -> sage
-            marked -> gold
-            else -> Color(0xFFFFF7EA)
+            inLine -> Color(0xFF146C78)
+            marked -> Color(0xFF74355F)
+            else -> Color(0xFF292541)
         },
         animationSpec = if (reducedMotion) snap() else tween(180),
         label = "Square marking"
     )
     val isFree = index == BingoEngine.CENTER
+    var showDetails by remember(label) { mutableStateOf(false) }
     Box(
-        modifier.padding(2.dp).clip(RoundedCornerShape(7.dp))
-            .background(shade)
-            .border(1.dp, burgundy.copy(alpha = .2f), RoundedCornerShape(7.dp))
-            .toggleable(
-                value = marked,
+        modifier.padding(2.dp).clip(RoundedCornerShape(11.dp))
+            .background(if (isFree) gold else shade)
+            .border(1.dp,
+                if (marked) gold.copy(alpha = .65f) else cream.copy(alpha = .12f),
+                RoundedCornerShape(11.dp))
+            .combinedClickable(
                 enabled = !isFree,
                 role = Role.Checkbox,
-                onValueChange = { onClick() }
+                onClick = onClick,
+                onLongClickLabel = "Read full trope",
+                onLongClick = { showDetails = true }
             )
             .semantics(mergeDescendants = true) {
                 contentDescription = LiveSquareAccessibility.label(index, label)
@@ -487,23 +562,37 @@ private fun BingoSquare(
             },
         contentAlignment = Alignment.Center
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(3.dp)) {
+            modifier = Modifier.fillMaxSize().padding(horizontal = 2.dp, vertical = 3.dp)
+        ) {
             Text(
-                if (isFree) "♥" else if (marked) "✦" else "♡",
-                color = if (inLine) gold else burgundy,
-                fontSize = 17.sp, lineHeight = 18.sp
+                if (isFree) "♥" else if (marked) "✓" else BingoSquarePresentation.glyph(label),
+                color = if (isFree) plum else if (inLine) gold else burgundy,
+                fontSize = 14.sp, lineHeight = 16.sp
             )
             Text(
-                label, textAlign = TextAlign.Center,
-                color = if (inLine) cream else plum,
+                BingoSquarePresentation.shortLabel(label),
+                textAlign = TextAlign.Center,
+                color = if (isFree) plum else cream,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = if (isFree) 9.sp else 10.sp,
-                lineHeight = 11.sp, maxLines = 3,
+                lineHeight = 11.sp,
+                maxLines = 5,
                 overflow = TextOverflow.Ellipsis
             )
         }
+    }
+    if (showDetails) {
+        AlertDialog(
+            onDismissRequest = { showDetails = false },
+            title = { Text("Bingo trope") },
+            text = { Text(label) },
+            confirmButton = {
+                TextButton(onClick = { showDetails = false }) { Text("Close") }
+            }
+        )
     }
 }
 
