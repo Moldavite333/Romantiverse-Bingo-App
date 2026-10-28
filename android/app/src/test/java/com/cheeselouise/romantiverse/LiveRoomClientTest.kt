@@ -83,6 +83,43 @@ class LiveRoomClientTest {
         assertNull(switched.session)
     }
 
+    @Test fun latePollAfterLeaveCannotResurrectAbandonedSession() {
+        val old = LiveRoomProtocol.parse(snapshot(4, "0,1,2,3,4"))
+        assertTrue(RoomResponseGuard.accepts(3, 3, code, old.session, old))
+        assertFalse(RoomResponseGuard.accepts(3, 4, code, null, old))
+    }
+
+    @Test fun wrongRoomOrPlayerCredentialsCannotOverwriteActiveRoom() {
+        val current = LiveRoomProtocol.parse(snapshot(4, "0,1"))
+        val another = LiveRoomProtocol.parse(
+            snapshot(5, "0,1,2").replace(code, "WXYZ345")
+        )
+        assertFalse(RoomResponseGuard.accepts(2, 2, code, current.session, another))
+        assertFalse(RoomResponseGuard.accepts(2, 2, null, current.session, another))
+        val changedToken = LiveRoomProtocol.parse(
+            snapshot(5, "0,1,2").replace(token, "b".repeat(64))
+        )
+        assertFalse(RoomResponseGuard.accepts(2, 2, code, current.session, changedToken))
+    }
+
+    @Test fun stalePreviewCannotReplaceNewInviteOrActiveSession() {
+        val active = LiveRoomProtocol.parse(snapshot(1, "0"))
+        assertTrue(RoomResponseGuard.acceptsPreview(2, 2, code, null, code))
+        assertFalse(RoomResponseGuard.acceptsPreview(2, 3, code, null, code))
+        assertFalse(RoomResponseGuard.acceptsPreview(2, 2, "WXYZ345", null, code))
+        assertFalse(RoomResponseGuard.acceptsPreview(2, 2, code, active.session, code))
+    }
+
+    @Test fun joinRequiresMatchingCodeAndValidCredentials() {
+        val joining = LiveRoomProtocol.parse(snapshot(1, "0"))
+        assertTrue(RoomResponseGuard.accepts(7, 7, code, null, joining))
+        assertFalse(RoomResponseGuard.accepts(7, 7, "WXYZ345", null, joining))
+        val previewOnly = LiveRoomProtocol.parse(
+            """{"room":{"code":"$code","movie_title":"A Movie","season":"Romance"}}"""
+        )
+        assertFalse(RoomResponseGuard.accepts(7, 7, code, null, previewOnly))
+    }
+
     @Test fun sameRoomStateOnlyResponseKeepsCardAndRevision() {
         val prior = LiveRoomProtocol.parse(snapshot(9, "0,1,2,3,4,12"))
         val stateOnly = """{

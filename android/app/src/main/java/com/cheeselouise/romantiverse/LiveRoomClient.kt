@@ -110,6 +110,37 @@ object LiveRoomProtocol {
     }
 }
 
+/**
+ * Guards asynchronous room responses against late network completions.
+ * A response from an abandoned room must never restore credentials or private cards.
+ */
+object RoomResponseGuard {
+    fun accepts(
+        requestGeneration: Int,
+        currentGeneration: Int,
+        expectedCode: String?,
+        currentSession: LiveSession?,
+        next: LiveSnapshot
+    ): Boolean {
+        if (requestGeneration != currentGeneration) return false
+        if (expectedCode != null && next.room.code != expectedCode) return false
+        if (currentSession != null && next.room.code != currentSession.code) return false
+        // All responses used to establish/update a player session need credentials.
+        if (next.session == null) return false
+        if (currentSession != null && next.session != currentSession) return false
+        return true
+    }
+
+    fun acceptsPreview(
+        requestGeneration: Int,
+        currentGeneration: Int,
+        requestedCode: String?,
+        currentSession: LiveSession?,
+        responseCode: String
+    ): Boolean = requestGeneration == currentGeneration &&
+        currentSession == null && requestedCode == responseCode
+}
+
 /** Native HTTPS transport; no web view, account, or private Supabase credentials. */
 object LiveRoomClient {
     private const val endpoint = "https://yxpamyibhclilgdhgsjd.supabase.co/functions/v1/game-room"
