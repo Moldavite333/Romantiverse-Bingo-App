@@ -12,7 +12,7 @@ internal object StorybookPalette {
     val paper = Color(0xFFFFF7E9)
     val tile = Color(0xFFFFF1DB)
     val cranberry = Color(0xFFB34F60)
-    val marked = Color(0xFFB96C78)
+    val marked = Color(0xFFA05261)
     val evergreen = Color(0xFF48735D)
     val gold = Color(0xFFE7B85E)
     val mutedText = Color(0xFFE8D8D1)
