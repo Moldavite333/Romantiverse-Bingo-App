@@ -64,4 +64,36 @@ class LiveRoomClientTest {
         assertEquals("Unspecified", result.room.movie.collection)
         assertEquals(emptyList<String>(), result.card)
     }
+
+    @Test fun switchingRoomsNeverReusesPreviousPlayersPrivateCardOrCredentials() {
+        val prior = LiveRoomProtocol.parse(snapshot(9, "0,1,2,3,4,12"))
+        val otherRoom = """{
+            "room":{"code":"WXYZ345","movie_title":"Another Movie",
+                "movie_collection":"Christmas","season":"Christmas",
+                "mode":"classic","status":"lobby","players":[]}
+        }"""
+        val switched = LiveRoomProtocol.parse(otherRoom, prior)
+        assertEquals("WXYZ345", switched.room.code)
+        assertEquals("Another Movie", switched.room.movie.title)
+        assertEquals("Christmas", switched.room.movie.collection)
+        assertEquals(emptyList<String>(), switched.card)
+        assertEquals(emptySet<Int>(), switched.marks)
+        assertEquals(0, switched.revision)
+        assertEquals(0, switched.score)
+        assertNull(switched.session)
+    }
+
+    @Test fun sameRoomStateOnlyResponseKeepsCardAndRevision() {
+        val prior = LiveRoomProtocol.parse(snapshot(9, "0,1,2,3,4,12"))
+        val stateOnly = """{
+            "room":{"code":"$code","movie_title":"Autumn at Apple Hill",
+                "movie_collection":"Fall","season":"Romance",
+                "mode":"classic","status":"playing","players":[]}
+        }"""
+        val next = LiveRoomProtocol.parse(stateOnly, prior)
+        assertEquals(prior.card, next.card)
+        assertEquals(prior.marks, next.marks)
+        assertEquals(9, next.revision)
+        assertEquals(prior.session, next.session)
+    }
 }
