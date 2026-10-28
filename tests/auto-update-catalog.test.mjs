@@ -9,6 +9,8 @@ test('only explicitly identified Hallmark networks qualify',()=>{
 });
 test('does not retain synopsis and does not duplicate title/year',()=>{
  const m=prepareOpenDataMovie(movie);assert.ok(m);assert.ok(!JSON.stringify(m).includes('Do not retain'));
+ assert.equal(m.id,'wikidata-q12345');
+ assert.match(m.id,/^[a-z0-9][a-z0-9-]{0,119}$/);
  const base={version:1,movies:[]};
  const once=mergeVerifiedNetworkMetadata(base,[movie,movie]);
  assert.equal(once.added,1);assert.equal(once.catalog.movies.length,1);

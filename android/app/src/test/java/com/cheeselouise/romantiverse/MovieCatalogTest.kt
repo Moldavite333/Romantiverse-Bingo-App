@@ -101,6 +101,20 @@ class MovieCatalogTest {
         assertFalse(MovieCatalog.acceptableUpdate(current, changedId))
     }
 
+    @Test fun scheduledWikidataIdsRemainVisibleInNativeSearchCatalog() {
+        val imported = MovieCatalog.parse(catalog(
+            row("wikidata-q12345", "Christmas in the Valley", "Christmas", 2026)
+        ))
+        assertEquals(1, imported.size)
+        assertEquals("wikidata-q12345", imported.single().id)
+        // Upstream uppercase Wikidata Q identifiers are not valid native IDs.
+        assertThrows(IllegalArgumentException::class.java) {
+            MovieCatalog.parse(catalog(
+                row("wikidata-Q12345", "Christmas in the Valley", "Christmas", 2026)
+            ))
+        }
+    }
+
     @Test fun duplicateIdsCannotCrashTheNativeMovieList() {
         val parsed = MovieCatalog.parse(catalog(
             row("shared-id", "First Movie", year = 2024),

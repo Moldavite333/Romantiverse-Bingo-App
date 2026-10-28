@@ -15,7 +15,9 @@ export function prepareOpenDataMovie(candidate){
  if(!title||title.length>250||!Number.isInteger(year)||year<2000||year>2100)return null;
  // Unknown-season films remain discoverable without inventing Christmas or Fall metadata.
  const season=seasonalThemeFromTitle(title)||'Unspecified';
- return {id:'wikidata-'+candidate.source_id,title,release_year:year,season,story_facts:extractStoryFacts(title),
+ // Native Android catalog IDs accept lowercase ASCII slugs only. Wikidata's
+ // canonical Q-prefixed IDs are uppercase, so normalize the generated slug.
+ return {id:'wikidata-'+candidate.source_id.toLowerCase(),title,release_year:year,season,story_facts:extractStoryFacts(title),
   facts_status:'title_only_unverified',verification_status:'unverified',source_name:'Wikidata (CC0)',
   source_url:'https://www.wikidata.org/wiki/'+candidate.source_id,network:candidate.network,is_demo:false};
 }
