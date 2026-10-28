@@ -21,6 +21,26 @@ object RoomInvites {
     fun url(code: String): String = base + "?room=" +
         (normalize(code) ?: throw IllegalArgumentException("Invalid room code"))
 
+    /**
+     * Accept a room code, a full HTTPS invitation URL, or the multiline text
+     * produced by Android Share. Only our exact public invite origin is trusted.
+     * Ambiguous messages containing multiple invitation URLs are rejected.
+     */
+    fun fromInput(value: String?): String? {
+        val text = value?.trim() ?: return null
+        normalize(text)?.let { return it }
+        fromUrl(text)?.let { return it }
+        return text.lineSequence().mapNotNull { fromUrl(it.trim()) }.singleOrNull()
+    }
+
+    /** Turn a pasted invitation into a short, editable room code. */
+    fun editableInput(value: String): String {
+        fromInput(value)?.let { return it }
+        val text = value.trim()
+        return if ("://" in text || '\n' in text) text.take(512)
+            else text.uppercase(Locale.ROOT).take(7)
+    }
+
     fun fromUrl(value: String?): String? {
         if (value.isNullOrBlank()) return null
         return runCatching {
