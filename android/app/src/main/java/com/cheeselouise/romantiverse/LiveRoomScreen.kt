@@ -246,6 +246,16 @@ fun LiveRoomScreen(
                     modifier = Modifier.fillMaxWidth()) { Text("Create unique room") }
             }
         } else {
+            if (incomingCode != null && incomingCode != session?.code) {
+                item {
+                    Text("You were invited to room $incomingCode, but this device is still in room ${session?.code}.",
+                        color = accent)
+                    Button(onClick = {
+                        leave()
+                        joinCode = incomingCode
+                    }) { Text("Switch to invited room") }
+                }
+            }
             item {
                 if (room != null) {
                     LiveMovieHeader(room.movie.title, room.movie.collection, room.movie.theme,
