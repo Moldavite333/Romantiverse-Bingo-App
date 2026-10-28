@@ -35,8 +35,12 @@ async function cached(){
   if(!Array.isArray(rows))throw Error('Poster cache returned invalid data');
   return rows;
 }
-async function claim(){
-  return await service('rpc/claim_bingo_poster_refresh',{method:'POST',body:'{}'})===true;
+async function claim(catalogCount:number|null=null){
+  const path=catalogCount===null
+    ? 'rpc/claim_bingo_poster_refresh'
+    : 'rpc/claim_bingo_poster_refresh_with_catalog';
+  const body=catalogCount===null?'{}':JSON.stringify({p_catalog_count:catalogCount});
+  return await service(path,{method:'POST',body})===true;
 }
 async function updateControl(error:string|null){
   await service('bingo_poster_sync_control?id=eq.1',{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({
@@ -44,22 +48,27 @@ async function updateControl(error:string|null){
     ...(error?{last_error:error.slice(0,300)}:{last_error:null,last_success_at:now()})
   })});
 }
+async function catalogCandidates(){
+  const response=await fetch(CATALOG,{headers:{Accept:'application/json'},signal:timeout(20000),cache:'no-store'});
+  if(!response.ok)throw Error('Public Bingo catalog returned '+response.status);
+  const data=await response.json();
+  if(data?.version!==1||!Array.isArray(data.movies)||data.movies.length>500)throw Error('Invalid public Bingo catalog');
+  const seen=new Set<string>();
+  const candidates:{title:string;release_year:number;season:string}[]=[];
+  for(const item of data.movies){
+    const title=clean(item?.title),release_year=item?.release_year;
+    if(item?.is_demo===true||!title||title.length>250||!Number.isInteger(release_year)||release_year<1900||release_year>2100)continue;
+    const key=release_year+'|'+title.toLowerCase();
+    if(seen.has(key))continue;
+    seen.add(key);candidates.push({title,release_year,season:seasonOf(item.season)});
+  }
+  if(!candidates.length)throw Error('Public Bingo catalog has no eligible titles');
+  return candidates;
+}
+
 async function refresh(){
   try{
-    const response=await fetch(CATALOG,{headers:{Accept:'application/json'},signal:timeout(20000),cache:'no-store'});
-    if(!response.ok)throw Error('Public Bingo catalog returned '+response.status);
-    const data=await response.json();
-    if(data?.version!==1||!Array.isArray(data.movies)||data.movies.length>500)throw Error('Invalid public Bingo catalog');
-    const seen=new Set<string>();
-    const candidates:{title:string;release_year:number;season:string}[]=[];
-    for(const item of data.movies){
-      const title=clean(item?.title),release_year=item?.release_year;
-      if(item?.is_demo===true||!title||title.length>250||!Number.isInteger(release_year)||release_year<1900||release_year>2100)continue;
-      const key=release_year+'|'+title.toLowerCase();
-      if(seen.has(key))continue;
-      seen.add(key);candidates.push({title,release_year,season:seasonOf(item.season)});
-    }
-    if(!candidates.length)throw Error('Public Bingo catalog has no eligible titles');
+    const candidates=await catalogCandidates();
     const previous=await cached();
     const byKey=new Map(previous.map((row:any)=>[keyOf(row),row]));
     // Update season metadata from the public catalog even when a poster is still fresh.
@@ -108,14 +117,29 @@ Deno.serve(async req=>{
   if(req.method!=='GET')return new Response(JSON.stringify({error:'GET only'}),{status:405,headers:jsonHeaders});
   if(!SUPABASE_URL||!SERVICE_KEY||!ANON_JWT)return new Response(JSON.stringify({error:'Poster cache not configured'}),{status:503,headers:jsonHeaders});
   try{
+    const audit=new URL(req.url).searchParams.get('catalog_check')==='1';
+    // The catalog-check endpoint is public-only and intended for the GitHub
+    // warmer. Ordinary Android requests remain fast and use the cached feed.
+    const catalogCount=audit?(await catalogCandidates()).length:null;
     const rows=await cached();
-    // Atomic 15-minute claim prevents anonymous traffic from repeatedly triggering TMDB.
-    if(await claim())EdgeRuntime.waitUntil(refresh());
+    // Atomic SQL claim enforces the normal daily refresh or a 15-minute
+    // growth-triggered refresh. The caller never receives a service key.
+    if(await claim(catalogCount))EdgeRuntime.waitUntil(refresh());
     const movies=rows.filter((r:any)=>approved(r.poster_url)).map((r:any)=>({
       title:r.title,release_year:r.release_year,season:seasonOf(r.season),poster_url:approved(r.poster_url),
       poster_source:r.poster_source,match_score:r.match_score
     }));
-    return new Response(JSON.stringify({version:1,movies}),{status:200,headers:jsonHeaders});
+    const response:any={version:1,movies};
+    if(audit){
+      // Checked-but-unmatched titles are not fake posters. Expose only public
+      // title/year, checked timestamp and match status, never HQ records.
+      response.catalog_count=catalogCount;
+      response.checks=rows.map((r:any)=>({
+        title:r.title,release_year:r.release_year,checked_at:r.checked_at,
+        has_poster:approved(r.poster_url)!==null
+      }));
+    }
+    return new Response(JSON.stringify(response),{status:200,headers:audit?{...jsonHeaders,'Cache-Control':'no-store'}:jsonHeaders});
   }catch(error){
     console.error('Public Bingo poster cache unavailable',error);
     return new Response(JSON.stringify({error:'Poster feed temporarily unavailable'}),{status:503,headers:{...jsonHeaders,'Cache-Control':'no-store'}});
