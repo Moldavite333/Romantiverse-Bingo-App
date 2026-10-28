@@ -22,6 +22,22 @@ class LiveRoomClientTest {
         }"""
     }
 
+    @Test fun spokenMultiplayerSquaresIncludePositionFullTropeAndWinState() {
+        assertEquals("B1: First meeting", LiveSquareAccessibility.label(0, "First meeting"))
+        assertEquals("O5: A sentimental family heirloom",
+            LiveSquareAccessibility.label(24, "A sentimental family heirloom"))
+        assertEquals("N3: CHEESE LOUISE POD",
+            LiveSquareAccessibility.label(12, "CHEESE LOUISE POD"))
+        assertEquals("Free center square", LiveSquareAccessibility.state(12, true, true))
+        assertEquals("Not marked", LiveSquareAccessibility.state(3, false, false))
+        assertEquals("Marked", LiveSquareAccessibility.state(3, true, false))
+        assertEquals("Marked, part of a completed Bingo line",
+            LiveSquareAccessibility.state(3, true, true))
+        assertThrows(IllegalArgumentException::class.java) {
+            LiveSquareAccessibility.label(25, "Invalid")
+        }
+    }
+
     @Test fun invitationsContainOnlyRoomCode() {
         val url = RoomInvites.url(code)
         assertEquals("https://moldavite333.github.io/Romantiverse-Bingo-App/?room=$code", url)

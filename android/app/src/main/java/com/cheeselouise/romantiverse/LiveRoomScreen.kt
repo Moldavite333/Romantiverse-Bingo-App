@@ -4,7 +4,13 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.provider.Settings
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,6 +25,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -57,6 +69,18 @@ fun LiveRoomScreen(
     incomingCode: String?
 ) {
     val context = LocalContext.current
+    val haptic = LocalHapticFeedback.current
+    val hapticsEnabled = remember(context) {
+        context.getSharedPreferences("bingo-native-v1", Context.MODE_PRIVATE)
+            .getBoolean("haptics", true)
+    }
+    val reduceMotion = remember(context) {
+        runCatching {
+            Settings.Global.getFloat(
+                context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f
+            ) == 0f
+        }.getOrDefault(false)
+    }
     val lifecycleOwner = LocalLifecycleOwner.current
     val scope = rememberCoroutineScope()
     var session by remember { mutableStateOf(restore(context)) }
@@ -358,30 +382,21 @@ fun LiveRoomScreen(
                                     val index = row * 5 + col
                                     val marked = index == 12 || index in live.marks
                                     val isWinning = index in winning
-                                    Box(
-                                        Modifier.weight(1f).aspectRatio(1f).padding(2.dp)
-                                            .clip(RoundedCornerShape(7.dp))
-                                            .background(when {
-                                                isWinning -> evergreen
-                                                marked -> accent
-                                                else -> Color.White
-                                            })
-                                            .clickable(enabled = index != 12 && !busy &&
-                                                room?.movie?.status == "playing") {
-                                                action("mark", index)
-                                            },
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Text(
-                                            if (index == 12) "CHEESE LOUISE POD" else live.card[index],
-                                            color = if (isWinning) parchment else ink,
-                                            fontSize = 9.sp, lineHeight = 10.sp,
-                                            textAlign = TextAlign.Center, maxLines = 4,
-                                            overflow = TextOverflow.Ellipsis,
-                                            fontWeight = if (marked) FontWeight.Bold else FontWeight.Normal,
-                                            modifier = Modifier.padding(3.dp)
-                                        )
-                                    }
+                                    LiveBingoSquare(
+                                        label = if (index == 12) "CHEESE LOUISE POD" else live.card[index],
+                                        index = index,
+                                        marked = marked,
+                                        winning = isWinning,
+                                        enabled = !busy && room?.movie?.status == "playing",
+                                        reducedMotion = reduceMotion,
+                                        modifier = Modifier.weight(1f).aspectRatio(1f),
+                                        onToggle = {
+                                            if (hapticsEnabled) {
+                                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                            }
+                                            action("mark", index)
+                                        }
+                                    )
                                 }
                             }
                         }
@@ -418,6 +433,72 @@ fun LiveRoomScreen(
             Text("Brought to you by the Cheese Louise Podcast", color = parchment,
                 fontSize = 11.sp, textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp))
+        }
+    }
+}
+
+/**
+ * The entire native square is one accessible toggle target. The spoken label
+ * contains the full trope even when a narrow phone visually truncates it.
+ * Only inexpensive color transitions run, and Android reduced motion disables them.
+ */
+@Composable
+private fun LiveBingoSquare(
+    label: String,
+    index: Int,
+    marked: Boolean,
+    winning: Boolean,
+    enabled: Boolean,
+    reducedMotion: Boolean,
+    onToggle: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val shade by animateColorAsState(
+        targetValue = when {
+            winning -> evergreen
+            marked -> accent
+            else -> Color.White
+        },
+        animationSpec = if (reducedMotion) snap() else tween(160),
+        label = "Shared square marking"
+    )
+    val free = index == BingoEngine.CENTER
+    Box(
+        modifier.padding(2.dp)
+            .clip(RoundedCornerShape(7.dp))
+            .background(shade)
+            .border(1.dp, ink.copy(alpha = .18f), RoundedCornerShape(7.dp))
+            .toggleable(
+                value = marked,
+                enabled = enabled && !free,
+                role = Role.Checkbox,
+                onValueChange = { onToggle() }
+            )
+            .semantics(mergeDescendants = true) {
+                contentDescription = LiveSquareAccessibility.label(index, label)
+                stateDescription = LiveSquareAccessibility.state(index, marked, winning)
+            },
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier.padding(3.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            if (marked && !free) {
+                Text("✦", color = if (winning) accent else ink,
+                    fontSize = 12.sp, lineHeight = 12.sp)
+            }
+            Text(
+                label,
+                color = if (winning) parchment else ink,
+                fontSize = if (free) 9.sp else 10.sp,
+                lineHeight = 11.sp,
+                textAlign = TextAlign.Center,
+                maxLines = if (marked && !free) 3 else 4,
+                overflow = TextOverflow.Ellipsis,
+                fontWeight = if (marked) FontWeight.Bold else FontWeight.Normal
+            )
         }
     }
 }
