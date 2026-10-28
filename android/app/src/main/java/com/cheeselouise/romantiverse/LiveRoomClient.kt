@@ -39,6 +39,21 @@ object RoomInvites {
     }
 }
 
+/** Spoken square labels stay readable even when the compact grid truncates text. */
+object LiveSquareAccessibility {
+    fun label(index: Int, text: String): String {
+        require(index in 0..24) { "Invalid square" }
+        return "${"BINGO"[index % 5]}${index / 5 + 1}: $text"
+    }
+
+    fun state(index: Int, marked: Boolean, winning: Boolean): String = when {
+        index == BingoEngine.CENTER -> "Free center square"
+        winning -> "Marked, part of a completed Bingo line"
+        marked -> "Marked"
+        else -> "Not marked"
+    }
+}
+
 data class LiveSession(val code: String, val token: String, val playerId: String) {
     fun valid(): Boolean = RoomInvites.normalize(code) == code &&
         Regex("^[0-9a-f]{64}$").matches(token) && playerId.isNotBlank()
