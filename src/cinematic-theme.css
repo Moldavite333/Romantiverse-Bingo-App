@@ -41,3 +41,41 @@ body{background:radial-gradient(circle at 82% 4%,rgba(248,138,112,.18),transpare
 .tray-submit form{display:flex;gap:10px;flex-wrap:wrap}
 .tray-submit input{flex:1;min-width:190px}
 @media(max-width:600px){.tray-ranks li{font-size:.86rem;gap:7px}}
+
+/* Premium game feel: restrained, touch-first motion rather than distracting loops. */
+@keyframes rom-stamp {
+  0% { transform:scale(1); filter:brightness(1.22); }
+  40% { transform:scale(.88) rotate(-1.5deg); filter:brightness(1.12); }
+  75% { transform:scale(1.045) rotate(.5deg); }
+  100% { transform:scale(1); filter:brightness(1); }
+}
+@keyframes rom-spark {
+  0% { transform:scale(.3) rotate(-25deg); opacity:0; }
+  45% { transform:scale(1.35) rotate(12deg); opacity:1; }
+  100% { transform:scale(1) rotate(0); opacity:1; }
+}
+@keyframes rom-bingo-glow {
+  0%,100% { box-shadow:0 15px 32px rgba(13,49,43,.15),0 0 0 2px rgba(219,172,98,.65); }
+  50% { box-shadow:0 15px 32px rgba(13,49,43,.15),0 0 0 5px rgba(219,172,98,.9),0 0 30px rgba(219,172,98,.35); }
+}
+@keyframes rom-reveal {
+  from { transform:translateY(14px) scale(.97); opacity:0; }
+  to { transform:translateY(0) scale(1); opacity:1; }
+}
+.square {
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  transition:transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .2s ease,background-color .2s ease;
+}
+.square.marked { animation:rom-stamp .29s cubic-bezier(.16,.85,.22,1) both; }
+.square.marked b { animation:rom-spark .38s cubic-bezier(.18,.9,.22,1) both; }
+.board.winner { animation:rom-bingo-glow 1.05s ease-in-out 2; }
+.victory { animation:rom-reveal .44s cubic-bezier(.2,.8,.2,1) both; }
+.movie-card .movie-poster { transition:transform .3s cubic-bezier(.2,.75,.2,1); }
+@media(hover:hover) and (pointer:fine) {
+  .movie-card:hover .movie-poster { transform:scale(1.035); }
+}
+@media(prefers-reduced-motion:reduce) {
+  .square.marked,.square.marked b,.board.winner,.victory { animation:none!important; }
+  .movie-card .movie-poster { transition:none!important; }
+}
