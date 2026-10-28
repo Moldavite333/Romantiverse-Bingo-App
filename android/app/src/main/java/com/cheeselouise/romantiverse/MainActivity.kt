@@ -90,6 +90,12 @@ private fun NativeBingoApp(incomingCode: String?) {
     var theme by rememberSaveable { mutableStateOf(prefs.getString("theme", "Romance") ?: "Romance") }
     var seed by rememberSaveable { mutableLongStateOf(prefs.getLong("seed", 1L)) }
     var marks by remember { mutableStateOf(BingoEngine.decodeMarks(prefs.getString("marks", "") ?: "")) }
+    // A single lifetime best per canonical movie, independent of card/theme replays.
+    var bestScore by remember {
+        mutableIntStateOf(movies.firstOrNull { it.id == selectedId }?.let {
+            BingoEngine.bestScore(prefs.getInt("best:${it.key}", 0), marks)
+        } ?: 0)
+    }
     // Reopen an in-progress card after the app is restarted, rather than losing the movie-night context.
     var tab by rememberSaveable {
         mutableStateOf(if (selectedId.isBlank()) "discover" else "play")
@@ -108,11 +114,16 @@ private fun NativeBingoApp(incomingCode: String?) {
     }
     LaunchedEffect(Unit) { posters = PosterRepository.refresh(context) }
     val movie = movies.firstOrNull { it.id == selectedId }
+    LaunchedEffect(movie?.key) {
+        // Upgrade existing in-progress cards without discarding a previously earned line.
+        if (movie != null) prefs.edit().putInt("best:${movie.key}", bestScore).apply()
+    }
     val card = remember(movie?.id, seed, theme) {
         if (movie == null) emptyList() else BingoEngine.deal(BingoEngine.pool(theme), seed)
     }
     fun newSeed(): Long = SecureRandom().nextLong().ushr(1)
     fun choose(next: Movie) {
+        bestScore = prefs.getInt("best:${next.key}", 0).coerceAtLeast(0)
         selectedId = next.id
         theme = if (next.collection in themes) next.collection else "Romance"
         seed = newSeed()
@@ -132,7 +143,13 @@ private fun NativeBingoApp(incomingCode: String?) {
     fun mark(index: Int) {
         if (index == BingoEngine.CENTER) return
         marks = BingoEngine.toggle(marks, index)
-        prefs.edit().putString("marks", BingoEngine.encodeMarks(marks)).apply()
+        val editor = prefs.edit().putString("marks", BingoEngine.encodeMarks(marks))
+        val updatedBest = BingoEngine.bestScore(bestScore, marks)
+        if (updatedBest > bestScore && movie != null) {
+            bestScore = updatedBest
+            editor.putInt("best:${movie.key}", updatedBest)
+        }
+        editor.apply()
         if (haptics) haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
     }
 
@@ -194,6 +211,7 @@ private fun NativeBingoApp(incomingCode: String?) {
                         posterUrl = posters[movie.key]?.url,
                         card = card,
                         marks = marks,
+                        bestScore = bestScore,
                         theme = theme,
                         reducedMotion = reduceMotion,
                         haptics = haptics,
@@ -306,6 +324,7 @@ private fun PlayCard(
     posterUrl: String?,
     card: List<String>,
     marks: Set<Int>,
+    bestScore: Int,
     theme: String,
     reducedMotion: Boolean,
     haptics: Boolean,
@@ -351,6 +370,8 @@ private fun PlayCard(
                         fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
                     Text("${completed.size} lines  ·  ${BingoEngine.score(marks)} points",
                         color = cream, fontSize = 15.sp)
+                    Text("Personal best for this movie: $bestScore points",
+                        color = pale, fontSize = 12.sp)
                 }
                 OutlinedButton(onClick = onNewCard) { Text("New card") }
             }
