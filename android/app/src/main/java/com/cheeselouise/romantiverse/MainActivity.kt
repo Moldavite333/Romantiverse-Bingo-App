@@ -39,6 +39,9 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.Hyphens
+import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -605,13 +608,18 @@ private fun BingoSquare(
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize().padding(horizontal = 2.dp, vertical = 3.dp)
         ) {
-            Text(
-                if (isFree) "♥" else if (marked) "✓" else BingoSquarePresentation.glyph(label),
-                color = if (isFree) plum else if (inLine) gold else burgundy,
-                fontSize = 14.sp, lineHeight = 16.sp
-            )
+            if (isFree || marked) {
+                Text(
+                    if (isFree) "♥" else "✓",
+                    color = if (isFree) plum else if (inLine) gold else burgundy,
+                    fontSize = 14.sp, lineHeight = 16.sp
+                )
+            } else {
+                TropeArtwork(label, burgundy)
+            }
             Text(
                 BingoSquarePresentation.shortLabel(label),
+                style = TextStyle(lineBreak = LineBreak.Simple, hyphens = Hyphens.None),
                 textAlign = TextAlign.Center,
                 color = if (isFree) plum else cream,
                 fontWeight = FontWeight.SemiBold,
