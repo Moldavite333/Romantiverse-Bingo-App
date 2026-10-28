@@ -54,10 +54,10 @@ object PosterRepository {
     }
 
     private fun entries(json: String, isPublished: Boolean): List<Pair<String, Entry>> {
-        val parsed = JSONObject(json)
         val rows: JSONArray = if (isPublished) {
             JSONArray(json)
         } else {
+            val parsed = JSONObject(json)
             if (parsed.optInt("version") != 1) return emptyList()
             parsed.optJSONArray("movies") ?: return emptyList()
         }
