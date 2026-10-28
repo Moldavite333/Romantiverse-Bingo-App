@@ -129,7 +129,7 @@ fun LiveRoomScreen(
                     if (kind in listOf("create", "join")) null else session)
                 when (kind) {
                     "create" -> {
-                        val movie = selectedMovie ?: error("Choose a movie first")
+                        val movie = selectedMovie ?: kotlin.error("Choose a movie first")
                         request.put("name", name.trim().take(32))
                             .put("movie_title", movie.title)
                             .put("movie_collection", movie.collection)
@@ -138,9 +138,9 @@ fun LiveRoomScreen(
                             .put("season", theme).put("mode", mode)
                     }
                     "join" -> request.put("name", name.trim().take(32))
-                        .put("code", RoomInvites.normalize(joinCode) ?: error("Invalid room code"))
+                        .put("code", RoomInvites.normalize(joinCode) ?: kotlin.error("Invalid room code"))
                     "mark" -> request.put("index", index)
-                        .put("revision", snapshot?.revision ?: error("Card is not ready"))
+                        .put("revision", snapshot?.revision ?: kotlin.error("Card is not ready"))
                 }
                 accept(LiveRoomClient.request(request))
             } catch (failure: Exception) {
