@@ -1,0 +1,46 @@
+name: Native Android build and rules tests
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'android/**'
+      - 'public/catalog/movies.json'
+      - '.github/workflows/android-native.yml'
+  pull_request:
+    paths:
+      - 'android/**'
+      - 'public/catalog/movies.json'
+      - '.github/workflows/android-native.yml'
+  workflow_dispatch:
+jobs:
+  native-android:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Configure installed Android SDK and platform 35
+        run: |
+          export ANDROID_HOME=/usr/local/lib/android/sdk
+          echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | head -n 1)"
+          test -n "$SDKMANAGER"
+          "$SDKMANAGER" --sdk_root="$ANDROID_HOME" "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Test native game rules and build real Android APK
+        run: gradle -p android --no-daemon :app:testDebugUnitTest :app:assembleDebug
+      - name: Verify APK contains the public offline catalog
+        run: |
+          unzip -p android/app/build/outputs/apk/debug/app-debug.apk assets/movies.json | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["version"] == 1; assert len(d["movies"]) >= 38; assert all(not m.get("is_demo", False) for m in d["movies"]); print("Offline public movie catalog:",len(d["movies"]))'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: romantiverse-native-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 7
