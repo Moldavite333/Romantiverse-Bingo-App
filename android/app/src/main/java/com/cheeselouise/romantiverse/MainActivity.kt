@@ -99,6 +99,8 @@ private fun NativeBingoApp(incomingCode: String?) {
     var theme by rememberSaveable { mutableStateOf(prefs.getString("theme", "Romance") ?: "Romance") }
     var seed by rememberSaveable { mutableLongStateOf(prefs.getLong("seed", 1L)) }
     var marks by remember { mutableStateOf(BingoEngine.decodeMarks(prefs.getString("marks", "") ?: "")) }
+    var celebration by remember { mutableStateOf<BingoCelebration?>(null) }
+    var celebrationId by remember { mutableIntStateOf(0) }
     // Resolve the score against the current movie, including when a saved movie
     // appears only after the offline catalog has been refreshed. Never let a
     // temporary missing movie overwrite its stored personal best.
@@ -141,6 +143,7 @@ private fun NativeBingoApp(incomingCode: String?) {
     }
     fun newSeed(): Long = SecureRandom().nextLong().ushr(1)
     fun choose(next: Movie) {
+        celebration = null
         selectedId = next.id
         theme = if (next.collection in themes) next.collection else "Romance"
         seed = newSeed()
@@ -151,6 +154,7 @@ private fun NativeBingoApp(incomingCode: String?) {
     }
     fun setTheme(next: String) {
         if (next !in themes || next == theme) return
+        celebration = null
         theme = next
         seed = newSeed()
         marks = emptySet()
@@ -159,7 +163,10 @@ private fun NativeBingoApp(incomingCode: String?) {
     }
     fun mark(index: Int) {
         if (index == BingoEngine.CENTER) return
-        marks = BingoEngine.toggle(marks, index)
+        val previous = marks
+        val updated = BingoEngine.toggle(previous, index)
+        val newLines = BingoCelebrationRules.newlyCompleted(previous, updated)
+        marks = updated
         val editor = prefs.edit().putString("marks", BingoEngine.encodeMarks(marks))
         val updatedBest = SoloScoreProgress.restore(movie, marks) { key ->
             prefs.getInt("best:$key", 0)
@@ -170,9 +177,17 @@ private fun NativeBingoApp(incomingCode: String?) {
             editor.putInt("best:$key", score)
         }
         editor.apply()
-        if (haptics) haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+        if (newLines.isNotEmpty()) {
+            celebrationId++
+            celebration = BingoCelebration(celebrationId, newLines.size)
+        }
+        if (haptics) haptic.performHapticFeedback(
+            if (newLines.isNotEmpty()) HapticFeedbackType.LongPress
+            else HapticFeedbackType.TextHandleMove
+        )
     }
 
+    Box(Modifier.fillMaxSize()) {
     Scaffold(
         containerColor = Color.Transparent,
         bottomBar = {
@@ -180,7 +195,10 @@ private fun NativeBingoApp(incomingCode: String?) {
                 listOf("discover" to "Movies", "play" to "My card", "together" to "Together").forEach { (id, label) ->
                     NavigationBarItem(
                         selected = tab == id,
-                        onClick = { tab = id },
+                        onClick = {
+                            if (tab != id) celebration = null
+                            tab = id
+                        },
                         icon = { Text(when (id) { "discover" -> "✦"; "play" -> "▦"; else -> "♡" }, fontSize = 21.sp) },
                         label = { Text(label) },
                         colors = NavigationBarItemDefaults.colors(
@@ -244,6 +262,7 @@ private fun NativeBingoApp(incomingCode: String?) {
                             prefs.edit().putBoolean("haptics", it).apply()
                         },
                         onNewCard = {
+                            celebration = null
                             seed = newSeed()
                             marks = emptySet()
                             prefs.edit().putLong("seed", seed).putString("marks", "").apply()
@@ -252,6 +271,12 @@ private fun NativeBingoApp(incomingCode: String?) {
                 }
             }
         }
+    }
+    celebration?.takeIf { tab == "play" }?.let { event ->
+        BingoWinOverlay(event, reduceMotion) {
+            if (celebration?.id == event.id) celebration = null
+        }
+    }
     }
 }
 
