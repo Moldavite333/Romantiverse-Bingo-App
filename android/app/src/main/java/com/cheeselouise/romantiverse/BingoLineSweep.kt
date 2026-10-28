@@ -59,6 +59,8 @@ internal fun BingoLineSweep(
     Canvas(modifier) {
         event.winningLines.forEach { indices ->
             val line = BingoLineGeometry.path(indices) ?: return@forEach
+            // A zero-length gradient is invalid on some Android GPU drivers.
+            if (progress.value <= 0f) return@forEach
             val start = Offset(line.x0 * size.width, line.y0 * size.height)
             val end = Offset(line.x1 * size.width, line.y1 * size.height)
             val tip = Offset(
