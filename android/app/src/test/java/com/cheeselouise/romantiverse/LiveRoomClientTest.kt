@@ -7,8 +7,9 @@ class LiveRoomClientTest {
     private val token = "a".repeat(64)
     private val code = "ABCD234"
 
-    private fun snapshot(revision: Int, marks: String, title: String = "Autumn at Apple Hill") =
-        """{
+    private fun snapshot(revision: Int, marks: String, title: String = "Autumn at Apple Hill"): String {
+        val cardJson = (0..24).joinToString(",") { "{\\\"label\\\":\\\"Square $it\\\"}" }
+        return """{
             "room": {
                 "code":"$code","movie_title":"$title","movie_collection":"Fall",
                 "release_year":2024,"season":"Romance","mode":"classic","status":"playing",
@@ -16,9 +17,10 @@ class LiveRoomClientTest {
                 "players":[{"id":"player-1","name":"Host","lines":0,"marked":1}]
             },
             "token":"$token","player_id":"player-1",
-            "card":[${(0..24).joinToString(",") { """{"label":"Square $it"}""" }}],
+            "card":[$cardJson],
             "marked":[$marks],"revision":$revision
         }"""
+    }
 
     @Test fun invitationsContainOnlyRoomCode() {
         val url = RoomInvites.url(code)
