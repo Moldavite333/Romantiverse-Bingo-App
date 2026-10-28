@@ -38,12 +38,23 @@ object PosterRepository {
         } catch (_: Exception) { null }
     }
 
+    /**
+     * A successful HQ response is authoritative for which *locked* posters are
+     * still published. Remove old locked artwork before reconciling that feed:
+     * an unpublished or unlocked poster must not remain pinned indefinitely.
+     * If HQ is unavailable, keep the last known public artwork for offline play.
+     */
     fun merge(
         current: Map<String, Entry>,
         cache: List<Pair<String, Entry>>,
-        published: List<Pair<String, Entry>>
+        published: List<Pair<String, Entry>>,
+        publishedAuthoritative: Boolean = false
     ): Map<String, Entry> {
-        val result = current.toMutableMap()
+        val result = if (publishedAuthoritative) {
+            current.filterValues { !it.locked }.toMutableMap()
+        } else {
+            current.toMutableMap()
+        }
         for ((key, value) in cache) {
             if (result[key]?.locked != true) result[key] = value.copy(locked = false)
         }
@@ -103,7 +114,10 @@ object PosterRepository {
         val cache = runCatching { entries(fetch(CACHE_URL, false), false) }.getOrNull()
         val published = runCatching { entries(fetch(HQ_URL, true), true) }.getOrNull()
         if (cache == null && published == null) return@withContext old
-        val merged = merge(old, cache.orEmpty(), published.orEmpty())
+        // Only a successful HQ fetch can revoke a previously published lock.
+        // Network failures must not masquerade as an empty authoritative feed.
+        val merged = merge(old, cache.orEmpty(), published.orEmpty(),
+            publishedAuthoritative = published != null)
         val json = JSONObject()
         for ((key, value) in merged) {
             json.put(key, JSONObject().put("url", value.url).put("locked", value.locked))
