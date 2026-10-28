@@ -4,13 +4,13 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.provider.Settings
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -48,10 +49,14 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
-private val ink = Color(0xFF321C35)
-private val parchment = Color(0xFFFFF4DE)
-private val accent = Color(0xFFEAC078)
-private val evergreen = Color(0xFF284B46)
+private val ink = Color(0xFF121024)
+private val parchment = Color(0xFFF8F6FF)
+private val accent = Color(0xFFFFCC79)
+private val evergreen = Color(0xFF282342)
+private val rose = Color(0xFFF45A9D)
+private val unmarkedSquare = Color(0xFF292541)
+private val markedSquare = Color(0xFF74355F)
+private val winningSquare = Color(0xFF146C78)
 private const val sessionPrefs = "romantiverse-live-session"
 
 private fun restore(context: Context): LiveSession? {
@@ -67,21 +72,12 @@ private fun restore(context: Context): LiveSession? {
 fun LiveRoomScreen(
     selectedMovie: Movie?,
     selectedPoster: String?,
-    incomingCode: String?
+    incomingCode: String?,
+    hapticsEnabled: Boolean,
+    reduceMotion: Boolean
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
-    val hapticsEnabled = remember(context) {
-        context.getSharedPreferences("bingo-native-v1", Context.MODE_PRIVATE)
-            .getBoolean("haptics", true)
-    }
-    val reduceMotion = remember(context) {
-        runCatching {
-            Settings.Global.getFloat(
-                context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f
-            ) == 0f
-        }.getOrDefault(false)
-    }
     val lifecycleOwner = LocalLifecycleOwner.current
     val scope = rememberCoroutineScope()
     var session by remember { mutableStateOf(restore(context)) }
@@ -367,30 +363,36 @@ fun LiveRoomScreen(
                 item {
                     Text("MY CARD · ${live.lines} lines · ${live.score} points",
                         color = accent, fontWeight = FontWeight.Bold)
-                    Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
-                        .background(parchment).padding(5.dp)) {
-                        Row {
+                    Column(
+                        Modifier.fillMaxWidth()
+                            .clip(RoundedCornerShape(18.dp))
+                            .background(Brush.verticalGradient(
+                                listOf(Color(0xFF322849), Color(0xFF211D38))
+                            ))
+                            .border(1.dp, rose.copy(alpha = .3f), RoundedCornerShape(18.dp))
+                            .padding(6.dp)
+                    ) {
+                        Row(Modifier.fillMaxWidth().padding(bottom = 3.dp)) {
                             "BINGO".forEach { letter ->
                                 Text(letter.toString(), Modifier.weight(1f),
-                                    textAlign = TextAlign.Center, color = ink,
-                                    fontWeight = FontWeight.Black, fontSize = 20.sp)
+                                    textAlign = TextAlign.Center, color = accent,
+                                    fontWeight = FontWeight.Black, fontSize = 17.sp)
                             }
                         }
                         val winning = BingoEngine.winningLines(live.marks).flatten().toSet()
                         for (row in 0..4) {
-                            Row {
+                            Row(Modifier.fillMaxWidth()) {
                                 for (col in 0..4) {
                                     val index = row * 5 + col
-                                    val marked = index == 12 || index in live.marks
-                                    val isWinning = index in winning
+                                    val marked = index == BingoEngine.CENTER || index in live.marks
                                     LiveBingoSquare(
-                                        label = if (index == 12) "CHEESE LOUISE POD" else live.card[index],
+                                        label = if (index == BingoEngine.CENTER) BingoEngine.FREE_LABEL else live.card[index],
                                         index = index,
                                         marked = marked,
-                                        winning = isWinning,
+                                        winning = index in winning,
                                         enabled = !busy && room?.movie?.status == "playing",
                                         reducedMotion = reduceMotion,
-                                        modifier = Modifier.weight(1f).aspectRatio(1f),
+                                        modifier = Modifier.weight(1f).aspectRatio(.78f),
                                         onToggle = {
                                             if (hapticsEnabled) {
                                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
@@ -439,10 +441,11 @@ fun LiveRoomScreen(
 }
 
 /**
- * The entire native square is one accessible toggle target. The spoken label
- * contains the full trope even when a narrow phone visually truncates it.
- * Only inexpensive color transitions run, and Android reduced motion disables them.
+ * Multiplayer uses the same compact, display-only labels and native visual language
+ * as solo play. Full canonical labels remain available to TalkBack and long-press;
+ * neither server cards nor scoring data are modified for presentation.
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun LiveBingoSquare(
     label: String,
@@ -454,26 +457,32 @@ private fun LiveBingoSquare(
     onToggle: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val free = index == BingoEngine.CENTER
+    var showDetails by remember(label) { mutableStateOf(false) }
     val shade by animateColorAsState(
         targetValue = when {
-            winning -> evergreen
-            marked -> accent
-            else -> Color.White
+            winning -> winningSquare
+            marked -> markedSquare
+            else -> unmarkedSquare
         },
-        animationSpec = if (reducedMotion) snap() else tween(160),
+        animationSpec = if (reducedMotion) snap() else tween(180),
         label = "Shared square marking"
     )
-    val free = index == BingoEngine.CENTER
     Box(
         modifier.padding(2.dp)
-            .clip(RoundedCornerShape(7.dp))
-            .background(shade)
-            .border(1.dp, ink.copy(alpha = .18f), RoundedCornerShape(7.dp))
-            .toggleable(
-                value = marked,
+            .clip(RoundedCornerShape(11.dp))
+            .background(if (free) accent else shade)
+            .border(
+                1.dp,
+                if (marked) accent.copy(alpha = .65f) else parchment.copy(alpha = .12f),
+                RoundedCornerShape(11.dp)
+            )
+            .combinedClickable(
                 enabled = enabled && !free,
                 role = Role.Checkbox,
-                onValueChange = { onToggle() }
+                onClick = onToggle,
+                onLongClickLabel = "Read full trope",
+                onLongClick = { showDetails = true }
             )
             .semantics(mergeDescendants = true) {
                 contentDescription = LiveSquareAccessibility.label(index, label)
@@ -482,25 +491,36 @@ private fun LiveBingoSquare(
         contentAlignment = Alignment.Center
     ) {
         Column(
-            modifier = Modifier.padding(3.dp),
+            modifier = Modifier.fillMaxSize().padding(horizontal = 2.dp, vertical = 3.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            if (marked && !free) {
-                Text("✦", color = if (winning) accent else ink,
-                    fontSize = 12.sp, lineHeight = 12.sp)
-            }
             Text(
-                label,
-                color = if (winning) parchment else ink,
+                if (free) "♥" else if (marked) "✓" else BingoSquarePresentation.glyph(label),
+                color = if (free) ink else if (winning) accent else rose,
+                fontSize = 14.sp, lineHeight = 16.sp
+            )
+            Text(
+                BingoSquarePresentation.shortLabel(label),
+                color = if (free) ink else parchment,
+                textAlign = TextAlign.Center,
                 fontSize = if (free) 9.sp else 10.sp,
                 lineHeight = 11.sp,
-                textAlign = TextAlign.Center,
-                maxLines = if (marked && !free) 3 else 4,
-                overflow = TextOverflow.Ellipsis,
-                fontWeight = if (marked) FontWeight.Bold else FontWeight.Normal
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 5,
+                overflow = TextOverflow.Ellipsis
             )
         }
+    }
+    if (showDetails) {
+        AlertDialog(
+            onDismissRequest = { showDetails = false },
+            title = { Text("Bingo trope") },
+            text = { Text(label) },
+            confirmButton = {
+                TextButton(onClick = { showDetails = false }) { Text("Close") }
+            }
+        )
     }
 }
 
