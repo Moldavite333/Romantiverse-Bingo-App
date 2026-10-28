@@ -47,7 +47,7 @@ internal fun BingoWinOverlay(
     val burst = remember(event.id) { Animatable(0f) }
     var visible by remember(event.id) { mutableStateOf(reducedMotion) }
     LaunchedEffect(event.id) {
-        if (!reducedMotion) delay(280) // Let the winning squares illuminate first.
+        if (!reducedMotion) delay(470) // Let the winning-line sweep finish before the fanfare card.
         visible = true
         if (!reducedMotion) {
             launch { scale.animateTo(1f, tween(340)) }

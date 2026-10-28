@@ -25,4 +25,10 @@ object BingoCelebrationRules {
     }
 }
 
-data class BingoCelebration(val id: Int, val newLines: Int, val blackout: Boolean = false)
+data class BingoCelebration(
+    val id: Int,
+    val newLines: Int,
+    val blackout: Boolean = false,
+    // The exact new authoritative lines, never inferred from presentation state.
+    val winningLines: List<List<Int>> = emptyList()
+)

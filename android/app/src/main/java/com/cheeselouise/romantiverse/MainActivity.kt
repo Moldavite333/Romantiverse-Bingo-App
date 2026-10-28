@@ -179,7 +179,7 @@ private fun NativeBingoApp(incomingCode: String?) {
         editor.apply()
         if (newLines.isNotEmpty()) {
             celebrationId++
-            celebration = BingoCelebration(celebrationId, newLines.size)
+            celebration = BingoCelebration(celebrationId, newLines.size, winningLines = newLines)
         }
         if (haptics) haptic.performHapticFeedback(
             if (newLines.isNotEmpty()) HapticFeedbackType.LongPress
@@ -251,6 +251,7 @@ private fun NativeBingoApp(incomingCode: String?) {
                         posterUrl = posters[movie.key]?.url,
                         card = card,
                         marks = marks,
+                        celebration = celebration,
                         bestScore = bestScore,
                         theme = theme,
                         reducedMotion = reduceMotion,
@@ -371,6 +372,7 @@ private fun PlayCard(
     posterUrl: String?,
     card: List<String>,
     marks: Set<Int>,
+    celebration: BingoCelebration?,
     bestScore: Int,
     theme: String,
     reducedMotion: Boolean,
@@ -448,22 +450,28 @@ private fun PlayCard(
                             fontWeight = FontWeight.Black, fontSize = 17.sp)
                     }
                 }
-                for (row in 0..4) {
-                    Row(Modifier.fillMaxWidth()) {
-                        for (col in 0..4) {
-                            val index = row * 5 + col
-                            BingoSquare(
-                                label = card[index],
-                                index = index,
-                                marked = index == BingoEngine.CENTER || index in marks,
-                                inLine = index in winningIndices,
-                                reducedMotion = reducedMotion,
-                                onClick = { onMark(index) },
-                                // Taller cells allow readable multi-line labels on narrow phones.
-                                modifier = Modifier.weight(1f).aspectRatio(.78f)
-                            )
+                Box(Modifier.fillMaxWidth()) {
+                    Column(Modifier.fillMaxWidth()) {
+                        for (row in 0..4) {
+                            Row(Modifier.fillMaxWidth()) {
+                                for (col in 0..4) {
+                                    val index = row * 5 + col
+                                    BingoSquare(
+                                        label = card[index],
+                                        index = index,
+                                        marked = index == BingoEngine.CENTER || index in marks,
+                                        inLine = index in winningIndices,
+                                        reducedMotion = reducedMotion,
+                                        onClick = { onMark(index) },
+                                        // Taller cells allow readable multi-line labels on narrow phones.
+                                        modifier = Modifier.weight(1f).aspectRatio(.78f)
+                                    )
+                                }
+                            }
                         }
                     }
+                    // Paint over the native board without intercepting touch targets.
+                    BingoLineSweep(celebration, reducedMotion, Modifier.matchParentSize())
                 }
             }
         }

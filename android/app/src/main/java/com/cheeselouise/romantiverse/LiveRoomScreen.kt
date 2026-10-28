@@ -130,7 +130,7 @@ fun LiveRoomScreen(
             (!blackoutMode || (snapshot?.blackout == false && next.blackout))
         ) {
             celebrationId++
-            celebration = BingoCelebration(celebrationId, newLines.size, blackoutMode)
+            celebration = BingoCelebration(celebrationId, newLines.size, blackoutMode, newLines)
             if (hapticsEnabled) haptic.performHapticFeedback(HapticFeedbackType.LongPress)
         }
         snapshot = next
@@ -393,28 +393,33 @@ fun LiveRoomScreen(
                             }
                         }
                         val winning = BingoEngine.winningLines(live.marks).flatten().toSet()
-                        for (row in 0..4) {
-                            Row(Modifier.fillMaxWidth()) {
-                                for (col in 0..4) {
-                                    val index = row * 5 + col
-                                    val marked = index == BingoEngine.CENTER || index in live.marks
-                                    LiveBingoSquare(
-                                        label = if (index == BingoEngine.CENTER) BingoEngine.FREE_LABEL else live.card[index],
-                                        index = index,
-                                        marked = marked,
-                                        winning = index in winning,
-                                        enabled = !busy && room?.movie?.status == "playing",
-                                        reducedMotion = reduceMotion,
-                                        modifier = Modifier.weight(1f).aspectRatio(.78f),
-                                        onToggle = {
-                                            if (hapticsEnabled) {
-                                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                            }
-                                            action("mark", index)
+                        Box(Modifier.fillMaxWidth()) {
+                            Column(Modifier.fillMaxWidth()) {
+                                for (row in 0..4) {
+                                    Row(Modifier.fillMaxWidth()) {
+                                        for (col in 0..4) {
+                                            val index = row * 5 + col
+                                            val marked = index == BingoEngine.CENTER || index in live.marks
+                                            LiveBingoSquare(
+                                                label = if (index == BingoEngine.CENTER) BingoEngine.FREE_LABEL else live.card[index],
+                                                index = index,
+                                                marked = marked,
+                                                winning = index in winning,
+                                                enabled = !busy && room?.movie?.status == "playing",
+                                                reducedMotion = reduceMotion,
+                                                modifier = Modifier.weight(1f).aspectRatio(.78f),
+                                                onToggle = {
+                                                    if (hapticsEnabled) {
+                                                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                                    }
+                                                    action("mark", index)
+                                                }
+                                            )
                                         }
-                                    )
+                                    }
                                 }
                             }
+                            BingoLineSweep(celebration, reduceMotion, Modifier.matchParentSize())
                         }
                     }
                     Text("Marks are saved by the game server and restored after reconnect.",
