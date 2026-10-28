@@ -9,6 +9,8 @@ object BingoSquarePresentation {
     fun shortLabel(label: String): String = when (label) {
         BingoEngine.FREE_LABEL -> "CHEESE\nLOUISE\nPOD"
         "A misunderstanding" -> "Mixed signals"
+        "The almost-kiss" -> "Near kiss"
+        "The big confession" -> "Confession"
         "An inconvenient deadline" -> "Deadline"
         "A last-minute arrival" -> "Late arrival"
         "A sudden change of plans" -> "Plans change"
