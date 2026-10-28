@@ -10,7 +10,7 @@ object BingoSquarePresentation {
         BingoEngine.FREE_LABEL -> "CHEESE\nLOUISE\nPOD"
         "A misunderstanding" -> "Mixed signals"
         "The almost-kiss" -> "Near kiss"
-        "The big confession" -> "Confession"
+        "The big confession" -> "Truth revealed"
         "An inconvenient deadline" -> "Deadline"
         "A last-minute arrival" -> "Late arrival"
         "A sudden change of plans" -> "Plans change"
