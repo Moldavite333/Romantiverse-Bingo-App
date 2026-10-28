@@ -12,6 +12,10 @@ class BingoSquarePresentationTest {
             assertEquals("Display labels must not collide in $theme", compact.size, compact.toSet().size)
             assertTrue("Empty display label in $theme", compact.all { it.isNotBlank() })
             assertTrue("Overlong display label in $theme", compact.all { it.length <= 22 })
+            assertTrue("Single words must fit narrow Android squares in $theme",
+                compact.all { label ->
+                    label.split(Regex("[\\s\\n]+")).all { it.length <= 9 }
+                })
         }
     }
 
@@ -27,7 +31,7 @@ class BingoSquarePresentationTest {
 
     @Test fun multiplayerUsesCompactDisplayWithoutChangingServerLabels() {
         val original = "A sentimental gift"
-        assertEquals("Sentimental gift", BingoSquarePresentation.shortLabel(original))
+        assertEquals("Keepsake gift", BingoSquarePresentation.shortLabel(original))
         assertEquals("A sentimental gift", original)
         assertEquals("CHEESE\nLOUISE\nPOD",
             BingoSquarePresentation.shortLabel(BingoEngine.FREE_LABEL))
