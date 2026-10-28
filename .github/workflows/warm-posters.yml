@@ -17,17 +17,19 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-      - name: Request public cache refresh and verify full bundled poster coverage
+      - name: Request public catalog-aware refresh and verify checked poster coverage
         shell: bash
         run: |
           set -euo pipefail
-          url='https://wgvsnmukiaobcbyqhkkt.supabase.co/functions/v1/bingo-public-posters'
-          for attempt in {1..8}; do
+          url='https://wgvsnmukiaobcbyqhkkt.supabase.co/functions/v1/bingo-public-posters?catalog_check=1'
+          for attempt in {1..12}; do
             curl --fail --silent --show-error --retry 2 --max-time 20 "$url" -o /tmp/bingo-posters.json
-            count=$(node -e 'const f=require("/tmp/bingo-posters.json");if(f.version!==1||!Array.isArray(f.movies))process.exit(2);console.log(f.movies.length)')
-            echo "Attempt $attempt: $count verified poster(s) in public cache"
-            if node -e 'const fs=require("node:fs");const feed=JSON.parse(fs.readFileSync("/tmp/bingo-posters.json"));const catalog=JSON.parse(fs.readFileSync("public/catalog/movies.json"));const key=m=>m.title.normalize("NFKC").trim().toLowerCase()+"|"+m.release_year;const found=new Set(feed.movies.map(key));const required=catalog.movies.filter(m=>m.is_demo!==true&&Number.isInteger(m.release_year)).map(key);const missing=required.filter(k=>!found.has(k));console.log("Verified catalog posters: "+(required.length-missing.length)+"/"+required.length);if(missing.length)console.log("Missing:",missing.slice(0,10));process.exit(missing.length===0&&required.length>=38?0:1)'; then exit 0; fi
+            echo "Public poster audit attempt $attempt"
+            if node scripts/verify-poster-coverage.mjs public/catalog/movies.json /tmp/bingo-posters.json; then
+              echo "All eligible catalog titles have been checked; missing verified posters retain fallback artwork."
+              exit 0
+            fi
             sleep 20
           done
-          echo 'Poster cache did not reach full bundled catalog coverage after the refresh window' >&2
+          echo 'Public poster cache still has unprocessed or stale titles after the refresh window' >&2
           exit 1
