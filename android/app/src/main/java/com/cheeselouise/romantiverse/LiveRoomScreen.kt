@@ -67,6 +67,8 @@ fun LiveRoomScreen(
     var theme by rememberSaveable { mutableStateOf("Romance") }
     var mode by rememberSaveable { mutableStateOf("classic") }
     var busy by remember { mutableStateOf(false) }
+    // Increment whenever the player leaves; invalidate every in-flight request.
+    var roomGeneration by remember { mutableIntStateOf(0) }
     var error by remember { mutableStateOf("") }
     var notice by remember { mutableStateOf("") }
 
@@ -77,19 +79,28 @@ fun LiveRoomScreen(
     LaunchedEffect(incomingCode) {
         if (incomingCode != null && session?.code != incomingCode) joinCode = incomingCode
     }
-    LaunchedEffect(joinCode, session) {
+    LaunchedEffect(joinCode, session, roomGeneration) {
+        preview = null
         if (session != null) return@LaunchedEffect
-        val code = RoomInvites.normalize(joinCode) ?: run { preview = null; return@LaunchedEffect }
+        val code = RoomInvites.normalize(joinCode) ?: return@LaunchedEffect
+        val requestGeneration = roomGeneration
         delay(300)
-        preview = runCatching {
+        val received = runCatching {
             LiveRoomProtocol.parse(LiveRoomClient.request(
                 LiveRoomClient.payload("preview").put("code", code)
             )).room
         }.getOrNull()
+        if (received != null && RoomResponseGuard.acceptsPreview(
+                requestGeneration, roomGeneration, RoomInvites.normalize(joinCode),
+                session, received.code
+            )) preview = received
     }
 
-    fun accept(response: String) {
+    fun accept(response: String, requestGeneration: Int, expectedCode: String? = null) {
         val next = LiveRoomProtocol.parse(response, snapshot)
+        if (!RoomResponseGuard.accepts(
+                requestGeneration, roomGeneration, expectedCode, session, next
+            )) return
         snapshot = next
         next.session?.let { new ->
             if (session != new) {
@@ -103,15 +114,19 @@ fun LiveRoomScreen(
 
     // Poll only while this screen is visible and the app is foregrounded.
     // A stale response cannot replace a newer revision of this player's card.
-    LaunchedEffect(session, lifecycleOwner) {
+    LaunchedEffect(session, lifecycleOwner, roomGeneration) {
         val activeSession = session ?: return@LaunchedEffect
+        val requestGeneration = roomGeneration
         lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (currentCoroutineContext().isActive) {
                 if (!busy) {
                     runCatching {
                         LiveRoomClient.request(LiveRoomClient.payload("state", activeSession))
-                    }.onSuccess { accept(it) }.onFailure {
-                        error = "Connection interrupted. Your room will reconnect automatically."
+                    }.onSuccess {
+                        accept(it, requestGeneration, activeSession.code)
+                    }.onFailure {
+                        if (roomGeneration == requestGeneration && session == activeSession)
+                            error = "Connection interrupted. Your room will reconnect automatically."
                     }
                 }
                 delay(3000)
@@ -121,12 +136,16 @@ fun LiveRoomScreen(
 
     fun action(kind: String, index: Int? = null) {
         if (busy) return
+        val requestGeneration = roomGeneration
+        val actionSession = session
+        val expectedCode = if (kind == "join") RoomInvites.normalize(joinCode)
+            else if (kind == "create") null else actionSession?.code
         busy = true
         error = ""
         scope.launch {
             try {
                 val request = LiveRoomClient.payload(kind,
-                    if (kind in listOf("create", "join")) null else session)
+                    if (kind in listOf("create", "join")) null else actionSession)
                 when (kind) {
                     "create" -> {
                         val movie = selectedMovie ?: kotlin.error("Choose a movie first")
@@ -142,23 +161,27 @@ fun LiveRoomScreen(
                     "mark" -> request.put("index", index)
                         .put("revision", snapshot?.revision ?: kotlin.error("Card is not ready"))
                 }
-                accept(LiveRoomClient.request(request))
+                accept(LiveRoomClient.request(request), requestGeneration, expectedCode)
             } catch (failure: Exception) {
-                error = failure.message ?: "Room request failed"
-                // A mark might have reached the server even if its response was lost.
-                // Read authoritative state, never automatically retry the toggle.
-                if (kind == "mark" && session != null) {
-                    runCatching {
-                        LiveRoomClient.request(LiveRoomClient.payload("state", session))
-                    }.onSuccess { accept(it) }
+                if (roomGeneration == requestGeneration) {
+                    error = failure.message ?: "Room request failed"
+                    // A mark might have reached the server even if its response was lost.
+                    // Read authoritative state, never automatically retry the toggle.
+                    if (kind == "mark" && actionSession != null) {
+                        runCatching {
+                            LiveRoomClient.request(LiveRoomClient.payload("state", actionSession))
+                        }.onSuccess { accept(it, requestGeneration, actionSession.code) }
+                    }
                 }
             } finally {
-                busy = false
+                if (roomGeneration == requestGeneration) busy = false
             }
         }
     }
 
     fun leave() {
+        roomGeneration++
+        busy = false
         context.getSharedPreferences(sessionPrefs, Context.MODE_PRIVATE).edit().clear().apply()
         session = null
         snapshot = null
