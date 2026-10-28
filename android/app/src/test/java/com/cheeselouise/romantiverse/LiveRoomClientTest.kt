@@ -49,6 +49,30 @@ class LiveRoomClientTest {
         assertNull(RoomInvites.normalize("ABCDE01"))
     }
 
+    @Test fun nativeJoinAcceptsPastedCodeLinkAndSharedInvitationMessage() {
+        val invite = RoomInvites.url(code)
+        val shared = "Play Romantiverse Bingo with me!\n" +
+            "Autumn at Apple Hill · Fall collection · Romance card\n" + invite
+        assertEquals(code, RoomInvites.fromInput(code.lowercase()))
+        assertEquals(code, RoomInvites.fromInput("  $invite  "))
+        assertEquals(code, RoomInvites.fromInput(shared))
+        assertEquals(code, RoomInvites.editableInput(invite))
+        assertEquals(code, RoomInvites.editableInput(shared))
+        assertEquals("AB", RoomInvites.editableInput("ab"))
+    }
+
+    @Test fun nativeJoinRejectsForgedAmbiguousOrMalformedInvitations() {
+        val invite = RoomInvites.url(code)
+        val forged = "https://evil.example/Romantiverse-Bingo-App/?room=$code"
+        val duplicate = "$invite\n${RoomInvites.url("WXYZ345")}"
+        assertNull(RoomInvites.fromInput(forged))
+        assertNull(RoomInvites.fromInput(duplicate))
+        assertNull(RoomInvites.fromInput(invite + "&room=WXYZ345"))
+        assertNull(RoomInvites.fromInput("not a room"))
+        assertNull(RoomInvites.fromInput(null))
+        assertEquals(forged, RoomInvites.editableInput(forged))
+    }
+
     @Test fun serverMovieCollectionAndThemeRemainSeparate() {
         val result = LiveRoomProtocol.parse(snapshot(0, "12"))
         assertEquals("Autumn at Apple Hill", result.room.movie.title)

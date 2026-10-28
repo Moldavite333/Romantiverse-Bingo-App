@@ -107,7 +107,7 @@ fun LiveRoomScreen(
     LaunchedEffect(joinCode, session, roomGeneration) {
         preview = null
         if (session != null) return@LaunchedEffect
-        val code = RoomInvites.normalize(joinCode) ?: return@LaunchedEffect
+        val code = RoomInvites.fromInput(joinCode) ?: return@LaunchedEffect
         val requestGeneration = roomGeneration
         delay(300)
         val received = runCatching {
@@ -116,7 +116,7 @@ fun LiveRoomScreen(
             )).room
         }.getOrNull()
         if (received != null && RoomResponseGuard.acceptsPreview(
-                requestGeneration, roomGeneration, RoomInvites.normalize(joinCode),
+                requestGeneration, roomGeneration, RoomInvites.fromInput(joinCode),
                 session, received.code
             )) preview = received
     }
@@ -163,7 +163,7 @@ fun LiveRoomScreen(
         if (busy) return
         val requestGeneration = roomGeneration
         val actionSession = session
-        val expectedCode = if (kind == "join") RoomInvites.normalize(joinCode)
+        val expectedCode = if (kind == "join") RoomInvites.fromInput(joinCode)
             else if (kind == "create") null else actionSession?.code
         busy = true
         error = ""
@@ -182,7 +182,7 @@ fun LiveRoomScreen(
                             .put("season", theme).put("mode", mode)
                     }
                     "join" -> request.put("name", name.trim().take(32))
-                        .put("code", RoomInvites.normalize(joinCode) ?: kotlin.error("Invalid room code"))
+                        .put("code", RoomInvites.fromInput(joinCode) ?: kotlin.error("Invalid room code or invitation link"))
                     "mark" -> request.put("index", index)
                         .put("revision", snapshot?.revision ?: kotlin.error("Card is not ready"))
                 }
@@ -248,14 +248,14 @@ fun LiveRoomScreen(
                     modifier = Modifier.fillMaxWidth())
             }
             item {
-                OutlinedTextField(value = joinCode, onValueChange = { joinCode = it.uppercase().take(7) },
-                    label = { Text("Seven-character invitation code") }, singleLine = true,
+                OutlinedTextField(value = joinCode, onValueChange = { joinCode = RoomInvites.editableInput(it) },
+                    label = { Text("Room code or invitation link") }, singleLine = true,
                     modifier = Modifier.fillMaxWidth())
                 Spacer(Modifier.height(8.dp))
                 Button(
                     onClick = { action("join") },
                     enabled = !busy && name.isNotBlank() &&
-                        RoomInvites.normalize(joinCode) != null,
+                        RoomInvites.fromInput(joinCode) != null,
                     modifier = Modifier.fillMaxWidth()
                 ) { Text("Join game") }
             }
