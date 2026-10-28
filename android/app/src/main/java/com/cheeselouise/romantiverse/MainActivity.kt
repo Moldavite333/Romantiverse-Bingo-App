@@ -216,7 +216,7 @@ private fun NativeBingoApp(incomingCode: String?) {
                 if (current == "discover") {
                     DiscoverMovies(movies, posters, ::choose)
                 } else if (current == "together") {
-                    LiveRoomScreen(movie, movie?.let { posters[it.key]?.url }, incomingCode)
+                    LiveRoomScreen(movie, movie?.let { posters[it.key]?.url }, incomingCode, haptics, reduceMotion)
                 } else if (movie == null) {
                     Column(
                         Modifier.fillMaxSize().padding(24.dp),
