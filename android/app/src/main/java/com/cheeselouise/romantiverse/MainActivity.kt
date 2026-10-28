@@ -85,7 +85,7 @@ private fun NativeBingoApp(incomingCode: String?) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
     val prefs = remember { context.getSharedPreferences("bingo-native-v1", 0) }
-    val movies = remember { MovieCatalog.load(context) }
+    var movies by remember { mutableStateOf(MovieCatalog.load(context)) }
     var selectedId by rememberSaveable { mutableStateOf(prefs.getString("movie_id", "") ?: "") }
     var theme by rememberSaveable { mutableStateOf(prefs.getString("theme", "Romance") ?: "Romance") }
     var seed by rememberSaveable { mutableLongStateOf(prefs.getLong("seed", 1L)) }
@@ -113,6 +113,8 @@ private fun NativeBingoApp(incomingCode: String?) {
         }.getOrDefault(false)
     }
     LaunchedEffect(Unit) { posters = PosterRepository.refresh(context) }
+    // Public-only updates appear without an APK release; bundled movies work offline.
+    LaunchedEffect(Unit) { movies = MovieCatalog.refresh(context) }
     val movie = movies.firstOrNull { it.id == selectedId }
     LaunchedEffect(movie?.key) {
         // Upgrade existing in-progress cards without discarding a previously earned line.
