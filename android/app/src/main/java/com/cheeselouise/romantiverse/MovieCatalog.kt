@@ -38,6 +38,7 @@ object MovieCatalog {
         val movies = root.getJSONArray("movies")
         require(movies.length() in 1..3000) { "Invalid movie catalog size" }
         val seen = mutableSetOf<String>()
+        val seenIds = mutableSetOf<String>()
         val result = mutableListOf<Movie>()
         for (i in 0 until movies.length()) {
             val row = movies.optJSONObject(i) ?: continue
@@ -47,7 +48,7 @@ object MovieCatalog {
             val collection = row.optString("season", "Unspecified").trim()
             val year = row.optInt("release_year", 0).takeIf { it in 1900..2100 }
             if (!idPattern.matches(id) || title.length !in 1..180 ||
-                collection !in collections) continue
+                collection !in collections || !seenIds.add(id)) continue
             val movie = Movie(id, title, year, collection)
             if (seen.add(movie.key)) result += movie
         }
@@ -55,9 +56,17 @@ object MovieCatalog {
         return result.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.title })
     }
 
-    /** A transient or truncated feed must not erase movies already on the device. */
-    fun acceptableUpdate(current: List<Movie>, incoming: List<Movie>): Boolean =
-        incoming.size >= current.size && incoming.isNotEmpty()
+    /**
+     * Count alone is not a safe update gate: an equally large (or larger) feed
+     * can silently replace existing movies. Keep every established ID and its
+     * canonical title/year identity so saved cards and poster keys stay valid.
+     * Collection corrections are allowed; collection values are validated by parse.
+     */
+    fun acceptableUpdate(current: List<Movie>, incoming: List<Movie>): Boolean {
+        if (incoming.isEmpty() || incoming.size < current.size) return false
+        val incomingById = incoming.associateBy { it.id }
+        return current.all { old -> incomingById[old.id]?.key == old.key }
+    }
 
     private fun bundled(context: Context): List<Movie> =
         context.assets.open("movies.json").bufferedReader().use { parse(it.readText()) }
