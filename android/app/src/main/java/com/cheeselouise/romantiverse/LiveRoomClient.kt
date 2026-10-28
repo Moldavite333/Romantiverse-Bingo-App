@@ -77,6 +77,9 @@ object LiveRoomProtocol {
             mode = roomData.optString("mode", "classic"),
             status = roomData.optString("status", "lobby")
         )
+        // A room-only response must never inherit another room's private card, marks,
+        // revision, or player credentials (e.g. after switching an invitation).
+        val previousForRoom = previous?.takeIf { it.room.code == code }
         val playersData = roomData.optJSONArray("players") ?: JSONArray()
         val players = (0 until playersData.length()).mapNotNull { i ->
             playersData.optJSONObject(i)?.let {
@@ -87,22 +90,23 @@ object LiveRoomProtocol {
         val cardData = root.optJSONArray("card")
         val card = if (cardData != null) (0 until cardData.length()).map { i ->
             cardData.optJSONObject(i)?.optString("label") ?: ""
-        } else previous?.card.orEmpty()
+        } else previousForRoom?.card.orEmpty()
         val marksData = root.optJSONArray("marked")
         val marks = if (marksData != null) (0 until marksData.length()).mapNotNull { i ->
             marksData.optInt(i, -1).takeIf { it in 0..24 }
-        }.toSet() else previous?.marks.orEmpty()
-        val revision = root.optInt("revision", previous?.revision ?: 0)
+        }.toSet() else previousForRoom?.marks.orEmpty()
+        val revision = root.optInt("revision", previousForRoom?.revision ?: 0)
         val token = root.optString("token")
         val playerId = root.optString("player_id")
         val session = if (token.isNotBlank() && playerId.isNotBlank()) {
             LiveSession(code, token, playerId).takeIf { it.valid() }
-        } else previous?.session?.takeIf { it.code == code }
+        } else previousForRoom?.session
         val next = LiveSnapshot(LiveRoom(code, movie, players), card, marks, revision, session)
         // Poll responses may arrive after a successful mark. Never roll a card back.
-        return if (previous != null && previous.room.code == code &&
-            revision < previous.revision) next.copy(card = previous.card,
-                marks = previous.marks, revision = previous.revision) else next
+        return if (previousForRoom != null && revision < previousForRoom.revision) {
+            next.copy(card = previousForRoom.card,
+                marks = previousForRoom.marks, revision = previousForRoom.revision)
+        } else next
     }
 }
 
