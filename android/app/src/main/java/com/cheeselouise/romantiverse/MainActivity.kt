@@ -13,6 +13,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,6 +34,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -460,16 +462,19 @@ private fun BingoSquare(
         label = "Square marking"
     )
     val isFree = index == BingoEngine.CENTER
-    val column = "BINGO"[index % 5]
-    val row = index / 5 + 1
     Box(
         modifier.padding(2.dp).clip(RoundedCornerShape(7.dp))
             .background(shade)
             .border(1.dp, burgundy.copy(alpha = .2f), RoundedCornerShape(7.dp))
-            .clickable(enabled = !isFree, onClick = onClick)
-            .semantics {
-                contentDescription = "$column$row: $label"
-                stateDescription = if (marked) "Marked" else "Not marked"
+            .toggleable(
+                value = marked,
+                enabled = !isFree,
+                role = Role.Checkbox,
+                onValueChange = { onClick() }
+            )
+            .semantics(mergeDescendants = true) {
+                contentDescription = LiveSquareAccessibility.label(index, label)
+                stateDescription = LiveSquareAccessibility.state(index, marked, inLine)
             },
         contentAlignment = Alignment.Center
     ) {
@@ -512,7 +517,7 @@ private fun PosterThumbnail(movie: Movie, posterUrl: String?, modifier: Modifier
 }
 
 @Composable
-private fun MovieArtwork(modifier: Modifier = Modifier, collection: String) {
+internal fun MovieArtwork(modifier: Modifier = Modifier, collection: String) {
     val sky = when (collection) {
         "Christmas" -> Color(0xFF294F68)
         "Horror" -> Color(0xFF29233E)
