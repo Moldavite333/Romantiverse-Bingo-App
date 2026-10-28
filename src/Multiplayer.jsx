@@ -8,6 +8,7 @@ import {copyRoomInvite,shareRoomInvite,roomInviteMessage} from './engine/shareRo
 import {normalizeRoomCode,parseRoomInvite,roomInviteUrl} from './engine/roomInvites.mjs';
 import {tropeArtDataUri} from './engine/tropeArt.mjs';
 import {nextPlayerSnapshot} from './engine/roomState.mjs';
+import {winningLines} from './engine/bingo.mjs';
 const KEY='romantiverse-room-v1';
 const saved=()=>{try{return JSON.parse(sessionStorage.getItem(KEY))}catch{return null}};
 const THEMES=['Romance','Christmas','Fall','Horror'];
@@ -82,7 +83,10 @@ useEffect(()=>{if(!session)return;let alive=true;const poll=async()=>{if(!alive|
 async function mark(index){if(pending||busy)return;setPending(true);try{const data=await roomRequest({action:'mark',code:session.code,token:session.token,index,revision});update(data);setError('')}catch(e){setError(e.message);try{update(await roomRequest({action:'state',code:session.code,token:session.token}))}catch{}}finally{setPending(false)}}
 function leave(){try{sessionStorage.removeItem(KEY)}catch{};latestSnapshot.current={revision:-1,marked:[]};setSession(null);setRoom(null);setCard(null);setMarks([]);setRevision(0);setError('');setNotice('');setManualInvite(false)}
 // The backend enforces host permissions; controls may be shown but unauthorized actions are rejected.
-const myLines=(()=>{const set=new Set(marks);set.add(12);const lines=[...Array.from({length:5},(_,r)=>Array.from({length:5},(_,c)=>r*5+c)),...Array.from({length:5},(_,c)=>Array.from({length:5},(_,r)=>r*5+c)),[0,6,12,18,24],[4,8,12,16,20]];return lines.filter(l=>l.every(i=>set.has(i))).length})();
+const completedLines=winningLines(marks,true);
+const myLines=completedLines.length;
+const winningIndices=new Set(completedLines.flat());
+const celebrate=room?.mode==='blackout'?marks.length===25:myLines>0;
 const joinForm=<section className="room-join-panel" aria-label="Join a game"><h3>{incomingRoomCode?"You've been invited to play!":'Join a Game'}</h3>
   {preview&&<MovieDetails movie={preview} theme={preview.season} heading="YOU'RE INVITED TO WATCH"/>}
   <label htmlFor="join-nickname">Your nickname</label><input id="join-nickname" maxLength="32" placeholder="Your nickname" value={name} onChange={e=>setName(e.target.value)}/>
@@ -118,7 +122,7 @@ return <section className="panel multiplayer"><div className="eyebrow">LIVE MOVI
  <p><strong>{room?.movie_title||'Loading movie…'}</strong> · {room?.status||'connecting'}</p>
  <div className="player-list" aria-label="Players in room">{room?.players?.map(p=><div key={p.id}><strong>{p.name}{p.id===session.player_id?' (you)':''}</strong><span>{p.lines} lines · {p.marked} marked</span></div>)}</div>
  {room?.status==='lobby'&&<><p>Wait until everyone has joined before starting the movie.</p><button className="primary" disabled={busy} onClick={()=>call('start')}>Start Movie (host only)</button></>}
- {card&&<><div className="board live-board" role="group" aria-label="Multiplayer Bingo card" aria-busy={pending}>{'BINGO'.split('').map((l,i)=><div className="letter" key={'letter-'+i}>{l}</div>)}{card.map((t,i)=>{const marked=i===12||marks.includes(i);return <button key={i} className={'square '+(marked?'marked':'')} aria-label={'BINGO'[i%5]+(Math.floor(i/5)+1)+': '+(i===12?'CHEESE LOUISE POD':t.label)+(i===12?' (free center square)':'')} aria-pressed={marked} aria-disabled={pending||room?.status!=='playing'||i===12} disabled={room?.status!=='playing'||i===12} onClick={()=>mark(i)} title={t.reason||t.label}><img className="square-art" src={tropeArtDataUri(t)} alt="" aria-hidden="true" decoding="async"/><span className="square-label">{i===12?'CHEESE LOUISE POD':t.label}</span>{marked&&<b aria-hidden="true">✦</b>}</button>})}</div><p className="fineprint">{myLines} completed lines. Marks are saved on the server and restored after reconnection.</p></>}
+ {card&&<><div className={"board live-board"+(celebrate?" winner":"")} role="group" aria-label="Multiplayer Bingo card" aria-busy={pending}>{'BINGO'.split('').map((l,i)=><div className="letter" key={'letter-'+i}>{l}</div>)}{card.map((t,i)=>{const marked=i===12||marks.includes(i);return <button key={i} className={'square '+(marked?'marked ':'')+(winningIndices.has(i)?'in-line':'')} aria-label={'BINGO'[i%5]+(Math.floor(i/5)+1)+': '+(i===12?'CHEESE LOUISE POD':t.label)+(i===12?' (free center square)':'')} aria-pressed={marked} aria-disabled={pending||room?.status!=='playing'||i===12} disabled={room?.status!=='playing'||i===12} onClick={()=>mark(i)} title={t.reason||t.label}><img className="square-art" src={tropeArtDataUri(t)} alt="" aria-hidden="true" decoding="async"/><span className="square-label">{i===12?'CHEESE LOUISE POD':t.label}</span>{marked&&<b aria-hidden="true">✦</b>}</button>})}</div><p className="fineprint" aria-live="polite">{myLines} completed lines. Marks are saved on the server and restored after reconnection.</p>{celebrate&&<div className="victory" role="status"><h3>{room?.mode==='blackout'?'Blackout!':'BINGO!'}</h3><p>{myLines} completed {myLines===1?'line':'lines'} on your card.</p></div>}</>}
  {room?.status==='playing'&&<button disabled={busy} onClick={()=>call('finish')}>Finish Movie (host only)</button>}
  {room?.status==='finished'&&<p>Movie night complete. Results are preserved until the room expires.</p>}
 </>:<>
