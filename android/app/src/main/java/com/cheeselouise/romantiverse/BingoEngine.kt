@@ -78,6 +78,10 @@ object BingoEngine {
 
     fun score(marked: Set<Int>): Int = winningLines(marked).size * 100
 
+    /** Replaying or undoing a square cannot reduce a movie's lifetime best. */
+    fun bestScore(previousBest: Int, marked: Set<Int>): Int =
+        maxOf(previousBest.coerceAtLeast(0), score(marked))
+
     fun decodeMarks(encoded: String): Set<Int> = encoded.split(",")
         .mapNotNull { it.toIntOrNull() }.filter { it in 0..24 && it != CENTER }.toSet()
 
