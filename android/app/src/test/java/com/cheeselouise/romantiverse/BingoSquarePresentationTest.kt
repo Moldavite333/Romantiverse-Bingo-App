@@ -25,6 +25,16 @@ class BingoSquarePresentationTest {
         })
     }
 
+    @Test fun multiplayerUsesCompactDisplayWithoutChangingServerLabels() {
+        val original = "A sentimental gift"
+        assertEquals("Sentimental gift", BingoSquarePresentation.shortLabel(original))
+        assertEquals("A sentimental gift", original)
+        assertEquals("CHEESE\\nLOUISE\\nPOD",
+            BingoSquarePresentation.shortLabel(BingoEngine.FREE_LABEL))
+        assertEquals("CHEESE LOUISE POD", BingoEngine.FREE_LABEL)
+        assertEquals(100, BingoEngine.score(setOf(0, 1, 2, 3, 4)))
+    }
+
     @Test fun everyTropeHasAnIcon() {
         listOf("Romance", "Christmas", "Fall", "Horror").forEach { theme ->
             assertTrue(BingoEngine.pool(theme).all {
