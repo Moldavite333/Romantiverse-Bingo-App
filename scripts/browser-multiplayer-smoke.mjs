@@ -25,19 +25,33 @@ const code='AB7K2XY',poster='https://image.tmdb.org/t/p/w780/approved-test.jpg';
 const hostCard=Array.from({length:25},(_,i)=>({id:'host-'+i,label:i===12?'FREE SPACE':'Host trope '+i,category:i===12?'free':'cheese'}));
 const guestCard=Array.from({length:25},(_,i)=>({id:'guest-'+i,label:i===12?'FREE SPACE':'Guest trope '+i,category:i===12?'free':'cheese'}));
 let room={code,movie_title:'Autumn Dreams',movie_collection:'Fall',poster_url:poster,release_year:2015,season:'Fall',mode:'classic',status:'lobby',players:[{id:'host',name:'Nick',lines:0,marked:1}]};
+const snapshots={host:{card:hostCard,marked:[12],revision:0},guest:{card:guestCard,marked:[12],revision:0}};
+function playerResponse(id){const snap=snapshots[id];return {room,player_id:id,card:snap.card,marked:[...snap.marked],revision:snap.revision}}
 function responseFor(body){
  const action=body.action;
  if(action==='create'){
-  room={...room,movie_title:body.movie_title,movie_collection:body.movie_collection,poster_url:body.poster_url||poster,season:body.season,mode:body.mode};
-  return {room,player_id:'host',token:'a'.repeat(64),card:hostCard,marked:[12],revision:0};
+  room={...room,movie_title:body.movie_title,movie_collection:body.movie_collection,poster_url:body.poster_url||poster,season:body.season,mode:body.mode,status:'lobby'};
+  snapshots.host={card:hostCard,marked:[12],revision:0};
+  return {...playerResponse('host'),token:'a'.repeat(64)};
  }
  if(action==='preview')return {room:{...room,players:[]}};
  if(action==='join'){
   room={...room,players:[...room.players,{id:'guest',name:body.name,lines:0,marked:1}]};
-  return {room,player_id:'guest',token:'b'.repeat(64),card:guestCard,marked:[12],revision:0};
+  snapshots.guest={card:guestCard,marked:[12],revision:0};
+  return {...playerResponse('guest'),token:'b'.repeat(64)};
  }
- if(action==='state')return {room,player_id:body.token?.startsWith('b')?'guest':'host',card:body.token?.startsWith('b')?guestCard:hostCard,marked:[12],revision:0};
- return {room};
+ const id=body.token?.startsWith('b')?'guest':'host';
+ if(action==='start'){room={...room,status:'playing'};return playerResponse(id)}
+ if(action==='mark'){
+  const snap=snapshots[id];
+  assert.equal(body.revision,snap.revision,'Client must use latest player revision');
+  assert.equal(room.status,'playing');
+  const marks=new Set(snap.marked);
+  marks.has(body.index)?marks.delete(body.index):marks.add(body.index);
+  snap.marked=[...marks].sort((a,b)=>a-b);snap.revision++;
+  return playerResponse(id);
+ }
+ return playerResponse(id);
 }
 async function contextFor(width,mobile){
  const context=await browser.newContext({viewport:{width,height:844},isMobile:mobile,hasTouch:mobile});
@@ -149,6 +163,16 @@ try{
  const desktopOverflow=await guest.page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
  assert.ok(desktopOverflow<=2,'Desktop multiplayer must not overflow horizontally');
  assert.deepEqual(guest.errors,[],'Desktop guest JavaScript errors');
+ // Live winning lines must be server-confirmed, highlighted and accessible.
+ await host.page.getByRole('button',{name:'Start Movie (host only)'}).click();
+ for(const index of [0,1,2,3,4])await host.page.locator('.live-board .square').nth(index).click();
+ await host.page.locator('.live-board.winner').waitFor();
+ assert.equal(await host.page.locator('.live-board .square.in-line').count(),5);
+ assert.match(await host.page.locator('.multiplayer .victory').innerText(),/BINGO![\\s\\S]*1 completed line/);
+ assert.equal(await guest.page.locator('.live-board.winner').count(),0,'Host wins must not mark guest card');
+ await host.page.emulateMedia({reducedMotion:'reduce'});
+ assert.equal(await host.page.locator('.live-board.winner').evaluate(el=>getComputedStyle(el).animationName),'none');
+ assert.equal(await host.page.locator('.live-board .square.marked').first().evaluate(el=>getComputedStyle(el).animationName),'none');
  console.log('Verified mobile host copy/share fallback, movie metadata, unique room URL, desktop guest join and independent cards.');
  await host.context.close();await guest.context.close();
 }finally{await browser.close();await new Promise(ok=>server.close(ok))}
