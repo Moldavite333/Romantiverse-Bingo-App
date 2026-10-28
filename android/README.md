@@ -6,6 +6,7 @@ This is a **native Jetpack Compose Android app**, not a WebView, TWA, or wrapped
 
 - Android 8.0+ (API 26), fully native touch controls and original drawn mountain/poster fallback.
 - Offline first launch: the public `public/catalog/movies.json` is packaged directly as an Android asset. Unknown collections remain **Unspecified**, not guessed.
+- While online, the app checks the deployed **public** Bingo catalog and caches a validated, non-shrinking update; newly added movies become searchable without reinstalling the APK. If the feed is unavailable, malformed, or smaller than the currently accepted catalog, the bundled/last-known-good catalog remains playable. Deliberate catalog removals require a new app baseline; this conservative rule prevents accidental data loss. The update does not depend on private HQ.
 - Native 5×5 deterministic randomized Bingo card, protected free center, mark/undo, 12 winning lines, 100 points per line, local autosave, and independent card seeds.
 - Native movie browsing/search and explicit Bingo card theme, separate from the movie's catalog collection.
 - Approved-host poster thumbnails from the **public** Bingo cache and the **published-only** HQ poster projection. Exact title + release-year matching; HQ-locked artwork wins. Last known public mapping survives offline use; Coil caches images.
