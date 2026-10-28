@@ -50,13 +50,13 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import java.security.SecureRandom
 
-// Modern native palette: midnight, electric rose, warm light and violet glass.
-private val burgundy = Color(0xFFF45A9D)
-private val plum = Color(0xFF121024)
-private val cream = Color(0xFFF8F6FF)
-private val gold = Color(0xFFFFCC79)
-private val sage = Color(0xFF282342)
-private val pale = Color(0xFFD7D3EA)
+// Warm storybook palette shared with the native Play Together experience.
+private val burgundy = StorybookPalette.cranberry
+private val plum = StorybookPalette.background
+private val cream = StorybookPalette.paper
+private val gold = StorybookPalette.gold
+private val sage = StorybookPalette.surface
+private val pale = StorybookPalette.mutedText
 private const val ATTRIBUTION = "Brought to you by the Cheese Louise Podcast"
 private val themes = listOf("Romance", "Christmas", "Fall", "Horror")
 
@@ -76,9 +76,9 @@ class MainActivity : ComponentActivity() {
                     background = plum,
                     surface = sage,
                     onSurface = cream,
-                    surfaceVariant = Color(0xFF38304F),
+                    surfaceVariant = StorybookPalette.boardBottom,
                     onSurfaceVariant = pale,
-                    outline = Color(0xFF81738D),
+                    outline = StorybookPalette.marked,
                     onBackground = cream
                 )
             ) { NativeBingoApp(incomingCode) }
@@ -207,7 +207,7 @@ private fun NativeBingoApp(incomingCode: String?) {
                         colors = NavigationBarItemDefaults.colors(
                             selectedIconColor = gold,
                             selectedTextColor = cream,
-                            indicatorColor = Color(0xFF49304E),
+                            indicatorColor = StorybookPalette.boardTop,
                             unselectedIconColor = pale,
                             unselectedTextColor = pale
                         )
@@ -398,7 +398,7 @@ private fun PlayCard(
         item {
             Row(
                 Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
-                    .background(Brush.horizontalGradient(listOf(sage, Color(0xFF352447))))
+                    .background(Brush.horizontalGradient(listOf(sage, StorybookPalette.boardBottom)))
                     .border(1.dp, burgundy.copy(alpha = .22f), RoundedCornerShape(18.dp))
                     .padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -441,7 +441,7 @@ private fun PlayCard(
             Column(
                 Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
                     .background(Brush.verticalGradient(
-                        listOf(Color(0xFF322849), Color(0xFF211D38))
+                        listOf(StorybookPalette.boardTop, StorybookPalette.boardBottom)
                     ))
                     .border(1.dp, burgundy.copy(alpha = .3f), RoundedCornerShape(18.dp))
                     .padding(6.dp)
@@ -575,9 +575,9 @@ private fun BingoSquare(
 ) {
     val shade by animateColorAsState(
         targetValue = when {
-            inLine -> Color(0xFF146C78)
-            marked -> Color(0xFF74355F)
-            else -> Color(0xFF292541)
+            inLine -> StorybookPalette.evergreen
+            marked -> StorybookPalette.marked
+            else -> StorybookPalette.tile
         },
         animationSpec = if (reducedMotion) snap() else tween(180),
         label = "Square marking"
@@ -611,7 +611,7 @@ private fun BingoSquare(
             if (isFree || marked) {
                 Text(
                     if (isFree) "♥" else "✓",
-                    color = if (isFree) plum else if (inLine) gold else burgundy,
+                    color = if (isFree) plum else if (inLine) gold else cream,
                     fontSize = 14.sp, lineHeight = 16.sp
                 )
             } else {
@@ -621,7 +621,7 @@ private fun BingoSquare(
                 BingoSquarePresentation.shortLabel(label),
                 style = TextStyle(lineBreak = LineBreak.Simple, hyphens = Hyphens.None),
                 textAlign = TextAlign.Center,
-                color = if (isFree) plum else cream,
+                color = if (isFree || !marked) plum else cream,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = if (isFree) 9.sp else 10.sp,
                 lineHeight = 11.sp,

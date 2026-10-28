@@ -54,6 +54,13 @@ internal fun TropeArtwork(
     color: Color,
     modifier: Modifier = Modifier
 ) {
+    // Prefer a unique illustrated story scene over the old shared outline motifs.
+    // The remaining tropes keep their offline vector fallback during rollout.
+    val storyScene = StorySceneArt.forLabel(label)
+    if (storyScene != null) {
+        StorySceneIllustration(storyScene, modifier)
+        return
+    }
     val motif = BingoTropeArtwork.motif(label)
     Canvas(modifier.size(22.dp)) {
         val unit = size.minDimension / 24f
