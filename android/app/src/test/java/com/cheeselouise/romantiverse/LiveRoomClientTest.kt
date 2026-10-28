@@ -8,7 +8,7 @@ class LiveRoomClientTest {
     private val code = "ABCD234"
 
     private fun snapshot(revision: Int, marks: String, title: String = "Autumn at Apple Hill"): String {
-        val cardJson = (0..24).joinToString(",") { "{\\\"label\\\":\\\"Square $it\\\"}" }
+        val cardJson = (0..24).joinToString(",") { """{"label":"Square $it"}""" }
         return """{
             "room": {
                 "code":"$code","movie_title":"$title","movie_collection":"Fall",
