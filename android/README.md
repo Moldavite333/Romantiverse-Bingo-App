@@ -10,7 +10,10 @@ This is a **native Jetpack Compose Android app**, not a WebView, TWA, or wrapped
 - Native movie browsing/search and explicit Bingo card theme, separate from the movie's catalog collection.
 - Approved-host poster thumbnails from the **public** Bingo cache and the **published-only** HQ poster projection. Exact title + release-year matching; HQ-locked artwork wins. Last known public mapping survives offline use; Coil caches images.
 - Motion respects the Android animator-duration accessibility setting; haptics can be disabled.
-- Native Play Together host/join flow with a nickname, server-authoritative per-player cards, revision-checked marks, foreground reconnect polling, room preview and host controls.\n- Unique room-code-only HTTPS invitation links; native Android clipboard and share sheet, plus selectable-text fallback.\n- Movie title, verified catalog collection, poster and independently selected card theme travel with the room. A local private session token is never placed in the invite URL.\n- JUnit game-engine and multiplayer-protocol regression tests and GitHub Actions debug APK build.
+- Native Play Together host/join flow with a nickname, server-authoritative per-player cards, revision-checked marks, foreground reconnect polling, room preview and host controls.
+- Unique room-code-only HTTPS invitation links; native Android clipboard and share sheet, plus selectable-text fallback.
+- Movie title, verified catalog collection, poster and independently selected card theme travel with the room. A local private session token is never placed in the invite URL.
+- JUnit game-engine and multiplayer-protocol regression tests and GitHub Actions debug APK build.
 
 ## Important release gates (NOT complete)
 
