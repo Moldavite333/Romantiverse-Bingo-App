@@ -8,7 +8,7 @@ import org.junit.Test
 class BingoStoryScenesTest {
     @Test fun eachIllustratedTropeHasItsOwnCanonicalScene() {
         val labels = StorySceneArt.labels()
-        assertEquals("Phase-one art should have 24 independent compositions", 24, labels.size)
+        assertEquals("Each mapped scene must be an independent composition", 40, labels.size)
         assertEquals("Never reuse a scene for a different trope", labels.size, StorySceneArt.uniqueSceneCount())
         assertEquals(StoryScene.entries.size, StorySceneArt.uniqueSceneCount())
         labels.forEach { label ->
@@ -19,8 +19,18 @@ class BingoStoryScenesTest {
         }
     }
 
+    @Test fun everyRomanceTropeNowHasIndependentArtwork() {
+        val romance = BingoEngine.pool("Romance")
+        assertEquals(36, romance.size)
+        romance.forEach { label ->
+            assertTrue("Romance trope still has a generic icon: $label",
+                StorySceneArt.forLabel(label) != null)
+        }
+        assertEquals(36, romance.mapNotNull(StorySceneArt::forLabel).toSet().size)
+    }
+
     @Test fun noGenericArtworkIsMisrepresentedAsAUniqueIllustration() {
-        assertNull(StorySceneArt.forLabel("A family secret"))
+        assertNull(StorySceneArt.forLabel("A hayride"))
         assertNull(StorySceneArt.forLabel("A pumpkin patch"))
         assertNull(StorySceneArt.forLabel("Made up trope"))
         assertNull(StorySceneArt.forLabel("Charming stranger"))
