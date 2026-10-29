@@ -1,6 +1,7 @@
 package com.cheeselouise.romantiverse
 
 import java.util.Random
+import java.util.Locale
 
 /** Pure native rules. No browser, network, analytics, or mutable shared state. */
 object BingoEngine {
@@ -48,11 +49,12 @@ object BingoEngine {
         )
     )
 
-    fun pool(theme: String): List<String> = (romance + (seasonal[theme] ?: emptyList())).distinct()
+    fun pool(theme: String): List<String> = (romance + (seasonal[theme.takeIf { it == "Christmas" || it == "Fall" }] ?: emptyList())).distinct()
 
     fun deal(pool: List<String>, seed: Long): List<String> {
         require(seed >= 0) { "Seed must be nonnegative" }
-        val unique = pool.map { it.trim() }.filter { it.isNotEmpty() && it != FREE_LABEL }.distinct()
+        val unique = pool.map { it.trim() }.filter { it.isNotEmpty() && it != FREE_LABEL }
+            .distinctBy { BingoSquarePresentation.shortLabel(it).replace("\n", " ").trim().lowercase(Locale.ROOT) }
         require(unique.size >= 24) { "At least 24 distinct tropes required" }
         val shuffled = unique.toMutableList()
         val random = Random(seed)
