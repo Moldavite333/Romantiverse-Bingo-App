@@ -410,7 +410,7 @@ fun LiveRoomScreen(
                                                 winning = index in winning,
                                                 enabled = !busy && room?.movie?.status == "playing",
                                                 reducedMotion = reduceMotion,
-                                                modifier = Modifier.weight(1f).aspectRatio(.78f),
+                                                modifier = Modifier.weight(1f).aspectRatio(BingoSquarePresentation.TILE_ASPECT_RATIO),
                                                 onToggle = {
                                                     if (hapticsEnabled) {
                                                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
@@ -495,7 +495,7 @@ private fun LiveBingoSquare(
         animationSpec = if (reducedMotion) snap() else tween(180),
         label = "Shared square marking"
     )
-    Box(
+    BoxWithConstraints(
         modifier.padding(2.dp)
             .clip(RoundedCornerShape(11.dp))
             .background(if (free) accent else shade)
@@ -518,12 +518,12 @@ private fun LiveBingoSquare(
         contentAlignment = Alignment.Center
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(horizontal = 2.dp, vertical = 3.dp),
+            modifier = Modifier.fillMaxSize().padding(horizontal = 1.dp, vertical = 2.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             if (BingoSquarePresentation.showArtwork(index)) {
-                TropeArtwork(label, rose)
+                TropeArtwork(label, rose, artworkSize = BingoSquarePresentation.artworkSizeDp(maxWidth.value).dp)
             } else {
                 Text("♥", color = ink, fontSize = 14.sp, lineHeight = 16.sp)
             }

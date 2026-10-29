@@ -467,7 +467,7 @@ private fun PlayCard(
                                         reducedMotion = reducedMotion,
                                         onClick = { onMark(index) },
                                         // Taller cells allow readable multi-line labels on narrow phones.
-                                        modifier = Modifier.weight(1f).aspectRatio(.78f)
+                                        modifier = Modifier.weight(1f).aspectRatio(BingoSquarePresentation.TILE_ASPECT_RATIO)
                                     )
                                 }
                             }
@@ -584,7 +584,7 @@ private fun BingoSquare(
     )
     val isFree = index == BingoEngine.CENTER
     var showDetails by remember(label) { mutableStateOf(false) }
-    Box(
+    BoxWithConstraints(
         modifier.padding(2.dp).clip(RoundedCornerShape(11.dp))
             .background(if (isFree) gold else shade)
             .border(1.dp,
@@ -606,10 +606,10 @@ private fun BingoSquare(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize().padding(horizontal = 2.dp, vertical = 3.dp)
+            modifier = Modifier.fillMaxSize().padding(horizontal = 1.dp, vertical = 2.dp)
         ) {
             if (BingoSquarePresentation.showArtwork(index)) {
-                TropeArtwork(label, burgundy)
+                TropeArtwork(label, burgundy, artworkSize = BingoSquarePresentation.artworkSizeDp(maxWidth.value).dp)
             } else {
                 Text("♥", color = plum, fontSize = 14.sp, lineHeight = 16.sp)
             }

@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.math.cos
@@ -60,17 +61,18 @@ internal object BingoTropeArtwork {
 internal fun TropeArtwork(
     label: String,
     color: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    artworkSize: Dp = 36.dp
 ) {
     // Prefer a unique illustrated story scene over the old shared outline motifs.
     // The remaining tropes keep their offline vector fallback during rollout.
     val storyScene = StorySceneArt.forLabel(label)
     if (storyScene != null) {
-        StorySceneIllustration(storyScene, modifier)
+        StorySceneIllustration(storyScene, modifier, artworkSize)
         return
     }
     val motif = BingoTropeArtwork.motif(label)
-    Canvas(modifier.size(22.dp)) {
+    Canvas(modifier.size(artworkSize)) {
         val unit = size.minDimension / 24f
         withTransform({ scale(unit, unit, pivot = Offset.Zero) }) {
             val stroke = Stroke(width = 1.8f, cap = StrokeCap.Round)

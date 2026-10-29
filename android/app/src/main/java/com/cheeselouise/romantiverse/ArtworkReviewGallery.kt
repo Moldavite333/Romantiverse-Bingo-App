@@ -57,7 +57,7 @@ private fun ArtworkReviewTile(
         marked -> StorybookPalette.marked
         else -> StorybookPalette.tile
     }
-    Box(
+    BoxWithConstraints(
         modifier
             .padding(2.dp)
             .clip(RoundedCornerShape(11.dp))
@@ -65,11 +65,11 @@ private fun ArtworkReviewTile(
         contentAlignment = Alignment.Center
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(horizontal = 2.dp, vertical = 3.dp),
+            modifier = Modifier.fillMaxSize().padding(horizontal = 1.dp, vertical = 2.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            TropeArtwork(label, StorybookPalette.cranberry)
+            TropeArtwork(label, StorybookPalette.cranberry, artworkSize = BingoSquarePresentation.artworkSizeDp(maxWidth.value).dp)
             Text(
                 text = BingoSquarePresentation.shortLabel(label),
                 color = if (marked || winning) StorybookPalette.paper
@@ -114,11 +114,11 @@ private fun ArtworkReviewGallery(
                         label = label,
                         marked = marked,
                         winning = winning,
-                        modifier = Modifier.weight(1f).aspectRatio(.78f)
+                        modifier = Modifier.weight(1f).aspectRatio(BingoSquarePresentation.TILE_ASPECT_RATIO)
                     )
                 }
                 repeat(5 - rowLabels.size) {
-                    Spacer(Modifier.weight(1f).aspectRatio(.78f))
+                    Spacer(Modifier.weight(1f).aspectRatio(BingoSquarePresentation.TILE_ASPECT_RATIO))
                 }
             }
         }

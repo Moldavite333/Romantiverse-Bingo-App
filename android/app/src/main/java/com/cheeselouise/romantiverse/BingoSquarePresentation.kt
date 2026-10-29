@@ -6,6 +6,13 @@ package com.cheeselouise.romantiverse
  * A long-press on a square exposes its full original wording.
  */
 object BingoSquarePresentation {
+    /** Taller cells keep scene paintings and multi-line labels legible on small phones. */
+    const val TILE_ASPECT_RATIO = 0.68f
+
+    /** Size scales with the actual five-column cell, capped for tablets and tiny phones. */
+    fun artworkSizeDp(tileWidthDp: Float): Float =
+        (tileWidthDp * 0.64f).coerceIn(36f, 56f)
+
     /** Artwork persists after marking; only the free center has no trope scene. */
     fun showArtwork(index: Int): Boolean = index != BingoEngine.CENTER
 

@@ -40,6 +40,15 @@ class BingoSquarePresentationTest {
         assertEquals(100, BingoEngine.score(setOf(0, 1, 2, 3, 4)))
     }
 
+    @Test fun artworkGrowsOnPhoneAndTabletWithoutChangingFiveColumnCard() {
+        assertEquals(0.68f, BingoSquarePresentation.TILE_ASPECT_RATIO, 0.0001f)
+        assertEquals(36f, BingoSquarePresentation.artworkSizeDp(52f), 0.001f)
+        assertEquals(40.96f, BingoSquarePresentation.artworkSizeDp(64f), 0.001f)
+        assertEquals(56f, BingoSquarePresentation.artworkSizeDp(120f), 0.001f)
+        assertTrue(BingoSquarePresentation.artworkSizeDp(64f) >
+            BingoSquarePresentation.artworkSizeDp(52f))
+    }
+
     @Test fun markedTilesRetainTheirOwnIllustrationsAndShowASeparateSeal() {
         for (index in 0 until 25) {
             val free = index == BingoEngine.CENTER
