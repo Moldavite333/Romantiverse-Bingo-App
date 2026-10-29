@@ -522,14 +522,10 @@ private fun LiveBingoSquare(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            if (free || marked) {
-                Text(
-                    if (free) "♥" else "✓",
-                    color = if (free) ink else if (winning) accent else parchment,
-                    fontSize = 14.sp, lineHeight = 16.sp
-                )
-            } else {
+            if (BingoSquarePresentation.showArtwork(index)) {
                 TropeArtwork(label, rose)
+            } else {
+                Text("♥", color = ink, fontSize = 14.sp, lineHeight = 16.sp)
             }
             Text(
                 BingoSquarePresentation.shortLabel(label),
@@ -542,6 +538,9 @@ private fun LiveBingoSquare(
                 maxLines = 5,
                 overflow = TextOverflow.Ellipsis
             )
+        }
+        if (BingoSquarePresentation.showMarkBadge(index, marked)) {
+            BingoMarkedBadge(Modifier.align(Alignment.TopEnd).padding(3.dp))
         }
     }
     if (showDetails) {
