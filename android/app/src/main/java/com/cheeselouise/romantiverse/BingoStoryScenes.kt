@@ -34,7 +34,8 @@ internal enum class StoryScene {
     GRAND_GESTURE, COMMUNITY_FUNDRAISER, SURPRISE_INVITATION, OLD_FLAME,
     FIRST_MEETING, MISUNDERSTANDING, ALMOST_KISS, BIG_CONFESSION, TOWN_FESTIVAL, FAMILY_SECRET, CAREER_DILEMMA, SENTIMENTAL_GIFT,
     MEDDLING_RELATIVE, ROMANTIC_RIVAL, LAST_MINUTE_ARRIVAL, UNEXPECTED_KISS, MEANINGFUL_LOOK, INCONVENIENT_DEADLINE, SMALL_TOWN_CELEBRATION, SHARED_MEAL,
-    TREE_LIGHTING, SNOWSTORM, CHRISTMAS_COOKIES, HOLIDAY_PARADE, FESTIVE_MARKET, CHRISTMAS_WISH, COZY_FIREPLACE, HOLIDAY_TRADITION
+    TREE_LIGHTING, SNOWSTORM, CHRISTMAS_COOKIES, HOLIDAY_PARADE, FESTIVE_MARKET, CHRISTMAS_WISH, COZY_FIREPLACE, HOLIDAY_TRADITION,
+    PUMPKIN_PATCH, AUTUMN_FESTIVAL, HAYRIDE, HARVEST_MARKET, PIE_CONTEST, COZY_SWEATER, FALLING_LEAVES, APPLE_ORCHARD, BONFIRE, FALL_FUNDRAISER, PUMPKIN_CARVING, FOLIAGE_DRIVE
 }
 
 internal object StorySceneArt {
@@ -86,7 +87,19 @@ internal object StorySceneArt {
         "A festive market" to StoryScene.FESTIVE_MARKET,
         "A Christmas wish" to StoryScene.CHRISTMAS_WISH,
         "A cozy fireplace" to StoryScene.COZY_FIREPLACE,
-        "A holiday tradition" to StoryScene.HOLIDAY_TRADITION
+        "A holiday tradition" to StoryScene.HOLIDAY_TRADITION,
+        "A pumpkin patch" to StoryScene.PUMPKIN_PATCH,
+        "An autumn festival" to StoryScene.AUTUMN_FESTIVAL,
+        "A hayride" to StoryScene.HAYRIDE,
+        "A harvest market" to StoryScene.HARVEST_MARKET,
+        "A pie contest" to StoryScene.PIE_CONTEST,
+        "A cozy sweater" to StoryScene.COZY_SWEATER,
+        "Falling leaves" to StoryScene.FALLING_LEAVES,
+        "An apple orchard" to StoryScene.APPLE_ORCHARD,
+        "A bonfire" to StoryScene.BONFIRE,
+        "A fall fundraiser" to StoryScene.FALL_FUNDRAISER,
+        "A pumpkin carving" to StoryScene.PUMPKIN_CARVING,
+        "A scenic foliage drive" to StoryScene.FOLIAGE_DRIVE
     )
     fun forLabel(label: String): StoryScene? = scenes[label]
     fun labels(): Set<String> = scenes.keys
@@ -569,6 +582,115 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     heart(24f, 27f, .5f)
                     dot(9f, 7f, 3f, p.gold); dot(39f, 7f, 3f, p.gold)
                     line(9f, 7f, 39f, 7f, p.evergreen, 1.5f)
+                }
+
+
+                // Fall: distinctive harvest scenes rather than a shared pumpkin glyph.
+                StoryScene.PUMPKIN_PATCH -> {
+                    tile(p.sky); line(2f, 34f, 46f, 34f, p.evergreen, 3f)
+                    listOf(11f to 30f, 27f to 34f, 39f to 29f).forEach { (x, y) ->
+                        oval(x - 8f, y - 7f, 16f, 13f, p.gold)
+                        line(x, y - 8f, x + 2f, y - 12f, p.evergreen, 2f)
+                    }
+                    tree(5f, 20f, 15f)
+                    dot(39f, 8f, 6f, p.gold)
+                }
+                StoryScene.AUTUMN_FESTIVAL -> {
+                    tile(p.blush); shape(p.gold, 3f to 25f, 24f to 12f, 45f to 25f)
+                    box(6f, 25f, 36f, 19f, p.paper)
+                    line(4f, 6f, 44f, 6f, p.cocoa, 1f)
+                    listOf(9f, 19f, 29f, 39f).forEach { x ->
+                        shape(p.cranberry, x to 6f, (x + 6f) to 6f, (x + 3f) to 13f)
+                    }
+                    person(14f, 28f, p.evergreen); person(34f, 28f, p.blue)
+                    dot(24f, 37f, 4f, p.gold)
+                }
+                StoryScene.HAYRIDE -> {
+                    tile(p.sky); box(5f, 24f, 34f, 14f, p.cocoa)
+                    listOf(8f, 18f, 28f).forEach { x -> box(x, 21f, 9f, 11f, p.gold) }
+                    dot(12f, 40f, 5f, p.ink); dot(33f, 40f, 5f, p.ink)
+                    person(16f, 13f, p.cranberry); person(29f, 13f, p.evergreen)
+                    line(39f, 30f, 46f, 28f, p.cocoa, 2f)
+                    dot(43f, 8f, 4f, p.gold)
+                }
+                StoryScene.HARVEST_MARKET -> {
+                    tile(p.blush); box(4f, 18f, 40f, 26f, p.paper)
+                    shape(p.evergreen, 2f to 18f, 9f to 9f, 39f to 9f, 46f to 18f)
+                    box(8f, 28f, 32f, 10f, p.cocoa)
+                    listOf(14f, 24f, 34f).forEachIndexed { i, x ->
+                        dot(x, 27f, 5f, if (i == 1) p.cranberry else p.gold)
+                    }
+                    box(13f, 5f, 22f, 5f, p.gold)
+                }
+                StoryScene.PIE_CONTEST -> {
+                    tile(p.sky); oval(4f, 23f, 40f, 19f, p.cocoa)
+                    oval(7f, 20f, 34f, 17f, p.gold)
+                    listOf(13f, 22f, 31f).forEach { x ->
+                        line(x, 23f, x + 5f, 32f, p.cranberry, 2f)
+                    }
+                    box(17f, 5f, 14f, 13f, p.paper)
+                    dot(24f, 8f, 4f, p.gold)
+                    line(24f, 12f, 24f, 17f, p.cranberry, 2f)
+                }
+                StoryScene.COZY_SWEATER -> {
+                    tile(p.blush)
+                    shape(p.evergreen, 13f to 8f, 20f to 5f, 28f to 5f, 35f to 8f,
+                        45f to 20f, 39f to 28f, 34f to 23f, 34f to 43f,
+                        14f to 43f, 14f to 23f, 9f to 28f, 3f to 20f)
+                    box(15f, 22f, 18f, 4f, p.paper)
+                    listOf(19f, 25f, 31f).forEach { x -> dot(x, 32f, 2f, p.gold) }
+                    heart(24f, 17f, .55f, p.cranberry)
+                }
+                StoryScene.FALLING_LEAVES -> {
+                    tile(p.sky); tree(24f, 39f, 31f)
+                    listOf(5f to 9f, 41f to 14f, 9f to 30f, 36f to 34f, 25f to 5f).forEachIndexed { i, (x, y) ->
+                        oval(x, y, 7f, 4f, if (i % 2 == 0) p.gold else p.cranberry)
+                        line(x + 2f, y + 3f, x + 7f, y + 7f, p.cocoa, 1f)
+                    }
+                    line(3f, 44f, 45f, 44f, p.cocoa, 2f)
+                }
+                StoryScene.APPLE_ORCHARD -> {
+                    tile(p.sky); tree(15f, 35f, 30f); tree(39f, 35f, 24f)
+                    listOf(10f to 18f, 19f to 25f, 36f to 20f, 43f to 28f).forEach { (x, y) ->
+                        dot(x, y, 3f, p.cranberry)
+                    }
+                    box(19f, 34f, 15f, 10f, p.cocoa)
+                    line(22f, 34f, 25f, 29f, p.gold, 2f)
+                    line(25f, 29f, 30f, 34f, p.gold, 2f)
+                }
+                StoryScene.BONFIRE -> {
+                    tile(p.blue); line(3f, 42f, 45f, 42f, p.cocoa, 2f)
+                    line(13f, 40f, 36f, 33f, p.cocoa, 5f)
+                    line(35f, 40f, 14f, 33f, p.cocoa, 5f)
+                    shape(p.cranberry, 15f to 33f, 17f to 19f, 23f to 27f,
+                        30f to 10f, 35f to 34f)
+                    shape(p.gold, 21f to 35f, 24f to 23f, 30f to 35f)
+                    dot(8f, 10f, 2f, p.gold); dot(42f, 16f, 2f, p.gold)
+                }
+                StoryScene.FALL_FUNDRAISER -> {
+                    tile(p.blush); box(6f, 17f, 36f, 27f, p.paper)
+                    box(10f, 22f, 28f, 16f, p.evergreen)
+                    heart(24f, 30f, .65f, p.gold)
+                    oval(2f, 7f, 13f, 7f, p.gold)
+                    oval(33f, 6f, 13f, 7f, p.cranberry)
+                    line(9f, 14f, 14f, 20f, p.cocoa, 2f)
+                    line(39f, 13f, 34f, 20f, p.cocoa, 2f)
+                }
+                StoryScene.PUMPKIN_CARVING -> {
+                    tile(p.blush); oval(4f, 16f, 40f, 28f, p.gold)
+                    line(24f, 16f, 26f, 10f, p.evergreen, 3f)
+                    shape(p.ink, 10f to 27f, 16f to 22f, 19f to 29f)
+                    shape(p.ink, 29f to 29f, 32f to 22f, 38f to 27f)
+                    shape(p.ink, 14f to 34f, 24f to 38f, 35f to 34f, 30f to 42f, 18f to 42f)
+                    dot(41f, 8f, 3f, p.paper)
+                }
+                StoryScene.FOLIAGE_DRIVE -> {
+                    tile(p.sky); tree(8f, 25f, 21f); tree(42f, 26f, 23f)
+                    shape(p.gold, 17f to 48f, 21f to 29f, 28f to 29f, 34f to 48f)
+                    box(10f, 28f, 28f, 12f, p.cranberry, 4f)
+                    box(16f, 23f, 16f, 9f, p.paper)
+                    dot(16f, 40f, 5f, p.ink); dot(33f, 40f, 5f, p.ink)
+                    dot(24f, 8f, 5f, p.gold)
                 }
 
                 StoryScene.OLD_FLAME -> {
