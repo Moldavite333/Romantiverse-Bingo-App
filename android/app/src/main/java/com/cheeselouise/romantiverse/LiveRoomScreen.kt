@@ -88,7 +88,10 @@ fun LiveRoomScreen(
     var snapshot by remember { mutableStateOf<LiveSnapshot?>(null) }
     var preview by remember { mutableStateOf<LiveRoom?>(null) }
     var name by rememberSaveable { mutableStateOf("") }
-    var joinCode by rememberSaveable { mutableStateOf(incomingCode.orEmpty()) }
+    var joinCode by rememberSaveable {
+        mutableStateOf(if (session == null) incomingCode.orEmpty() else "")
+    }
+    var pendingInvite by rememberSaveable { mutableStateOf<String?>(null) }
     var theme by rememberSaveable { mutableStateOf("Romance") }
     var mode by rememberSaveable { mutableStateOf("classic") }
     var busy by remember { mutableStateOf(false) }
@@ -104,7 +107,11 @@ fun LiveRoomScreen(
             .takeIf { it in listOf("Christmas", "Fall", "Horror") } ?: "Romance"
     }
     LaunchedEffect(incomingCode) {
-        if (incomingCode != null && session?.code != incomingCode) joinCode = incomingCode
+        val invite = RoomInvites.normalize(incomingCode)
+        when {
+            RoomInvites.shouldOfferRoomSwitch(invite, session?.code) -> pendingInvite = invite
+            invite != null && session == null -> joinCode = invite
+        }
     }
     LaunchedEffect(joinCode, session, roomGeneration) {
         preview = null
@@ -461,6 +468,26 @@ fun LiveRoomScreen(
                 fontSize = 11.sp, textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp))
         }
+    }
+    pendingInvite?.takeIf { session != null }?.let { invite ->
+        AlertDialog(
+            onDismissRequest = { pendingInvite = null },
+            title = { Text("Open a different Bingo room?") },
+            text = {
+                Text("You are playing in room ${session?.code}. Opening $invite will leave " +
+                    "this room on your phone. Your marks remain saved on the game server.")
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    leave()
+                    joinCode = invite
+                    pendingInvite = null
+                }) { Text("Open invitation") }
+            },
+            dismissButton = {
+                TextButton(onClick = { pendingInvite = null }) { Text("Stay here") }
+            }
+        )
     }
     celebration?.let { event ->
         BingoWinOverlay(event, reduceMotion) {
