@@ -31,16 +31,20 @@ poster brought to life.
 The native engine currently has **72 distinct selectable trope labels**:
 36 Romance, plus 12 each for Christmas, Fall and Horror.
 
-**Phase 3:** 48 independent Compose story scenes are in `BingoStoryScenes.kt`:
-all 36 Romance and all 12 Christmas tropes. The remaining 24 seasonal labels
-(12 Fall and 12 Horror) temporarily use the legacy vector fallback in
-`BingoTropeArtwork.kt`. This is transitional, not final approval of generic icons.
+**Phase 4:** all **72 canonical tropes** now have one-to-one native Compose
+storybook mini-scenes in `BingoStoryScenes.kt` (36 Romance, 12 Christmas,
+12 Fall, 12 Horror). A regression test enforces exact canonical label coverage
+and unique scene IDs. The legacy vector fallback remains only for unknown,
+future labels until the Android art QA and future-trope policy are finalized.
+**This is code coverage, not visual sign-off**: the mini-scenes must still be
+reviewed on a real phone at 5-column size for recognizable, independent-looking
+art, text legibility, contrast, motion reduction and performance.
 
-**Release gate:** every one of the 72 engine tropes must have a distinct scene,
-with an automated bijection test, visual review of a sample card for every
-theme, Samsung touch/legibility testing, and tablet/reduced-motion QA. Remove
-the legacy motif fallback only after that gate passes. New catalog tropes must
-not silently reuse another trope's artwork.
+**Release gate:** the automated 72-label bijection test is implemented; visual
+review of sample cards for every theme, Samsung touch/legibility testing and
+tablet/reduced-motion QA are **still required**. Remove the legacy motif
+fallback only after that gate passes. New catalog tropes must not silently
+reuse another trope's artwork.
 
 The user-approved attribution remains exactly:
 **Brought to you by the Cheese Louise Podcast**.
