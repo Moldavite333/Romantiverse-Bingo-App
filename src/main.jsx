@@ -82,6 +82,7 @@ useEffect(()=>{
   try{
    const movie={id:'invite-'+invite.movie.title,title:invite.movie.title,season:invite.movie.season,...(invite.movie.release_year?{release_year:invite.movie.release_year}:{}),story_facts:{setting:[],relationship:[],conflict:[],event:[]}};
    const cardTheme=invite.cardTheme||invite.movie.season;
+   if(!isLaunchMovie(movie)||cardTheme==='Horror'){setNotice('Horror Bingo is reserved for a future standalone game.');return;}
    const card=buildCard({...movie,season:cardTheme},{seed:seed(),free:invite.free,difficulty:invite.difficulty,cheeseRatio:invite.ratio/100});
    setShareUrl('');
     setGame({movie,cardTheme,card,marked:invite.free?[12]:[],free:invite.free,mode:invite.mode,difficulty:invite.difficulty,ratio:invite.ratio,startedAt:new Date().toISOString(),completed:false});
@@ -121,7 +122,7 @@ const available=orderMoviesForBrowsing(mergeMovieListings([
  publishedMovies
  ]).filter(m=>isLaunchMovie(m)&&(filter==='All'||m.season===filter)&&(m.title+' '+(m.synopsis||'')+' '+Object.values(m.story_facts||{}).flat().join(' ')).toLowerCase().includes(query.toLowerCase())),query);
 const activePoster=active?approvedMoviePoster(mergeMovieListings([[active],liveMovies,resolvedMovies,publishedMovies])[0]):null;
-function create(movie,selectedTheme=season){try{if(!isLaunchMovie(movie))throw Error('Horror is reserved for a future standalone game.');const unclassified=movie.season==='Unspecified';const cardTheme=unclassified?selectedTheme:movie.season;const playable={...movie,season:cardTheme};let card=buildCard(playable,{seed:seed(),free,difficulty,cheeseRatio:ratio/100});
+function create(movie,selectedTheme=season){try{if(selectedTheme==='Horror'||!isLaunchMovie(movie))throw Error('Horror is reserved for a future standalone game.');const unclassified=movie.season==='Unspecified';const cardTheme=unclassified?selectedTheme:movie.season;const playable={...movie,season:cardTheme};let card=buildCard(playable,{seed:seed(),free,difficulty,cheeseRatio:ratio/100});
  const editorial=buildSharedCheeseSuggestions(playable,sharedPackage?.traits);
  if(editorial.length){const seen=new Set(card.map(t=>t.id));let j=0;card=card.map(t=>{if(t.category!=='cheese')return t;while(j<editorial.length&&seen.has(editorial[j].id))j++;if(j>=editorial.length)return t;const next=editorial[j++];seen.add(next.id);return next})}
 setShareUrl('');setGame({movie,cardTheme,card,marked:free?[12]:[],free,mode,difficulty,ratio,startedAt:new Date().toISOString(),completed:false});setTab('play');setEditIndex(null);setNotice(unclassified?'The movie season is unverified. Using your selected '+cardTheme+' card theme.':'Your movie night starts here. Card saved on this device.')}catch(e){setNotice(e.message)}}
