@@ -9,9 +9,10 @@ import {normalizeRoomCode,parseRoomInvite,roomInviteUrl} from './engine/roomInvi
 import {tropeArtDataUri} from './engine/tropeArt.mjs';
 import {nextPlayerSnapshot} from './engine/roomState.mjs';
 import {winningLines} from './engine/bingo.mjs';
+import {LAUNCH_THEMES,isLaunchMovie} from './engine/launchCollections.mjs';
 const KEY='romantiverse-room-v1';
 const saved=()=>{try{return JSON.parse(sessionStorage.getItem(KEY))}catch{return null}};
-const THEMES=['Romance','Christmas','Fall','Horror'];
+const THEMES=LAUNCH_THEMES;
 function MovieDetails({movie,theme,heading='TONIGHT’S MOVIE'}){
  if(!movie)return null;
  const title=movie.movie_title||movie.title;
@@ -30,15 +31,15 @@ const [search,setSearch]=useState(''),[remoteMovies,setRemoteMovies]=useState([]
 const inviteInput=useRef(null);
 const active=useRef(false);
 const chosen=selected?mergeMovieListings([[selected],catalog,remoteMovies])[0]:null;
-const choices=useMemo(()=>mergeMovieListings([catalog,remoteMovies]).filter(m=>(m.title+' '+(m.release_year||'')).toLowerCase().includes(search.trim().toLowerCase())).slice(0,12),[catalog,remoteMovies,search]);
-function selectMovie(m){setSelected(m);setTheme(THEMES.includes(m.season)?m.season:'Romance');setSearch(m.title);setError('')}
+const choices=useMemo(()=>mergeMovieListings([catalog,remoteMovies]).filter(m=>isLaunchMovie(m)&&(m.title+' '+(m.release_year||'')).toLowerCase().includes(search.trim().toLowerCase())).slice(0,12),[catalog,remoteMovies,search]);
+function selectMovie(m){if(!isLaunchMovie(m)){setError('Horror is reserved for a future standalone game.');return;}setSelected(m);setTheme(THEMES.includes(m.season)?m.season:'Romance');setSearch(m.title);setError('')}
 useEffect(()=>{
  const term=search.trim();
  if(term.length<3){setRemoteMovies([]);setSearching(false);return}
  const ctrl=new AbortController();setSearching(true);
  const timer=setTimeout(()=>Promise.allSettled([searchCatalog(term,{limit:35,signal:ctrl.signal}),searchPublicMovies(term,{signal:ctrl.signal})]).then(results=>{
   if(ctrl.signal.aborted)return;
-  setRemoteMovies(mergeMovieListings([results[0].status==='fulfilled'?results[0].value.items:[],results[1].status==='fulfilled'?results[1].value:[]]));
+  setRemoteMovies(mergeMovieListings([results[0].status==='fulfilled'?results[0].value.items:[],results[1].status==='fulfilled'?results[1].value:[]]).filter(isLaunchMovie));
  }).finally(()=>{if(!ctrl.signal.aborted)setSearching(false)}),350);
  return()=>{clearTimeout(timer);ctrl.abort()};
 },[search]);
