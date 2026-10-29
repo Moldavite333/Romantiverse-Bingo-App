@@ -13,7 +13,7 @@ test('Wikidata fetch uses an identified user agent and rejects rate limits',asyn
 });
 
 test('release-year discovery uses first release and collapses later rebroadcast dates',()=>{
- assert.match(QUERY,/MIN\\(\\?released\\)/);
+ assert.ok(QUERY.includes('MIN(?released)'));
  assert.match(QUERY,/2000-01-01/);
  const binding=(date)=>({
   item:{value:'http://www.wikidata.org/entity/Q123'},
