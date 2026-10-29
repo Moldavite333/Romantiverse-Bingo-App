@@ -130,6 +130,8 @@ private object StoryInk {
     val ink = Color(0xFF5A4050)
     val blue = Color(0xFF779DA8)
     val snow = Color(0xFFFAF9EF)
+    val skin = Color(0xFFE9B99A)
+    val pineHighlight = Color(0xFF73947A)
 }
 
 /** Lightweight 48-unit mini-paintings, legible in a narrow five-column board. */
@@ -141,6 +143,11 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
             val p = StoryInk
             fun tile(color: Color = p.sky) {
                 drawRoundRect(color, cornerRadius = CornerRadius(8f), size = Size(48f, 48f))
+                // A quiet inset frame ties 72 distinct scenes into one illustrated collection.
+                drawRoundRect(
+                    p.paper.copy(alpha = .3f), Offset(1.5f, 1.5f),
+                    Size(45f, 45f), CornerRadius(7f), style = Stroke(1.3f)
+                )
             }
             fun box(x: Float, y: Float, w: Float, h: Float, color: Color, radius: Float = 2f) {
                 drawRoundRect(color, Offset(x, y), Size(w, h), CornerRadius(radius))
@@ -163,8 +170,15 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                 drawPath(path, color)
             }
             fun person(x: Float, y: Float, coat: Color = p.cranberry) {
-                dot(x, y, 4f, p.cocoa)
-                oval(x - 5f, y + 4f, 10f, 12f, coat)
+                // Warm faces, hair, scarves and sleeves instead of featureless dots.
+                // Keep the silhouette readable when reduced to a 30dp Bingo painting.
+                dot(x, y - .6f, 4.7f, p.ink)
+                dot(x, y + .7f, 3.4f, p.skin)
+                oval(x - 5.2f, y + 4f, 10.4f, 12f, coat)
+                line(x - 4f, y + 7f, x - 6f, y + 11f, coat, 2.3f)
+                line(x + 4f, y + 7f, x + 6f, y + 11f, coat, 2.3f)
+                line(x - 2.4f, y + 5.7f, x + 2.4f, y + 5.7f, p.paper, 1.5f)
+                dot(x, y + 10.5f, .9f, p.gold)
             }
             fun heart(x: Float, y: Float, s: Float = 1f, color: Color = p.cranberry) {
                 val path = Path().apply {
@@ -179,13 +193,25 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                 box(x - 2f, y - height * .2f, 4f, height * .4f, p.cocoa)
                 shape(p.evergreen, (x to (y - height)), ((x - height * .4f) to (y - 2f)),
                     ((x + height * .4f) to (y - 2f)))
+                // Offset foliage layers add depth without changing the scene's subject.
+                shape(p.pineHighlight, (x to (y - height * .8f)),
+                    ((x - height * .26f) to (y - height * .28f)),
+                    ((x + height * .16f) to (y - height * .28f)))
+                line(x - height * .1f, y - height * .55f,
+                    x + height * .03f, y - height * .68f, p.paper.copy(alpha = .65f), 1f)
             }
             fun cottage(x: Float, y: Float) {
                 box(x, y + 9f, 22f, 17f, p.paper)
+                box(x + 17f, y + 1f, 3f, 8f, p.cocoa, 1f)
                 shape(p.cranberry, ((x - 3f) to (y + 10f)), ((x + 11f) to y),
                     ((x + 25f) to (y + 10f)))
+                line(x - 1f, y + 10f, x + 23f, y + 10f, p.gold, 1.5f)
                 box(x + 8f, y + 15f, 6f, 11f, p.cocoa)
+                dot(x + 12.5f, y + 21f, .8f, p.gold)
                 box(x + 2f, y + 14f, 5f, 5f, p.gold)
+                box(x + 16f, y + 14f, 4f, 5f, p.gold)
+                line(x + 4.5f, y + 14f, x + 4.5f, y + 19f, p.paper, 1f)
+                line(x + 18f, y + 14f, x + 18f, y + 19f, p.paper, 1f)
             }
             fun envelope(x: Float, y: Float, color: Color = p.paper) {
                 box(x, y, 27f, 17f, color)
@@ -194,10 +220,18 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
             }
             when (scene) {
                 StoryScene.CHARMING_STRANGER -> {
-                    tile(p.blush); box(4f, 11f, 25f, 34f, p.paper)
-                    box(7f, 16f, 19f, 5f, p.cranberry)
-                    box(11f, 23f, 10f, 21f, p.blue)
-                    person(37f, 22f, p.evergreen); dot(36f, 18f, 1.3f, p.gold)
+                    tile(p.blush)
+                    // A glowing café doorway and an unfamiliar arrival.
+                    box(3f, 10f, 27f, 35f, p.paper)
+                    box(6f, 15f, 21f, 7f, p.cranberry)
+                    line(7f, 19f, 26f, 19f, p.gold, 1.6f)
+                    box(10f, 24f, 12f, 20f, p.blue)
+                    box(12f, 27f, 7f, 12f, p.gold.copy(alpha = .75f))
+                    dot(21f, 34f, 1.1f, p.paper)
+                    box(4f, 36f, 5f, 8f, p.evergreen)
+                    dot(6f, 34f, 3.5f, p.cranberry)
+                    person(37f, 22f, p.evergreen)
+                    dot(35f, 11f, 3f, p.gold)
                 }
                 StoryScene.SECOND_CHANCE -> {
                     tile(); tree(7f, 31f, 21f); tree(43f, 32f, 19f)
