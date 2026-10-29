@@ -16,12 +16,12 @@ import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.unit.dp
 
 /**
- * First set of individual, original, small-format storybook scenes.
+ * One-to-one original, small-format storybook scenes for the 72 canonical tropes.
  *
  * Keys are the engine's exact canonical labels, never shortened display text.
  * A scene is a distinct composition, not a shared generic symbol or a
- * label-hash decoration. The remaining tropes retain their existing vector
- * fallback until their own illustrations are finished.
+ * label-hash decoration. Unknown future labels retain the existing vector
+ * fallback until new independent scenes are approved.
  *
  * Drawn natively and offline; no network images or private HQ assets.
  */
