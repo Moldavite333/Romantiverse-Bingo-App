@@ -11,6 +11,15 @@ import java.net.URLDecoder
 import java.io.Reader
 import java.util.Locale
 
+/** Launch-only multiplayer scope; archived horror content belongs in a separate future app. */
+object LaunchRoomScope {
+    val themes = listOf("Romance", "Christmas", "Fall")
+    const val UNSUPPORTED_MESSAGE = "This invitation is for a game not available in Romantiverse Bingo."
+
+    fun supports(theme: String?, collection: String?): Boolean =
+        theme in themes && collection?.trim()?.equals("Horror", ignoreCase = true) != true
+}
+
 /** Public room code only. Player credentials must never appear in invitations. */
 object RoomInvites {
     private val codePattern = Regex("^[A-HJ-NP-Z2-9]{7}$")
