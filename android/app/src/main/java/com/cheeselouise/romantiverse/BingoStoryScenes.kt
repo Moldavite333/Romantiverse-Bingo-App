@@ -841,54 +841,106 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(40f, 45f, 46f, 35f, p.cranberry, 2f)
                 }
                 StoryScene.SMALL_TOWN_CELEBRATION -> {
-                    tile(p.sky); cottage(13f, 9f)
-                    line(3f, 5f, 45f, 5f, p.cocoa, 1.3f)
-                    listOf(8f, 18f, 28f, 38f).forEachIndexed { i, x ->
-                        dot(x, 8f, 3f, if (i % 2 == 0) p.gold else p.cranberry)
+                    // A town-square ribbon cutting, with neighbors and confetti.
+                    tile(p.sky)
+                    box(7f, 20f, 34f, 23f, p.paper, 2f)
+                    shape(p.cranberry, 4f to 20f, 24f to 6f, 44f to 20f)
+                    box(13f, 25f, 22f, 15f, p.gold, 1f)
+                    line(3f, 7f, 45f, 7f, p.cocoa, 1.2f)
+                    listOf(7f, 17f, 27f, 37f).forEachIndexed { i, x ->
+                        shape(if (i % 2 == 0) p.cranberry else p.gold,
+                            x to 7f, (x + 6f) to 7f, (x + 3f) to 13f)
                     }
-                    person(7f, 30f, p.blue); person(40f, 30f, p.cranberry)
-                    dot(23f, 42f, 3f, p.gold)
-                    dot(15f, 42f, 2f, p.cranberry); dot(32f, 42f, 2f, p.cranberry)
+                    person(13f, 25f, p.evergreen); person(35f, 25f, p.blue)
+                    // The ceremonial ribbon and scissors give this scene its own action.
+                    line(7f, 39f, 41f, 39f, p.cranberry, 3f)
+                    line(22f, 35f, 27f, 42f, p.ink, 1.6f)
+                    line(27f, 35f, 22f, 42f, p.ink, 1.6f)
+                    dot(20f, 34f, 2f, p.gold); dot(29f, 34f, 2f, p.gold)
+                    dot(6f, 16f, 1.7f, p.gold); dot(42f, 14f, 2f, p.cranberry)
+                    dot(24f, 17f, 1.5f, p.evergreen)
                 }
                 StoryScene.SHARED_MEAL -> {
-                    tile(p.blush); box(4f, 30f, 40f, 6f, p.cocoa)
-                    line(9f, 36f, 9f, 45f); line(39f, 36f, 39f, 45f)
-                    person(10f, 16f, p.blue); person(38f, 16f, p.cranberry)
-                    oval(13f, 28f, 12f, 5f, p.paper)
-                    oval(25f, 28f, 12f, 5f, p.paper)
-                    box(23f, 20f, 3f, 9f, p.gold)
-                    dot(24.5f, 18f, 3f, p.cranberry)
-                    heart(24f, 8f, .4f)
+                    // A home-cooked dinner: two people reach across a generous table.
+                    tile(p.blush)
+                    box(4f, 7f, 40f, 18f, p.paper, 2f)
+                    box(7f, 10f, 34f, 12f, p.sky, 1f)
+                    line(24f, 10f, 24f, 22f, p.cocoa, 1.2f)
+                    person(9f, 19f, p.evergreen); person(39f, 19f, p.cranberry)
+                    box(4f, 33f, 40f, 5f, p.cocoa, 1f)
+                    line(9f, 38f, 9f, 45f); line(39f, 38f, 39f, 45f)
+                    oval(10f, 29f, 12f, 5f, p.paper)
+                    oval(27f, 29f, 12f, 5f, p.paper)
+                    // The steaming covered casserole is the centerpiece, not a candle.
+                    oval(17f, 26f, 15f, 7f, p.gold)
+                    oval(18f, 24f, 13f, 5f, p.cranberry)
+                    dot(24f, 24f, 2f, p.gold)
+                    line(20f, 16f, 18f, 21f, p.paper, 1.3f)
+                    line(27f, 15f, 25f, 20f, p.paper, 1.3f)
+                    line(15f, 32f, 19f, 29f, p.skin, 2.3f)
+                    line(34f, 32f, 29f, 29f, p.skin, 2.3f)
                 }
 
 
                 // Christmas: eight distinct seasonal compositions, not generic snowflake icons.
                 StoryScene.TREE_LIGHTING -> {
-                    tile(p.sky); tree(24f, 40f, 34f)
-                    listOf(18f to 22f, 29f to 24f, 24f to 30f).forEach { (x, y) ->
-                        dot(x, y, 3f, p.gold)
+                    // Town-square Christmas tree lighting, with a switch being thrown.
+                    tile(p.blue)
+                    box(2f, 39f, 44f, 8f, p.snow, 2f)
+                    tree(26f, 43f, 38f)
+                    // A glowing star and garlands trace the tree silhouette.
+                    shape(p.gold, 26f to 1f, 28f to 6f, 34f to 7f,
+                        29f to 11f, 30f to 16f, 26f to 13f,
+                        22f to 16f, 23f to 11f, 18f to 7f, 24f to 6f)
+                    listOf(19f to 20f, 30f to 21f, 23f to 28f,
+                        34f to 33f, 16f to 35f, 27f to 38f).forEachIndexed { i, (x, y) ->
+                        dot(x, y, 2.3f, if (i % 2 == 0) p.gold else p.cranberry)
                     }
-                    person(7f, 31f, p.cranberry); person(41f, 31f, p.blue)
-                    line(7f, 6f, 41f, 6f, p.cocoa, 1.2f)
-                    dot(24f, 5f, 4f, p.gold)
+                    person(7f, 25f, p.cranberry)
+                    box(7f, 37f, 8f, 7f, p.cocoa, 1f)
+                    dot(11f, 39f, 1.8f, p.gold)
+                    line(11f, 35f, 14f, 31f, p.skin, 2.4f)
+                    person(42f, 29f, p.paper)
+                    dot(43f, 7f, 2f, p.gold)
                 }
                 StoryScene.SNOWSTORM -> {
-                    tile(p.blue); cottage(5f, 13f)
-                    listOf(8f to 7f, 20f to 5f, 38f to 9f, 42f to 24f, 8f to 35f,
-                        28f to 37f).forEach { (x, y) ->
-                        line(x - 2f, y, x + 2f, y, p.snow, 1.5f)
-                        line(x, y - 2f, x, y + 2f, p.snow, 1.5f)
+                    // A blizzard sweeps across a lit cottage as a traveler trudges home.
+                    tile(p.blue)
+                    cottage(3f, 11f)
+                    box(2f, 39f, 44f, 8f, p.snow, 3f)
+                    shape(p.snow, 0f to 39f, 12f to 35f, 24f to 40f,
+                        37f to 34f, 48f to 38f, 48f to 48f, 0f to 48f)
+                    person(38f, 26f, p.cranberry)
+                    // A scarf trailing sideways shows wind, not just falling snow.
+                    line(35f, 32f, 28f, 30f, p.gold, 2.8f)
+                    line(28f, 30f, 24f, 27f, p.gold, 2f)
+                    listOf(7f to 6f, 20f to 8f, 36f to 10f, 44f to 19f,
+                        6f to 30f, 29f to 42f).forEach { (x, y) ->
+                        line(x - 4f, y + 2f, x + 3f, y - 1f, p.snow, 1.6f)
                     }
-                    shape(p.snow, 2f to 42f, 19f to 37f, 31f to 42f, 46f to 39f, 46f to 48f, 2f to 48f)
+                    line(39f, 39f, 37f, 44f, p.ink, 2f)
+                    line(42f, 39f, 44f, 44f, p.ink, 2f)
                 }
                 StoryScene.CHRISTMAS_COOKIES -> {
-                    tile(p.blush); box(4f, 15f, 40f, 29f, p.cocoa, 4f)
-                    dot(15f, 25f, 8f, p.gold); dot(33f, 32f, 8f, p.gold)
-                    listOf(12f to 23f, 18f to 27f, 33f to 28f, 36f to 34f).forEach { (x, y) ->
-                        dot(x, y, 1.6f, p.cranberry)
-                    }
-                    box(9f, 4f, 30f, 7f, p.paper)
-                    line(12f, 8f, 35f, 8f, p.gold, 1.5f)
+                    // Two bakers decorate a tray of holiday cookies with icing.
+                    tile(p.blush)
+                    box(3f, 23f, 42f, 21f, p.cocoa, 3f)
+                    box(6f, 26f, 36f, 15f, p.paper, 2f)
+                    // A star, a gingerbread person, and a frosted round cookie.
+                    shape(p.gold, 15f to 27f, 17f to 32f, 22f to 33f,
+                        18f to 36f, 19f to 40f, 15f to 37f,
+                        11f to 40f, 12f to 36f, 8f to 33f, 13f to 32f)
+                    dot(31f, 33f, 6f, p.gold)
+                    heart(31f, 32f, .4f, p.cranberry)
+                    dot(23f, 37f, 3.5f, p.gold)
+                    dot(22f, 35f, 1f, p.cranberry)
+                    dot(24f, 35f, 1f, p.cranberry)
+                    person(9f, 9f, p.evergreen); person(40f, 9f, p.blue)
+                    // A piping bag and a hand applying icing to the tray.
+                    shape(p.paper, 24f to 14f, 36f to 7f, 31f to 24f)
+                    line(31f, 24f, 31f, 27f, p.paper, 1.8f)
+                    line(35f, 18f, 33f, 20f, p.skin, 2.5f)
+                    dot(5f, 7f, 2f, p.gold)
                 }
                 StoryScene.HOLIDAY_PARADE -> {
                     tile(p.sky); line(3f, 6f, 45f, 6f, p.cocoa, 1f)
@@ -1151,12 +1203,23 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                 }
 
                 StoryScene.OLD_FLAME -> {
-                    tile(); person(11f, 21f, p.blue); person(37f, 21f, p.cranberry)
-                    line(13f, 42f, 35f, 42f, p.cocoa, 3f)
-                    shape(p.cranberry, 23f to 39f, 17f to 29f, 22f to 24f,
-                        25f to 14f, 32f to 29f, 28f to 39f)
-                    shape(p.gold, 23f to 39f, 22f to 30f, 26f to 25f, 29f to 38f)
-                    heart(24f, 9f, .4f)
+                    // A faded photo and a rekindled candle bring two old sweethearts together.
+                    tile(p.sky)
+                    box(3f, 5f, 19f, 24f, p.cocoa, 1.5f)
+                    box(6f, 8f, 13f, 18f, p.paper, 1f)
+                    dot(12f, 14f, 3f, p.skin)
+                    oval(8f, 17f, 9f, 7f, p.blue)
+                    person(10f, 26f, p.evergreen)
+                    person(39f, 26f, p.cranberry)
+                    box(18f, 39f, 23f, 5f, p.cocoa, 1f)
+                    // The small flame sits on a candle between the two people.
+                    box(26f, 27f, 4f, 12f, p.paper, 1f)
+                    shape(p.cranberry, 28f to 17f, 24f to 26f,
+                        28f to 29f, 32f to 25f)
+                    shape(p.gold, 28f to 22f, 26f to 27f, 29f to 27f)
+                    line(15f, 37f, 24f, 35f, p.skin, 2.5f)
+                    line(34f, 37f, 30f, 35f, p.skin, 2.5f)
+                    heart(36f, 10f, .48f, p.cranberry)
                 }
             }
         }
