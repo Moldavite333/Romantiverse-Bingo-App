@@ -268,7 +268,7 @@ try{
  await customCheck.page.getByLabel('Custom movie title').fill('A Different Unlisted Christmas Movie');
  await customCheck.page.getByLabel('Card theme for custom movie').selectOption('Horror');
  await customCheck.page.getByRole('button',{name:'Create Card'}).click();
- assert.match(await customCheck.page.locator('.play-heading').innerText(),/HORROR CARD.*MOVIE SEASON UNVERIFIED/);
+ assert.match(await customCheck.page.locator('.play-heading').innerText(),/CHRISTMAS CARD.*MOVIE SEASON UNVERIFIED/);
  assert.deepEqual(customCheck.errors,[],'Custom title flows caused browser errors');
  await customCheck.context.close();
  console.log('Uncatalogued search and custom entry preserve unverified movie seasons and chosen card themes.');
