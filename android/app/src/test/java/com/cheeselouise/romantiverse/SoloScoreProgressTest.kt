@@ -52,4 +52,21 @@ class SoloScoreProgressTest {
         assertEquals(200, SoloScoreProgress.restore(first, twoRows, read))
         assertEquals(first.key to 200, SoloScoreProgress.improvement(first, 200, read))
     }
+    @Test fun releaseYearCorrectionMigratesOldBestWithoutCrossingMovies() {
+        val corrected = Movie("wikidata-q130582183", "Holiday Date", 2019, "Christmas")
+        val unrelated = Movie("unrelated", "Holiday Date", 2019, "Christmas")
+        val legacyKey = PosterRepository.key("Holiday Date", 2022)
+        val stored = mutableMapOf(legacyKey to 400, corrected.key to 100)
+        val read: (String) -> Int = { stored[it] ?: 0 }
+
+        assertEquals(400, SoloScoreProgress.restore(corrected, emptySet(), read))
+        assertEquals(corrected.key to 400,
+            SoloScoreProgress.improvement(corrected, 400, read))
+        stored[corrected.key] = 400
+        assertNull(SoloScoreProgress.improvement(corrected, 400, read))
+        // The legacy key must never be used for a different canonical ID.
+        assertEquals(400, SoloScoreProgress.restore(unrelated, emptySet(), read))
+        assertTrue(MovieCatalog.legacyScoreKeys(unrelated).isEmpty())
+    }
+
 }
