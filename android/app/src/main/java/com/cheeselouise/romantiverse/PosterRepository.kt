@@ -17,6 +17,8 @@ object PosterRepository {
     // Public anon/publishable key, not a service-role key.
     private const val PUBLISHABLE_KEY = "sb_publishable_3xcqfNu-mJPuDWivmlBXug_3Tw60QoM"
     private const val PREF = "public-poster-projection"
+    private const val MAX_POSTERS = 3000
+    private const val MAX_FEED_CHARS = 2_000_000
 
     data class Entry(val url: String, val locked: Boolean)
     fun key(title: String, year: Int?): String =
@@ -76,8 +78,9 @@ object PosterRepository {
             require(parsed.getInt("version") == 1) { "Unsupported poster feed version" }
             parsed.getJSONArray("movies")
         }
+        require(rows.length() <= MAX_POSTERS) { "Poster feed exceeds supported size" }
         val output = mutableListOf<Pair<String, Entry>>()
-        for (i in 0 until minOf(rows.length(), 500)) {
+        for (i in 0 until rows.length()) {
             val row = rows.optJSONObject(i) ?: continue
             val title = row.optString("title").trim()
             val year = row.optInt("release_year", 0)
@@ -96,7 +99,17 @@ object PosterRepository {
             connection.setRequestProperty("Accept", "application/json")
             if (publishable) connection.setRequestProperty("apikey", PUBLISHABLE_KEY)
             if (connection.responseCode !in 200..299) error("Poster feed unavailable")
-            return connection.inputStream.bufferedReader().use { it.readText().take(512_000) }
+            return connection.inputStream.bufferedReader(Charsets.UTF_8).use { reader ->
+                val text = StringBuilder()
+                val chunk = CharArray(4096)
+                while (true) {
+                    val count = reader.read(chunk)
+                    if (count < 0) break
+                    require(text.length + count <= MAX_FEED_CHARS) { "Poster feed exceeds size limit" }
+                    text.append(chunk, 0, count)
+                }
+                text.toString()
+            }
         } finally { connection.disconnect() }
     }
 
