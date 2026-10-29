@@ -1,5 +1,8 @@
 package com.cheeselouise.romantiverse
 
+import android.content.Context
+import android.view.accessibility.AccessibilityManager
+
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -18,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
@@ -43,18 +47,23 @@ internal fun BingoWinOverlay(
     reducedMotion: Boolean,
     onDismiss: () -> Unit
 ) {
+    val context = LocalContext.current
+    val touchExploration = (context.getSystemService(Context.ACCESSIBILITY_SERVICE)
+        as? AccessibilityManager)?.isTouchExplorationEnabled == true
     val scale = remember(event.id) { Animatable(if (reducedMotion) 1f else .82f) }
     val burst = remember(event.id) { Animatable(0f) }
     var visible by remember(event.id) { mutableStateOf(reducedMotion) }
-    LaunchedEffect(event.id) {
+    LaunchedEffect(event.id, reducedMotion, touchExploration) {
         if (!reducedMotion) delay(470) // Let the winning-line sweep finish before the fanfare card.
         visible = true
         if (!reducedMotion) {
             launch { scale.animateTo(1f, tween(340)) }
             launch { burst.animateTo(1f, tween(750)) }
         }
-        delay(if (reducedMotion) 1100 else 1900)
-        onDismiss()
+        BingoCelebrationTiming.autoDismissMillis(reducedMotion, touchExploration)?.let {
+            delay(it)
+            onDismiss()
+        }
     }
     if (!visible) return
 
