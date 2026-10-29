@@ -615,7 +615,7 @@ private fun BingoSquare(
             if (BingoSquarePresentation.showArtwork(index)) {
                 TropeArtwork(label, burgundy, artworkSize = artworkSize)
             } else {
-                Text("♥", color = plum, fontSize = 14.sp, lineHeight = 16.sp)
+                FreeSpaceArtwork(artworkSize = 36.dp)
             }
             Text(
                 BingoSquarePresentation.shortLabel(label),
