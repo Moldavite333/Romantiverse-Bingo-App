@@ -17,7 +17,8 @@ object LaunchRoomScope {
     const val UNSUPPORTED_MESSAGE = "This invitation is for a game not available in Romantiverse Bingo."
 
     fun supports(theme: String?, collection: String?): Boolean =
-        theme in themes && collection?.trim()?.equals("Horror", ignoreCase = true) != true
+        theme != null && theme in themes &&
+            collection?.trim()?.equals("Horror", ignoreCase = true) != true
 }
 
 /** Public room code only. Player credentials must never appear in invitations. */
