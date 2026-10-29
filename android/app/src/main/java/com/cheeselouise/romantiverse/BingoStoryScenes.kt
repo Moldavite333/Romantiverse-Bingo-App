@@ -33,7 +33,8 @@ internal enum class StoryScene {
     DANCE_TOGETHER, MISTLETOE, COZY_CAFE, HOMETOWN_REUNION,
     GRAND_GESTURE, COMMUNITY_FUNDRAISER, SURPRISE_INVITATION, OLD_FLAME,
     FIRST_MEETING, MISUNDERSTANDING, ALMOST_KISS, BIG_CONFESSION, TOWN_FESTIVAL, FAMILY_SECRET, CAREER_DILEMMA, SENTIMENTAL_GIFT,
-    MEDDLING_RELATIVE, ROMANTIC_RIVAL, LAST_MINUTE_ARRIVAL, UNEXPECTED_KISS, MEANINGFUL_LOOK, INCONVENIENT_DEADLINE, SMALL_TOWN_CELEBRATION, SHARED_MEAL
+    MEDDLING_RELATIVE, ROMANTIC_RIVAL, LAST_MINUTE_ARRIVAL, UNEXPECTED_KISS, MEANINGFUL_LOOK, INCONVENIENT_DEADLINE, SMALL_TOWN_CELEBRATION, SHARED_MEAL,
+    TREE_LIGHTING, SNOWSTORM, CHRISTMAS_COOKIES, HOLIDAY_PARADE, FESTIVE_MARKET, CHRISTMAS_WISH, COZY_FIREPLACE, HOLIDAY_TRADITION
 }
 
 internal object StorySceneArt {
@@ -77,7 +78,15 @@ internal object StorySceneArt {
         "A meaningful look" to StoryScene.MEANINGFUL_LOOK,
         "An inconvenient deadline" to StoryScene.INCONVENIENT_DEADLINE,
         "A small-town celebration" to StoryScene.SMALL_TOWN_CELEBRATION,
-        "A shared meal" to StoryScene.SHARED_MEAL
+        "A shared meal" to StoryScene.SHARED_MEAL,
+        "A tree lighting" to StoryScene.TREE_LIGHTING,
+        "A snowstorm" to StoryScene.SNOWSTORM,
+        "Christmas cookies" to StoryScene.CHRISTMAS_COOKIES,
+        "A holiday parade" to StoryScene.HOLIDAY_PARADE,
+        "A festive market" to StoryScene.FESTIVE_MARKET,
+        "A Christmas wish" to StoryScene.CHRISTMAS_WISH,
+        "A cozy fireplace" to StoryScene.COZY_FIREPLACE,
+        "A holiday tradition" to StoryScene.HOLIDAY_TRADITION
     )
     fun forLabel(label: String): StoryScene? = scenes[label]
     fun labels(): Set<String> = scenes.keys
@@ -486,6 +495,80 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     box(23f, 20f, 3f, 9f, p.gold)
                     dot(24.5f, 18f, 3f, p.cranberry)
                     heart(24f, 8f, .4f)
+                }
+
+
+                // Christmas: eight distinct seasonal compositions, not generic snowflake icons.
+                StoryScene.TREE_LIGHTING -> {
+                    tile(p.sky); tree(24f, 40f, 34f)
+                    listOf(18f to 22f, 29f to 24f, 24f to 30f).forEach { (x, y) ->
+                        dot(x, y, 3f, p.gold)
+                    }
+                    person(7f, 31f, p.cranberry); person(41f, 31f, p.blue)
+                    line(7f, 6f, 41f, 6f, p.cocoa, 1.2f)
+                    dot(24f, 5f, 4f, p.gold)
+                }
+                StoryScene.SNOWSTORM -> {
+                    tile(p.blue); cottage(5f, 13f)
+                    listOf(8f to 7f, 20f to 5f, 38f to 9f, 42f to 24f, 8f to 35f,
+                        28f to 37f).forEach { (x, y) ->
+                        line(x - 2f, y, x + 2f, y, p.snow, 1.5f)
+                        line(x, y - 2f, x, y + 2f, p.snow, 1.5f)
+                    }
+                    shape(p.snow, 2f to 42f, 19f to 37f, 31f to 42f, 46f to 39f, 46f to 48f, 2f to 48f)
+                }
+                StoryScene.CHRISTMAS_COOKIES -> {
+                    tile(p.blush); box(4f, 15f, 40f, 29f, p.cocoa, 4f)
+                    dot(15f, 25f, 8f, p.gold); dot(33f, 32f, 8f, p.gold)
+                    listOf(12f to 23f, 18f to 27f, 33f to 28f, 36f to 34f).forEach { (x, y) ->
+                        dot(x, y, 1.6f, p.cranberry)
+                    }
+                    box(9f, 4f, 30f, 7f, p.paper)
+                    line(12f, 8f, 35f, 8f, p.gold, 1.5f)
+                }
+                StoryScene.HOLIDAY_PARADE -> {
+                    tile(p.sky); line(3f, 6f, 45f, 6f, p.cocoa, 1f)
+                    listOf(7f, 19f, 31f, 43f).forEach { x ->
+                        shape(p.cranberry, x to 6f, (x + 4f) to 6f, (x + 2f) to 13f)
+                    }
+                    box(6f, 26f, 35f, 12f, p.gold)
+                    dot(13f, 39f, 4f, p.ink); dot(35f, 39f, 4f, p.ink)
+                    person(15f, 13f, p.cranberry); person(30f, 13f, p.evergreen)
+                    dot(41f, 17f, 3f, p.gold)
+                }
+                StoryScene.FESTIVE_MARKET -> {
+                    tile(p.sky); box(5f, 21f, 38f, 23f, p.paper)
+                    shape(p.cranberry, 3f to 21f, 10f to 12f, 38f to 12f, 45f to 21f)
+                    listOf(9f, 20f, 31f).forEach { x -> box(x, 22f, 8f, 6f, p.gold) }
+                    box(11f, 32f, 27f, 8f, p.cocoa)
+                    dot(17f, 31f, 4f, p.evergreen); dot(30f, 31f, 4f, p.cranberry)
+                    dot(39f, 8f, 4f, p.gold)
+                }
+                StoryScene.CHRISTMAS_WISH -> {
+                    tile(p.blue); box(6f, 9f, 36f, 34f, p.paper, 4f)
+                    box(10f, 13f, 28f, 26f, p.sky)
+                    dot(24f, 22f, 9f, p.gold)
+                    shape(p.paper, 24f to 7f, 27f to 17f, 38f to 21f,
+                        27f to 25f, 24f to 36f, 21f to 25f, 10f to 21f, 21f to 17f)
+                    person(16f, 28f, p.cranberry)
+                }
+                StoryScene.COZY_FIREPLACE -> {
+                    tile(p.blush); box(6f, 13f, 36f, 31f, p.cocoa, 3f)
+                    box(12f, 20f, 24f, 24f, p.ink, 5f)
+                    shape(p.cranberry, 17f to 41f, 17f to 30f, 25f to 22f,
+                        31f to 33f, 31f to 41f)
+                    shape(p.gold, 22f to 41f, 22f to 34f, 26f to 30f, 29f to 41f)
+                    box(3f, 10f, 42f, 5f, p.paper)
+                    box(33f, 4f, 7f, 6f, p.evergreen)
+                }
+                StoryScene.HOLIDAY_TRADITION -> {
+                    tile(p.sky); box(7f, 12f, 34f, 31f, p.paper)
+                    box(11f, 16f, 26f, 23f, p.cranberry)
+                    box(14f, 19f, 20f, 17f, p.paper)
+                    line(24f, 21f, 24f, 34f, p.gold, 2f)
+                    heart(24f, 27f, .5f)
+                    dot(9f, 7f, 3f, p.gold); dot(39f, 7f, 3f, p.gold)
+                    line(9f, 7f, 39f, 7f, p.evergreen, 1.5f)
                 }
 
                 StoryScene.OLD_FLAME -> {
