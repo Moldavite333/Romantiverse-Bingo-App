@@ -2,11 +2,12 @@
 // Use original release years, not later regional releases or rebroadcasts.
 // Respect query budgets, 429/Retry-After, and Wikimedia User-Agent policy.
 const ENDPOINT='https://query.wikidata.org/sparql';
-export const QUERY=`SELECT ?item ?itemLabel ?date ?networkLabel ?productionCompanyLabel WHERE {
+export const QUERY=`SELECT ?item ?itemLabel ?date ?networkLabel ?productionCompanyLabel ?tvFilmEvidence WHERE {
   {
     SELECT ?item (MIN(?released) AS ?date)
       (SAMPLE(?networkName) AS ?networkLabel)
-      (SAMPLE(?companyName) AS ?productionCompanyLabel) WHERE {
+      (SAMPLE(?companyName) AS ?productionCompanyLabel)
+      (SAMPLE(?tvFilmType) AS ?tvFilmEvidence) WHERE {
       ?item wdt:P577 ?released.
       {
         # Only a film's *original* broadcaster, not a later rerun channel.
@@ -28,6 +29,7 @@ export const QUERY=`SELECT ?item ?itemLabel ?date ?networkLabel ?productionCompa
         ?item wdt:P31/wdt:P279* wd:Q506240;
               wdt:P272 ?company.
         ?company rdfs:label ?companyName.
+        BIND("television film" AS ?tvFilmType)
       }
     } GROUP BY ?item
   }
@@ -49,6 +51,7 @@ export function normalizeWikidataResults(data){
    release_year:b.date?.value?Number(b.date.value.slice(0,4)):null,
    network:b.networkLabel?.value||null,
    production_company:b.productionCompanyLabel?.value||null,
+   tv_film_evidence:b.tvFilmEvidence?.value==='television film',
    synopsis:'', // Wikidata descriptions are not plot synopses.
    short_description:b.itemDescription?.value||'',
    editorial_status:'review_required',suitable_for_auto_import:false,
@@ -63,6 +66,7 @@ export function normalizeWikidataResults(data){
   if(!prior.network&&candidate.network)prior.network=candidate.network;
   if(!prior.production_company&&candidate.production_company)
     prior.production_company=candidate.production_company;
+  prior.tv_film_evidence=prior.tv_film_evidence||candidate.tv_film_evidence;
  }
  return [...byId.values()];
 }
