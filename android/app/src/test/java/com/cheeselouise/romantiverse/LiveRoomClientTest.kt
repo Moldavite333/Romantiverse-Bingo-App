@@ -22,6 +22,19 @@ class LiveRoomClientTest {
         }"""
     }
 
+    @Test fun roomHttpResponsesAreBoundedBeforeAllocation() {
+        assertEquals("", LiveRoomClient.readBounded(java.io.StringReader(""), 4096))
+        assertEquals("ok", LiveRoomClient.readBounded(java.io.StringReader("ok"), 4096))
+        val exact = "x".repeat(4096)
+        assertEquals(exact, LiveRoomClient.readBounded(java.io.StringReader(exact), 4096))
+        assertThrows(IllegalArgumentException::class.java) {
+            LiveRoomClient.readBounded(java.io.StringReader(exact + "y"), 4096)
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            LiveRoomClient.readBounded(java.io.StringReader("ok"), 0)
+        }
+    }
+
     @Test fun spokenMultiplayerSquaresIncludePositionFullTropeAndWinState() {
         assertEquals("B1: First meeting", LiveSquareAccessibility.label(0, "First meeting"))
         assertEquals("O5: A sentimental family heirloom",

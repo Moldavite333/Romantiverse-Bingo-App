@@ -8,6 +8,7 @@ import java.net.HttpURLConnection
 import java.net.URI
 import java.net.URL
 import java.net.URLDecoder
+import java.io.Reader
 import java.util.Locale
 
 /** Public room code only. Player credentials must never appear in invitations. */
@@ -195,6 +196,22 @@ object RoomResponseGuard {
 
 /** Native HTTPS transport; no web view, account, or private Supabase credentials. */
 object LiveRoomClient {
+    private const val MAX_RESPONSE_CHARS = 512_000
+
+    /** Bound network reads before allocation; take() after readText() is too late. */
+    internal fun readBounded(reader: Reader, limit: Int = MAX_RESPONSE_CHARS): String {
+        require(limit > 0) { "Invalid response limit" }
+        val result = StringBuilder()
+        val chunk = CharArray(4096)
+        while (true) {
+            val count = reader.read(chunk)
+            if (count < 0) break
+            require(result.length + count <= limit) { "Game response exceeds supported size" }
+            result.append(chunk, 0, count)
+        }
+        return result.toString()
+    }
+
     private const val endpoint = "https://yxpamyibhclilgdhgsjd.supabase.co/functions/v1/game-room"
 
     suspend fun request(payload: JSONObject): String = withContext(Dispatchers.IO) {
@@ -210,7 +227,7 @@ object LiveRoomClient {
             connection.outputStream.use { it.write(payload.toString().toByteArray(Charsets.UTF_8)) }
             val status = connection.responseCode
             val stream = if (status in 200..299) connection.inputStream else connection.errorStream
-            val body = stream?.bufferedReader()?.use { it.readText().take(512_000) }.orEmpty()
+            val body = stream?.bufferedReader(Charsets.UTF_8)?.use { readBounded(it) }.orEmpty()
             if (status !in 200..299) {
                 val reason = runCatching { JSONObject(body).optString("error") }.getOrNull()
                 throw IllegalStateException(reason?.takeIf { it.isNotBlank() }
