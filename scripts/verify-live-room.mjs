@@ -15,6 +15,19 @@ async function post(action,payload={}){
  assert.equal(response.headers.get('access-control-allow-origin'),'https://moldavite333.github.io');
  return data;
 }
+/** Live deployment must refuse horror room creation even from direct API clients. */
+async function assertHorrorRoomRejected(payload){
+ const response=await fetch(ENDPOINT,{
+  method:'POST',
+  headers:{'Content-Type':'application/json',Origin:'https://moldavite333.github.io'},
+  body:JSON.stringify({action:'create',...payload}),
+  signal:AbortSignal.timeout(15000)
+ });
+ const data=await response.json();
+ assert.equal(response.status,400,'Horror room creation must be rejected by the deployed server');
+ assert.equal(data.error,'Invalid room details');
+}
+
 export async function verifyLiveRoom(siteUrl){
  const site=new URL(siteUrl);
  assert.equal(site.protocol,'https:');
@@ -29,6 +42,11 @@ export async function verifyLiveRoom(siteUrl){
  const posterFeed=await postersResponse.json();
  const poster=verifiedPosterForMovie(movie,posterFeed);
  assert.ok(poster?.startsWith('https://image.tmdb.org/t/p/'),'Selected real catalog movie must have verified poster artwork');
+ // Verify the public server itself enforces romance-only launch scope.
+ await assertHorrorRoomRejected({name:'Bingo QA',movie_title:movie.title,
+  movie_collection:'Horror',season:'Romance',mode:'classic'});
+ await assertHorrorRoomRejected({name:'Bingo QA',movie_title:movie.title,
+  movie_collection:movie.season,season:'Horror',mode:'classic'});
  const host=await post('create',{name:'Bingo Launch QA Host',movie_title:movie.title,movie_collection:movie.season,poster_url:poster,release_year:movie.release_year,season:movie.season,mode:'classic'});
  assert.match(host.room.code,/^[A-Z2-9]{7}$/);
  assert.equal(host.room.movie_title,movie.title);
