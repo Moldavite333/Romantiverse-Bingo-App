@@ -49,7 +49,12 @@ object BingoEngine {
         )
     )
 
-    fun pool(theme: String): List<String> = (romance + (seasonal[theme.takeIf { it == "Christmas" || it == "Fall" }] ?: emptyList())).distinct()
+    fun pool(theme: String): List<String> {
+        val seasonalTropes = if (theme == "Christmas" || theme == "Fall") {
+            seasonal[theme].orEmpty()
+        } else emptyList()
+        return (romance + seasonalTropes).distinct()
+    }
 
     fun deal(pool: List<String>, seed: Long): List<String> {
         require(seed >= 0) { "Seed must be nonnegative" }
