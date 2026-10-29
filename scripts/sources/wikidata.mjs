@@ -23,7 +23,7 @@ export function normalizeWikidataResults(data){
  const byId=new Map();
  for(const b of data.results.bindings){
   const url=b.item?.value||'';
-  const id=/\\/entity\\/(Q\\d+)$/.exec(url)?.[1];
+ const id=/\/entity\/(Q\d+)$/.exec(url)?.[1];
   const title=b.itemLabel?.value?.trim();
   if(!id||!title)continue;
   const candidate={source:'wikidata',source_id:id,source_url:url,title,
