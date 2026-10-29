@@ -104,7 +104,7 @@ fun LiveRoomScreen(
 
     LaunchedEffect(selectedMovie?.id) {
         if (selectedMovie != null) theme = selectedMovie.collection
-            .takeIf { it in listOf("Christmas", "Fall", "Horror") } ?: "Romance"
+            .takeIf { it in LaunchRoomScope.themes } ?: "Romance"
     }
     LaunchedEffect(incomingCode) {
         val invite = RoomInvites.normalize(incomingCode)
@@ -116,6 +116,7 @@ fun LiveRoomScreen(
     LaunchedEffect(joinCode, session, roomGeneration) {
         preview = null
         if (session != null) return@LaunchedEffect
+        error = ""
         val code = RoomInvites.fromInput(joinCode) ?: return@LaunchedEffect
         val requestGeneration = roomGeneration
         delay(300)
@@ -127,7 +128,13 @@ fun LiveRoomScreen(
         if (received != null && RoomResponseGuard.acceptsPreview(
                 requestGeneration, roomGeneration, RoomInvites.fromInput(joinCode),
                 session, received.code
-            )) preview = received
+            )) {
+            if (LaunchRoomScope.supports(received.movie.theme, received.movie.collection)) {
+                preview = received
+            } else {
+                error = LaunchRoomScope.UNSUPPORTED_MESSAGE
+            }
+        }
     }
 
     fun accept(response: String, requestGeneration: Int, expectedCode: String? = null) {
@@ -135,6 +142,10 @@ fun LiveRoomScreen(
         if (!RoomResponseGuard.accepts(
                 requestGeneration, roomGeneration, expectedCode, session, next
             )) return
+        if (!LaunchRoomScope.supports(next.room.movie.theme, next.room.movie.collection)) {
+            error = LaunchRoomScope.UNSUPPORTED_MESSAGE
+            return
+        }
         val newLines = BingoCelebrationRules.newlyConfirmed(snapshot, next)
         val blackoutMode = next.room.movie.mode == "blackout"
         if (next.room.movie.status == "playing" && newLines.isNotEmpty() &&
@@ -192,6 +203,9 @@ fun LiveRoomScreen(
                 when (kind) {
                     "create" -> {
                         val movie = selectedMovie ?: kotlin.error("Choose a movie first")
+                        require(LaunchRoomScope.supports(theme, movie.collection)) {
+                            LaunchRoomScope.UNSUPPORTED_MESSAGE
+                        }
                         request.put("name", name.trim().take(32))
                             .put("movie_title", movie.title)
                             .put("movie_collection", movie.collection)
@@ -199,8 +213,22 @@ fun LiveRoomScreen(
                             .put("poster_url", PosterRepository.approved(selectedPoster) ?: JSONObject.NULL)
                             .put("season", theme).put("mode", mode)
                     }
-                    "join" -> request.put("name", name.trim().take(32))
-                        .put("code", RoomInvites.fromInput(joinCode) ?: kotlin.error("Invalid room code or invitation link"))
+                    "join" -> {
+                        val code = RoomInvites.fromInput(joinCode)
+                            ?: kotlin.error("Invalid room code or invitation link")
+                        // Never join a horror/unsupported room just because the invite
+                        // arrived before its asynchronous preview completed.
+                        val invited = preview?.takeIf { it.code == code }
+                            ?: LiveRoomProtocol.parse(LiveRoomClient.request(
+                                LiveRoomClient.payload("preview").put("code", code)
+                            )).room
+                        require(LaunchRoomScope.supports(invited.movie.theme, invited.movie.collection)) {
+                            LaunchRoomScope.UNSUPPORTED_MESSAGE
+                        }
+                        // Leaving or switching rooms during preview invalidates this request.
+                        if (roomGeneration != requestGeneration || session != actionSession) return@launch
+                        request.put("name", name.trim().take(32)).put("code", code)
+                    }
                     "mark" -> request.put("index", index)
                         .put("revision", snapshot?.revision ?: kotlin.error("Card is not ready"))
                 }
@@ -296,7 +324,7 @@ fun LiveRoomScreen(
                 Text("Bingo card theme", color = parchment)
                 Row(Modifier.horizontalScroll(rememberScrollState()),
                     horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    listOf("Romance", "Christmas", "Fall", "Horror").forEach { choice ->
+                    LaunchRoomScope.themes.forEach { choice ->
                         FilterChip(selected = theme == choice,
                             onClick = { theme = choice }, label = { Text(choice) })
                     }

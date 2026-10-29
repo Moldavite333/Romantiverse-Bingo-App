@@ -22,6 +22,20 @@ class LiveRoomClientTest {
         }"""
     }
 
+    @Test fun nativeRoomLaunchScopeExcludesHorrorFromThemesAndInvites() {
+        assertEquals(listOf("Romance", "Christmas", "Fall"), LaunchRoomScope.themes)
+        for (theme in LaunchRoomScope.themes) {
+            assertTrue(LaunchRoomScope.supports(theme, "Unspecified"))
+            assertTrue(LaunchRoomScope.supports(theme, "Christmas"))
+            assertFalse(LaunchRoomScope.supports(theme, "Horror"))
+            assertFalse(LaunchRoomScope.supports(theme, " horror "))
+            assertFalse(LaunchRoomScope.supports(theme, "HORROR"))
+        }
+        assertFalse(LaunchRoomScope.supports("Horror", "Fall"))
+        assertFalse(LaunchRoomScope.supports("Unknown", "Unspecified"))
+        assertFalse(LaunchRoomScope.supports(null, "Unspecified"))
+    }
+
     @Test fun roomHttpResponsesAreBoundedBeforeAllocation() {
         assertEquals("", LiveRoomClient.readBounded(java.io.StringReader(""), 4096))
         assertEquals("ok", LiveRoomClient.readBounded(java.io.StringReader("ok"), 4096))
