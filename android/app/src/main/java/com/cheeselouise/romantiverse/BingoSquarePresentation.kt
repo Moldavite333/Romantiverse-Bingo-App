@@ -39,6 +39,9 @@ object BingoSquarePresentation {
         "A flashlight fails" -> "Light goes out"
         "An eerie phone call" -> "Eerie call"
         "A surprise invitation" -> "Surprise invite"
+        // Explicit word boundary avoids the orphaned final "m" on narrow Samsung tiles.
+        // Canonical server/card wording remains "A snowstorm".
+        "A snowstorm" -> "Snow\nstorm"
         "A missed phone call" -> "Missed call"
         "A sentimental gift" -> "Keepsake gift"
         else -> label.removePrefix("A ").removePrefix("An ").removePrefix("The ")
