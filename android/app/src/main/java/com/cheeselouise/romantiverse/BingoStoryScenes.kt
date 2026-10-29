@@ -563,7 +563,6 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(20f, 25f, 24f, 28f, p.cranberry, .9f)
                     line(28f, 25f, 24f, 28f, p.cranberry, .9f)
                 }
-                }
                 StoryScene.ALMOST_KISS -> {
                     // Two people lean together under porch lanterns; a doorbell interrupts.
                     tile(p.blush)
@@ -583,7 +582,6 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(37f, 31f, 35f, 29f, p.cranberry, 1f)
                     line(45f, 29f, 47f, 27f, p.cranberry, 1f)
                 }
-                }
                 StoryScene.BIG_CONFESSION -> {
                     // A nervous doorstep confession with a handwritten letter.
                     tile(p.sky)
@@ -598,7 +596,6 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     heart(39f, 10f, .5f, p.cranberry)
                     dot(43f, 6f, 1.3f, p.gold)
                     dot(45f, 12f, 1.1f, p.gold)
-                }
                 }
                 StoryScene.TOWN_FESTIVAL -> {
                     // Main-street fair: bunting, a bright stall and a tiny Ferris wheel.
@@ -621,7 +618,6 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(27f, 37f, 43f, 37f, p.cocoa, 2f)
                     person(25f, 35f, p.evergreen); person(43f, 35f, p.cranberry)
                 }
-                }
                 StoryScene.FAMILY_SECRET -> {
                     // An old family portrait hides a sealed letter and a brass key.
                     tile(p.blush)
@@ -642,7 +638,6 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(37f, 40f, 45f, 40f, p.gold, 2f)
                     line(43f, 40f, 43f, 44f, p.gold, 1.5f)
                 }
-                }
                 StoryScene.CAREER_DILEMMA -> {
                     // One choice leads to the city office; the other, home.
                     tile(p.sky)
@@ -660,7 +655,6 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     box(28f, 36f, 8f, 6f, p.cocoa, 1f)
                     box(30f, 33f, 4f, 4f, p.gold, .7f)
                     line(27f, 35f, 29f, 38f, p.skin, 1.8f)
-                }
                 }
                 StoryScene.SENTIMENTAL_GIFT -> {
                     // An open gift box reveals a framed photograph, not generic jewelry.
