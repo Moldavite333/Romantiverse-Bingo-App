@@ -7,7 +7,11 @@ package com.cheeselouise.romantiverse
  */
 object SoloScoreProgress {
     fun restore(movie: Movie?, marks: Set<Int>, storedBest: (String) -> Int): Int =
-        movie?.let { BingoEngine.bestScore(storedBest(it.key), marks) } ?: 0
+        movie?.let {
+            val saved = (listOf(it.key) + MovieCatalog.legacyScoreKeys(it))
+                .maxOf { key -> storedBest(key).coerceAtLeast(0) }
+            BingoEngine.bestScore(saved, marks)
+        } ?: 0
 
     /** Only return a write when the current movie has genuinely improved. */
     fun improvement(

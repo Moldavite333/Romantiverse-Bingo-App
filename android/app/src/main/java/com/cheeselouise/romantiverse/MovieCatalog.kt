@@ -24,6 +24,21 @@ data class Movie(
 object MovieCatalog {
     private val collections = setOf("Christmas", "Fall", "Horror", "Unspecified")
     private val idPattern = Regex("^[a-z0-9][a-z0-9-]{0,119}$")
+    // Curated original-release corrections, verified against Hallmark and
+    // distributor listings. The open-data source included later re-air dates.
+    // Keep the ID stable so a corrected movie remains the same saved selection.
+    private val correctedYears = mapOf(
+        "wikidata-q3548803" to (2020 to 2011), // A Christmas Wedding Tail
+        "wikidata-q130582183" to (2022 to 2019), // Holiday Date
+        "wikidata-q99292771" to (2020 to 2018), // Marrying Father Christmas
+        "wikidata-q99293243" to (2023 to 2018), // Return to Christmas Creek
+        "wikidata-q3549131" to (2021 to 2010) // The Wishing Well (US premiere)
+    )
+
+    /** Old score keys remain readable after correcting a film's release year. */
+    fun legacyScoreKeys(movie: Movie): List<String> =
+        correctedYears[movie.id]?.takeIf { movie.year == it.second }
+            ?.let { listOf(PosterRepository.key(movie.title, it.first)) }.orEmpty()
     private const val PUBLIC_URL =
         "https://moldavite333.github.io/Romantiverse-Bingo-App/catalog/movies.json"
     private const val PREF = "public-movie-catalog-v1"
@@ -65,7 +80,13 @@ object MovieCatalog {
     fun acceptableUpdate(current: List<Movie>, incoming: List<Movie>): Boolean {
         if (incoming.isEmpty() || incoming.size < current.size) return false
         val incomingById = incoming.associateBy { it.id }
-        return current.all { old -> incomingById[old.id]?.key == old.key }
+        return current.all { old ->
+            val next = incomingById[old.id] ?: return@all false
+            next.key == old.key || (
+                old.title == next.title &&
+                    correctedYears[old.id] == (old.year to next.year)
+            )
+        }
     }
 
     private fun bundled(context: Context): List<Movie> =

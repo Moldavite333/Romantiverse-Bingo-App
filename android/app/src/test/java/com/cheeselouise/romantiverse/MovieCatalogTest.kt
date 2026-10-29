@@ -140,4 +140,42 @@ class MovieCatalogTest {
         assertFalse(MovieCatalog.acceptableUpdate(bundled, truncated))
         assertTrue(MovieCatalog.acceptableUpdate(bundled, expanded))
     }
+    @Test fun verifiedYearCorrectionsKeepMovieIdentityAndRejectUnreviewedChanges() {
+        val old = MovieCatalog.parse(catalog(
+            row("wikidata-q130582183", "Holiday Date", "Unspecified", 2022),
+            row("other", "Another Movie", "Fall", 2025)
+        ))
+        val corrected = MovieCatalog.parse(catalog(
+            row("wikidata-q130582183", "Holiday Date", "Unspecified", 2019),
+            row("other", "Another Movie", "Fall", 2025)
+        ))
+        val unreviewed = MovieCatalog.parse(catalog(
+            row("wikidata-q130582183", "Holiday Date", "Unspecified", 2018),
+            row("other", "Another Movie", "Fall", 2025)
+        ))
+        assertTrue(MovieCatalog.acceptableUpdate(old, corrected))
+        assertFalse(MovieCatalog.acceptableUpdate(old, unreviewed))
+        assertFalse(MovieCatalog.acceptableUpdate(corrected, old))
+        assertEquals(listOf(PosterRepository.key("Holiday Date", 2022)),
+            MovieCatalog.legacyScoreKeys(corrected.first { it.id == "wikidata-q130582183" }))
+    }
+
+    @Test fun allFiveDocumentedYearCorrectionsAreAccepted() {
+        val rows = listOf(
+            Triple("wikidata-q3548803", "A Christmas Wedding Tail", 2020 to 2011),
+            Triple("wikidata-q130582183", "Holiday Date", 2022 to 2019),
+            Triple("wikidata-q99292771", "Marrying Father Christmas", 2020 to 2018),
+            Triple("wikidata-q99293243", "Return to Christmas Creek", 2023 to 2018),
+            Triple("wikidata-q3549131", "The Wishing Well", 2021 to 2010)
+        )
+        for ((id, title, years) in rows) {
+            val old = listOf(Movie(id, title, years.first, "Unspecified"))
+            val next = listOf(Movie(id, title, years.second, "Unspecified"))
+            assertTrue("Expected verified correction for $title",
+                MovieCatalog.acceptableUpdate(old, next))
+            assertEquals(listOf(PosterRepository.key(title, years.first)),
+                MovieCatalog.legacyScoreKeys(next.single()))
+        }
+    }
+
 }
