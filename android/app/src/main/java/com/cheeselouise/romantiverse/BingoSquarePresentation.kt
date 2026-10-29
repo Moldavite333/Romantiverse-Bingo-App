@@ -6,6 +6,12 @@ package com.cheeselouise.romantiverse
  * A long-press on a square exposes its full original wording.
  */
 object BingoSquarePresentation {
+    /** Artwork persists after marking; only the free center has no trope scene. */
+    fun showArtwork(index: Int): Boolean = index != BingoEngine.CENTER
+
+    /** The corner seal is an extra state cue, not a replacement for artwork. */
+    fun showMarkBadge(index: Int, marked: Boolean): Boolean = showArtwork(index) && marked
+
     fun shortLabel(label: String): String = when (label) {
         BingoEngine.FREE_LABEL -> "CHEESE\nLOUISE\nPOD"
         "A misunderstanding" -> "Mixed signals"

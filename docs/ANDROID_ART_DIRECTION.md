@@ -24,6 +24,9 @@ poster brought to life.
   full canonical text accessible to TalkBack and long-press.
 - Unmarked cream tiles use dark text; marked cranberry and winning evergreen
   tiles use light text. Target WCAG AA contrast for small labels.
+- Marking a square must **never erase its unique illustration**. The warm-colored
+  tile state and a small corner check seal signal marking; solo and multiplayer
+  share this behavior. The free center remains a separate branded tile.
 - Honor reduced motion. Animation is tasteful and subordinate to gameplay.
 
 ## Rollout and honest completion criteria

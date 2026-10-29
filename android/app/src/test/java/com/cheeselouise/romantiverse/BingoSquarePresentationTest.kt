@@ -1,6 +1,7 @@
 package com.cheeselouise.romantiverse
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -37,6 +38,19 @@ class BingoSquarePresentationTest {
             BingoSquarePresentation.shortLabel(BingoEngine.FREE_LABEL))
         assertEquals("CHEESE LOUISE POD", BingoEngine.FREE_LABEL)
         assertEquals(100, BingoEngine.score(setOf(0, 1, 2, 3, 4)))
+    }
+
+    @Test fun markedTilesRetainTheirOwnIllustrationsAndShowASeparateSeal() {
+        for (index in 0 until 25) {
+            val free = index == BingoEngine.CENTER
+            assertEquals("Artwork visibility at square $index", !free,
+                BingoSquarePresentation.showArtwork(index))
+            assertFalse("Unmarked squares cannot have a mark seal",
+                BingoSquarePresentation.showMarkBadge(index, false))
+            assertEquals("Only marked non-free squares get the seal", !free,
+                BingoSquarePresentation.showMarkBadge(index, true))
+        }
+        assertEquals(72, StorySceneArt.labels().size)
     }
 
     @Test fun everyTropeHasAnIcon() {
