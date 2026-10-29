@@ -158,3 +158,28 @@ private fun PreviewWinning() = ArtworkReviewGallery("Romance", marked = true, wi
 @Preview(name = "Large text • 320dp", widthDp = 320, heightDp = 900, fontScale = 1.3f)
 @Composable
 private fun PreviewLargeText() = ArtworkReviewGallery("Romance")
+
+
+@Preview(name = "Cheese Louise free square • phone scale", widthDp = 80, heightDp = 118)
+@Composable
+private fun PreviewCheeseLouiseFreeSquare() {
+    Box(
+        Modifier.fillMaxSize()
+            .padding(2.dp)
+            .clip(RoundedCornerShape(11.dp))
+            .background(StorybookPalette.gold),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            FreeSpaceArtwork(artworkSize = 36.dp)
+            Text(
+                BingoSquarePresentation.shortLabel(BingoEngine.FREE_LABEL),
+                color = StorybookPalette.background,
+                fontSize = 9.sp,
+                lineHeight = 11.sp,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.SemiBold
+            )
+        }
+    }
+}
