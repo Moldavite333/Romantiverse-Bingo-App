@@ -31,11 +31,10 @@ poster brought to life.
 The native engine currently has **72 distinct selectable trope labels**:
 36 Romance, plus 12 each for Christmas, Fall and Horror.
 
-**Phase 2:** 40 independent Compose story scenes are in `BingoStoryScenes.kt`:
-all 36 Romance tropes plus 4 Christmas tropes. The other 32 seasonal labels
-(8 Christmas, 12 Fall, 12 Horror) temporarily use the legacy vector fallback
-in `BingoTropeArtwork.kt`. This is a transitional implementation, not final
-approval of generic icons.
+**Phase 3:** 48 independent Compose story scenes are in `BingoStoryScenes.kt`:
+all 36 Romance and all 12 Christmas tropes. The remaining 24 seasonal labels
+(12 Fall and 12 Horror) temporarily use the legacy vector fallback in
+`BingoTropeArtwork.kt`. This is transitional, not final approval of generic icons.
 
 **Release gate:** every one of the 72 engine tropes must have a distinct scene,
 with an automated bijection test, visual review of a sample card for every
