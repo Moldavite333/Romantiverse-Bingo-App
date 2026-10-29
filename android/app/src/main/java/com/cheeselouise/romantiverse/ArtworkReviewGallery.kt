@@ -65,12 +65,13 @@ private fun ArtworkReviewTile(
             .background(shade),
         contentAlignment = Alignment.Center
     ) {
+        val artworkSize = BingoSquarePresentation.artworkSizeDp(maxWidth.value).dp
         Column(
             modifier = Modifier.fillMaxSize().padding(horizontal = 1.dp, vertical = 2.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            TropeArtwork(label, StorybookPalette.cranberry, artworkSize = BingoSquarePresentation.artworkSizeDp(maxWidth.value).dp)
+            TropeArtwork(label, StorybookPalette.cranberry, artworkSize = artworkSize)
             Text(
                 text = BingoSquarePresentation.shortLabel(label),
                 color = if (marked || winning) StorybookPalette.paper
