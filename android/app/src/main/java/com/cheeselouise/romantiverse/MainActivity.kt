@@ -45,6 +45,7 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -453,7 +454,8 @@ private fun PlayCard(
                             fontWeight = FontWeight.Black, fontSize = 17.sp)
                     }
                 }
-                Box(Modifier.fillMaxWidth()) {
+                BoxWithConstraints(Modifier.fillMaxWidth()) {
+                    val artworkSize = BingoSquarePresentation.artworkSizeDp(maxWidth.value / 5f - 4f).dp
                     Column(Modifier.fillMaxWidth()) {
                         for (row in 0..4) {
                             Row(Modifier.fillMaxWidth()) {
@@ -465,9 +467,10 @@ private fun PlayCard(
                                         marked = index == BingoEngine.CENTER || index in marks,
                                         inLine = index in winningIndices,
                                         reducedMotion = reducedMotion,
+                                        artworkSize = artworkSize,
                                         onClick = { onMark(index) },
                                         // Taller cells allow readable multi-line labels on narrow phones.
-                                        modifier = Modifier.weight(1f).aspectRatio(.78f)
+                                        modifier = Modifier.weight(1f).aspectRatio(BingoSquarePresentation.TILE_ASPECT_RATIO)
                                     )
                                 }
                             }
@@ -570,6 +573,7 @@ private fun BingoSquare(
     marked: Boolean,
     inLine: Boolean,
     reducedMotion: Boolean,
+    artworkSize: Dp,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -606,10 +610,10 @@ private fun BingoSquare(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize().padding(horizontal = 2.dp, vertical = 3.dp)
+            modifier = Modifier.fillMaxSize().padding(horizontal = 1.dp, vertical = 2.dp)
         ) {
             if (BingoSquarePresentation.showArtwork(index)) {
-                TropeArtwork(label, burgundy)
+                TropeArtwork(label, burgundy, artworkSize = artworkSize)
             } else {
                 Text("♥", color = plum, fontSize = 14.sp, lineHeight = 16.sp)
             }

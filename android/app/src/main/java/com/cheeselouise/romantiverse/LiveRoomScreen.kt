@@ -40,6 +40,7 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
@@ -396,7 +397,8 @@ fun LiveRoomScreen(
                             }
                         }
                         val winning = BingoEngine.winningLines(live.marks).flatten().toSet()
-                        Box(Modifier.fillMaxWidth()) {
+                        BoxWithConstraints(Modifier.fillMaxWidth()) {
+                            val artworkSize = BingoSquarePresentation.artworkSizeDp(maxWidth.value / 5f - 4f).dp
                             Column(Modifier.fillMaxWidth()) {
                                 for (row in 0..4) {
                                     Row(Modifier.fillMaxWidth()) {
@@ -410,7 +412,8 @@ fun LiveRoomScreen(
                                                 winning = index in winning,
                                                 enabled = !busy && room?.movie?.status == "playing",
                                                 reducedMotion = reduceMotion,
-                                                modifier = Modifier.weight(1f).aspectRatio(.78f),
+                                                artworkSize = artworkSize,
+                                                modifier = Modifier.weight(1f).aspectRatio(BingoSquarePresentation.TILE_ASPECT_RATIO),
                                                 onToggle = {
                                                     if (hapticsEnabled) {
                                                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
@@ -481,6 +484,7 @@ private fun LiveBingoSquare(
     winning: Boolean,
     enabled: Boolean,
     reducedMotion: Boolean,
+    artworkSize: Dp,
     onToggle: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -518,12 +522,12 @@ private fun LiveBingoSquare(
         contentAlignment = Alignment.Center
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(horizontal = 2.dp, vertical = 3.dp),
+            modifier = Modifier.fillMaxSize().padding(horizontal = 1.dp, vertical = 2.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             if (BingoSquarePresentation.showArtwork(index)) {
-                TropeArtwork(label, rose)
+                TropeArtwork(label, rose, artworkSize = artworkSize)
             } else {
                 Text("♥", color = ink, fontSize = 14.sp, lineHeight = 16.sp)
             }
