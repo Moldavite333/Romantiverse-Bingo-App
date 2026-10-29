@@ -21,6 +21,12 @@ object RoomInvites {
     fun url(code: String): String = base + "?room=" +
         (normalize(code) ?: throw IllegalArgumentException("Invalid room code"))
 
+    /** Never silently abandon a saved multiplayer session when opening a different invite. */
+    fun shouldOfferRoomSwitch(incomingCode: String?, activeCode: String?): Boolean {
+        val incoming = normalize(incomingCode) ?: return false
+        return activeCode != null && incoming != activeCode
+    }
+
     /**
      * Accept a room code, a full HTTPS invitation URL, or the multiline text
      * produced by Android Share. Only our exact public invite origin is trusted.

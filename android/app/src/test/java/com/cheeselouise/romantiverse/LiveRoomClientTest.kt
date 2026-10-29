@@ -49,6 +49,18 @@ class LiveRoomClientTest {
         assertNull(RoomInvites.normalize("ABCDE01"))
     }
 
+    @Test fun aNewInviteMustNotSilentlyReplaceAnActiveRoom() {
+        assertFalse(RoomInvites.shouldOfferRoomSwitch(null, code))
+        assertFalse(RoomInvites.shouldOfferRoomSwitch("not-a-code", code))
+        assertFalse(RoomInvites.shouldOfferRoomSwitch(code, null))
+        assertFalse(RoomInvites.shouldOfferRoomSwitch(code, code))
+        assertTrue(RoomInvites.shouldOfferRoomSwitch("WXYZ345", code))
+        assertTrue(RoomInvites.shouldOfferRoomSwitch("wxyz345", code))
+        // A pasted URL must be parsed before reaching the switch decision.
+        assertTrue(RoomInvites.shouldOfferRoomSwitch(
+            RoomInvites.fromInput(RoomInvites.url("WXYZ345")), code))
+    }
+
     @Test fun nativeJoinAcceptsPastedCodeLinkAndSharedInvitationMessage() {
         val invite = RoomInvites.url(code)
         val shared = "Play Romantiverse Bingo with me!\n" +
