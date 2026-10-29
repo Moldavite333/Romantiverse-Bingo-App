@@ -40,6 +40,7 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
@@ -396,7 +397,8 @@ fun LiveRoomScreen(
                             }
                         }
                         val winning = BingoEngine.winningLines(live.marks).flatten().toSet()
-                        Box(Modifier.fillMaxWidth()) {
+                        BoxWithConstraints(Modifier.fillMaxWidth()) {
+                            val artworkSize = BingoSquarePresentation.artworkSizeDp(maxWidth.value / 5f - 4f).dp
                             Column(Modifier.fillMaxWidth()) {
                                 for (row in 0..4) {
                                     Row(Modifier.fillMaxWidth()) {
@@ -410,6 +412,7 @@ fun LiveRoomScreen(
                                                 winning = index in winning,
                                                 enabled = !busy && room?.movie?.status == "playing",
                                                 reducedMotion = reduceMotion,
+                                                artworkSize = artworkSize,
                                                 modifier = Modifier.weight(1f).aspectRatio(BingoSquarePresentation.TILE_ASPECT_RATIO),
                                                 onToggle = {
                                                     if (hapticsEnabled) {
@@ -481,6 +484,7 @@ private fun LiveBingoSquare(
     winning: Boolean,
     enabled: Boolean,
     reducedMotion: Boolean,
+    artworkSize: Dp,
     onToggle: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -495,7 +499,7 @@ private fun LiveBingoSquare(
         animationSpec = if (reducedMotion) snap() else tween(180),
         label = "Shared square marking"
     )
-    BoxWithConstraints(
+    Box(
         modifier.padding(2.dp)
             .clip(RoundedCornerShape(11.dp))
             .background(if (free) accent else shade)
@@ -523,7 +527,7 @@ private fun LiveBingoSquare(
             verticalArrangement = Arrangement.Center
         ) {
             if (BingoSquarePresentation.showArtwork(index)) {
-                TropeArtwork(label, rose, artworkSize = BingoSquarePresentation.artworkSizeDp(maxWidth.value).dp)
+                TropeArtwork(label, rose, artworkSize = artworkSize)
             } else {
                 Text("♥", color = ink, fontSize = 14.sp, lineHeight = 16.sp)
             }
