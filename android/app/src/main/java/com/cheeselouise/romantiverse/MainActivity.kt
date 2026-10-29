@@ -296,7 +296,7 @@ private fun DiscoverMovies(
     val filtered = remember(movies, query, filter) {
         movies.filter {
             (filter == "All" || it.collection == filter) &&
-                (query.isBlank() || it.title.contains(query.trim(), ignoreCase = true))
+                MovieCatalog.matchesQuery(it, query)
         }
     }
     LazyColumn(
@@ -322,7 +322,7 @@ private fun DiscoverMovies(
         item {
             OutlinedTextField(
                 value = query, onValueChange = { query = it },
-                label = { Text("Search movies") },
+                label = { Text("Search movies or networks") },
                 singleLine = true, modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(14.dp)
             )
@@ -357,7 +357,8 @@ private fun DiscoverMovies(
                             overflow = TextOverflow.Ellipsis)
                         Spacer(Modifier.height(5.dp))
                         Text(listOfNotNull(movie.year?.toString(),
-                            movie.collection.takeUnless { it == "Unspecified" }).joinToString(" · ")
+                            movie.collection.takeUnless { it == "Unspecified" },
+                            movie.network).joinToString(" · ")
                             .ifBlank { "Collection unverified" }, color = pale, fontSize = 12.sp)
                         Spacer(Modifier.height(12.dp))
                         Text("PLAY THIS MOVIE  ›", color = gold,

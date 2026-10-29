@@ -178,4 +178,38 @@ class MovieCatalogTest {
         }
     }
 
+
+    @Test fun nativeSearchMatchesOnlyPubliclyListedNetworksWithoutGuessing() {
+        val hallmark = row("hallmark-film", "Autumn Dreams", "Fall", 2015)
+            .put("network", "Hallmark Channel")
+        val lifetime = row("lifetime-film", "The Perfect Proposal", "Unspecified", 2024)
+            .put("network", "Lifetime")
+        val unknown = row("unknown-film", "A Christmas Story", "Christmas", 2025)
+        val movies = MovieCatalog.parse(catalog(hallmark, lifetime, unknown))
+        val first = movies.single { it.id == "hallmark-film" }
+        val second = movies.single { it.id == "lifetime-film" }
+        val third = movies.single { it.id == "unknown-film" }
+        assertEquals("Hallmark Channel", first.network)
+        assertEquals("Lifetime", second.network)
+        assertNull(third.network)
+        assertTrue(MovieCatalog.matchesQuery(first, "  hallmark  "))
+        assertTrue(MovieCatalog.matchesQuery(second, "LIFETIME"))
+        assertTrue(MovieCatalog.matchesQuery(first, "autumn"))
+        assertTrue(MovieCatalog.matchesQuery(third, "Christmas"))
+        assertFalse(MovieCatalog.matchesQuery(third, "Hallmark"))
+        assertFalse(MovieCatalog.matchesQuery(first, "Lifetime"))
+        assertTrue(MovieCatalog.matchesQuery(third, " "))
+    }
+
+    @Test fun malformedPublicNetworkMetadataIsNotShownOrSearched() {
+        val movies = MovieCatalog.parse(catalog(
+            row("null-network", "One").put("network", JSONObject.NULL),
+            row("long-network", "Two").put("network", "x".repeat(81)),
+            row("control-network", "Three").put("network", "Hallmark\nFake")
+        ))
+        assertTrue(movies.all { it.network == null })
+        assertFalse(movies.any { MovieCatalog.matchesQuery(it, "Hallmark") })
+    }
+
+
 }

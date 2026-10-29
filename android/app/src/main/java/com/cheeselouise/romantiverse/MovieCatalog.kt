@@ -11,7 +11,8 @@ data class Movie(
     val id: String,
     val title: String,
     val year: Int?,
-    val collection: String
+    val collection: String,
+    val network: String? = null
 ) {
     val key: String get() = PosterRepository.key(title, year)
 }
@@ -45,6 +46,13 @@ object MovieCatalog {
     private const val CACHE_KEY = "verified-json"
     private const val MAX_CHARS = 1_500_000
 
+    /** Only public catalog metadata; never infer a distributor from a movie title. */
+    fun matchesQuery(movie: Movie, query: String): Boolean {
+        val term = query.trim()
+        return term.isEmpty() || movie.title.contains(term, ignoreCase = true) ||
+            movie.network?.contains(term, ignoreCase = true) == true
+    }
+
     /** Validate all remote data before it can replace the offline catalog. */
     fun parse(json: String): List<Movie> {
         require(json.length <= MAX_CHARS) { "Catalog is too large" }
@@ -64,7 +72,10 @@ object MovieCatalog {
             val year = row.optInt("release_year", 0).takeIf { it in 1900..2100 }
             if (!idPattern.matches(id) || title.length !in 1..180 ||
                 collection !in collections || !seenIds.add(id)) continue
-            val movie = Movie(id, title, year, collection)
+            val network = row.optString("network", "").trim().takeIf {
+                !row.isNull("network") && it.length in 1..80 && it.all { char -> char >= ' ' }
+            }
+            val movie = Movie(id, title, year, collection, network)
             if (seen.add(movie.key)) result += movie
         }
         require(result.isNotEmpty()) { "No usable movies in catalog" }
