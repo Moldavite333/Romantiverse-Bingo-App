@@ -9,6 +9,10 @@ const SERVICE_KEY=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')||'';
 const ANON_JWT=Deno.env.get('SUPABASE_ANON_KEY')||'';
 const cors={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'GET, OPTIONS','Access-Control-Allow-Headers':'content-type, apikey, authorization'};
 const jsonHeaders={...cors,'Content-Type':'application/json; charset=utf-8','Cache-Control':'public, max-age=60, stale-while-revalidate=120'};
+const MAX_CATALOG_MOVIES=3000;
+const CACHE_PAGE_SIZE=1000;
+// Bound each background refresh; remaining titles are retried shortly afterward.
+const MAX_REFRESH_PER_RUN=64;
 const now=()=>new Date().toISOString();
 const timeout=(ms:number)=>AbortSignal.timeout(ms);
 const clean=(v:unknown)=>String(v??'').trim().replace(/\s+/g,' ');
@@ -31,9 +35,17 @@ async function service(path:string,init:RequestInit={}){
   return text?JSON.parse(text):null;
 }
 async function cached(){
-  const rows=await service('bingo_poster_cache?select=title,release_year,season,poster_url,poster_source,match_score,checked_at&limit=200');
-  if(!Array.isArray(rows))throw Error('Poster cache returned invalid data');
-  return rows;
+  // PostgREST commonly caps a single response at 1,000 rows. An incomplete
+  // snapshot must never be treated as authoritative: it could revoke posters.
+  const all:any[]=[];
+  for(let offset=0;offset<=MAX_CATALOG_MOVIES;offset+=CACHE_PAGE_SIZE){
+    const rows=await service('bingo_poster_cache?select=title,release_year,season,poster_url,poster_source,match_score,checked_at&order=title.asc,release_year.asc&limit='+CACHE_PAGE_SIZE+'&offset='+offset);
+    if(!Array.isArray(rows))throw Error('Poster cache returned invalid data');
+    all.push(...rows);
+    if(all.length>MAX_CATALOG_MOVIES)throw Error('Poster cache exceeds supported size');
+    if(rows.length<CACHE_PAGE_SIZE)return all;
+  }
+  throw Error('Poster cache pagination exceeded supported size');
 }
 async function claim(catalogCount:number|null=null){
   const path=catalogCount===null
@@ -42,9 +54,9 @@ async function claim(catalogCount:number|null=null){
   const body=catalogCount===null?'{}':JSON.stringify({p_catalog_count:catalogCount});
   return await service(path,{method:'POST',body})===true;
 }
-async function updateControl(error:string|null){
+async function updateControl(error:string|null,hasBacklog=false){
   await service('bingo_poster_sync_control?id=eq.1',{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({
-    next_refresh_at:new Date(Date.now()+(error?30*60*1000:24*60*60*1000)).toISOString(),
+    next_refresh_at:new Date(Date.now()+(error?30*60*1000:hasBacklog?15*60*1000:24*60*60*1000)).toISOString(),
     ...(error?{last_error:error.slice(0,300)}:{last_error:null,last_success_at:now()})
   })});
 }
@@ -52,7 +64,7 @@ async function catalogCandidates(){
   const response=await fetch(CATALOG,{headers:{Accept:'application/json'},signal:timeout(20000),cache:'no-store'});
   if(!response.ok)throw Error('Public Bingo catalog returned '+response.status);
   const data=await response.json();
-  if(data?.version!==1||!Array.isArray(data.movies)||data.movies.length>500)throw Error('Invalid public Bingo catalog');
+  if(data?.version!==1||!Array.isArray(data.movies)||data.movies.length>MAX_CATALOG_MOVIES)throw Error('Invalid public Bingo catalog');
   const seen=new Set<string>();
   const candidates:{title:string;release_year:number;season:string}[]=[];
   for(const item of data.movies){
@@ -83,8 +95,9 @@ async function refresh(){
       return !Number.isFinite(age)||age>(approved(row.poster_url)?7*86400000:86400000);
     });
     let matched=0;
-    for(let i=0;i<due.length;i+=8){
-      const batch=due.slice(i,i+8);
+    const batchDue=due.slice(0,MAX_REFRESH_PER_RUN);
+    for(let i=0;i<batchDue.length;i+=8){
+      const batch=batchDue.slice(i,i+8);
       const body={movies:batch.map(m=>({key:keyOf(m),title:m.title,year:m.release_year}))};
       const response=await fetch(SUPABASE_URL+'/functions/v1/resolve-movie-poster',{
         method:'POST',headers:{apikey:ANON_JWT,Authorization:'Bearer '+ANON_JWT,'Content-Type':'application/json'},
@@ -104,8 +117,9 @@ async function refresh(){
       });
       await service('bingo_poster_cache?on_conflict=title,release_year',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)});
     }
-    await updateControl(null);
-    console.log('Bingo poster refresh: '+candidates.length+' public titles; '+due.length+' checked; '+matched+' new matches.');
+    const hasBacklog=due.length>batchDue.length;
+    await updateControl(null,hasBacklog);
+    console.log('Bingo poster refresh: '+candidates.length+' public titles; '+batchDue.length+' checked; '+matched+' new matches; '+(due.length-batchDue.length)+' pending.');
   }catch(error){
     const message=error instanceof Error?error.message:String(error);
     console.error('Bingo poster refresh failed:',message);
