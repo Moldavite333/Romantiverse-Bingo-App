@@ -54,7 +54,7 @@ class BingoStoryScenesTest {
 
     @Test fun noGenericArtworkIsMisrepresentedAsAUniqueIllustration() {
         assertNull(StorySceneArt.forLabel("A ghost train"))
-        assertNull(StorySceneArt.forLabel("A pumpkin patch"))
+        assertNull(StorySceneArt.forLabel("An unlisted trope"))
         assertNull(StorySceneArt.forLabel("Made up trope"))
         assertNull(StorySceneArt.forLabel("Charming stranger"))
     }
