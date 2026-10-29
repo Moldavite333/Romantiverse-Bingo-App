@@ -388,27 +388,50 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     dot(36f, 9f, 7f, p.cranberry); line(34f, 6f, 38f, 12f, p.paper, 2f)
                 }
                 StoryScene.GIFT_EXCHANGE -> {
-                    tile(); box(4f, 22f, 19f, 19f, p.cranberry)
-                    box(25f, 17f, 19f, 24f, p.gold)
-                    line(13f, 22f, 13f, 41f, p.paper, 3f)
-                    line(34f, 17f, 34f, 41f, p.paper, 3f)
-                    line(4f, 27f, 23f, 27f, p.paper, 3f)
-                    line(25f, 24f, 44f, 24f, p.paper, 3f)
-                    heart(13f, 13f, .6f); heart(34f, 8f, .5f)
+                    // Two neighbors trade wrapped gifts instead of a pair of anonymous boxes.
+                    tile(p.sky)
+                    person(10f, 15f, p.evergreen); person(39f, 15f, p.cranberry)
+                    box(15f, 28f, 16f, 13f, p.cranberry, 1.5f)
+                    box(14f, 26f, 18f, 4f, p.gold, 1f)
+                    line(23f, 26f, 23f, 41f, p.paper, 2f)
+                    line(17f, 28f, 29f, 28f, p.paper, 1.2f)
+                    line(16f, 30f, 11f, 28f, p.skin, 2.5f)
+                    line(32f, 30f, 37f, 28f, p.skin, 2.5f)
+                    // A second little parcel is tucked under one arm.
+                    box(35f, 36f, 10f, 8f, p.gold, 1f)
+                    line(40f, 36f, 40f, 44f, p.cranberry, 1.5f)
+                    heart(24f, 11f, .5f)
                 }
                 StoryScene.FAMILY_HEIRLOOM -> {
-                    tile(p.blush); box(6f, 23f, 36f, 20f, p.cocoa)
-                    shape(p.gold, 6f to 23f, 14f to 11f, 34f to 11f, 42f to 23f)
-                    box(11f, 27f, 26f, 12f, p.paper)
-                    line(24f, 16f, 24f, 29f, p.gold, 2f)
-                    heart(24f, 33f, .7f, p.cranberry)
+                    // An antique locket displayed in an open wooden keepsake chest.
+                    tile(p.blush)
+                    box(5f, 28f, 38f, 15f, p.cocoa, 3f)
+                    box(8f, 31f, 32f, 8f, p.cranberry, 2f)
+                    shape(p.gold, 5f to 28f, 12f to 19f, 36f to 19f, 43f to 28f)
+                    box(12f, 23f, 24f, 5f, p.paper, 1f)
+                    // Chain and large oval locket stay identifiable at 30dp.
+                    line(18f, 7f, 24f, 11f, p.gold, 1.5f)
+                    line(30f, 7f, 24f, 11f, p.gold, 1.5f)
+                    oval(16f, 10f, 16f, 18f, p.gold)
+                    oval(19f, 13f, 10f, 12f, p.paper)
+                    heart(24f, 18f, .38f, p.cranberry)
+                    dot(24f, 35f, 1.8f, p.gold)
                 }
                 StoryScene.ROMANTIC_GESTURE -> {
-                    tile(); envelope(3f, 27f, p.paper)
-                    line(34f, 40f, 37f, 15f, p.evergreen, 2f)
-                    dot(37f, 13f, 7f, p.cranberry)
-                    dot(32f, 10f, 3f, p.blush); dot(41f, 9f, 3f, p.blush)
-                    heart(14f, 17f, .6f, p.cranberry)
+                    // A handwritten love note and single rose offered face-to-face.
+                    tile(p.sky)
+                    person(9f, 18f, p.evergreen)
+                    person(40f, 18f, p.cranberry)
+                    box(17f, 28f, 15f, 11f, p.paper, 1.5f)
+                    line(19f, 31f, 29f, 31f, p.cocoa, 1.1f)
+                    line(19f, 34f, 25f, 34f, p.cocoa, 1.1f)
+                    heart(28f, 36f, .28f)
+                    line(15f, 30f, 18f, 32f, p.skin, 2.4f)
+                    line(34f, 30f, 31f, 32f, p.skin, 2.4f)
+                    line(25f, 28f, 29f, 14f, p.evergreen, 2f)
+                    dot(29f, 12f, 5f, p.cranberry)
+                    dot(25f, 11f, 2f, p.blush)
+                    dot(32f, 9f, 2f, p.blush)
                 }
                 StoryScene.DANCE_TOGETHER -> {
                     tile(p.blush); person(18f, 13f, p.cranberry); person(31f, 13f, p.blue)
@@ -427,13 +450,21 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     heart(24f, 25f, .4f)
                 }
                 StoryScene.COZY_CAFE -> {
-                    tile(p.blush); box(5f, 15f, 38f, 29f, p.paper)
-                    box(5f, 12f, 38f, 10f, p.cranberry)
-                    listOf(12f, 25f, 38f).forEach { box(it, 12f, 5f, 10f, p.gold) }
-                    box(10f, 26f, 12f, 14f, p.blue)
-                    box(27f, 25f, 11f, 19f, p.cocoa)
-                    line(30f, 33f, 35f, 33f, p.gold, 2f)
-                    line(15f, 5f, 13f, 9f, p.cocoa); line(24f, 4f, 23f, 9f, p.cocoa)
+                    // Warm café windows frame two people sharing a steaming cup.
+                    tile(p.blush)
+                    box(3f, 11f, 42f, 34f, p.paper)
+                    box(5f, 18f, 38f, 22f, p.gold)
+                    box(7f, 20f, 34f, 18f, p.sky)
+                    box(3f, 9f, 42f, 10f, p.cranberry)
+                    listOf(8f, 18f, 28f, 38f).forEach { x ->
+                        box(x, 9f, 5f, 10f, p.paper, 1f)
+                    }
+                    person(14f, 23f, p.evergreen); person(34f, 23f, p.blue)
+                    oval(17f, 36f, 14f, 4f, p.cocoa)
+                    box(21f, 30f, 7f, 6f, p.paper, 1.5f)
+                    line(23f, 24f, 22f, 28f, p.paper, 1.1f)
+                    line(27f, 23f, 26f, 28f, p.paper, 1.1f)
+                    dot(24f, 5f, 2f, p.gold)
                 }
                 StoryScene.HOMETOWN_REUNION -> {
                     // A homecoming hug outside a familiar house with welcome bunting.
@@ -495,12 +526,20 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                 }
 
                 StoryScene.FIRST_MEETING -> {
-                    tile(p.sky); box(3f, 6f, 15f, 34f, p.cocoa)
-                    listOf(10f, 17f, 24f, 31f).forEach { y ->
-                        box(5f, y, 11f, 4f, if (y == 17f) p.gold else p.paper)
+                    // Two strangers reach for the same book in a small-town bookshop.
+                    tile(p.sky)
+                    box(3f, 5f, 12f, 38f, p.cocoa, 1f)
+                    listOf(9f, 17f, 25f, 33f).forEach { y ->
+                        box(5f, y, 8f, 5f, if (y == 17f) p.gold else p.paper, 1f)
                     }
-                    person(25f, 21f, p.cranberry); person(37f, 22f, p.evergreen)
-                    box(27f, 32f, 12f, 9f, p.gold)
+                    person(22f, 17f, p.cranberry)
+                    person(39f, 17f, p.evergreen)
+                    box(27f, 29f, 8f, 10f, p.gold, 1f)
+                    line(31f, 29f, 31f, 39f, p.paper, 1.2f)
+                    line(26f, 29f, 29f, 32f, p.skin, 2.3f)
+                    line(36f, 29f, 33f, 32f, p.skin, 2.3f)
+                    // A little fallen book and surprised spark sell the meet-cute.
+                    box(17f, 41f, 13f, 3f, p.blue, 1f)
                     heart(31f, 11f, .35f)
                 }
                 StoryScene.MISUNDERSTANDING -> {
@@ -560,12 +599,20 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     person(24f, 7f, p.cranberry)
                 }
                 StoryScene.SENTIMENTAL_GIFT -> {
-                    tile(p.blush); box(6f, 23f, 36f, 20f, p.cocoa, 4f)
-                    box(8f, 19f, 32f, 8f, p.gold)
-                    oval(14f, 9f, 20f, 16f, p.paper)
-                    line(24f, 25f, 24f, 31f, p.gold, 2f)
-                    heart(24f, 17f, .6f, p.cranberry)
-                    dot(12f, 35f, 2f, p.gold); dot(36f, 35f, 2f, p.gold)
+                    // An open gift box reveals a framed photograph, not generic jewelry.
+                    tile(p.blush)
+                    box(5f, 29f, 38f, 14f, p.cranberry, 2f)
+                    box(7f, 26f, 34f, 6f, p.gold, 1f)
+                    line(24f, 29f, 24f, 43f, p.paper, 2f)
+                    // A portrait frame makes the keepsake personal.
+                    box(13f, 6f, 22f, 24f, p.cocoa, 2f)
+                    box(16f, 9f, 16f, 18f, p.paper, 1f)
+                    dot(24f, 15f, 4f, p.skin)
+                    oval(19f, 18f, 10f, 8f, p.evergreen)
+                    heart(33f, 9f, .35f, p.gold)
+                    // Loose ribbon curling from the opened lid.
+                    line(7f, 26f, 4f, 19f, p.gold, 2f)
+                    line(41f, 26f, 44f, 19f, p.gold, 2f)
                 }
                 StoryScene.MEDDLING_RELATIVE -> {
                     tile(p.sky); box(3f, 4f, 24f, 40f, p.paper)
