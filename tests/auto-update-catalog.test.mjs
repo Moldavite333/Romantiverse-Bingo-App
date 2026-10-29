@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {isHallmarkNetwork,seasonalThemeFromTitle,prepareOpenDataMovie,mergeVerifiedNetworkMetadata} from '../scripts/auto-update-catalog.mjs';
+import {isHallmarkNetwork,isEligibleNetwork,isEligibleTvProducer,seasonalThemeFromTitle,prepareOpenDataMovie,mergeVerifiedNetworkMetadata,mergeSourceQualifiedMetadata} from '../scripts/auto-update-catalog.mjs';
 const movie={source:'wikidata',source_id:'Q12345',source_url:'https://www.wikidata.org/wiki/Q12345',title:'Christmas in the Valley',release_year:2026,network:'Hallmark Channel',synopsis:'Do not retain this source prose'};
 test('only explicitly identified Hallmark networks qualify',()=>{
  assert.equal(isHallmarkNetwork('Hallmark Channel'),true);
@@ -40,4 +40,43 @@ test('scheduled import keeps network-qualified unknown-season titles without fab
  assert.equal(result.added,3);
  assert.deepEqual(result.catalog.movies.map(m=>m.season).sort(),['Christmas','Fall','Unspecified']);
  assert.equal(mergeVerifiedNetworkMetadata(result.catalog,[unclassified]).added,0);
+});
+
+test('Lifetime original broadcasts qualify without inventing film plot or season',()=>{
+ assert.equal(isEligibleNetwork('Lifetime'),true);
+ assert.equal(isEligibleNetwork('Lifetime Movie Network'),true);
+ assert.equal(isEligibleNetwork('LMN'),true);
+ assert.equal(isEligibleNetwork('Lifetime Television Fan Page'),false);
+ const lifetime={...movie,source_id:'Q22222',title:'The Winter Reunion',network:'Lifetime'};
+ const result=prepareOpenDataMovie(lifetime);
+ assert.equal(result.network,'Lifetime');
+ assert.equal(result.season,'Unspecified');
+ assert.equal(result.verification_status,'unverified');
+ assert.ok(!('production_company' in result));
+ assert.ok(!JSON.stringify(result).includes('Do not retain'));
+});
+test('MarVista and Reel One require explicit made-for-TV Wikidata evidence',()=>{
+ for(const [id,company] of [['Q33333','MarVista Entertainment'],['Q44444','Reel One Entertainment']]){
+  assert.equal(isEligibleTvProducer(company),true);
+  const candidate={...movie,source_id:id,title:'A New Beginning',network:null,
+    production_company:company,tv_film_evidence:true};
+  const imported=prepareOpenDataMovie(candidate);
+  assert.equal(imported.production_company,company);
+  assert.ok(!('network' in imported),'Do not pretend the production company is a broadcast network');
+  assert.equal(prepareOpenDataMovie({...candidate,tv_film_evidence:false}),null);
+  assert.equal(prepareOpenDataMovie({...candidate,tv_film_evidence:undefined}),null);
+ }
+ assert.equal(isEligibleTvProducer('MarVista Distribution'),false);
+ assert.equal(prepareOpenDataMovie({...movie,source_id:'Q55555',network:null,
+   production_company:'MarVista Distribution',tv_film_evidence:true}),null);
+});
+test('source-qualified imports preserve IDs and reject unlabeled Wikidata items',()=>{
+ const company={...movie,source_id:'Q55555',title:'A New Beginning',network:null,
+   production_company:'MarVista Entertainment',tv_film_evidence:true};
+ const lifetime={...movie,source_id:'Q66666',title:'A Different Beginning',network:'Lifetime'};
+ const merged=mergeSourceQualifiedMetadata({version:1,movies:[]},[company,lifetime]);
+ assert.equal(merged.added,2);
+ assert.deepEqual(merged.catalog.movies.map(m=>m.id).sort(),['wikidata-q55555','wikidata-q66666']);
+ assert.equal(mergeSourceQualifiedMetadata(merged.catalog,[company,lifetime]).added,0);
+ assert.equal(prepareOpenDataMovie({...lifetime,title:'Q66666'}),null);
 });

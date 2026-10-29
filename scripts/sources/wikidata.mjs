@@ -2,14 +2,35 @@
 // Use original release years, not later regional releases or rebroadcasts.
 // Respect query budgets, 429/Retry-After, and Wikimedia User-Agent policy.
 const ENDPOINT='https://query.wikidata.org/sparql';
-export const QUERY=`SELECT ?item ?itemLabel ?date ?networkLabel WHERE {
+export const QUERY=`SELECT ?item ?itemLabel ?date ?networkLabel ?productionCompanyLabel ?tvFilmEvidence WHERE {
   {
-    SELECT ?item (MIN(?released) AS ?date) (SAMPLE(?networkName) AS ?networkLabel) WHERE {
-      VALUES ?networkName { "Hallmark Channel"@en "Hallmark Movies & Mysteries"@en "Hallmark Movies and Mysteries"@en "Hallmark Mystery"@en "Hallmark Family"@en }
-      ?item wdt:P31/wdt:P279* wd:Q11424;
-            wdt:P577 ?released;
-            wdt:P449 ?network.
-      ?network rdfs:label ?networkName.
+    SELECT ?item (MIN(?released) AS ?date)
+      (SAMPLE(?networkName) AS ?networkLabel)
+      (SAMPLE(?companyName) AS ?productionCompanyLabel)
+      (SAMPLE(?tvFilmType) AS ?tvFilmEvidence) WHERE {
+      ?item wdt:P577 ?released.
+      {
+        # Only a film's *original* broadcaster, not a later rerun channel.
+        VALUES ?networkName {
+          "Hallmark Channel"@en "Hallmark Movies & Mysteries"@en
+          "Hallmark Movies and Mysteries"@en "Hallmark Mystery"@en
+          "Hallmark Family"@en "Lifetime"@en
+          "Lifetime Movie Network"@en "LMN"@en
+        }
+        ?item wdt:P31/wdt:P279* wd:Q11424;
+              wdt:P449 ?network.
+        ?network rdfs:label ?networkName.
+      } UNION {
+        # MarVista/Reel One also distribute theatrical films. Only explicitly
+        # made-for-TV films qualify for the Romantiverse catalog.
+        VALUES ?companyName {
+          "MarVista Entertainment"@en "Reel One Entertainment"@en
+        }
+        ?item wdt:P31/wdt:P279* wd:Q506240;
+              wdt:P272 ?company.
+        ?company rdfs:label ?companyName.
+        BIND("television film" AS ?tvFilmType)
+      }
     } GROUP BY ?item
   }
   FILTER(?date >= "2000-01-01T00:00:00Z"^^xsd:dateTime)
@@ -29,13 +50,23 @@ export function normalizeWikidataResults(data){
   const candidate={source:'wikidata',source_id:id,source_url:url,title,
    release_year:b.date?.value?Number(b.date.value.slice(0,4)):null,
    network:b.networkLabel?.value||null,
+   production_company:b.productionCompanyLabel?.value||null,
+   tv_film_evidence:b.tvFilmEvidence?.value==='television film',
    synopsis:'', // Wikidata descriptions are not plot synopses.
    short_description:b.itemDescription?.value||'',
    editorial_status:'review_required',suitable_for_auto_import:false,
    attribution:'Wikidata contributors (CC0); check downstream source rights for any linked content'};
   const prior=byId.get(id);
-  if(!prior||(Number.isInteger(candidate.release_year)&&
-      (!Number.isInteger(prior.release_year)||candidate.release_year<prior.release_year)))byId.set(id,candidate);
+  if(!prior){byId.set(id,candidate);continue;}
+  // Preserve source evidence from multiple bindings while retaining the
+  // earliest release date. A later rebroadcast must not erase producer data.
+  if(Number.isInteger(candidate.release_year)&&
+     (!Number.isInteger(prior.release_year)||candidate.release_year<prior.release_year))
+    prior.release_year=candidate.release_year;
+  if(!prior.network&&candidate.network)prior.network=candidate.network;
+  if(!prior.production_company&&candidate.production_company)
+    prior.production_company=candidate.production_company;
+  prior.tv_film_evidence=prior.tv_film_evidence||candidate.tv_film_evidence;
  }
  return [...byId.values()];
 }
