@@ -673,60 +673,126 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(41f, 26f, 44f, 19f, p.gold, 2f)
                 }
                 StoryScene.MEDDLING_RELATIVE -> {
-                    tile(p.sky); box(3f, 4f, 24f, 40f, p.paper)
-                    box(7f, 8f, 16f, 26f, p.blue)
-                    person(15f, 14f, p.gold)
-                    line(24f, 7f, 24f, 35f, p.cranberry, 3f)
-                    person(34f, 23f, p.cranberry)
-                    person(43f, 24f, p.evergreen)
-                    heart(37f, 14f, .35f)
+                    // A matchmaking aunt peeks through curtains while arranging a date.
+                    tile(p.sky)
+                    box(2f, 5f, 25f, 38f, p.paper)
+                    box(5f, 9f, 19f, 27f, p.blue)
+                    // Open curtains frame the very unsubtle family observer.
+                    shape(p.cranberry, 5f to 9f, 11f to 9f, 8f to 34f, 5f to 36f)
+                    shape(p.cranberry, 18f to 9f, 24f to 9f, 24f to 36f, 21f to 34f)
+                    person(15f, 19f, p.gold)
+                    line(15f, 30f, 23f, 34f, p.skin, 2f)
+                    // A heart-stamped invitation in the aunt's hand.
+                    box(19f, 30f, 11f, 9f, p.paper, 1f)
+                    heart(24.5f, 34f, .35f)
+                    person(35f, 24f, p.evergreen)
+                    person(44f, 24f, p.cranberry)
+                    line(37f, 35f, 42f, 35f, p.skin, 2f)
+                    dot(39f, 13f, 3f, p.gold)
                 }
                 StoryScene.ROMANTIC_RIVAL -> {
-                    tile(p.blush); person(8f, 19f, p.evergreen)
-                    person(24f, 10f, p.gold); person(40f, 19f, p.blue)
-                    line(10f, 34f, 19f, 29f, p.cocoa, 2f)
-                    line(38f, 34f, 29f, 29f, p.cocoa, 2f)
-                    dot(19f, 28f, 4f, p.cranberry)
-                    dot(29f, 28f, 4f, p.cranberry)
-                    heart(24f, 40f, .45f)
+                    // Two would-be suitors arrive with competing bouquets.
+                    tile(p.blush)
+                    box(3f, 35f, 42f, 9f, p.paper)
+                    person(9f, 20f, p.evergreen)
+                    person(24f, 15f, p.gold)
+                    person(40f, 20f, p.blue)
+                    // Both bouquets are offered toward the same surprised person.
+                    line(14f, 32f, 20f, 28f, p.skin, 2.3f)
+                    line(35f, 32f, 28f, 28f, p.skin, 2.3f)
+                    line(19f, 29f, 18f, 20f, p.evergreen, 1.5f)
+                    line(30f, 29f, 32f, 20f, p.evergreen, 1.5f)
+                    dot(18f, 19f, 4f, p.cranberry)
+                    dot(32f, 19f, 4f, p.gold)
+                    dot(14f, 21f, 2f, p.gold)
+                    dot(36f, 20f, 2f, p.cranberry)
+                    // A tiny question mark conveys the romantic predicament.
+                    dot(24f, 5f, 2.5f, p.ink)
+                    line(24f, 7f, 26f, 9f, p.ink, 1.5f)
+                    dot(26f, 12f, 1f, p.ink)
                 }
                 StoryScene.LAST_MINUTE_ARRIVAL -> {
-                    tile(p.sky); box(2f, 14f, 32f, 22f, p.blue, 3f)
+                    // The last bus pulls in as a traveler rushes to the reunion.
+                    tile(p.sky)
+                    box(2f, 14f, 30f, 23f, p.blue, 3f)
                     box(5f, 18f, 9f, 10f, p.paper)
-                    box(18f, 18f, 9f, 10f, p.paper)
-                    dot(9f, 37f, 4f, p.ink); dot(28f, 37f, 4f, p.ink)
-                    person(40f, 16f, p.cranberry)
-                    box(34f, 33f, 12f, 11f, p.cocoa)
-                    line(38f, 33f, 38f, 28f, p.gold, 2f)
-                    dot(41f, 7f, 5f, p.gold)
+                    box(17f, 18f, 9f, 10f, p.paper)
+                    line(3f, 30f, 30f, 30f, p.gold, 1.6f)
+                    dot(9f, 37f, 4f, p.ink); dot(26f, 37f, 4f, p.ink)
+                    // The open bus door and luggage distinguish this from a parked vehicle.
+                    box(28f, 22f, 5f, 15f, p.cocoa, 1f)
+                    line(30f, 23f, 30f, 35f, p.gold, 1f)
+                    person(40f, 19f, p.cranberry)
+                    box(32f, 34f, 14f, 10f, p.cocoa, 2f)
+                    line(36f, 34f, 36f, 30f, p.gold, 1.6f)
+                    line(36f, 30f, 42f, 30f, p.gold, 1.6f)
+                    dot(35f, 44f, 1.4f, p.ink); dot(43f, 44f, 1.4f, p.ink)
+                    // Almost midnight: clock hands crowd the top-right.
+                    dot(40f, 8f, 6f, p.paper)
+                    drawCircle(p.ink, 6f, Offset(40f, 8f), style = Stroke(1.3f))
+                    line(40f, 8f, 40f, 3.5f, p.ink, 1.3f)
+                    line(40f, 8f, 43f, 6f, p.ink, 1.3f)
                 }
                 StoryScene.UNEXPECTED_KISS -> {
-                    tile(p.sky); line(24f, 6f, 24f, 24f, p.cocoa, 2f)
-                    shape(p.cranberry, 4f to 20f, 24f to 5f, 44f to 20f)
-                    person(19f, 25f, p.blue); person(29f, 25f, p.evergreen)
-                    heart(24f, 25f, .4f, p.gold)
-                    listOf(8f, 14f, 36f, 42f).forEach { x ->
-                        line(x, 28f, x - 2f, 35f, p.blue, 1.3f)
+                    // A spontaneous kiss beneath one umbrella in the rain.
+                    tile(p.blue)
+                    // Umbrella canopy is large enough to read on a five-column card.
+                    shape(p.cranberry, 3f to 21f, 11f to 11f, 24f to 7f,
+                        37f to 11f, 45f to 21f)
+                    line(4f, 21f, 44f, 21f, p.gold, 1.8f)
+                    line(24f, 7f, 24f, 36f, p.cocoa, 2f)
+                    line(24f, 36f, 28f, 39f, p.cocoa, 2f)
+                    person(18f, 29f, p.evergreen)
+                    person(29f, 29f, p.cranberry)
+                    line(20f, 30f, 27f, 30f, p.skin, 2f)
+                    heart(24f, 23f, .27f, p.gold)
+                    listOf(7f, 13f, 36f, 42f).forEach { x ->
+                        line(x, 26f, x - 2f, 32f, p.paper, 1.4f)
+                        line(x + 1f, 36f, x - 1f, 42f, p.paper, 1.2f)
                     }
+                    oval(3f, 44f, 15f, 2f, p.paper)
+                    oval(31f, 44f, 14f, 2f, p.paper)
                 }
                 StoryScene.MEANINGFUL_LOOK -> {
-                    tile(p.blush); box(4f, 8f, 17f, 31f, p.paper)
-                    box(27f, 8f, 17f, 31f, p.paper)
-                    line(12f, 8f, 12f, 39f, p.cocoa, 1.5f)
-                    line(35f, 8f, 35f, 39f, p.cocoa, 1.5f)
-                    person(13f, 19f, p.cranberry); person(35f, 19f, p.blue)
-                    line(19f, 18f, 29f, 18f, p.gold, 2f)
-                    heart(24f, 8f, .4f)
+                    // Across a café table, a quiet glance says everything.
+                    tile(p.blush)
+                    box(3f, 4f, 42f, 24f, p.paper)
+                    box(5f, 6f, 38f, 20f, p.sky)
+                    line(24f, 6f, 24f, 26f, p.cocoa, 1.6f)
+                    line(5f, 26f, 43f, 26f, p.cocoa, 1.6f)
+                    person(13f, 24f, p.cranberry)
+                    person(35f, 24f, p.evergreen)
+                    // Eyes turn toward each other; warm highlights mark the shared gaze.
+                    dot(15f, 24f, 1.1f, p.ink)
+                    dot(33f, 24f, 1.1f, p.ink)
+                    line(18f, 22f, 30f, 22f, p.gold, 1.1f)
+                    dot(24f, 22f, 1.7f, p.gold)
+                    box(7f, 37f, 34f, 4f, p.cocoa, 1f)
+                    box(21f, 32f, 6f, 6f, p.paper, 1f)
+                    line(23f, 29f, 22f, 31f, p.paper, 1f)
+                    line(26f, 28f, 25f, 31f, p.paper, 1f)
+                    heart(24f, 12f, .35f)
                 }
                 StoryScene.INCONVENIENT_DEADLINE -> {
-                    tile(p.sky); box(4f, 16f, 22f, 27f, p.paper)
-                    line(9f, 24f, 21f, 24f, p.blue, 1.5f)
-                    line(9f, 30f, 21f, 30f, p.blue, 1.5f)
-                    dot(33f, 19f, 12f, p.gold)
-                    dot(33f, 19f, 9f, p.paper)
-                    line(33f, 19f, 33f, 12f, p.ink, 2f)
-                    line(33f, 19f, 39f, 23f, p.ink, 2f)
-                    box(25f, 35f, 20f, 8f, p.cranberry)
+                    // A nearly expired deadline interrupts a handwritten love letter.
+                    tile(p.sky)
+                    // Oversized calendar with one date emphatically circled.
+                    box(3f, 8f, 27f, 35f, p.paper)
+                    box(3f, 8f, 27f, 7f, p.cranberry)
+                    dot(10f, 9f, 1.5f, p.gold); dot(23f, 9f, 1.5f, p.gold)
+                    line(8f, 21f, 25f, 21f, p.blue, 1.2f)
+                    line(8f, 27f, 25f, 27f, p.blue, 1.2f)
+                    drawCircle(p.cranberry, 6f, Offset(19f, 34f), style = Stroke(2f))
+                    // Clock hands approach midnight beside the calendar.
+                    dot(37f, 18f, 10f, p.gold)
+                    dot(37f, 18f, 7.5f, p.paper)
+                    line(37f, 18f, 37f, 12f, p.ink, 1.8f)
+                    line(37f, 18f, 42f, 15f, p.ink, 1.8f)
+                    // Unfinished note and a pen below the ticking clock.
+                    box(30f, 33f, 16f, 10f, p.paper, 1f)
+                    line(32f, 36f, 42f, 36f, p.cocoa, 1f)
+                    line(32f, 39f, 38f, 39f, p.cocoa, 1f)
+                    line(40f, 45f, 46f, 35f, p.cranberry, 2f)
                 }
                 StoryScene.SMALL_TOWN_CELEBRATION -> {
                     tile(p.sky); cottage(13f, 9f)
