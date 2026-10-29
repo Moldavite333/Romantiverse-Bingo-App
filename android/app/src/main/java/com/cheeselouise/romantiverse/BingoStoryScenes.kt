@@ -35,7 +35,8 @@ internal enum class StoryScene {
     FIRST_MEETING, MISUNDERSTANDING, ALMOST_KISS, BIG_CONFESSION, TOWN_FESTIVAL, FAMILY_SECRET, CAREER_DILEMMA, SENTIMENTAL_GIFT,
     MEDDLING_RELATIVE, ROMANTIC_RIVAL, LAST_MINUTE_ARRIVAL, UNEXPECTED_KISS, MEANINGFUL_LOOK, INCONVENIENT_DEADLINE, SMALL_TOWN_CELEBRATION, SHARED_MEAL,
     TREE_LIGHTING, SNOWSTORM, CHRISTMAS_COOKIES, HOLIDAY_PARADE, FESTIVE_MARKET, CHRISTMAS_WISH, COZY_FIREPLACE, HOLIDAY_TRADITION,
-    PUMPKIN_PATCH, AUTUMN_FESTIVAL, HAYRIDE, HARVEST_MARKET, PIE_CONTEST, COZY_SWEATER, FALLING_LEAVES, APPLE_ORCHARD, BONFIRE, FALL_FUNDRAISER, PUMPKIN_CARVING, FOLIAGE_DRIVE
+    PUMPKIN_PATCH, AUTUMN_FESTIVAL, HAYRIDE, HARVEST_MARKET, PIE_CONTEST, COZY_SWEATER, FALLING_LEAVES, APPLE_ORCHARD, BONFIRE, FALL_FUNDRAISER, PUMPKIN_CARVING, FOLIAGE_DRIVE,
+    CREAKING_DOOR, OMINOUS_SHADOW, SUDDEN_SCREAM, FLASHLIGHT_FAILS, STRANGE_NOISE, CREEPY_HALLWAY, MYSTERIOUS_WARNING, JUMP_SCARE, EERIE_PHONE_CALL, LOCKED_DOOR, ABANDONED_HOUSE, FINAL_REVEAL
 }
 
 internal object StorySceneArt {
@@ -99,7 +100,19 @@ internal object StorySceneArt {
         "A bonfire" to StoryScene.BONFIRE,
         "A fall fundraiser" to StoryScene.FALL_FUNDRAISER,
         "A pumpkin carving" to StoryScene.PUMPKIN_CARVING,
-        "A scenic foliage drive" to StoryScene.FOLIAGE_DRIVE
+        "A scenic foliage drive" to StoryScene.FOLIAGE_DRIVE,
+        "A creaking door" to StoryScene.CREAKING_DOOR,
+        "An ominous shadow" to StoryScene.OMINOUS_SHADOW,
+        "A sudden scream" to StoryScene.SUDDEN_SCREAM,
+        "A flashlight fails" to StoryScene.FLASHLIGHT_FAILS,
+        "A strange noise" to StoryScene.STRANGE_NOISE,
+        "A creepy hallway" to StoryScene.CREEPY_HALLWAY,
+        "A mysterious warning" to StoryScene.MYSTERIOUS_WARNING,
+        "A jump scare" to StoryScene.JUMP_SCARE,
+        "An eerie phone call" to StoryScene.EERIE_PHONE_CALL,
+        "A locked door" to StoryScene.LOCKED_DOOR,
+        "An abandoned house" to StoryScene.ABANDONED_HOUSE,
+        "A final reveal" to StoryScene.FINAL_REVEAL
     )
     fun forLabel(label: String): StoryScene? = scenes[label]
     fun labels(): Set<String> = scenes.keys
@@ -691,6 +704,112 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     box(16f, 23f, 16f, 9f, p.paper)
                     dot(16f, 40f, 5f, p.ink); dot(33f, 40f, 5f, p.ink)
                     dot(24f, 8f, 5f, p.gold)
+                }
+
+
+                // Horror: original cozy-gothic mini-scenes, not neon or repeated symbols.
+                StoryScene.CREAKING_DOOR -> {
+                    tile(p.blue); box(8f, 4f, 32f, 42f, p.cocoa)
+                    shape(p.ink, 15f to 8f, 32f to 4f, 32f to 43f, 15f to 40f)
+                    dot(27f, 26f, 2f, p.gold)
+                    line(33f, 10f, 41f, 5f, p.paper, 2f)
+                    line(33f, 20f, 45f, 20f, p.paper, 1.5f)
+                    dot(5f, 8f, 3f, p.gold)
+                }
+                StoryScene.OMINOUS_SHADOW -> {
+                    tile(p.blue); dot(37f, 10f, 8f, p.gold)
+                    shape(p.ink, 3f to 44f, 14f to 25f, 20f to 11f,
+                        27f to 22f, 40f to 44f)
+                    box(2f, 43f, 44f, 5f, p.cocoa)
+                    dot(19f, 16f, 2f, p.paper)
+                    dot(27f, 16f, 2f, p.paper)
+                }
+                StoryScene.SUDDEN_SCREAM -> {
+                    tile(p.blush); dot(24f, 20f, 15f, p.paper)
+                    dot(19f, 17f, 2.4f, p.ink); dot(29f, 17f, 2.4f, p.ink)
+                    oval(20f, 24f, 8f, 11f, p.ink)
+                    line(9f, 11f, 4f, 5f, p.cranberry, 2f)
+                    line(39f, 11f, 44f, 5f, p.cranberry, 2f)
+                    line(24f, 3f, 24f, 0f, p.cranberry, 2f)
+                    line(5f, 38f, 14f, 34f, p.gold, 2f)
+                }
+                StoryScene.FLASHLIGHT_FAILS -> {
+                    tile(p.blue); box(7f, 22f, 21f, 10f, p.cocoa, 4f)
+                    box(25f, 20f, 9f, 14f, p.gold)
+                    shape(p.paper, 34f to 20f, 46f to 12f, 46f to 42f, 34f to 34f)
+                    line(35f, 15f, 43f, 9f, p.cranberry, 3f)
+                    line(43f, 15f, 35f, 9f, p.cranberry, 3f)
+                    dot(12f, 9f, 2f, p.gold)
+                }
+                StoryScene.STRANGE_NOISE -> {
+                    tile(p.sky); box(5f, 11f, 24f, 31f, p.cocoa)
+                    box(9f, 15f, 16f, 23f, p.paper)
+                    dot(17f, 25f, 5f, p.gold)
+                    line(31f, 12f, 37f, 8f, p.cranberry, 2f)
+                    line(32f, 21f, 43f, 21f, p.cranberry, 2f)
+                    line(31f, 30f, 37f, 34f, p.cranberry, 2f)
+                    dot(40f, 21f, 2f, p.ink)
+                }
+                StoryScene.CREEPY_HALLWAY -> {
+                    tile(p.blue); shape(p.ink, 3f to 2f, 45f to 2f, 31f to 46f, 17f to 46f)
+                    shape(p.paper, 16f to 8f, 32f to 8f, 29f to 33f, 19f to 33f)
+                    box(21f, 18f, 6f, 15f, p.cocoa)
+                    line(3f, 45f, 17f, 33f, p.gold, 1.5f)
+                    line(45f, 45f, 31f, 33f, p.gold, 1.5f)
+                    dot(27f, 25f, 1f, p.gold)
+                }
+                StoryScene.MYSTERIOUS_WARNING -> {
+                    tile(p.blush); box(7f, 5f, 34f, 38f, p.paper)
+                    line(13f, 12f, 35f, 12f, p.cocoa, 2f)
+                    line(13f, 18f, 30f, 18f, p.cocoa, 2f)
+                    shape(p.cranberry, 24f to 22f, 12f to 39f, 36f to 39f)
+                    line(24f, 28f, 24f, 34f, p.paper, 2.5f)
+                    dot(24f, 37f, 1.5f, p.paper)
+                    dot(39f, 8f, 4f, p.gold)
+                }
+                StoryScene.JUMP_SCARE -> {
+                    tile(p.blue); box(5f, 6f, 38f, 36f, p.paper)
+                    box(10f, 10f, 28f, 29f, p.ink)
+                    dot(17f, 21f, 3f, p.gold); dot(31f, 21f, 3f, p.gold)
+                    shape(p.paper, 16f to 30f, 24f to 36f, 32f to 30f)
+                    line(4f, 4f, 11f, 12f, p.cranberry, 3f)
+                    line(44f, 4f, 37f, 12f, p.cranberry, 3f)
+                    line(24f, 0f, 24f, 7f, p.cranberry, 3f)
+                }
+                StoryScene.EERIE_PHONE_CALL -> {
+                    tile(p.blush); box(9f, 5f, 30f, 38f, p.ink, 5f)
+                    box(13f, 10f, 22f, 24f, p.blue)
+                    shape(p.paper, 18f to 29f, 24f to 17f, 30f to 29f)
+                    dot(24f, 38f, 2f, p.gold)
+                    line(2f, 15f, 7f, 12f, p.cranberry, 2f)
+                    line(41f, 12f, 46f, 15f, p.cranberry, 2f)
+                    dot(24f, 6f, 1f, p.paper)
+                }
+                StoryScene.LOCKED_DOOR -> {
+                    tile(p.sky); box(6f, 4f, 36f, 42f, p.cocoa)
+                    box(11f, 9f, 26f, 31f, p.evergreen)
+                    box(18f, 24f, 15f, 13f, p.gold, 3f)
+                    oval(22f, 16f, 7f, 12f, p.paper)
+                    oval(24f, 19f, 3f, 7f, p.ink)
+                    dot(26f, 31f, 2f, p.ink)
+                    dot(39f, 20f, 2f, p.gold)
+                }
+                StoryScene.ABANDONED_HOUSE -> {
+                    tile(p.blue); box(7f, 22f, 34f, 23f, p.cocoa)
+                    shape(p.ink, 4f to 22f, 24f to 5f, 44f to 22f)
+                    box(13f, 26f, 8f, 8f, p.gold)
+                    box(28f, 26f, 8f, 8f, p.paper)
+                    box(22f, 34f, 8f, 11f, p.ink)
+                    tree(4f, 43f, 19f); tree(44f, 43f, 17f)
+                    dot(39f, 7f, 4f, p.paper)
+                }
+                StoryScene.FINAL_REVEAL -> {
+                    tile(p.blush); box(5f, 6f, 38f, 37f, p.paper)
+                    shape(p.cranberry, 5f to 6f, 21f to 6f, 15f to 43f, 5f to 43f)
+                    shape(p.cranberry, 27f to 6f, 43f to 6f, 43f to 43f, 33f to 43f)
+                    dot(24f, 23f, 11f, p.gold)
+                    person(24f, 19f, p.evergreen)
+                    heart(24f, 11f, .4f, p.cranberry)
                 }
 
                 StoryScene.OLD_FLAME -> {
