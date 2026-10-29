@@ -1,9 +1,15 @@
 package com.cheeselouise.romantiverse
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -12,7 +18,9 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -190,5 +198,28 @@ internal fun TropeArtwork(
                 }
             }
         }
+    }
+}
+
+/**
+ * A small corner seal for marked squares. Keep the original story scene visible
+ * throughout play; never replace its illustration with a full-size checkmark.
+ * The seal is drawn outside the artwork column in both solo and shared rooms.
+ */
+@Composable
+internal fun BingoMarkedBadge(modifier: Modifier = Modifier) {
+    Box(
+        modifier.size(16.dp)
+            .background(StorybookPalette.gold, CircleShape)
+            .border(1.dp, StorybookPalette.paper, CircleShape),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            "✓",
+            color = StorybookPalette.background,
+            fontSize = 11.sp,
+            lineHeight = 11.sp,
+            fontWeight = FontWeight.Black
+        )
     }
 }
