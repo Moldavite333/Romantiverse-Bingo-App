@@ -313,25 +313,52 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(19f, 5f, 17f, 10f, p.paper); line(29f, 4f, 27f, 10f, p.paper)
                 }
                 StoryScene.HELPFUL_NEIGHBOR -> {
-                    tile(); cottage(2f, 12f); person(35f, 17f, p.evergreen)
-                    oval(23f, 30f, 15f, 8f, p.gold)
-                    line(23f, 32f, 17f, 31f, p.cocoa)
-                    dot(29f, 29f, 3f, p.cranberry); dot(34f, 29f, 3f, p.cranberry)
-                    heart(40f, 12f, .4f)
+                    // A neighbor brings a full grocery bag to a warmly lit doorstep.
+                    tile(p.sky)
+                    cottage(1f, 10f)
+                    person(38f, 18f, p.evergreen)
+                    // Oversized tote and visible produce make the act of helping legible.
+                    box(23f, 31f, 13f, 11f, p.gold, 2f)
+                    line(26f, 31f, 27f, 27f, p.cocoa, 1.8f)
+                    line(27f, 27f, 33f, 27f, p.cocoa, 1.8f)
+                    line(33f, 27f, 34f, 31f, p.cocoa, 1.8f)
+                    dot(27f, 30f, 3f, p.cranberry)
+                    dot(32f, 29f, 2.5f, p.evergreen)
+                    line(34f, 30f, 30f, 33f, p.skin, 2.5f)
+                    line(23f, 34f, 19f, 32f, p.skin, 2f)
+                    dot(42f, 8f, 3.5f, p.gold)
                 }
                 StoryScene.PUBLIC_DECLARATION -> {
-                    tile(p.blush); box(11f, 25f, 25f, 20f, p.cocoa)
-                    person(23f, 9f, p.evergreen)
-                    line(30f, 13f, 35f, 8f, p.ink)
-                    dot(36f, 8f, 2f, p.ink)
-                    heart(8f, 10f, .55f); heart(40f, 22f, .4f)
+                    // One person speaks into a microphone before a little town crowd.
+                    tile(p.blush)
+                    box(4f, 4f, 40f, 8f, p.paper, 2f)
+                    heart(24f, 8f, .46f)
+                    box(5f, 33f, 38f, 10f, p.cocoa, 1f)
+                    line(33f, 18f, 33f, 34f, p.ink, 2f)
+                    line(33f, 18f, 28f, 16f, p.ink, 1.8f)
+                    dot(27f, 16f, 2.2f, p.ink)
+                    person(21f, 17f, p.evergreen)
+                    line(25f, 27f, 30f, 23f, p.skin, 2.4f)
+                    // Audience silhouettes in the foreground, not another generic heart.
+                    dot(9f, 41f, 4.3f, p.ink)
+                    dot(23f, 43f, 4.8f, p.cranberry)
+                    dot(39f, 41f, 4.3f, p.blue)
                 }
                 StoryScene.SHARED_SECRET -> {
-                    tile(); person(14f, 19f, p.cranberry); person(36f, 19f, p.blue)
-                    line(19f, 23f, 29f, 19f, p.cocoa, 1.5f)
-                    dot(24f, 14f, 2f, p.gold); dot(27f, 11f, 1.5f, p.gold)
-                    box(16f, 35f, 17f, 9f, p.paper)
-                    line(20f, 39f, 29f, 39f, p.ink, 1.5f)
+                    // Two friends lean toward a tiny folded note kept between them.
+                    tile(p.sky)
+                    person(13f, 17f, p.cranberry)
+                    person(36f, 17f, p.blue)
+                    box(19f, 28f, 11f, 10f, p.paper, 1.5f)
+                    line(20f, 29f, 24.5f, 33f, p.cocoa, 1.5f)
+                    line(29f, 29f, 24.5f, 33f, p.cocoa, 1.5f)
+                    dot(24.5f, 34f, 2f, p.cranberry)
+                    line(18f, 29f, 21f, 31f, p.skin, 2.4f)
+                    line(31f, 31f, 28f, 32f, p.skin, 2.4f)
+                    // Small whisper marks are secondary to the unmistakable shared note.
+                    line(18f, 18f, 24f, 16f, p.gold, 1.7f)
+                    dot(26f, 14f, 1.4f, p.gold)
+                    dot(29f, 12f, 1f, p.gold)
                 }
                 StoryScene.SCENIC_WALK -> {
                     tile(); tree(8f, 33f, 26f); tree(41f, 33f, 23f)
@@ -409,27 +436,54 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(15f, 5f, 13f, 9f, p.cocoa); line(24f, 4f, 23f, 9f, p.cocoa)
                 }
                 StoryScene.HOMETOWN_REUNION -> {
-                    tile(); cottage(4f, 12f)
-                    person(35f, 20f, p.cranberry)
-                    line(34f, 34f, 29f, 37f, p.cocoa, 2f)
-                    box(30f, 37f, 13f, 8f, p.gold)
-                    heart(28f, 12f, .6f)
+                    // A homecoming hug outside a familiar house with welcome bunting.
+                    tile(p.sky)
+                    cottage(2f, 10f)
+                    line(2f, 5f, 46f, 5f, p.cocoa, 1.5f)
+                    shape(p.cranberry, 8f to 5f, 13f to 5f, 10.5f to 12f)
+                    shape(p.gold, 19f to 5f, 24f to 5f, 21.5f to 12f)
+                    shape(p.evergreen, 32f to 5f, 37f to 5f, 34.5f to 12f)
+                    person(32f, 21f, p.cranberry)
+                    person(41f, 21f, p.blue)
+                    line(34f, 31f, 39f, 31f, p.skin, 3f)
+                    heart(37f, 16f, .38f, p.gold)
+                    oval(27f, 41f, 20f, 4f, p.gold)
                 }
                 StoryScene.GRAND_GESTURE -> {
-                    tile(p.blush); box(5f, 27f, 38f, 12f, p.paper)
-                    line(8f, 33f, 40f, 33f, p.cranberry, 2f)
-                    heart(24f, 32f, .75f)
-                    dot(9f, 12f, 6f, p.gold); dot(38f, 10f, 6f, p.cranberry)
-                    line(9f, 18f, 15f, 27f, p.cocoa, 1.5f)
-                    line(38f, 16f, 34f, 27f, p.cocoa, 1.5f)
+                    // An enormous bouquet of heart balloons and an offered flower.
+                    tile(p.blush)
+                    person(12f, 23f, p.evergreen)
+                    line(17f, 33f, 24f, 29f, p.skin, 2.7f)
+                    line(24f, 30f, 26f, 22f, p.evergreen, 1.8f)
+                    dot(26f, 21f, 4f, p.cranberry)
+                    // The oversized balloon bouquet is the focal point.
+                    heart(32f, 13f, 1.05f, p.cranberry)
+                    dot(40f, 10f, 5f, p.gold)
+                    dot(24f, 7f, 4.5f, p.blue)
+                    dot(40f, 24f, 4.3f, p.evergreen)
+                    line(32f, 19f, 32f, 39f, p.cocoa, 1.1f)
+                    line(40f, 15f, 32f, 39f, p.cocoa, 1.1f)
+                    line(24f, 11f, 32f, 39f, p.cocoa, 1.1f)
+                    line(40f, 28f, 32f, 39f, p.cocoa, 1.1f)
+                    box(29f, 38f, 6f, 4f, p.gold, 1f)
                 }
                 StoryScene.COMMUNITY_FUNDRAISER -> {
-                    tile(); box(10f, 15f, 28f, 28f, p.paper, 4f)
-                    box(13f, 20f, 22f, 19f, p.gold)
-                    line(19f, 19f, 29f, 19f, p.cocoa, 2f)
-                    heart(24f, 31f, .65f)
-                    dot(35f, 7f, 6f, p.gold)
-                    line(35f, 13f, 30f, 21f, p.cocoa, 2f)
+                    // A little town charity booth with a large donation box and visitors.
+                    tile(p.sky)
+                    shape(p.cranberry, 4f to 17f, 12f to 8f, 36f to 8f, 44f to 17f)
+                    box(5f, 17f, 38f, 5f, p.paper, 1f)
+                    listOf(9f, 19f, 29f, 39f).forEach {
+                        box(it, 17f, 5f, 5f, p.gold, 1f)
+                    }
+                    line(7f, 22f, 7f, 43f, p.cocoa, 2f)
+                    line(41f, 22f, 41f, 43f, p.cocoa, 2f)
+                    box(17f, 27f, 15f, 15f, p.gold, 2f)
+                    box(20f, 27f, 9f, 2f, p.cocoa, .5f)
+                    heart(24.5f, 35f, .6f)
+                    person(8f, 28f, p.blue)
+                    person(40f, 28f, p.evergreen)
+                    dot(35f, 25f, 2.3f, p.gold)
+                    line(35f, 24f, 29f, 30f, p.skin, 2f)
                 }
                 StoryScene.SURPRISE_INVITATION -> {
                     tile(p.blush); envelope(8f, 19f)
