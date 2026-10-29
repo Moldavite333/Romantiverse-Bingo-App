@@ -46,11 +46,21 @@ object MovieCatalog {
     private const val CACHE_KEY = "verified-json"
     private const val MAX_CHARS = 1_500_000
 
-    /** Only public catalog metadata; never infer a distributor from a movie title. */
+    /**
+     * Search only public, explicitly supplied metadata. A multi-word query may
+     * combine a title fragment, network, collection and release year, e.g.
+     * "Hallmark 2024" or "Christmas Lifetime". Never guess a distributor.
+     */
     fun matchesQuery(movie: Movie, query: String): Boolean {
-        val term = query.trim()
-        return term.isEmpty() || movie.title.contains(term, ignoreCase = true) ||
-            movie.network?.contains(term, ignoreCase = true) == true
+        val terms = query.trim().split(Regex("\\s+")).filter { it.isNotEmpty() }
+        if (terms.isEmpty()) return true
+        val searchable = listOfNotNull(
+            movie.title,
+            movie.network,
+            movie.year?.toString(),
+            movie.collection.takeUnless { it == "Unspecified" }
+        ).joinToString(" ")
+        return terms.all { term -> searchable.contains(term, ignoreCase = true) }
     }
 
     /** Validate all remote data before it can replace the offline catalog. */

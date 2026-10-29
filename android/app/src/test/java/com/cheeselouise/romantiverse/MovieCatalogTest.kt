@@ -212,4 +212,27 @@ class MovieCatalogTest {
     }
 
 
+    @Test fun nativeSearchCombinesTitleNetworkSeasonAndYearWithoutInventingMetadata() {
+        val movies = MovieCatalog.parse(catalog(
+            row("hallmark-2024", "An Autumn Promise", "Fall", 2024)
+                .put("network", "Hallmark Channel"),
+            row("lifetime-2024", "Christmas at Home", "Christmas", 2024)
+                .put("network", "Lifetime"),
+            row("unknown-2024", "Christmas in the Valley", "Christmas", 2024),
+            row("hallmark-2023", "Christmas Reunion", "Christmas", 2023)
+                .put("network", "Hallmark Mystery")
+        ))
+        fun titles(query: String) =
+            movies.filter { MovieCatalog.matchesQuery(it, query) }.map { it.title }.toSet()
+
+        assertEquals(setOf("An Autumn Promise"), titles("  HALLMARK   2024 "))
+        assertEquals(setOf("Christmas at Home"), titles("Lifetime Christmas 2024"))
+        assertEquals(setOf("Christmas Reunion"), titles("Mystery 2023 Christmas"))
+        assertEquals(setOf("An Autumn Promise"), titles("Autumn Fall"))
+        assertEquals(setOf("Christmas in the Valley"), titles("Valley 2024"))
+        assertTrue(titles("Lifetime 2023").isEmpty())
+        assertTrue(titles("Hallmark Valley").isEmpty())
+        assertEquals(4, titles("  ").size)
+    }
+
 }

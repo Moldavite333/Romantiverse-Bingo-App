@@ -322,7 +322,7 @@ private fun DiscoverMovies(
         item {
             OutlinedTextField(
                 value = query, onValueChange = { query = it },
-                label = { Text("Search movies or networks") },
+                label = { Text("Search title, network, season or year") },
                 singleLine = true, modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(14.dp)
             )
