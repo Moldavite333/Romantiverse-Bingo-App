@@ -23,6 +23,11 @@ data class Movie(
  * No private HQ workspace, unpublished editorial fields, or credentials are read.
  */
 object MovieCatalog {
+    // Preserve horror metadata in the public source for future standalone spin-offs,
+    // but never expose horror entries in this romance-only Android launch.
+    fun launchMovies(movies: List<Movie>): List<Movie> =
+        movies.filterNot { it.collection == "Horror" }
+
     private val collections = setOf("Christmas", "Fall", "Horror", "Unspecified")
     private val idPattern = Regex("^[a-z0-9][a-z0-9-]{0,119}$")
     // Curated original-release corrections, verified against Hallmark and
