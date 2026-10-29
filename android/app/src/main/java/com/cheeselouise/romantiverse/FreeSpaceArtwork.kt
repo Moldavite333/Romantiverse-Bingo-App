@@ -64,6 +64,8 @@ internal fun FreeSpaceArtwork(modifier: Modifier = Modifier, artworkSize: Dp = 3
         val factor = size.minDimension / 40f
         withTransform({ scale(factor, factor, pivot = Offset.Zero) }) {
             val outline = StorybookPalette.background
+            // Dark medallion separates the golden cheese from the gold free tile.
+            drawCircle(outline, radius = 18.5f, center = Offset(20f, 20f))
             drawPath(heart, StorybookPalette.cranberry)
             drawPath(cheeseFront, Color(0xFFF3BE58))
             drawPath(cheeseSide, Color(0xFFDCA148))
