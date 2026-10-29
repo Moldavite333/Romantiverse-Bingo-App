@@ -608,14 +608,10 @@ private fun BingoSquare(
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize().padding(horizontal = 2.dp, vertical = 3.dp)
         ) {
-            if (isFree || marked) {
-                Text(
-                    if (isFree) "♥" else "✓",
-                    color = if (isFree) plum else if (inLine) gold else cream,
-                    fontSize = 14.sp, lineHeight = 16.sp
-                )
-            } else {
+            if (BingoSquarePresentation.showArtwork(index)) {
                 TropeArtwork(label, burgundy)
+            } else {
+                Text("♥", color = plum, fontSize = 14.sp, lineHeight = 16.sp)
             }
             Text(
                 BingoSquarePresentation.shortLabel(label),
@@ -628,6 +624,9 @@ private fun BingoSquare(
                 maxLines = 5,
                 overflow = TextOverflow.Ellipsis
             )
+        }
+        if (BingoSquarePresentation.showMarkBadge(index, marked)) {
+            BingoMarkedBadge(Modifier.align(Alignment.TopEnd).padding(3.dp))
         }
     }
     if (showDetails) {
