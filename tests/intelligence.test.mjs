@@ -1,4 +1,4 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {analyzeMovie,buildCard,replaceSquare,balance} from '../src/engine/intelligence.mjs';import {winningLines} from '../src/engine/bingo.mjs';
+import test from 'node:test';import assert from 'node:assert/strict';import {analyzeMovie,buildCard,replaceSquare,balance,visibleTropeKey} from '../src/engine/intelligence.mjs';import {winningLines} from '../src/engine/bingo.mjs';
 const movie={title:'Holiday Reunion',season:'Christmas',synopsis:'A big-city executive returns home for Christmas to save the family bakery and reconnects with an old flame.'};
 test('evidence traces back to synopsis',()=>{const a=analyzeMovie(movie);assert.ok(a.cheese.some(t=>t.evidence==='synopsis'&&t.reason.includes('bakery')))});
 test('predictions never presented as verified',()=>assert.ok(analyzeMovie(movie).seasonal.every(t=>t.evidence==='prediction')));
@@ -12,3 +12,7 @@ test('valid replacement is immutable',()=>{const c=buildCard(movie);const d=repl
 test('hard and easy cards are reproducible',()=>{for(const difficulty of ['easy','balanced','hard'])assert.deepEqual(buildCard(movie,{seed:42,difficulty}),buildCard(movie,{seed:42,difficulty}))});
 test('invalid ratios rejected',()=>assert.throws(()=>buildCard(movie,{cheeseRatio:2})));
 test('bingo still uses the standard 12 lines',()=>assert.equal(winningLines([0,1,2,3,4]).length,1));
+
+test('all web cards have 24 distinct visible labels across seasons and seeds',()=>{for(const season of ['Christmas','Fall'])for(let seed=0;seed<101;seed++){const card=buildCard({...movie,season},{seed});assert.equal(new Set(card.map(visibleTropeKey)).size,25)}});
+test('workshop rejects a different ID with the same visible label',()=>{const card=buildCard(movie);assert.throws(()=>replaceSquare(card,1,{id:'different-id',label:'  '+card[0].label.toUpperCase()+'  ',category:'cheese'}),/already on your card/)});
+test('locked duplicate visible labels are rejected',()=>{const card=buildCard(movie,{seed:2});assert.throws(()=>buildCard(movie,{seed:2,locked:{0:{...card[1],id:'different-id'}}}),/Duplicate visible trope/)});
