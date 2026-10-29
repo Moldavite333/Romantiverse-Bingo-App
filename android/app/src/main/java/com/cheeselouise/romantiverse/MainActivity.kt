@@ -59,7 +59,7 @@ private val gold = StorybookPalette.gold
 private val sage = StorybookPalette.surface
 private val pale = StorybookPalette.mutedText
 private const val ATTRIBUTION = "Brought to you by the Cheese Louise Podcast"
-private val themes = listOf("Romance", "Christmas", "Fall", "Horror")
+private val themes = listOf("Romance", "Christmas", "Fall")
 
 class MainActivity : ComponentActivity() {
     private var incomingCode by mutableStateOf<String?>(null)
@@ -98,9 +98,9 @@ private fun NativeBingoApp(incomingCode: String?) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
     val prefs = remember { context.getSharedPreferences("bingo-native-v1", 0) }
-    var movies by remember { mutableStateOf(MovieCatalog.load(context)) }
+    var movies by remember { mutableStateOf(MovieCatalog.launchMovies(MovieCatalog.load(context))) }
     var selectedId by rememberSaveable { mutableStateOf(prefs.getString("movie_id", "") ?: "") }
-    var theme by rememberSaveable { mutableStateOf(prefs.getString("theme", "Romance") ?: "Romance") }
+    var theme by rememberSaveable { mutableStateOf(prefs.getString("theme", "Romance")?.takeIf { it in themes } ?: "Romance") }
     var seed by rememberSaveable { mutableLongStateOf(prefs.getLong("seed", 1L)) }
     var marks by remember { mutableStateOf(BingoEngine.decodeMarks(prefs.getString("marks", "") ?: "")) }
     var celebration by remember { mutableStateOf<BingoCelebration?>(null) }
@@ -126,7 +126,7 @@ private fun NativeBingoApp(incomingCode: String?) {
     }
     LaunchedEffect(Unit) { posters = PosterRepository.refresh(context) }
     // Public-only updates appear without an APK release; bundled movies work offline.
-    LaunchedEffect(Unit) { movies = MovieCatalog.refresh(context) }
+    LaunchedEffect(Unit) { movies = MovieCatalog.launchMovies(MovieCatalog.refresh(context)) }
     val movie = movies.firstOrNull { it.id == selectedId }
     val bestScore = remember(movie?.key, marks) {
         SoloScoreProgress.restore(movie, marks) { key ->
@@ -330,7 +330,7 @@ private fun DiscoverMovies(
         item {
             Row(Modifier.horizontalScroll(rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                listOf("All", "Christmas", "Fall", "Horror", "Unspecified").forEach { item ->
+                listOf("All", "Christmas", "Fall", "Unspecified").forEach { item ->
                     FilterChip(selected = filter == item, onClick = { filter = item },
                         label = { Text(item) })
                 }
