@@ -32,3 +32,9 @@ data class BingoCelebration(
     // The exact new authoritative lines, never inferred from presentation state.
     val winningLines: List<List<Int>> = emptyList()
 )
+
+/** Screen-reader users dismiss celebrations themselves after hearing the announcement. */
+internal object BingoCelebrationTiming {
+    fun autoDismissMillis(reducedMotion: Boolean, touchExploration: Boolean): Long? =
+        if (touchExploration) null else if (reducedMotion) 1100L else 1900L
+}

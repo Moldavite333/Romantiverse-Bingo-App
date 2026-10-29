@@ -8,6 +8,13 @@ class BingoCelebrationRulesTest {
     private val row = setOf(0, 1, 2, 3, 4)
     private val column = setOf(0, 5, 10, 15, 20)
 
+    @Test fun screenReaderCelebrationWaitsForExplicitDismissal() {
+        assertEquals(null, BingoCelebrationTiming.autoDismissMillis(false, true))
+        assertEquals(null, BingoCelebrationTiming.autoDismissMillis(true, true))
+        assertEquals(1900L, BingoCelebrationTiming.autoDismissMillis(false, false))
+        assertEquals(1100L, BingoCelebrationTiming.autoDismissMillis(true, false))
+    }
+
     @Test fun onlyNewLinesTriggerAndUndoDoesNotCelebrate() {
         assertEquals(1, BingoCelebrationRules.newlyCompleted(row - 4, row).size)
         assertTrue(BingoCelebrationRules.newlyCompleted(row, row).isEmpty())
