@@ -25,6 +25,8 @@ class BingoSquarePresentationTest {
             BingoSquarePresentation.shortLabel(BingoEngine.FREE_LABEL))
         assertEquals("CHEESE LOUISE POD", BingoEngine.FREE_LABEL)
         assertEquals("Mixed signals", BingoSquarePresentation.shortLabel("A misunderstanding"))
+        assertEquals("Snow\nstorm", BingoSquarePresentation.shortLabel("A snowstorm"))
+        assertTrue(BingoEngine.pool("Christmas").contains("A snowstorm"))
         assertEquals("A misunderstanding", BingoEngine.pool("Romance").first {
             it == "A misunderstanding"
         })
