@@ -14,7 +14,7 @@ class BingoStoryScenesTest {
         labels.forEach { label ->
             assertTrue("Unknown art key: $label",
                 listOf("Romance", "Christmas", "Fall", "Horror")
-                    .any { label in BingoEngine.pool(it) })
+                    .any { label in BingoEngine.artworkPool(it) })
             assertTrue("Missing story scene: $label", StorySceneArt.forLabel(label) != null)
         }
     }
@@ -42,7 +42,7 @@ class BingoStoryScenesTest {
     @Test fun everyCanonicalTropeHasExactlyOneDedicatedScene() {
         val romance = BingoEngine.pool("Romance").toSet()
         val seasonal = listOf("Christmas", "Fall", "Horror").flatMap { theme ->
-            val additions = BingoEngine.pool(theme).toSet() - romance
+            val additions = BingoEngine.artworkPool(theme).toSet() - romance
             assertEquals("Each seasonal theme must have 12 distinct tropes: $theme", 12, additions.size)
             additions
         }.toSet()

@@ -23,6 +23,22 @@ class MovieCatalogTest {
         JSONObject().put("version", version)
             .put("movies", JSONArray().apply { rows.forEach { put(it) } }).toString()
 
+    @Test fun launchCatalogNeverShowsHorrorButKeepsSourceDataIntact() {
+        val parsed = MovieCatalog.parse(catalog(
+            row("romance", "A Romance", "Unspecified", 2024),
+            row("fall", "Autumn Date", "Fall", 2025),
+            row("christmas", "Holiday Date", "Christmas", 2025),
+            row("horror", "Haunted House", "Horror", 2025)
+        ))
+        val visible = MovieCatalog.launchMovies(parsed)
+        assertEquals(4, parsed.size)
+        assertEquals(3, visible.size)
+        assertTrue(visible.none { it.collection == "Horror" })
+        assertTrue(visible.any { it.id == "romance" })
+        assertTrue(visible.any { it.id == "fall" })
+        assertTrue(visible.any { it.id == "christmas" })
+    }
+
     @Test fun preservesCatalogCollectionWithoutGuessingFromTitle() {
         val result = MovieCatalog.parse(catalog(
             row("movie-one", "Christmas in July", "Unspecified", 2024),

@@ -13,6 +13,25 @@ class BingoEngineTest {
         assertEquals(BingoEngine.FREE_LABEL, a[12])
     }
 
+    @Test fun everyCardHasUniqueVisibleTropes() {
+        for (season in listOf("Romance", "Christmas", "Fall")) {
+            for (seed in 0L..100L) {
+                val card = BingoEngine.deal(BingoEngine.pool(season), seed)
+                val labels = card.filterIndexed { index, _ -> index != BingoEngine.CENTER }
+                    .map { BingoSquarePresentation.shortLabel(it).replace("\n", " ").trim().lowercase() }
+                assertEquals("Duplicate visible trope in $season seed $seed", 24, labels.toSet().size)
+            }
+        }
+        val collision = BingoEngine.pool("Romance") + "Family secret" + "A family secret"
+        val card = BingoEngine.deal(collision, 17L)
+        assertEquals(24, card.filterIndexed { i, _ -> i != 12 }
+            .map { BingoSquarePresentation.shortLabel(it).lowercase() }.toSet().size)
+    }
+
+    @Test fun horrorTropesAreExcludedFromLaunchCards() {
+        assertEquals(BingoEngine.pool("Romance"), BingoEngine.pool("Horror"))
+    }
+
     @Test fun completedLinesScoreOnlyOnce() {
         val marked = setOf(0, 1, 2, 3, 4)
         assertEquals(1, BingoEngine.winningLines(marked).size)

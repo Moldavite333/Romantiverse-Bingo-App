@@ -41,7 +41,7 @@ internal object ArtworkReviewCatalog {
     fun labels(theme: String): List<String> = when (theme) {
         "Romance" -> BingoEngine.pool(theme)
         "Christmas", "Fall", "Horror" ->
-            BingoEngine.pool(theme).filterNot { it in romance }
+            BingoEngine.artworkPool(theme).filterNot { it in romance }
         else -> emptyList()
     }
 }
