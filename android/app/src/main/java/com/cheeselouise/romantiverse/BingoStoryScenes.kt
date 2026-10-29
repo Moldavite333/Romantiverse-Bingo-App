@@ -543,60 +543,118 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     heart(31f, 11f, .35f)
                 }
                 StoryScene.MISUNDERSTANDING -> {
-                    tile(p.blush); person(10f, 22f, p.blue); person(38f, 22f, p.cranberry)
-                    box(3f, 6f, 17f, 10f, p.paper, 5f)
-                    box(28f, 6f, 17f, 10f, p.paper, 5f)
-                    line(8f, 10f, 15f, 10f, p.ink, 1.5f)
-                    line(33f, 10f, 40f, 10f, p.ink, 1.5f)
-                    line(20f, 21f, 28f, 29f, p.cranberry, 2f)
-                    line(28f, 21f, 20f, 29f, p.cranberry, 2f)
+                    // Crossed messages leave two neighbors talking past one another.
+                    tile(p.blush)
+                    box(20f, 27f, 8f, 15f, p.cocoa, 1f)
+                    box(18f, 23f, 12f, 7f, p.blue, 1f)
+                    line(24f, 30f, 24f, 41f, p.ink, 1.3f)
+                    person(10f, 23f, p.blue); person(38f, 23f, p.cranberry)
+                    // Opposing speech balloons and the misplaced invitation.
+                    box(2f, 4f, 18f, 12f, p.paper, 4f)
+                    shape(p.paper, 13f to 14f, 18f to 14f, 17f to 20f)
+                    box(28f, 4f, 18f, 12f, p.paper, 4f)
+                    shape(p.paper, 30f to 14f, 35f to 14f, 31f to 20f)
+                    line(6f, 9f, 16f, 9f, p.blue, 1.4f)
+                    line(32f, 9f, 42f, 9f, p.cranberry, 1.4f)
+                    line(7f, 12f, 14f, 12f, p.blue, 1f)
+                    line(34f, 12f, 41f, 12f, p.cranberry, 1f)
+                    // A letter sits undelivered between them.
+                    box(20f, 25f, 8f, 5f, p.paper, .7f)
+                    line(20f, 25f, 24f, 28f, p.cranberry, .9f)
+                    line(28f, 25f, 24f, 28f, p.cranberry, .9f)
                 }
                 StoryScene.ALMOST_KISS -> {
-                    tile(p.blush); line(5f, 7f, 43f, 7f, p.cocoa, 1.5f)
-                    dot(24f, 10f, 5f, p.gold)
-                    person(15f, 22f, p.cranberry); person(32f, 22f, p.blue)
-                    line(18f, 28f, 23f, 27f, p.cocoa, 2f)
-                    line(30f, 28f, 25f, 27f, p.cocoa, 2f)
-                    heart(24f, 20f, .4f, p.gold)
-                    line(23f, 39f, 25f, 39f, p.ink, 1.5f)
+                    // Two people lean together under porch lanterns; a doorbell interrupts.
+                    tile(p.blush)
+                    box(3f, 28f, 42f, 15f, p.paper, 1f)
+                    line(3f, 28f, 45f, 28f, p.cocoa, 2f)
+                    line(5f, 5f, 43f, 5f, p.cocoa, 1.4f)
+                    line(9f, 5f, 9f, 10f, p.cocoa, 1f)
+                    line(39f, 5f, 39f, 10f, p.cocoa, 1f)
+                    dot(9f, 11f, 3f, p.gold); dot(39f, 11f, 3f, p.gold)
+                    person(17f, 20f, p.cranberry); person(31f, 20f, p.blue)
+                    line(20f, 29f, 24f, 28f, p.skin, 2.5f)
+                    line(28f, 29f, 24f, 28f, p.skin, 2.5f)
+                    heart(24f, 17f, .25f, p.gold)
+                    // Ringing bell at the edge of the porch.
+                    box(39f, 30f, 6f, 8f, p.evergreen, 1f)
+                    dot(42f, 34f, 1.5f, p.gold)
+                    line(37f, 31f, 35f, 29f, p.cranberry, 1f)
+                    line(45f, 29f, 47f, 27f, p.cranberry, 1f)
                 }
                 StoryScene.BIG_CONFESSION -> {
-                    tile(p.sky); box(5f, 28f, 38f, 14f, p.paper)
-                    shape(p.cranberry, 3f to 28f, 24f to 11f, 45f to 28f)
-                    person(23f, 19f, p.evergreen)
-                    box(30f, 7f, 14f, 9f, p.paper, 5f)
-                    heart(37f, 11f, .35f)
-                    line(24f, 33f, 37f, 33f, p.cocoa, 2f)
+                    // A nervous doorstep confession with a handwritten letter.
+                    tile(p.sky)
+                    cottage(2f, 14f)
+                    box(26f, 35f, 20f, 8f, p.gold, 1f)
+                    person(33f, 21f, p.cranberry)
+                    // A folded note is held toward the person in the doorway.
+                    box(18f, 26f, 11f, 8f, p.paper, 1f)
+                    line(19f, 27f, 23.5f, 31f, p.cocoa, 1.1f)
+                    line(28f, 27f, 23.5f, 31f, p.cocoa, 1.1f)
+                    line(29f, 31f, 32f, 31f, p.skin, 2.2f)
+                    heart(39f, 10f, .5f, p.cranberry)
+                    dot(43f, 6f, 1.3f, p.gold)
+                    dot(45f, 12f, 1.1f, p.gold)
                 }
                 StoryScene.TOWN_FESTIVAL -> {
-                    tile(p.sky); line(2f, 7f, 46f, 7f, p.cocoa, 1f)
-                    listOf(6f, 15f, 24f, 33f, 42f).forEachIndexed { i, x ->
+                    // Main-street fair: bunting, a bright stall and a tiny Ferris wheel.
+                    tile(p.sky)
+                    line(1f, 6f, 47f, 6f, p.cocoa, 1.3f)
+                    listOf(5f, 14f, 23f, 32f, 41f).forEachIndexed { i, x ->
                         shape(if (i % 2 == 0) p.cranberry else p.gold,
-                            x to 7f, (x + 6f) to 7f, (x + 3f) to 15f)
+                            x to 6f, (x + 6f) to 6f, (x + 3f) to 13f)
                     }
-                    shape(p.cranberry, 5f to 27f, 24f to 15f, 43f to 27f)
-                    box(9f, 27f, 30f, 16f, p.paper)
-                    box(14f, 31f, 20f, 6f, p.gold)
-                    person(6f, 31f, p.blue); person(42f, 31f, p.evergreen)
+                    drawCircle(p.blue, radius = 9f, center = Offset(11f, 25f), style = Stroke(1.6f))
+                    line(11f, 16f, 11f, 34f, p.blue, 1.1f)
+                    line(2f, 25f, 20f, 25f, p.blue, 1.1f)
+                    line(5f, 19f, 17f, 31f, p.blue, 1f)
+                    line(17f, 19f, 5f, 31f, p.blue, 1f)
+                    line(11f, 25f, 6f, 43f, p.cocoa, 1.5f)
+                    line(11f, 25f, 17f, 43f, p.cocoa, 1.5f)
+                    shape(p.cranberry, 23f to 25f, 35f to 16f, 47f to 25f)
+                    box(25f, 25f, 20f, 17f, p.paper)
+                    box(27f, 28f, 16f, 6f, p.gold, 1f)
+                    line(27f, 37f, 43f, 37f, p.cocoa, 2f)
+                    person(25f, 35f, p.evergreen); person(43f, 35f, p.cranberry)
                 }
                 StoryScene.FAMILY_SECRET -> {
-                    tile(p.blush); box(5f, 7f, 25f, 34f, p.cocoa)
-                    box(8f, 10f, 19f, 27f, p.paper)
-                    oval(13f, 13f, 10f, 11f, p.gold)
-                    dot(18f, 16f, 3f, p.ink)
-                    box(14f, 21f, 8f, 9f, p.cranberry)
-                    box(27f, 24f, 17f, 17f, p.evergreen)
-                    dot(35f, 30f, 3f, p.gold)
-                    line(35f, 33f, 35f, 37f, p.gold, 2f)
+                    // An old family portrait hides a sealed letter and a brass key.
+                    tile(p.blush)
+                    box(3f, 5f, 28f, 35f, p.cocoa, 1.5f)
+                    box(6f, 8f, 22f, 29f, p.gold, 1f)
+                    box(8f, 10f, 18f, 25f, p.paper, 1f)
+                    dot(17f, 18f, 5f, p.ink)
+                    dot(17f, 19f, 3.5f, p.skin)
+                    oval(10f, 23f, 14f, 10f, p.evergreen)
+                    // A note slides out from behind the frame.
+                    box(27f, 19f, 17f, 17f, p.paper, 1f)
+                    line(29f, 23f, 42f, 23f, p.cocoa, 1f)
+                    line(29f, 27f, 39f, 27f, p.cocoa, 1f)
+                    heart(37f, 32f, .3f, p.cranberry)
+                    // Key and lock at the bottom of the portrait.
+                    dot(34f, 40f, 3.2f, p.gold)
+                    dot(34f, 40f, 1.3f, p.blush)
+                    line(37f, 40f, 45f, 40f, p.gold, 2f)
+                    line(43f, 40f, 43f, 44f, p.gold, 1.5f)
                 }
                 StoryScene.CAREER_DILEMMA -> {
-                    tile(p.sky); line(24f, 16f, 24f, 44f, p.cocoa, 3f)
-                    shape(p.gold, 22f to 45f, 15f to 30f, 22f to 24f)
-                    shape(p.gold, 26f to 45f, 33f to 30f, 26f to 24f)
-                    box(3f, 11f, 14f, 18f, p.blue)
-                    listOf(6f, 12f).forEach { x -> box(x, 14f, 3f, 4f, p.paper) }
-                    cottage(29f, 6f)
-                    person(24f, 7f, p.cranberry)
+                    // One choice leads to the city office; the other, home.
+                    tile(p.sky)
+                    box(2f, 9f, 17f, 24f, p.blue, 1f)
+                    listOf(5f, 11f).forEach { x ->
+                        box(x, 13f, 4f, 5f, p.paper, .5f)
+                        box(x, 22f, 4f, 5f, p.paper, .5f)
+                    }
+                    cottage(27f, 7f)
+                    // A forked path and a traveler holding a briefcase.
+                    shape(p.paper, 21f to 46f, 23f to 30f, 25f to 46f)
+                    line(23f, 36f, 10f, 40f, p.gold, 2f)
+                    line(23f, 36f, 39f, 40f, p.gold, 2f)
+                    person(23f, 24f, p.cranberry)
+                    box(28f, 36f, 8f, 6f, p.cocoa, 1f)
+                    box(30f, 33f, 4f, 4f, p.gold, .7f)
+                    line(27f, 35f, 29f, 38f, p.skin, 1.8f)
                 }
                 StoryScene.SENTIMENTAL_GIFT -> {
                     // An open gift box reveals a framed photograph, not generic jewelry.
