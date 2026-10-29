@@ -361,31 +361,54 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     dot(29f, 12f, 1f, p.gold)
                 }
                 StoryScene.SCENIC_WALK -> {
-                    tile(); tree(8f, 33f, 26f); tree(41f, 33f, 23f)
+                    // Two walkers reconnect hand-in-hand along a winding wooded path.
+                    tile(p.sky)
+                    shape(p.pineHighlight.copy(alpha = .35f),
+                        0f to 32f, 13f to 23f, 27f to 30f, 48f to 21f,
+                        48f to 48f, 0f to 48f)
+                    tree(6f, 33f, 24f); tree(43f, 32f, 21f)
                     val path = Path().apply {
-                        moveTo(23f, 48f); cubicTo(10f, 37f, 40f, 36f, 26f, 24f)
+                        moveTo(19f, 48f); cubicTo(10f, 38f, 36f, 37f, 25f, 26f)
                     }
-                    drawPath(path, p.gold, style = Stroke(6f, cap = StrokeCap.Round))
-                    person(26f, 16f, p.cranberry)
-                    dot(36f, 6f, 5f, p.gold)
+                    drawPath(path, p.gold, style = Stroke(7f, cap = StrokeCap.Round))
+                    person(20f, 19f, p.cranberry); person(31f, 19f, p.blue)
+                    line(24f, 31f, 27f, 31f, p.skin, 2.8f)
+                    dot(36f, 7f, 4f, p.gold)
                 }
                 StoryScene.DECORATED_TREE -> {
-                    tile(p.blush); tree(24f, 40f, 34f)
-                    listOf(18f to 20f, 28f to 18f, 22f to 28f, 32f to 32f, 15f to 34f).forEachIndexed { i, (x, y) ->
-                        dot(x, y, 2.8f, if (i % 2 == 0) p.cranberry else p.gold)
-                    }
-                    shape(p.gold, 24f to 2f, 27f to 8f, 34f to 9f, 29f to 13f,
-                        30f to 19f, 24f to 16f, 18f to 19f, 19f to 13f,
-                        14f to 9f, 21f to 8f)
+                    // A family member reaches to hang the last ornament on a glowing tree.
+                    tile(p.blush)
+                    box(3f, 7f, 14f, 21f, p.paper)
+                    box(5f, 9f, 10f, 17f, p.gold.copy(alpha = .6f))
+                    line(10f, 9f, 10f, 26f, p.paper, 1.2f)
+                    tree(30f, 41f, 34f)
+                    listOf(23f to 20f, 33f to 19f, 28f to 29f, 38f to 32f, 21f to 34f)
+                        .forEachIndexed { i, (x, y) ->
+                            dot(x, y, 2.5f, if (i % 2 == 0) p.cranberry else p.gold)
+                        }
+                    shape(p.gold, 30f to 3f, 33f to 8f, 39f to 9f,
+                        34f to 13f, 35f to 18f, 30f to 15f,
+                        25f to 18f, 26f to 13f, 21f to 9f, 27f to 8f)
+                    person(10f, 26f, p.blue)
+                    line(14f, 34f, 20f, 26f, p.skin, 2.5f)
+                    dot(21f, 24f, 2.6f, p.gold)
+                    box(30f, 40f, 11f, 6f, p.cranberry, 1f)
+                    line(35f, 40f, 35f, 46f, p.gold, 1.5f)
                 }
                 StoryScene.MISSED_CALL -> {
-                    tile(p.blush); box(12f, 3f, 24f, 42f, p.ink, 5f)
-                    box(15f, 8f, 18f, 29f, p.paper)
-                    drawArc(p.cranberry, 30f, 120f, false, Offset(19f, 16f), Size(12f, 12f),
-                        style = Stroke(3f))
-                    line(19f, 30f, 29f, 20f, p.cranberry, 2f)
-                    dot(24f, 41f, 2f, p.gold)
-                    dot(36f, 9f, 7f, p.cranberry); line(34f, 6f, 38f, 12f, p.paper, 2f)
+                    // Portrait on the unanswered phone, a red missed-call alert.
+                    tile(p.blush)
+                    box(10f, 2f, 28f, 44f, p.ink, 5f)
+                    box(13f, 7f, 22f, 32f, p.paper, 2f)
+                    dot(24f, 15f, 5f, p.blue)
+                    oval(17f, 20f, 14f, 7f, p.blue)
+                    line(17f, 31f, 30f, 31f, p.cranberry, 2f)
+                    line(27f, 28f, 30f, 31f, p.cranberry, 2f)
+                    line(27f, 34f, 30f, 31f, p.cranberry, 2f)
+                    dot(24f, 42f, 1.7f, p.gold)
+                    dot(37f, 10f, 7f, p.cranberry)
+                    dot(34f, 10f, 1.5f, p.paper)
+                    dot(39f, 10f, 1.5f, p.paper)
                 }
                 StoryScene.GIFT_EXCHANGE -> {
                     // Two neighbors trade wrapped gifts instead of a pair of anonymous boxes.
@@ -434,20 +457,36 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     dot(32f, 9f, 2f, p.blush)
                 }
                 StoryScene.DANCE_TOGETHER -> {
-                    tile(p.blush); person(18f, 13f, p.cranberry); person(31f, 13f, p.blue)
-                    line(20f, 27f, 27f, 26f, p.cocoa, 2f)
-                    line(17f, 32f, 11f, 42f, p.ink); line(22f, 32f, 27f, 42f, p.ink)
-                    line(29f, 32f, 25f, 42f, p.ink); line(34f, 32f, 40f, 42f, p.ink)
-                    line(4f, 7f, 44f, 7f, p.cocoa, 1f)
-                    listOf(8f, 18f, 30f, 40f).forEach { dot(it, 9f, 2f, p.gold) }
+                    // A couple dances beneath café string lights; one skirt spins.
+                    tile(p.blush)
+                    oval(5f, 36f, 38f, 9f, p.gold.copy(alpha = .35f))
+                    line(3f, 7f, 45f, 7f, p.cocoa, 1.2f)
+                    listOf(7f, 18f, 30f, 41f).forEach { dot(it, 9f, 2.5f, p.gold) }
+                    person(17f, 16f, p.cranberry); person(30f, 16f, p.blue)
+                    line(21f, 29f, 26f, 27f, p.skin, 2.8f)
+                    shape(p.cranberry, 13f to 30f, 21f to 30f,
+                        27f to 40f, 7f to 40f)
+                    line(13f, 39f, 10f, 45f, p.ink, 2f)
+                    line(22f, 39f, 25f, 45f, p.ink, 2f)
+                    line(28f, 32f, 25f, 43f, p.ink, 2f)
+                    line(33f, 32f, 39f, 43f, p.ink, 2f)
+                    dot(41f, 20f, 2f, p.cocoa)
+                    line(43f, 20f, 43f, 13f, p.cocoa, 1.6f)
+                    line(43f, 13f, 46f, 12f, p.cocoa, 1.6f)
                 }
                 StoryScene.MISTLETOE -> {
-                    tile(); line(24f, 2f, 24f, 13f, p.cocoa)
-                    oval(11f, 11f, 13f, 7f, p.evergreen)
-                    oval(24f, 11f, 13f, 7f, p.evergreen)
-                    dot(24f, 17f, 3f, p.cranberry)
-                    person(16f, 24f, p.cranberry); person(32f, 24f, p.blue)
-                    heart(24f, 25f, .4f)
+                    // Two shy sweethearts meet beneath a doorway's hanging sprig.
+                    tile(p.sky)
+                    box(4f, 7f, 40f, 39f, p.paper, 7f)
+                    box(7f, 10f, 34f, 36f, p.blush, 5f)
+                    line(24f, 3f, 24f, 14f, p.cocoa, 1.5f)
+                    oval(13f, 12f, 12f, 7f, p.evergreen)
+                    oval(23f, 12f, 12f, 7f, p.pineHighlight)
+                    dot(22f, 18f, 2.5f, p.cranberry)
+                    dot(27f, 18f, 2f, p.cranberry)
+                    person(18f, 25f, p.cranberry); person(30f, 25f, p.blue)
+                    heart(24f, 24f, .28f, p.gold)
+                    line(21f, 37f, 26f, 37f, p.skin, 2.3f)
                 }
                 StoryScene.COZY_CAFE -> {
                     // Warm café windows frame two people sharing a steaming cup.
@@ -517,14 +556,21 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(35f, 24f, 29f, 30f, p.skin, 2f)
                 }
                 StoryScene.SURPRISE_INVITATION -> {
-                    tile(p.blush); envelope(8f, 19f)
-                    dot(22f, 29f, 5f, p.cranberry)
-                    heart(22f, 28f, .35f, p.gold)
-                    line(9f, 11f, 15f, 14f, p.gold, 2f)
-                    line(35f, 10f, 30f, 15f, p.gold, 2f)
-                    dot(37f, 37f, 2f, p.gold)
+                    // A gold-trimmed party invitation pops out of an opened envelope.
+                    tile(p.sky)
+                    box(6f, 19f, 36f, 25f, p.cranberry, 3f)
+                    box(12f, 7f, 24f, 27f, p.paper, 2f)
+                    box(14f, 9f, 20f, 3f, p.gold, 1f)
+                    heart(24f, 17f, .45f)
+                    line(17f, 26f, 31f, 26f, p.cocoa, 1.2f)
+                    line(19f, 29f, 29f, 29f, p.cocoa, 1.2f)
+                    shape(p.paper, 7f to 25f, 24f to 38f, 41f to 25f,
+                        41f to 43f, 7f to 43f)
+                    line(7f, 43f, 20f, 33f, p.gold, 1.3f)
+                    line(41f, 43f, 28f, 33f, p.gold, 1.3f)
+                    dot(39f, 8f, 2.2f, p.gold)
+                    dot(6f, 11f, 1.7f, p.cranberry)
                 }
-
                 StoryScene.FIRST_MEETING -> {
                     // Two strangers reach for the same book in a small-town bookshop.
                     tile(p.sky)
