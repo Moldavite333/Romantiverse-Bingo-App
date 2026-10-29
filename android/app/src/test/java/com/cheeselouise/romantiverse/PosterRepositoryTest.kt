@@ -141,6 +141,24 @@ class PosterRepositoryTest {
         assertTrue(PosterRepository.entries("""{"version":1,"movies":[]}""", false).isEmpty())
     }
 
+    @Test fun growingCatalogDoesNotSilentlyDropPostersAfterFiveHundred() {
+        val rows = (1..501).joinToString(",") { year ->
+            """{"title":"Movie $year","release_year":2026,"poster_url":"https://image.tmdb.org/t/p/w500/$year.jpg"}"""
+        }
+        val parsed = PosterRepository.entries("""{"version":1,"movies":[$rows]}""", false)
+        assertEquals(501, parsed.size)
+        assertTrue(parsed.any { it.first == PosterRepository.key("Movie 501", 2026) })
+    }
+
+    @Test fun oversizedFeedFailsRatherThanRevokingUnseenPosters() {
+        val rows = (1..3001).joinToString(",") { i ->
+            """{"title":"Movie $i","release_year":2026,"poster_url":"https://image.tmdb.org/t/p/w500/$i.jpg"}"""
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            PosterRepository.entries("""{"version":1,"movies":[$rows]}""", false)
+        }
+    }
+
     @Test fun onlyTrustedHttpsImageHostsAreAccepted() {
         assertNull(PosterRepository.approved("http://image.tmdb.org/t/p/w500/x.jpg"))
         assertNull(PosterRepository.approved("https://evil.example/t/p/w500/x.jpg"))
