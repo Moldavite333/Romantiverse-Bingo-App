@@ -49,12 +49,13 @@ object BingoEngine {
         )
     )
 
-    fun pool(theme: String): List<String> {
-        val seasonalTropes = if (theme == "Christmas" || theme == "Fall") {
-            seasonal[theme].orEmpty()
-        } else emptyList()
-        return (romance + seasonalTropes).distinct()
-    }
+    /** Production launch cards: romance, Christmas romance and fall romance only. */
+    fun pool(theme: String): List<String> =
+        artworkPool(if (theme == "Christmas" || theme == "Fall") theme else "Romance")
+
+    /** Archived illustration inventory, including future horror spin-off artwork. */
+    internal fun artworkPool(theme: String): List<String> =
+        (romance + seasonal[theme].orEmpty()).distinct()
 
     fun deal(pool: List<String>, seed: Long): List<String> {
         require(seed >= 0) { "Seed must be nonnegative" }
