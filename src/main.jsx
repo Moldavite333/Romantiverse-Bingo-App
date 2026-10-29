@@ -1,7 +1,7 @@
 import React,{useEffect,useMemo,useState} from 'react';
 import{createRoot}from'react-dom/client';
 import{score,toggle,winningLines}from './engine/bingo.mjs';
-import{analyzeMovie,buildCard,replaceSquare,balance,CHEESE,SEASONAL}from './engine/intelligence.mjs';
+import{analyzeMovie,buildCard,replaceSquare,balance,CHEESE}from './engine/intelligence.mjs';
 import{LAUNCH_SEASONAL_THEMES,isLaunchMovie}from './engine/launchCollections.mjs';
 import{refreshUntouchedCard,hasRetiredTrope}from './engine/retiredTropes.mjs';
 import{tropeArtDataUri}from './engine/tropeArt.mjs';
