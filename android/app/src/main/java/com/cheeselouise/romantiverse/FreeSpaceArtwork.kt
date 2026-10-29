@@ -61,8 +61,8 @@ internal fun FreeSpaceArtwork(modifier: Modifier = Modifier, artworkSize: Dp = 3
     }
 
     Canvas(modifier.size(artworkSize)) {
-        val scale = size.minDimension / 40f
-        withTransform({ scale(scale, scale, pivot = Offset.Zero) }) {
+        val factor = size.minDimension / 40f
+        withTransform({ scale(factor, factor, pivot = Offset.Zero) }) {
             val outline = StorybookPalette.background
             drawPath(heart, StorybookPalette.cranberry)
             drawPath(cheeseFront, Color(0xFFF3BE58))
