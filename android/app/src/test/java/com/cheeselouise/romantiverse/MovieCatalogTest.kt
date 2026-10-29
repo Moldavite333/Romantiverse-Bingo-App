@@ -205,7 +205,7 @@ class MovieCatalogTest {
         val movies = MovieCatalog.parse(catalog(
             row("null-network", "One").put("network", JSONObject.NULL),
             row("long-network", "Two").put("network", "x".repeat(81)),
-            row("control-network", "Three").put("network", "Hallmark\\nFake")
+            row("control-network", "Three").put("network", "Hallmark\nFake")
         ))
         assertTrue(movies.all { it.network == null })
         assertFalse(movies.any { MovieCatalog.matchesQuery(it, "Hallmark") })
