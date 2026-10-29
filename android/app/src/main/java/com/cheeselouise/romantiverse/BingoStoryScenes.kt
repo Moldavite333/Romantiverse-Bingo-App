@@ -31,7 +31,9 @@ internal enum class StoryScene {
     PUBLIC_DECLARATION, SHARED_SECRET, SCENIC_WALK, DECORATED_TREE,
     MISSED_CALL, GIFT_EXCHANGE, FAMILY_HEIRLOOM, ROMANTIC_GESTURE,
     DANCE_TOGETHER, MISTLETOE, COZY_CAFE, HOMETOWN_REUNION,
-    GRAND_GESTURE, COMMUNITY_FUNDRAISER, SURPRISE_INVITATION, OLD_FLAME
+    GRAND_GESTURE, COMMUNITY_FUNDRAISER, SURPRISE_INVITATION, OLD_FLAME,
+    FIRST_MEETING, MISUNDERSTANDING, ALMOST_KISS, BIG_CONFESSION, TOWN_FESTIVAL, FAMILY_SECRET, CAREER_DILEMMA, SENTIMENTAL_GIFT,
+    MEDDLING_RELATIVE, ROMANTIC_RIVAL, LAST_MINUTE_ARRIVAL, UNEXPECTED_KISS, MEANINGFUL_LOOK, INCONVENIENT_DEADLINE, SMALL_TOWN_CELEBRATION, SHARED_MEAL
 }
 
 internal object StorySceneArt {
@@ -59,7 +61,23 @@ internal object StorySceneArt {
         "A grand gesture" to StoryScene.GRAND_GESTURE,
         "A community fundraiser" to StoryScene.COMMUNITY_FUNDRAISER,
         "A surprise invitation" to StoryScene.SURPRISE_INVITATION,
-        "An old flame" to StoryScene.OLD_FLAME
+        "An old flame" to StoryScene.OLD_FLAME,
+        "First meeting" to StoryScene.FIRST_MEETING,
+        "A misunderstanding" to StoryScene.MISUNDERSTANDING,
+        "The almost-kiss" to StoryScene.ALMOST_KISS,
+        "The big confession" to StoryScene.BIG_CONFESSION,
+        "A town festival" to StoryScene.TOWN_FESTIVAL,
+        "A family secret" to StoryScene.FAMILY_SECRET,
+        "A career dilemma" to StoryScene.CAREER_DILEMMA,
+        "A sentimental gift" to StoryScene.SENTIMENTAL_GIFT,
+        "A meddling relative" to StoryScene.MEDDLING_RELATIVE,
+        "A romantic rival" to StoryScene.ROMANTIC_RIVAL,
+        "A last-minute arrival" to StoryScene.LAST_MINUTE_ARRIVAL,
+        "An unexpected kiss" to StoryScene.UNEXPECTED_KISS,
+        "A meaningful look" to StoryScene.MEANINGFUL_LOOK,
+        "An inconvenient deadline" to StoryScene.INCONVENIENT_DEADLINE,
+        "A small-town celebration" to StoryScene.SMALL_TOWN_CELEBRATION,
+        "A shared meal" to StoryScene.SHARED_MEAL
     )
     fun forLabel(label: String): StoryScene? = scenes[label]
     fun labels(): Set<String> = scenes.keys
@@ -319,6 +337,157 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(35f, 10f, 30f, 15f, p.gold, 2f)
                     dot(37f, 37f, 2f, p.gold)
                 }
+
+                StoryScene.FIRST_MEETING -> {
+                    tile(p.sky); box(3f, 6f, 15f, 34f, p.cocoa)
+                    listOf(10f, 17f, 24f, 31f).forEach { y ->
+                        box(5f, y, 11f, 4f, if (y == 17f) p.gold else p.paper)
+                    }
+                    person(25f, 21f, p.cranberry); person(37f, 22f, p.evergreen)
+                    box(27f, 32f, 12f, 9f, p.gold)
+                    heart(31f, 11f, .35f)
+                }
+                StoryScene.MISUNDERSTANDING -> {
+                    tile(p.blush); person(10f, 22f, p.blue); person(38f, 22f, p.cranberry)
+                    box(3f, 6f, 17f, 10f, p.paper, 5f)
+                    box(28f, 6f, 17f, 10f, p.paper, 5f)
+                    line(8f, 10f, 15f, 10f, p.ink, 1.5f)
+                    line(33f, 10f, 40f, 10f, p.ink, 1.5f)
+                    line(20f, 21f, 28f, 29f, p.cranberry, 2f)
+                    line(28f, 21f, 20f, 29f, p.cranberry, 2f)
+                }
+                StoryScene.ALMOST_KISS -> {
+                    tile(p.blush); line(5f, 7f, 43f, 7f, p.cocoa, 1.5f)
+                    dot(24f, 10f, 5f, p.gold)
+                    person(15f, 22f, p.cranberry); person(32f, 22f, p.blue)
+                    line(18f, 28f, 23f, 27f, p.cocoa, 2f)
+                    line(30f, 28f, 25f, 27f, p.cocoa, 2f)
+                    heart(24f, 20f, .4f, p.gold)
+                    line(23f, 39f, 25f, 39f, p.ink, 1.5f)
+                }
+                StoryScene.BIG_CONFESSION -> {
+                    tile(p.sky); box(5f, 28f, 38f, 14f, p.paper)
+                    shape(p.cranberry, 3f to 28f, 24f to 11f, 45f to 28f)
+                    person(23f, 19f, p.evergreen)
+                    box(30f, 7f, 14f, 9f, p.paper, 5f)
+                    heart(37f, 11f, .35f)
+                    line(24f, 33f, 37f, 33f, p.cocoa, 2f)
+                }
+                StoryScene.TOWN_FESTIVAL -> {
+                    tile(p.sky); line(2f, 7f, 46f, 7f, p.cocoa, 1f)
+                    listOf(6f, 15f, 24f, 33f, 42f).forEachIndexed { i, x ->
+                        shape(if (i % 2 == 0) p.cranberry else p.gold,
+                            x to 7f, (x + 6f) to 7f, (x + 3f) to 15f)
+                    }
+                    shape(p.cranberry, 5f to 27f, 24f to 15f, 43f to 27f)
+                    box(9f, 27f, 30f, 16f, p.paper)
+                    box(14f, 31f, 20f, 6f, p.gold)
+                    person(6f, 31f, p.blue); person(42f, 31f, p.evergreen)
+                }
+                StoryScene.FAMILY_SECRET -> {
+                    tile(p.blush); box(5f, 7f, 25f, 34f, p.cocoa)
+                    box(8f, 10f, 19f, 27f, p.paper)
+                    oval(13f, 13f, 10f, 11f, p.gold)
+                    dot(18f, 16f, 3f, p.ink)
+                    box(14f, 21f, 8f, 9f, p.cranberry)
+                    box(27f, 24f, 17f, 17f, p.evergreen)
+                    dot(35f, 30f, 3f, p.gold)
+                    line(35f, 33f, 35f, 37f, p.gold, 2f)
+                }
+                StoryScene.CAREER_DILEMMA -> {
+                    tile(p.sky); line(24f, 16f, 24f, 44f, p.cocoa, 3f)
+                    shape(p.gold, 22f to 45f, 15f to 30f, 22f to 24f)
+                    shape(p.gold, 26f to 45f, 33f to 30f, 26f to 24f)
+                    box(3f, 11f, 14f, 18f, p.blue)
+                    listOf(6f, 12f).forEach { x -> box(x, 14f, 3f, 4f, p.paper) }
+                    cottage(29f, 6f)
+                    person(24f, 7f, p.cranberry)
+                }
+                StoryScene.SENTIMENTAL_GIFT -> {
+                    tile(p.blush); box(6f, 23f, 36f, 20f, p.cocoa, 4f)
+                    box(8f, 19f, 32f, 8f, p.gold)
+                    oval(14f, 9f, 20f, 16f, p.paper)
+                    line(24f, 25f, 24f, 31f, p.gold, 2f)
+                    heart(24f, 17f, .6f, p.cranberry)
+                    dot(12f, 35f, 2f, p.gold); dot(36f, 35f, 2f, p.gold)
+                }
+                StoryScene.MEDDLING_RELATIVE -> {
+                    tile(p.sky); box(3f, 4f, 24f, 40f, p.paper)
+                    box(7f, 8f, 16f, 26f, p.blue)
+                    person(15f, 14f, p.gold)
+                    line(24f, 7f, 24f, 35f, p.cranberry, 3f)
+                    person(34f, 23f, p.cranberry)
+                    person(43f, 24f, p.evergreen)
+                    heart(37f, 14f, .35f)
+                }
+                StoryScene.ROMANTIC_RIVAL -> {
+                    tile(p.blush); person(8f, 19f, p.evergreen)
+                    person(24f, 10f, p.gold); person(40f, 19f, p.blue)
+                    line(10f, 34f, 19f, 29f, p.cocoa, 2f)
+                    line(38f, 34f, 29f, 29f, p.cocoa, 2f)
+                    dot(19f, 28f, 4f, p.cranberry)
+                    dot(29f, 28f, 4f, p.cranberry)
+                    heart(24f, 40f, .45f)
+                }
+                StoryScene.LAST_MINUTE_ARRIVAL -> {
+                    tile(p.sky); box(2f, 14f, 32f, 22f, p.blue, 3f)
+                    box(5f, 18f, 9f, 10f, p.paper)
+                    box(18f, 18f, 9f, 10f, p.paper)
+                    dot(9f, 37f, 4f, p.ink); dot(28f, 37f, 4f, p.ink)
+                    person(40f, 16f, p.cranberry)
+                    box(34f, 33f, 12f, 11f, p.cocoa)
+                    line(38f, 33f, 38f, 28f, p.gold, 2f)
+                    dot(41f, 7f, 5f, p.gold)
+                }
+                StoryScene.UNEXPECTED_KISS -> {
+                    tile(p.sky); line(24f, 6f, 24f, 24f, p.cocoa, 2f)
+                    shape(p.cranberry, 4f to 20f, 24f to 5f, 44f to 20f)
+                    person(19f, 25f, p.blue); person(29f, 25f, p.evergreen)
+                    heart(24f, 25f, .4f, p.gold)
+                    listOf(8f, 14f, 36f, 42f).forEach { x ->
+                        line(x, 28f, x - 2f, 35f, p.blue, 1.3f)
+                    }
+                }
+                StoryScene.MEANINGFUL_LOOK -> {
+                    tile(p.blush); box(4f, 8f, 17f, 31f, p.paper)
+                    box(27f, 8f, 17f, 31f, p.paper)
+                    line(12f, 8f, 12f, 39f, p.cocoa, 1.5f)
+                    line(35f, 8f, 35f, 39f, p.cocoa, 1.5f)
+                    person(13f, 19f, p.cranberry); person(35f, 19f, p.blue)
+                    line(19f, 18f, 29f, 18f, p.gold, 2f)
+                    heart(24f, 8f, .4f)
+                }
+                StoryScene.INCONVENIENT_DEADLINE -> {
+                    tile(p.sky); box(4f, 16f, 22f, 27f, p.paper)
+                    line(9f, 24f, 21f, 24f, p.blue, 1.5f)
+                    line(9f, 30f, 21f, 30f, p.blue, 1.5f)
+                    dot(33f, 19f, 12f, p.gold)
+                    dot(33f, 19f, 9f, p.paper)
+                    line(33f, 19f, 33f, 12f, p.ink, 2f)
+                    line(33f, 19f, 39f, 23f, p.ink, 2f)
+                    box(25f, 35f, 20f, 8f, p.cranberry)
+                }
+                StoryScene.SMALL_TOWN_CELEBRATION -> {
+                    tile(p.sky); cottage(13f, 9f)
+                    line(3f, 5f, 45f, 5f, p.cocoa, 1.3f)
+                    listOf(8f, 18f, 28f, 38f).forEachIndexed { i, x ->
+                        dot(x, 8f, 3f, if (i % 2 == 0) p.gold else p.cranberry)
+                    }
+                    person(7f, 30f, p.blue); person(40f, 30f, p.cranberry)
+                    dot(23f, 42f, 3f, p.gold)
+                    dot(15f, 42f, 2f, p.cranberry); dot(32f, 42f, 2f, p.cranberry)
+                }
+                StoryScene.SHARED_MEAL -> {
+                    tile(p.blush); box(4f, 30f, 40f, 6f, p.cocoa)
+                    line(9f, 36f, 9f, 45f); line(39f, 36f, 39f, 45f)
+                    person(10f, 16f, p.blue); person(38f, 16f, p.cranberry)
+                    oval(13f, 28f, 12f, 5f, p.paper)
+                    oval(25f, 28f, 12f, 5f, p.paper)
+                    box(23f, 20f, 3f, 9f, p.gold)
+                    dot(24.5f, 18f, 3f, p.cranberry)
+                    heart(24f, 8f, .4f)
+                }
+
                 StoryScene.OLD_FLAME -> {
                     tile(); person(11f, 21f, p.blue); person(37f, 21f, p.cranberry)
                     line(13f, 42f, 35f, 42f, p.cocoa, 3f)
