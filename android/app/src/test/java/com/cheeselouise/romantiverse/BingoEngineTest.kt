@@ -18,7 +18,7 @@ class BingoEngineTest {
             for (seed in 0L..100L) {
                 val card = BingoEngine.deal(BingoEngine.pool(season), seed)
                 val labels = card.filterIndexed { index, _ -> index != BingoEngine.CENTER }
-                    .map { BingoSquarePresentation.shortLabel(it).replace("\\n", " ").trim().lowercase() }
+                    .map { BingoSquarePresentation.shortLabel(it).replace("\n", " ").trim().lowercase() }
                 assertEquals("Duplicate visible trope in $season seed $seed", 24, labels.toSet().size)
             }
         }
