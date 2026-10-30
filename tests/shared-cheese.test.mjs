@@ -22,7 +22,7 @@ test('retired hot-beverage traits cannot return through an imported Cheese Louis
 test('editorial overrides cannot duplicate an existing seasonal or cheese label',()=>{
  const card=buildCard({title:'Harvest Reunion',season:'Fall'},{seed:14});
  const cheeseIndex=card.findIndex(t=>t.category==='cheese');
- const other=card.find((t,i)=>i!==cheeseIndex&&t.category!=='free');
+ const other=card.find(t=>t.category==='seasonal');
  const suggestions=[
   {id:'editorial-duplicate',label:'  '+other.label.toUpperCase()+' ',category:'cheese'},
   {id:'editorial-new',label:'A completely new romance moment',category:'cheese'},
@@ -38,7 +38,8 @@ test('editorial overrides cannot duplicate an existing seasonal or cheese label'
 });
 test('editorial overrides keep valid cards when suggestions are exhausted',()=>{
  const card=buildCard({title:'Holiday Reunion',season:'Christmas'},{seed:17});
- const result=applyEditorialToCard(card,[{id:'duplicate',label:card[0].label,category:'cheese'}]);
+ const seasonal=card.find(t=>t.category==='seasonal');
+ const result=applyEditorialToCard(card,[{id:'duplicate',label:seasonal.label,category:'cheese'}]);
  assert.deepEqual(result,card);
  assert.equal(new Set(result.map(visibleTropeKey)).size,25);
 });
