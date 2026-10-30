@@ -198,6 +198,46 @@ class LiveRoomClientTest {
         assertEquals(4, prior.revision)
     }
 
+    @Test fun malformedServerMarksAndRevisionsCannotOverwriteEarnedProgress() {
+        val valid = snapshot(6, "0,1,12")
+        val prior = LiveRoomProtocol.parse(valid)
+        assertEquals(setOf(0, 1, 12), prior.marks)
+        for (entries in listOf(
+            "\"0\",1,12", // numeric strings must not be coerced
+            "0,1.5,12",    // fractional indices must not be truncated
+            "0,25,12",     // out of range
+            "0,0,12",      // duplicate marks
+            "0,null,12",   // missing index
+            "0,true,12"    // booleans are not indices
+        )) {
+            val malformed = valid.replace("\"marked\":[0,1,12]", "\"marked\":[$entries]")
+            assertNotEquals(valid, malformed)
+            assertThrows(IllegalArgumentException::class.java) {
+                LiveRoomProtocol.parse(malformed, prior)
+            }
+        }
+        for (value in listOf("\"6\"", "6.5", "-1", "null", "true")) {
+            val malformed = valid.replace("\"revision\":6", "\"revision\":$value")
+            assertNotEquals(valid, malformed)
+            assertThrows(IllegalArgumentException::class.java) {
+                LiveRoomProtocol.parse(malformed, prior)
+            }
+        }
+        val objectMarks = org.json.JSONObject(valid)
+            .put("marked", org.json.JSONObject()).toString()
+        val objectCard = org.json.JSONObject(valid)
+            .put("card", org.json.JSONObject()).toString()
+        assertThrows(IllegalArgumentException::class.java) {
+            LiveRoomProtocol.parse(objectMarks, prior)
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            LiveRoomProtocol.parse(objectCard, prior)
+        }
+        assertEquals(setOf(0, 1, 12), prior.marks)
+        assertEquals(6, prior.revision)
+        assertEquals(25, prior.card.size)
+    }
+
     @Test fun roomPreviewsNeverExposeSessionTokens() {
         val preview = """{
             "room":{"code":"$code","movie_title":"A Movie","movie_collection":"Unspecified",
