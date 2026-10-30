@@ -151,6 +151,7 @@ class LiveRoomClientTest {
         val shortCard = valid.replace(
             """{"label":"Square 24"}""", ""
         ).replace("},]", "}]")
+        assertEquals(24, org.json.JSONObject(shortCard).getJSONArray("card").length())
         assertThrows(IllegalArgumentException::class.java) {
             LiveRoomProtocol.parse(shortCard, prior)
         }
