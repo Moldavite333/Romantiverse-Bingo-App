@@ -145,6 +145,39 @@ class LiveRoomClientTest {
         assertEquals(100, stale.score)
     }
 
+    @Test fun malformedServerCardsNeverReplaceAPlayableBoard() {
+        val valid = snapshot(4, "0,1,12")
+        val prior = LiveRoomProtocol.parse(valid)
+        val shortCard = valid.replace(
+            """{"label":"Square 24"}""", ""
+        ).replace("},]", "}]")
+        assertEquals(24, org.json.JSONObject(shortCard).getJSONArray("card").length())
+        assertThrows(IllegalArgumentException::class.java) {
+            LiveRoomProtocol.parse(shortCard, prior)
+        }
+        val blankSquare = valid.replace(
+            """{"label":"Square 8"}""", """{"label":"  "}"""
+        )
+        assertThrows(IllegalArgumentException::class.java) {
+            LiveRoomProtocol.parse(blankSquare, prior)
+        }
+        val missingLabel = valid.replace(
+            """{"label":"Square 8"}""", """{"id":"missing"}"""
+        )
+        assertThrows(IllegalArgumentException::class.java) {
+            LiveRoomProtocol.parse(missingLabel, prior)
+        }
+        val nullLabel = valid.replace(
+            """{"label":"Square 8"}""", """{"label":null}"""
+        )
+        assertThrows(IllegalArgumentException::class.java) {
+            LiveRoomProtocol.parse(nullLabel, prior)
+        }
+        assertEquals(25, prior.card.size)
+        assertEquals(setOf(0, 1, 12), prior.marks)
+        assertEquals(4, prior.revision)
+    }
+
     @Test fun roomPreviewsNeverExposeSessionTokens() {
         val preview = """{
             "room":{"code":"$code","movie_title":"A Movie","movie_collection":"Unspecified",
