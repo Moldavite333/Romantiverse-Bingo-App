@@ -50,6 +50,7 @@ export async function verifyLiveRoom(siteUrl){
  const host=await post('create',{name:'Bingo Launch QA Host',movie_title:movie.title,movie_collection:movie.season,poster_url:poster,release_year:movie.release_year,season:movie.season,mode:'classic'});
  assert.match(host.room.code,/^[A-Z2-9]{7}$/);
  assert.equal(host.room.movie_title,movie.title);
+ assert.equal(host.room.host_player_id,host.player_id,'Created room must identify its host');
  assert.equal(host.room.movie_collection,movie.season);
  assert.equal(host.room.season,movie.season);
  assert.equal(host.room.release_year,movie.release_year);
@@ -69,6 +70,9 @@ export async function verifyLiveRoom(siteUrl){
  assert.equal(preview.room.season,movie.season);
  assert.equal(preview.room.poster_url,poster);
  assert.deepEqual(preview.room.players,[],'Preview must not leak players');
+ assert.equal(preview.room.host_player_id,host.player_id,'Public preview must identify the room host');
+ assert.equal('token' in preview,false,'Public preview must not contain a player token');
+ assert.equal('player_id' in preview,false,'Public preview must not authenticate a player');
  // Verify two real rooms receive distinct invitation URLs, even when created
  // consecutively. An unclassified catalog title must never acquire an
  // invented collection from its separately selected Bingo card theme.
@@ -91,6 +95,8 @@ export async function verifyLiveRoom(siteUrl){
  assert.deepEqual(secondPreview.room.players,[],'Second preview must not leak players');
  const guest=await post('join',{code:host.room.code,name:'Bingo Launch QA Guest'});
  assert.equal(guest.room.movie_title,movie.title);
+ assert.equal(guest.room.host_player_id,host.player_id,'Guest must see the same host identity');
+ assert.notEqual(guest.player_id,guest.room.host_player_id,'Guest must not be mistaken for the host');
  assert.equal(guest.room.season,movie.season);
  assert.equal(guest.room.poster_url,poster);
  assert.equal(guest.card.length,25);
@@ -100,7 +106,15 @@ export async function verifyLiveRoom(siteUrl){
  assert.equal(guest.room.players.length,2);
  const state=await post('state',{code:host.room.code,token:guest.token});
  assert.equal(state.player_id,guest.player_id);
+ assert.equal(state.room.host_player_id,host.player_id,'Authenticated state must preserve host identity');
  assert.deepEqual(state.card,guest.card);
+ // The guest must not gain room-control authority just because the host ID is public.
+ const deniedStart=await fetch(ENDPOINT,{
+  method:'POST',headers:{'Content-Type':'application/json',Origin:'https://moldavite333.github.io'},
+  body:JSON.stringify({action:'start',code:host.room.code,token:guest.token}),
+  signal:AbortSignal.timeout(15000)
+ });
+ assert.equal(deniedStart.status,403,'Guest cannot start the host\'s room');
  await post('start',{code:host.room.code,token:host.token});
  const mark=await post('mark',{code:host.room.code,token:guest.token,index:0,revision:guest.revision});
  assert.ok(mark.marked.includes(0));
