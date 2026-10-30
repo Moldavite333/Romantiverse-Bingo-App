@@ -238,7 +238,7 @@ private fun NativeBingoApp(incomingCode: String?) {
                 if (current == "discover") {
                     DiscoverMovies(movies, posters, ::choose)
                 } else if (current == "together") {
-                    LiveRoomScreen(movie, movie?.let { posters[it.key]?.url }, incomingCode, haptics, reduceMotion)
+                    LiveRoomScreen(movie, movie?.let { PosterRepository.forMovie(it, posters)?.url }, incomingCode, haptics, reduceMotion)
                 } else if (movie == null) {
                     Column(
                         Modifier.fillMaxSize().padding(24.dp),
@@ -252,7 +252,7 @@ private fun NativeBingoApp(incomingCode: String?) {
                 } else {
                     PlayCard(
                         movie = movie,
-                        posterUrl = posters[movie.key]?.url,
+                        posterUrl = PosterRepository.forMovie(movie, posters)?.url,
                         card = card,
                         marks = marks,
                         celebration = celebration,
@@ -348,7 +348,7 @@ private fun DiscoverMovies(
             ) {
                 Row(Modifier.fillMaxWidth().padding(10.dp),
                     verticalAlignment = Alignment.CenterVertically) {
-                    PosterThumbnail(movie, posters[movie.key]?.url,
+                    PosterThumbnail(movie, PosterRepository.forMovie(movie, posters)?.url,
                         Modifier.width(82.dp).height(112.dp))
                     Spacer(Modifier.width(14.dp))
                     Column(Modifier.weight(1f)) {
