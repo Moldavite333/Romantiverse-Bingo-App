@@ -13,7 +13,32 @@ const rand=(len)=>{const b=crypto.getRandomValues(new Uint8Array(len));return Ar
 const token=()=>Array.from(crypto.getRandomValues(new Uint8Array(32)),x=>x.toString(16).padStart(2,'0')).join('');
 const hash=async(t)=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)))).map(x=>x.toString(16).padStart(2,'0')).join('');
 const shuffle=(items)=>{const a=[...items];for(let i=a.length-1;i>0;i--){const b=crypto.getRandomValues(new Uint32Array(1))[0]%(i+1);[a[i],a[b]]=[a[b],a[i]]}return a};
-const card=(season)=>{const a=shuffle(cheese).slice(0,12).map((label,i)=>({id:'cheese-'+i,label,category:'cheese'}));const b=shuffle(themes[season]).slice(0,12).map((label,i)=>({id:'season-'+i,label,category:'seasonal'}));const c=shuffle([...a,...b]);c.splice(12,0,{id:'free',label:'FREE SPACE',category:'free'});return c};
+// Compare the labels players actually see, not generated IDs or source positions.
+const labelKey=(label)=>String(label||'').normalize('NFKC').trim().replace(/\s+/g,' ').toLowerCase();
+const cardKey=(squares)=>squares.map(square=>labelKey(square.label)).join('|');
+const card=(season,existingCards=[])=>{
+ const previous=new Set(existingCards.filter(Array.isArray).map(cardKey));
+ for(let attempt=0;attempt<32;attempt++){
+  const used=new Set();
+  const choose=(source,category)=>{
+   const labels=[];
+   for(const label of shuffle(source||[])){
+    const key=labelKey(label);
+    if(!key||used.has(key))continue;
+    used.add(key);
+    labels.push({id:category+'-'+labels.length,label,category});
+    if(labels.length===12)break;
+   }
+   if(labels.length!==12)throw Error('Insufficient unique card tropes');
+   return labels;
+  };
+  const dealt=shuffle([...choose(cheese,'cheese'),...choose(themes[season],'seasonal')]);
+  dealt.splice(12,0,{id:'free',label:'FREE SPACE',category:'free'});
+  if(!previous.has(cardKey(dealt)))return dealt;
+ }
+ // Never knowingly issue the same visible card to two players in a room.
+ throw Error('Unable to deal a distinct card');
+};
 const safePoster=value=>{if(typeof value!=='string')return null;try{const url=new URL(value);if(url.protocol!=='https:'||url.username||url.password||url.port)return null;if(url.hostname==='image.tmdb.org'&&/^\/t\/p\/(?:w\d+|original)\/[A-Za-z0-9_.-]+$/.test(url.pathname))return url.href;if(url.hostname==='upload.wikimedia.org'&&url.pathname.startsWith('/wikipedia/commons/'))return url.href}catch{}return null};
 const query=async(table,method='GET',params='',body)=>{const r=await fetch(BASE+'/rest/v1/'+table+params,{method,headers:{apikey:SERVICE,Authorization:'Bearer '+SERVICE,'Content-Type':'application/json',Prefer:'return=representation'},body:body===undefined?undefined:JSON.stringify(body)});if(!r.ok)throw Error('Storage error '+r.status);return r.json()};
 const lines=[...Array.from({length:5},(_,r)=>Array.from({length:5},(_,c)=>r*5+c)),...Array.from({length:5},(_,c)=>Array.from({length:5},(_,r)=>r*5+c)),[0,6,12,18,24],[4,8,12,16,20]];
@@ -50,8 +75,8 @@ if(action==='preview')return reply({room:cleanRoom(room,[])},200,origin);
 if(action==='join'){
 if(room.status!=='lobby')return reply({error:'Game already started'},409,origin);
 const name=String(x.name||'').trim().slice(0,32);if(!name)return reply({error:'Nickname required'},400,origin);
-const existing=await query('live_players','GET','?room_id=eq.'+room.id+'&select=id');if(existing.length>=12)return reply({error:'Room is full'},409,origin);
-const secret=token(),player=(await query('live_players','POST','?select=*',{room_id:room.id,name,token_hash:await hash(secret),card:card(room.season),marked:[12],free_center:true}))[0];
+const existing=await query('live_players','GET','?room_id=eq.'+room.id+'&select=id,card');if(existing.length>=12)return reply({error:'Room is full'},409,origin);
+const secret=token(),player=(await query('live_players','POST','?select=*',{room_id:room.id,name,token_hash:await hash(secret),card:card(room.season,existing.map(p=>p.card)),marked:[12],free_center:true}))[0];
 const players=await query('live_players','GET','?room_id=eq.'+room.id+'&select=*');
 return reply({room:cleanRoom(room,players),player_id:player.id,token:secret,card:player.card,marked:player.marked,revision:player.revision},200,origin)
 }

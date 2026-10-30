@@ -55,6 +55,8 @@ export async function verifyLiveRoom(siteUrl){
  assert.equal(host.room.release_year,movie.release_year);
  assert.equal(host.room.poster_url,poster);
  assert.equal(host.card.length,25);
+ const uniqueVisibleLabels=card=>new Set(card.map(t=>String(t.label).normalize('NFKC').trim().replace(/\s+/g,' ').toLowerCase())).size===25;
+ assert.ok(uniqueVisibleLabels(host.card),'Host card must not repeat visible trope labels');
  const retired=/impossibly cute|completely avoidable|wildly dramatic|very late romantic|suspiciously perfect|perfectly timed/i;
  assert.ok(host.card.every(square=>!retired.test(square.label)),'Live host card must not include retired fluffy trope wording');
  const invite=roomInviteUrl(site.toString(),host.room.code);
@@ -92,6 +94,7 @@ export async function verifyLiveRoom(siteUrl){
  assert.equal(guest.room.season,movie.season);
  assert.equal(guest.room.poster_url,poster);
  assert.equal(guest.card.length,25);
+ assert.ok(uniqueVisibleLabels(guest.card),'Guest card must not repeat visible trope labels');
  assert.ok(guest.card.every(square=>!retired.test(square.label)),'Live guest card must not include retired fluffy trope wording');
  assert.notDeepEqual(guest.card,host.card,'Each player needs an independent card');
  assert.equal(guest.room.players.length,2);

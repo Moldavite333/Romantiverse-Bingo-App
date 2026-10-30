@@ -20,12 +20,12 @@ test('deployed multiplayer source uses simplified Cheese Louise trope wording',(
 
 test('multiplayer backend preserves collection metadata separately from card theme',()=>{
   assert.match(source,/movie_collection:movieCollection/);
-  assert.match(source,/card\(room\.season\)/);
+  assert.match(source,/card\(room\.season,existing\.map\(p=>p\.card\)\)/);
   assert.match(source,/movie_collection:r\.movie_collection/);
 });
 
 test('multiplayer backend retains server-owned per-player cards and private token hashes',()=>{
   assert.match(source,/token_hash:await hash\(secret\)/);
-  assert.match(source,/card:card\(room\.season\)/);
+  assert.match(source,/card:card\(room\.season,existing\.map\(p=>p\.card\)\)/);
   assert.match(source,/player\.card/);
 });
