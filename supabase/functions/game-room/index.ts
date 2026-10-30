@@ -14,7 +14,7 @@ const token=()=>Array.from(crypto.getRandomValues(new Uint8Array(32)),x=>x.toStr
 const hash=async(t)=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)))).map(x=>x.toString(16).padStart(2,'0')).join('');
 const shuffle=(items)=>{const a=[...items];for(let i=a.length-1;i>0;i--){const b=crypto.getRandomValues(new Uint32Array(1))[0]%(i+1);[a[i],a[b]]=[a[b],a[i]]}return a};
 // Compare the labels players actually see, not generated IDs or source positions.
-const labelKey=(label)=>String(label||'').normalize('NFKC').trim().replace(/\\s+/g,' ').toLowerCase();
+const labelKey=(label)=>String(label||'').normalize('NFKC').trim().replace(/\s+/g,' ').toLowerCase();
 const cardKey=(squares)=>squares.map(square=>labelKey(square.label)).join('|');
 const card=(season,existingCards=[])=>{
  const previous=new Set(existingCards.filter(Array.isArray).map(cardKey));
