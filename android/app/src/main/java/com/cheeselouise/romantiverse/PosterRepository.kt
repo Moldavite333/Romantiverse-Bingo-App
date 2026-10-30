@@ -24,6 +24,18 @@ object PosterRepository {
     fun key(title: String, year: Int?): String =
         title.trim().replace(Regex("\\s+"), " ").lowercase(Locale.ROOT) + "|" + (year ?: "")
 
+    /**
+     * Five verified original-release corrections changed a movie's public key.
+     * Accept the former year only for those exact curated movie IDs; never
+     * fall back by title alone, which could attach a remake's poster.
+     * A still-published HQ lock wins over automatic artwork on either key.
+     */
+    fun forMovie(movie: Movie, entries: Map<String, Entry>): Entry? {
+        val candidates = (listOf(movie.key) + MovieCatalog.legacyScoreKeys(movie))
+            .mapNotNull { entries[it] }
+        return candidates.firstOrNull { it.locked } ?: candidates.firstOrNull()
+    }
+
     fun approved(url: String?): String? {
         if (url.isNullOrBlank()) return null
         return try {
