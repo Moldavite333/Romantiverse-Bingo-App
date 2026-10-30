@@ -252,6 +252,23 @@ object LiveRoomProtocol {
     }
 }
 
+/** A recovered room must not keep showing an obsolete connection warning. */
+object RoomConnectionFeedback {
+    const val RECONNECTING = "Connection interrupted. Your room will reconnect automatically."
+    private const val EXPIRED = "This room has expired or is unavailable. Leave this device to join or host another game."
+    private const val INVALID_SESSION = "Your room session is no longer valid. Leave this device to rejoin the game."
+
+    fun failureMessage(reason: String?): String = when (reason) {
+        "Room not found or expired" -> EXPIRED
+        "Invalid player session", "Session token required" -> INVALID_SESSION
+        else -> RECONNECTING
+    }
+
+    /** Only a verified response may clear the transient connection warning. */
+    fun afterState(currentError: String, accepted: Boolean): String =
+        if (accepted && currentError == RECONNECTING) "" else currentError
+}
+
 /**
  * Guards asynchronous room responses against late network completions.
  * A response from an abandoned room must never restore credentials or private cards.
