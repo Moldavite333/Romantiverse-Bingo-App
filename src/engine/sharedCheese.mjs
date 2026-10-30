@@ -1,5 +1,6 @@
 // Public-safe, portable Cheese Louise classifications. No synopsis, account IDs or personal notes.
 import {validateStoryFacts} from './storyFacts.mjs';
+import {visibleTropeKey} from './intelligence.mjs';
 import {isRetiredTrope} from './retiredTropes.mjs';
 const safeText=(v,n=160)=>String(v||'').trim().slice(0,n);
 export function validateCheesePackage(input){
@@ -23,4 +24,32 @@ export function buildSharedCheeseSuggestions(movie,library){
   reason:'Cheese Louise editorially selected trait; scene still unverified for this playthrough',
   evidence:'editorial',verified:false,observable_trigger:t.label
  }));
+}
+
+/** Editorial overrides must never reintroduce duplicate squares after card generation. */
+export function applyEditorialToCard(card, suggestions){
+ if(!Array.isArray(card)||card.length!==25)throw Error('Invalid Bingo card');
+ const result=[...card];
+ const usedIds=new Set(result.map(t=>t.id));
+ const usedLabels=new Set(result.map(visibleTropeKey));
+ let cursor=0;
+ for(let i=0;i<result.length;i++){
+  const previous=result[i];
+  if(previous.category!=='cheese')continue;
+  usedIds.delete(previous.id);
+  usedLabels.delete(visibleTropeKey(previous));
+  let next=null;
+  while(cursor<(suggestions?.length||0)){
+   const candidate=suggestions[cursor++];
+   const label=visibleTropeKey(candidate);
+   if(candidate?.id&&label&&!usedIds.has(candidate.id)&&!usedLabels.has(label)){
+    next=candidate;
+    break;
+   }
+  }
+  result[i]=next||previous;
+  usedIds.add(result[i].id);
+  usedLabels.add(visibleTropeKey(result[i]));
+ }
+ return result;
 }
