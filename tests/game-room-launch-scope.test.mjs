@@ -75,7 +75,7 @@ test('legacy horror invitations cannot be previewed or joined', async () => {
 
 test('romance rooms remain previewable with their real collection', async () => {
   const room = {
-    id: 'room-id', code: 'ABCD234', movie_title: 'Autumn at Apple Hill',
+    id: 'room-id', code: 'ABCD234', host_player_id: 'host-player-uuid', movie_title: 'Autumn at Apple Hill',
     movie_collection: 'Fall', season: 'Romance',
     expires_at: '2099-01-01T00:00:00Z', status: 'lobby', mode: 'classic'
   };
@@ -84,4 +84,7 @@ test('romance rooms remain previewable with their real collection', async () => 
   assert.equal(result.status, 200);
   assert.equal(result.data.room.movie_collection, 'Fall');
   assert.equal(result.data.room.season, 'Romance');
+  assert.equal(result.data.room.host_player_id, 'host-player-uuid');
+  assert.equal('token' in result.data, false, 'Public previews must never contain credentials');
+  assert.equal('token_hash' in result.data.room, false);
 });
