@@ -49,7 +49,13 @@ internal object ArtworkReviewCatalog {
         "Someone arrives at the last possible moment",
         "A coincidence",
         "A secret is discovered",
-        "A surprise announcement"
+        "A surprise announcement",
+        "A romantic realization",
+        "An inconvenient romantic rival",
+        "A sentimental family heirloom",
+        "Someone changes their mind",
+        "A stranger knows exactly what to say",
+        "An emotional reunion"
     )
 
     fun labels(theme: String): List<String> = when (theme) {

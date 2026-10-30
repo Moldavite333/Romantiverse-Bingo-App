@@ -22,7 +22,7 @@ class ArtworkReviewCatalogTest {
 
     @Test fun multiplayerLaunchPreviewContainsOnlyNewDedicatedScenes() {
         val labels = ArtworkReviewCatalog.labels("Multiplayer launch")
-        assertEquals(12, labels.size)
+        assertEquals(18, labels.size)
         assertEquals(labels.size, labels.toSet().size)
         labels.forEach { label ->
             assertTrue("Shared multiplayer motif still used for $label",

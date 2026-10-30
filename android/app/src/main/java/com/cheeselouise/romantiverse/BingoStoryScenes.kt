@@ -41,7 +41,9 @@ internal enum class StoryScene {
     CAREER_OR_LOVE, TOWN_GETS_INVOLVED, RELATIVE_ADVICE,
     OVERHEARD_HALF, ROMANTIC_DEADLINE, FORCED_TOGETHER,
     DRAMATIC_EXIT, BUSINESS_RESCUE, LAST_POSSIBLE_MOMENT,
-    COINCIDENCE, SECRET_DISCOVERED, SURPRISE_ANNOUNCEMENT
+    COINCIDENCE, SECRET_DISCOVERED, SURPRISE_ANNOUNCEMENT,
+    ROMANTIC_REALIZATION, ROMANTIC_RIVAL_TRIANGLE, FAMILY_HEIRLOOM_LOCKET,
+    CHANGE_OF_HEART_TURN, STRANGER_COMFORTS, EMOTIONAL_REUNION
 }
 
 internal object StorySceneArt {
@@ -83,6 +85,12 @@ internal object StorySceneArt {
         "A coincidence" to StoryScene.COINCIDENCE,
         "A secret is discovered" to StoryScene.SECRET_DISCOVERED,
         "A surprise announcement" to StoryScene.SURPRISE_ANNOUNCEMENT,
+        "A romantic realization" to StoryScene.ROMANTIC_REALIZATION,
+        "An inconvenient romantic rival" to StoryScene.ROMANTIC_RIVAL_TRIANGLE,
+        "A sentimental family heirloom" to StoryScene.FAMILY_HEIRLOOM_LOCKET,
+        "Someone changes their mind" to StoryScene.CHANGE_OF_HEART_TURN,
+        "A stranger knows exactly what to say" to StoryScene.STRANGER_COMFORTS,
+        "An emotional reunion" to StoryScene.EMOTIONAL_REUNION,
         "First meeting" to StoryScene.FIRST_MEETING,
         "A misunderstanding" to StoryScene.MISUNDERSTANDING,
         "The almost-kiss" to StoryScene.ALMOST_KISS,
@@ -1405,6 +1413,101 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(18f, 37f, 21f, 32f, p.skin, 2f)
                     dot(17f, 8f, 2f, p.gold)
                     dot(35f, 8f, 2f, p.gold)
+                }
+
+
+                // Multiplayer launch batch three: six distinct illustrated story moments.
+                StoryScene.ROMANTIC_REALIZATION -> {
+                    // At a desk, a writer recognizes the person in a keepsake photo.
+                    tile(p.blush)
+                    box(3f, 34f, 42f, 11f, p.cocoa)
+                    box(8f, 9f, 20f, 25f, p.paper, 1f)
+                    box(11f, 12f, 14f, 17f, p.blue, 1f)
+                    dot(18f, 18f, 4f, p.skin)
+                    oval(13f, 21f, 10f, 7f, p.evergreen)
+                    box(31f, 16f, 11f, 17f, p.gold, 2f)
+                    shape(p.paper, 32f to 18f, 40f to 18f, 36f to 26f)
+                    heart(36f, 22f, .34f, p.cranberry)
+                    person(36f, 34f, p.cranberry)
+                    line(24f, 37f, 31f, 37f, p.paper, 1.5f)
+                    dot(6f, 6f, 2f, p.gold)
+                    line(8f, 4f, 12f, 1f, p.gold, 1.6f)
+                }
+                StoryScene.ROMANTIC_RIVAL_TRIANGLE -> {
+                    // Two competing bouquets approach the same guest at a garden party.
+                    tile(p.sky)
+                    shape(p.paper, 1f to 40f, 24f to 34f, 47f to 40f, 47f to 48f, 1f to 48f)
+                    person(8f, 18f, p.blue)
+                    person(24f, 16f, p.cranberry)
+                    person(40f, 18f, p.evergreen)
+                    line(12f, 29f, 19f, 34f, p.skin, 2.5f)
+                    line(36f, 29f, 29f, 34f, p.skin, 2.5f)
+                    dot(18f, 33f, 3.3f, p.cranberry)
+                    dot(30f, 33f, 3.3f, p.gold)
+                    line(18f, 35f, 21f, 42f, p.evergreen, 1.5f)
+                    line(30f, 35f, 27f, 42f, p.evergreen, 1.5f)
+                    heart(24f, 6f, .38f, p.cranberry)
+                    line(24f, 10f, 24f, 13f, p.gold, 1.3f)
+                }
+                StoryScene.FAMILY_HEIRLOOM_LOCKET -> {
+                    // An antique locket with a family portrait rests in an open velvet case.
+                    tile(p.blush)
+                    box(5f, 24f, 38f, 20f, p.cocoa, 4f)
+                    shape(p.gold, 5f to 24f, 10f to 9f, 38f to 9f, 43f to 24f)
+                    box(10f, 15f, 28f, 12f, p.cranberry, 2f)
+                    oval(16f, 23f, 16f, 18f, p.gold)
+                    oval(18f, 25f, 12f, 14f, p.paper)
+                    dot(24f, 29f, 3f, p.skin)
+                    oval(20f, 32f, 8f, 6f, p.blue)
+                    dot(24f, 20f, 2f, p.gold)
+                    line(24f, 18f, 24f, 13f, p.gold, 1.5f)
+                    dot(12f, 33f, 1.5f, p.paper)
+                    dot(36f, 33f, 1.5f, p.paper)
+                }
+                StoryScene.CHANGE_OF_HEART_TURN -> {
+                    // A traveler turns away from the city sign and back toward home.
+                    tile(p.sky)
+                    shape(p.paper, 0f to 40f, 48f to 40f, 48f to 48f, 0f to 48f)
+                    cottage(2f, 14f)
+                    box(31f, 7f, 3f, 33f, p.cocoa, 1f)
+                    shape(p.blue, 26f to 10f, 44f to 10f, 48f to 15f, 44f to 20f, 26f to 20f)
+                    line(30f, 15f, 42f, 15f, p.paper, 2f)
+                    person(33f, 31f, p.cranberry)
+                    line(31f, 44f, 24f, 45f, p.ink, 2.5f)
+                    line(35f, 43f, 39f, 46f, p.ink, 2.5f)
+                    heart(16f, 11f, .34f, p.cranberry)
+                }
+                StoryScene.STRANGER_COMFORTS -> {
+                    // A stranger offers kind words and coffee across a café table.
+                    tile(p.blush)
+                    box(3f, 7f, 42f, 28f, p.paper, 3f)
+                    box(7f, 11f, 34f, 15f, p.sky)
+                    line(24f, 11f, 24f, 26f, p.cocoa, 1.5f)
+                    person(10f, 26f, p.evergreen)
+                    person(39f, 26f, p.blue)
+                    box(12f, 39f, 26f, 5f, p.cocoa, 2f)
+                    box(21f, 32f, 7f, 8f, p.gold, 2f)
+                    line(28f, 34f, 31f, 34f, p.gold, 2f)
+                    box(19f, 5f, 15f, 11f, p.paper, 4f)
+                    shape(p.paper, 23f to 15f, 21f to 19f, 28f to 15f)
+                    heart(27f, 11f, .34f, p.cranberry)
+                }
+                StoryScene.EMOTIONAL_REUNION -> {
+                    // Two travelers embrace beside luggage on a railway platform.
+                    tile(p.sky)
+                    box(2f, 5f, 44f, 8f, p.paper)
+                    line(5f, 13f, 43f, 13f, p.cocoa, 2f)
+                    box(5f, 18f, 38f, 20f, p.gold, 2f)
+                    box(8f, 21f, 12f, 12f, p.blue)
+                    box(27f, 21f, 12f, 12f, p.blue)
+                    person(20f, 25f, p.cranberry)
+                    person(29f, 25f, p.evergreen)
+                    line(16f, 35f, 27f, 31f, p.skin, 3f)
+                    line(33f, 35f, 22f, 31f, p.skin, 3f)
+                    box(2f, 37f, 11f, 9f, p.cocoa, 2f)
+                    line(5f, 37f, 5f, 33f, p.ink, 1.5f)
+                    line(5f, 33f, 10f, 33f, p.ink, 1.5f)
+                    heart(25f, 17f, .34f, p.cranberry)
                 }
 
                 StoryScene.OLD_FLAME -> {
