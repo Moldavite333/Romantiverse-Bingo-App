@@ -8,13 +8,15 @@ import org.junit.Test
 class BingoStoryScenesTest {
     @Test fun eachIllustratedTropeHasItsOwnCanonicalScene() {
         val labels = StorySceneArt.labels()
-        assertEquals("Each mapped scene must be an independent composition", 72, labels.size)
+        assertEquals("Each mapped scene must be an independent composition", 78, labels.size)
         assertEquals("Never reuse a scene for a different trope", labels.size, StorySceneArt.uniqueSceneCount())
         assertEquals(StoryScene.entries.size, StorySceneArt.uniqueSceneCount())
+        val canonical = listOf("Romance", "Christmas", "Fall", "Horror")
+            .flatMap(BingoEngine::artworkPool).toSet()
+        assertEquals(72, canonical.size)
+        assertTrue("All original canonical scenes must remain mapped", labels.containsAll(canonical))
+        assertEquals("Six independent multiplayer launch scenes added", 6, (labels - canonical).size)
         labels.forEach { label ->
-            assertTrue("Unknown art key: $label",
-                listOf("Romance", "Christmas", "Fall", "Horror")
-                    .any { label in BingoEngine.artworkPool(it) })
             assertTrue("Missing story scene: $label", StorySceneArt.forLabel(label) != null)
         }
     }
@@ -48,8 +50,24 @@ class BingoStoryScenesTest {
         }.toSet()
         val all = romance + seasonal
         assertEquals(72, all.size)
-        assertEquals("No canonical trope may silently fall back to a shared icon", all, StorySceneArt.labels())
+        assertEquals("No canonical trope may silently fall back to a shared icon", all, StorySceneArt.labels().intersect(all))
         assertEquals(all.size, all.mapNotNull(StorySceneArt::forLabel).toSet().size)
+    }
+
+    @Test fun sixMultiplayerLaunchScenesAreIndependentAndExactLabelOnly() {
+        val launch = listOf(
+            "Career versus love dilemma",
+            "The entire town gets involved",
+            "A relative gives unsolicited love advice",
+            "Someone overhears the wrong half of a conversation",
+            "A romantic deadline approaches",
+            "Two people are forced to spend time together"
+        )
+        val art = launch.map { label ->
+            requireNotNull(StorySceneArt.forLabel(label)) { "Missing multiplayer scene: $label" }
+        }
+        assertEquals("Each multiplayer scene must have its own composition", launch.size, art.toSet().size)
+        assertNull(StorySceneArt.forLabel("career versus love dilemma"))
     }
 
     @Test fun noGenericArtworkIsMisrepresentedAsAUniqueIllustration() {
