@@ -62,6 +62,12 @@ internal object ArtworkReviewCatalog {
         "A Christmas ornament",
         "A sleigh ride",
         "A Christmas miracle",
+        "An old flame reappears",
+        "Love is confessed in public",
+        "A major change of plans",
+        "An interruption",
+        "Someone learns the true meaning of life",
+        "A big-city person returns home",
     )
 
     fun labels(theme: String): List<String> = when (theme) {

@@ -61,7 +61,7 @@ class BingoSquarePresentationTest {
             assertEquals("Only marked non-free squares get the seal", !free,
                 BingoSquarePresentation.showMarkBadge(index, true))
         }
-        assertEquals(96, StorySceneArt.labels().size)
+        assertEquals(102, StorySceneArt.labels().size)
     }
 
     @Test fun everyTropeHasAnIcon() {
