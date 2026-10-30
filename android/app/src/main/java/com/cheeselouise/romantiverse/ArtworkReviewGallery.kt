@@ -80,11 +80,18 @@ internal object ArtworkReviewCatalog {
         "Pumpkin carving",
         "Family orchard",
         "Apple picking",
+        "Cozy sweater",
+        "Fall decorations",
+        "Small-town fair",
+        "Farm stand",
+        "Harvest dance",
+        "Autumn sunset",
     )
 
     fun labels(theme: String): List<String> = when (theme) {
         "Multiplayer launch" -> multiplayerLaunchBatch
-        "Multiplayer Fall II" -> multiplayerLaunchBatch.takeLast(6)
+        "Multiplayer Fall II" -> multiplayerLaunchBatch.dropLast(6).takeLast(6)
+        "Multiplayer Fall III" -> multiplayerLaunchBatch.takeLast(6)
         "Romance" -> BingoEngine.pool(theme)
         "Christmas", "Fall", "Horror" ->
             BingoEngine.artworkPool(theme).filterNot { it in romance }
@@ -231,6 +238,19 @@ private fun PreviewFallTwoMarked() = ArtworkReviewGallery("Multiplayer Fall II",
 @Composable
 private fun PreviewFallTwoWinningLargeText() =
     ArtworkReviewGallery("Multiplayer Fall II", marked = true, winning = true)
+
+@Preview(name = "Fall III original scenes • 320dp", widthDp = 320, heightDp = 270)
+@Composable
+private fun PreviewFallThreeNarrow() = ArtworkReviewGallery("Multiplayer Fall III")
+
+@Preview(name = "Fall III marked • 360dp", widthDp = 360, heightDp = 290)
+@Composable
+private fun PreviewFallThreeMarked() = ArtworkReviewGallery("Multiplayer Fall III", marked = true)
+
+@Preview(name = "Fall III winning • large text", widthDp = 320, heightDp = 300, fontScale = 1.3f)
+@Composable
+private fun PreviewFallThreeWinningLargeText() =
+    ArtworkReviewGallery("Multiplayer Fall III", marked = true, winning = true)
 
 @Preview(name = "Cheese Louise free square • phone scale", widthDp = 80, heightDp = 118)
 @Composable
