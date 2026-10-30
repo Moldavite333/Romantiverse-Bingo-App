@@ -11,7 +11,7 @@ class LiveRoomClientTest {
         val cardJson = (0..24).joinToString(",") { """{"label":"Square $it"}""" }
         return """{
             "room": {
-                "code":"$code","movie_title":"$title","movie_collection":"Fall",
+                "code":"$code","host_player_id":"player-1","movie_title":"$title","movie_collection":"Fall",
                 "release_year":2024,"season":"Romance","mode":"classic","status":"playing",
                 "poster_url":"https://image.tmdb.org/t/p/w500/sample.jpg",
                 "players":[{"id":"player-1","name":"Host","lines":0,"marked":1}]
@@ -122,6 +122,36 @@ class LiveRoomClientTest {
         assertEquals(setOf(12), result.marks)
         assertEquals(code, result.session?.code)
         assertTrue(result.session!!.valid())
+    }
+
+    @Test fun hostOnlyRoomControlsRequireMatchingServerHostIdentity() {
+        val host = LiveRoomProtocol.parse(snapshot(1, "12"))
+        assertEquals("player-1", host.room.hostPlayerId)
+        assertTrue(host.canControlRoom)
+
+        // A guest may have a perfectly valid private session, but never
+        // receives the host's Start/Finish buttons.
+        val guestJson = snapshot(1, "12")
+            .replace("\"player_id\":\"player-1\"", "\"player_id\":\"guest-2\"")
+            .replace("\"id\":\"player-1\"", "\"id\":\"guest-2\"")
+        val guest = LiveRoomProtocol.parse(guestJson)
+        assertEquals("player-1", guest.room.hostPlayerId)
+        assertFalse(guest.canControlRoom)
+
+        // A public preview identifies the host for display only. It grants
+        // no player credentials or room-control authority.
+        val preview = LiveRoomProtocol.parse(
+            """{"room":{"code":"$code","host_player_id":"player-1",
+                "movie_title":"A Movie","season":"Romance","status":"lobby"}}"""
+        )
+        assertNull(preview.session)
+        assertFalse(preview.canControlRoom)
+
+        // Older server versions without host metadata must fail closed.
+        val missingHost = LiveRoomProtocol.parse(snapshot(1, "12")
+            .replace("\"host_player_id\":\"player-1\",", ""))
+        assertNull(missingHost.room.hostPlayerId)
+        assertFalse(missingHost.canControlRoom)
     }
 
     @Test fun olderPollCannotUndoAuthoritativeMark() {
