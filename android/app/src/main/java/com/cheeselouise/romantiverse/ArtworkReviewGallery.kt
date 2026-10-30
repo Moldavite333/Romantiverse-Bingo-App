@@ -74,6 +74,12 @@ internal object ArtworkReviewCatalog {
         "Autumn leaves",
         "Harvest festival",
         "Flannel shirt",
+        "Bonfire",
+        "Pie contest",
+        "Corn maze",
+        "Pumpkin carving",
+        "Family orchard",
+        "Apple picking",
     )
 
     fun labels(theme: String): List<String> = when (theme) {
