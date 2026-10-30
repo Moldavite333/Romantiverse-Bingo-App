@@ -178,7 +178,12 @@ object LiveRoomProtocol {
         // authenticated session only for this exact room and matching player ID.
         // A preview or join without credentials must never gain a session this way.
         val fallbackSession = previousForRoom?.session
-            ?: authenticatedSession?.takeIf { it.code == code && it.valid() }
+            // A room preview is public and carries no player identity. After a
+            // process restart, restore credentials only from a response that
+            // explicitly identifies the same authenticated player.
+            ?: authenticatedSession?.takeIf {
+                it.code == code && it.valid() && playerId == it.playerId
+            }
         val session = if (token.isNotBlank()) {
             LiveSession(code, token, playerId).takeIf { it.valid() }
         } else fallbackSession?.takeIf { playerId.isBlank() || playerId == it.playerId }

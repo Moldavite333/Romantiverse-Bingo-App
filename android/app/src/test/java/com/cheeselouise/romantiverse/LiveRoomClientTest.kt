@@ -294,6 +294,33 @@ class LiveRoomClientTest {
         assertNull(LiveRoomProtocol.parse(state).session)
     }
 
+    @Test fun sameRoomPublicPreviewCannotBorrowRestoredPlayerCredentials() {
+        val restored = LiveSession(code, token, "player-1")
+        val preview = """{
+            "room":{"code":"$code","movie_title":"Autumn at Apple Hill",
+                "movie_collection":"Fall","season":"Romance","status":"lobby","players":[]}
+        }"""
+        val result = LiveRoomProtocol.parse(preview, authenticatedSession = restored)
+        assertNull(result.session)
+        assertTrue(result.card.isEmpty())
+        assertFalse(RoomResponseGuard.accepts(1, 1, code, restored, result))
+
+        // Even a response with a private card is not proof of player identity
+        // when the server omits player_id.
+        val missingIdentity = snapshot(4, "0,12")
+            .replace("\"token\":\"$token\",", "")
+            .replace("\"player_id\":\"player-1\",", "")
+        assertNull(LiveRoomProtocol.parse(
+            missingIdentity, authenticatedSession = restored
+        ).session)
+
+        // A real authenticated state response still restores a session.
+        val validState = snapshot(4, "0,12").replace("\"token\":\"$token\",", "")
+        assertEquals(restored, LiveRoomProtocol.parse(
+            validState, authenticatedSession = restored
+        ).session)
+    }
+
     @Test fun restoredCredentialsNeverCrossRoomsOrPlayers() {
         val restored = LiveSession(code, token, "player-1")
         val state = snapshot(2, "0,12").replace("\"token\":\"$token\",", "")
