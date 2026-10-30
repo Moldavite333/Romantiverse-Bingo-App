@@ -145,6 +145,11 @@ object LiveRoomProtocol {
             }
         }
         val cardData = root.optJSONArray("card")
+        // Missing fields are valid for public previews. Present-but-malformed
+        // fields are not: never silently reuse an old private board.
+        require(!root.has("card") || cardData != null) {
+            "Invalid multiplayer Bingo card"
+        }
         val card = if (cardData != null) {
             // A truncated or malformed authoritative card must never replace a
             // playable 5x5 board. Room previews omit card entirely.
@@ -167,10 +172,32 @@ object LiveRoomProtocol {
             labels
         } else previousForRoom?.card.orEmpty()
         val marksData = root.optJSONArray("marked")
-        val marks = if (marksData != null) (0 until marksData.length()).mapNotNull { i ->
-            marksData.optInt(i, -1).takeIf { it in 0..24 }
-        }.toSet() else previousForRoom?.marks.orEmpty()
-        val revision = root.optInt("revision", previousForRoom?.revision ?: 0)
+        require(!root.has("marked") || marksData != null) {
+            "Invalid multiplayer marked squares"
+        }
+        val marks = if (marksData != null) {
+            // A partial or coerced server response could otherwise erase earned
+            // marks or invent a Bingo. Preserve the previous snapshot on failure.
+            require(marksData.length() <= 25) { "Too many multiplayer marks" }
+            val indices = (0 until marksData.length()).map { i ->
+                val value = marksData.opt(i)
+                require(value is Int && value in 0..24) {
+                    "Invalid multiplayer marked square"
+                }
+                value
+            }
+            require(indices.distinct().size == indices.size) {
+                "Duplicate multiplayer marked square"
+            }
+            indices.toSet()
+        } else previousForRoom?.marks.orEmpty()
+        val revision = if (root.has("revision")) {
+            // Numeric strings and fractional values must not bypass the
+            // stale-response guard through optInt's coercion/truncation.
+            val value = root.opt("revision")
+            require(value is Int && value >= 0) { "Invalid multiplayer revision" }
+            value
+        } else previousForRoom?.revision ?: 0
         val token = root.optString("token")
         val playerId = root.optString("player_id")
         // State/mark/start/finish responses intentionally never echo the secret token.
