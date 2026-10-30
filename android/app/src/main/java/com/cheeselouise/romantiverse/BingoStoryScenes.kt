@@ -39,7 +39,9 @@ internal enum class StoryScene {
     PUMPKIN_PATCH, AUTUMN_FESTIVAL, HAYRIDE, HARVEST_MARKET, PIE_CONTEST, COZY_SWEATER, FALLING_LEAVES, APPLE_ORCHARD, BONFIRE, FALL_FUNDRAISER, PUMPKIN_CARVING, FOLIAGE_DRIVE,
     CREAKING_DOOR, OMINOUS_SHADOW, SUDDEN_SCREAM, FLASHLIGHT_FAILS, STRANGE_NOISE, CREEPY_HALLWAY, MYSTERIOUS_WARNING, JUMP_SCARE, EERIE_PHONE_CALL, LOCKED_DOOR, ABANDONED_HOUSE, FINAL_REVEAL,
     CAREER_OR_LOVE, TOWN_GETS_INVOLVED, RELATIVE_ADVICE,
-    OVERHEARD_HALF, ROMANTIC_DEADLINE, FORCED_TOGETHER
+    OVERHEARD_HALF, ROMANTIC_DEADLINE, FORCED_TOGETHER,
+    DRAMATIC_EXIT, BUSINESS_RESCUE, LAST_POSSIBLE_MOMENT,
+    COINCIDENCE, SECRET_DISCOVERED, SURPRISE_ANNOUNCEMENT
 }
 
 internal object StorySceneArt {
@@ -75,6 +77,12 @@ internal object StorySceneArt {
         "Someone overhears the wrong half of a conversation" to StoryScene.OVERHEARD_HALF,
         "A romantic deadline approaches" to StoryScene.ROMANTIC_DEADLINE,
         "Two people are forced to spend time together" to StoryScene.FORCED_TOGETHER,
+        "A dramatic exit" to StoryScene.DRAMATIC_EXIT,
+        "A beloved business must be saved" to StoryScene.BUSINESS_RESCUE,
+        "Someone arrives at the last possible moment" to StoryScene.LAST_POSSIBLE_MOMENT,
+        "A coincidence" to StoryScene.COINCIDENCE,
+        "A secret is discovered" to StoryScene.SECRET_DISCOVERED,
+        "A surprise announcement" to StoryScene.SURPRISE_ANNOUNCEMENT,
         "First meeting" to StoryScene.FIRST_MEETING,
         "A misunderstanding" to StoryScene.MISUNDERSTANDING,
         "The almost-kiss" to StoryScene.ALMOST_KISS,
@@ -1298,6 +1306,105 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(21f, 6f, 17f, 5f, p.gold, 1.5f)
                     dot(29f, 7f, 1.5f, p.gold)
                     heart(24f, 20f, .3f, p.cranberry)
+                }
+
+
+                // Multiplayer launch batch two: six distinct story moments.
+                StoryScene.DRAMATIC_EXIT -> {
+                    // A flung-open cottage door, departing guest, and dropped love note.
+                    tile(p.blush)
+                    box(2f, 7f, 27f, 39f, p.paper)
+                    box(6f, 11f, 19f, 34f, p.cocoa)
+                    shape(p.evergreen, 25f to 11f, 37f to 6f, 37f to 43f, 25f to 45f)
+                    dot(33f, 28f, 1.5f, p.gold)
+                    person(14f, 22f, p.cranberry)
+                    box(4f, 36f, 13f, 9f, p.blue, 2f)
+                    line(7f, 36f, 7f, 32f, p.ink, 2f)
+                    line(7f, 32f, 13f, 32f, p.ink, 2f)
+                    box(27f, 35f, 15f, 9f, p.paper, 1f)
+                    heart(35f, 39f, .28f, p.cranberry)
+                    line(40f, 14f, 46f, 9f, p.gold, 2f)
+                    line(41f, 21f, 47f, 21f, p.gold, 2f)
+                }
+                StoryScene.BUSINESS_RESCUE -> {
+                    // Two neighbors repair a bakery's broken awning beneath a warm window.
+                    tile(p.sky)
+                    box(4f, 15f, 40f, 30f, p.paper)
+                    shape(p.cranberry, 2f to 16f, 24f to 5f, 46f to 16f)
+                    box(8f, 18f, 32f, 8f, p.gold)
+                    line(8f, 22f, 40f, 22f, p.paper, 1.5f)
+                    box(13f, 27f, 22f, 18f, p.blue)
+                    box(16f, 29f, 16f, 12f, p.gold)
+                    line(24f, 29f, 24f, 41f, p.paper, 1.3f)
+                    person(7f, 32f, p.evergreen)
+                    person(42f, 32f, p.cranberry)
+                    line(12f, 39f, 19f, 23f, p.cocoa, 2f)
+                    line(18f, 21f, 23f, 24f, p.ink, 3f)
+                    dot(36f, 11f, 3f, p.gold)
+                }
+                StoryScene.LAST_POSSIBLE_MOMENT -> {
+                    // A traveler sprints to a departing train as the station clock strikes.
+                    tile(p.blue)
+                    box(3f, 16f, 37f, 23f, p.paper, 3f)
+                    box(7f, 20f, 11f, 10f, p.gold)
+                    box(22f, 20f, 11f, 10f, p.gold)
+                    line(3f, 34f, 39f, 34f, p.cranberry, 3f)
+                    dot(11f, 40f, 4f, p.ink)
+                    dot(32f, 40f, 4f, p.ink)
+                    dot(34f, 9f, 8f, p.paper)
+                    line(34f, 9f, 34f, 4f, p.ink, 1.6f)
+                    line(34f, 9f, 39f, 12f, p.ink, 1.6f)
+                    person(43f, 29f, p.cranberry)
+                    line(39f, 41f, 34f, 44f, p.ink, 2.5f)
+                    box(34f, 34f, 8f, 7f, p.cocoa, 1f)
+                    line(37f, 34f, 37f, 31f, p.gold, 1.5f)
+                }
+                StoryScene.COINCIDENCE -> {
+                    // Two strangers reach for identical dropped red mittens at a crossing.
+                    tile(p.sky)
+                    shape(p.paper, 0f to 38f, 48f to 38f, 48f to 48f, 0f to 48f)
+                    line(5f, 43f, 43f, 43f, p.gold, 2f)
+                    person(12f, 18f, p.blue)
+                    person(36f, 18f, p.evergreen)
+                    line(16f, 30f, 21f, 36f, p.skin, 2.5f)
+                    line(32f, 30f, 27f, 36f, p.skin, 2.5f)
+                    box(18f, 36f, 8f, 6f, p.cranberry, 2f)
+                    box(25f, 35f, 7f, 6f, p.cranberry, 2f)
+                    line(21f, 35f, 21f, 32f, p.paper, 1f)
+                    line(28f, 34f, 28f, 31f, p.paper, 1f)
+                    dot(24f, 9f, 4f, p.gold)
+                    heart(24f, 18f, .34f, p.cranberry)
+                }
+                StoryScene.SECRET_DISCOVERED -> {
+                    // An attic trunk reveals a hidden letter beneath a dusty skylight.
+                    tile(p.blush)
+                    shape(p.cocoa, 1f to 18f, 24f to 2f, 47f to 18f)
+                    box(7f, 19f, 34f, 26f, p.paper)
+                    box(16f, 6f, 16f, 13f, p.blue)
+                    line(24f, 6f, 24f, 19f, p.paper, 1f)
+                    box(8f, 30f, 32f, 14f, p.cocoa, 3f)
+                    shape(p.gold, 8f to 30f, 14f to 21f, 36f to 21f, 40f to 30f)
+                    box(17f, 23f, 15f, 13f, p.paper, 1f)
+                    line(19f, 25f, 30f, 25f, p.blue, 1.5f)
+                    heart(24f, 31f, .36f, p.cranberry)
+                    dot(24f, 39f, 2f, p.gold)
+                    dot(41f, 17f, 2f, p.gold)
+                }
+                StoryScene.SURPRISE_ANNOUNCEMENT -> {
+                    // A town-hall unveiling: a ribbon falls, revealing a heart on a banner.
+                    tile(p.sky)
+                    box(4f, 5f, 40f, 28f, p.paper)
+                    shape(p.evergreen, 2f to 12f, 24f to 2f, 46f to 12f)
+                    box(9f, 15f, 30f, 15f, p.gold, 2f)
+                    heart(24f, 22f, .62f, p.cranberry)
+                    shape(p.cranberry, 7f to 12f, 18f to 20f, 7f to 30f)
+                    shape(p.cranberry, 41f to 12f, 30f to 20f, 41f to 30f)
+                    person(10f, 34f, p.blue)
+                    person(24f, 34f, p.cranberry)
+                    person(39f, 34f, p.evergreen)
+                    line(18f, 37f, 21f, 32f, p.skin, 2f)
+                    dot(17f, 8f, 2f, p.gold)
+                    dot(35f, 8f, 2f, p.gold)
                 }
 
                 StoryScene.OLD_FLAME -> {

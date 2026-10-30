@@ -43,7 +43,13 @@ internal object ArtworkReviewCatalog {
         "A relative gives unsolicited love advice",
         "Someone overhears the wrong half of a conversation",
         "A romantic deadline approaches",
-        "Two people are forced to spend time together"
+        "Two people are forced to spend time together",
+        "A dramatic exit",
+        "A beloved business must be saved",
+        "Someone arrives at the last possible moment",
+        "A coincidence",
+        "A secret is discovered",
+        "A surprise announcement"
     )
 
     fun labels(theme: String): List<String> = when (theme) {
@@ -169,15 +175,15 @@ private fun PreviewWinning() = ArtworkReviewGallery("Romance", marked = true, wi
 private fun PreviewLargeText() = ArtworkReviewGallery("Romance")
 
 
-@Preview(name = "Multiplayer original scenes • 320dp", widthDp = 320, heightDp = 360)
+@Preview(name = "Multiplayer original scenes • 320dp", widthDp = 320, heightDp = 530)
 @Composable
 private fun PreviewMultiplayerNarrow() = ArtworkReviewGallery("Multiplayer launch")
 
-@Preview(name = "Multiplayer marked scenes • 360dp", widthDp = 360, heightDp = 360)
+@Preview(name = "Multiplayer marked scenes • 360dp", widthDp = 360, heightDp = 530)
 @Composable
 private fun PreviewMultiplayerMarked() = ArtworkReviewGallery("Multiplayer launch", marked = true)
 
-@Preview(name = "Multiplayer winning scenes • large text", widthDp = 320, heightDp = 400, fontScale = 1.3f)
+@Preview(name = "Multiplayer winning scenes • large text", widthDp = 320, heightDp = 590, fontScale = 1.3f)
 @Composable
 private fun PreviewMultiplayerWinningLargeText() =
     ArtworkReviewGallery("Multiplayer launch", marked = true, winning = true)
