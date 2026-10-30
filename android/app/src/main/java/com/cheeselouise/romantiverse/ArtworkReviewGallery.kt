@@ -55,7 +55,13 @@ internal object ArtworkReviewCatalog {
         "A sentimental family heirloom",
         "Someone changes their mind",
         "A stranger knows exactly what to say",
-        "An emotional reunion"
+        "An emotional reunion",
+        "A Christmas carol",
+        "An ugly sweater",
+        "A snowball fight",
+        "A Christmas ornament",
+        "A sleigh ride",
+        "A Christmas miracle",
     )
 
     fun labels(theme: String): List<String> = when (theme) {
