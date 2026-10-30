@@ -47,6 +47,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import coil.compose.AsyncImage
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -185,6 +186,7 @@ fun LiveRoomScreen(
                     }.onSuccess { accepted ->
                         error = RoomConnectionFeedback.afterState(error, accepted)
                     }.onFailure { failure ->
+                        if (failure is CancellationException) throw failure
                         if (roomGeneration == requestGeneration && session == activeSession)
                             error = RoomConnectionFeedback.failureMessage(failure.message)
                     }
