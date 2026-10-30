@@ -10,6 +10,7 @@ import java.net.URL
 import java.net.URLDecoder
 import java.io.Reader
 import java.util.Locale
+import java.text.Normalizer
 
 /** Launch-only multiplayer scope; archived horror content belongs in a separate future app. */
 object LaunchRoomScope {
@@ -148,15 +149,22 @@ object LiveRoomProtocol {
             // A truncated or malformed authoritative card must never replace a
             // playable 5x5 board. Room previews omit card entirely.
             require(cardData.length() == 25) { "Incomplete multiplayer Bingo card" }
-            (0 until cardData.length()).map { i ->
+            val labels = (0 until cardData.length()).map { i ->
                 val square = cardData.optJSONObject(i)
-                require(square != null && square.has("label") && !square.isNull("label")) {
+                val label = square?.opt("label")
+                require(label is String && label.isNotBlank()) {
                     "Invalid multiplayer Bingo square"
                 }
-                val label = square.getString("label")
-                require(label.isNotBlank()) { "Invalid multiplayer Bingo square" }
                 label
             }
+            // The server deals unique visible tropes, not merely unique IDs.
+            // Refuse a corrupted card rather than showing two identical squares.
+            val visible = labels.map {
+                Normalizer.normalize(it, Normalizer.Form.NFKC)
+                    .trim().replace(Regex("\\s+"), " ").lowercase(Locale.ROOT)
+            }
+            require(visible.toSet().size == 25) { "Duplicate multiplayer Bingo square" }
+            labels
         } else previousForRoom?.card.orEmpty()
         val marksData = root.optJSONArray("marked")
         val marks = if (marksData != null) (0 until marksData.length()).mapNotNull { i ->
