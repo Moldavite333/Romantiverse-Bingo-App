@@ -144,8 +144,15 @@ object LiveRoomProtocol {
             }
         }
         val cardData = root.optJSONArray("card")
-        val card = if (cardData != null) (0 until cardData.length()).map { i ->
-            cardData.optJSONObject(i)?.optString("label") ?: ""
+        val card = if (cardData != null) {
+            // A truncated or malformed authoritative card must never replace a
+            // playable 5x5 board. Room previews omit card entirely.
+            require(cardData.length() == 25) { "Incomplete multiplayer Bingo card" }
+            (0 until cardData.length()).map { i ->
+                val label = cardData.optJSONObject(i)?.optString("label").orEmpty()
+                require(label.isNotBlank()) { "Invalid multiplayer Bingo square" }
+                label
+            }
         } else previousForRoom?.card.orEmpty()
         val marksData = root.optJSONArray("marked")
         val marks = if (marksData != null) (0 until marksData.length()).mapNotNull { i ->
