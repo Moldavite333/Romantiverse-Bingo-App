@@ -45,7 +45,9 @@ internal enum class StoryScene {
     CHRISTMAS_CAROLERS, UGLY_CHRISTMAS_SWEATER, SNOWBALL_FIGHT,
     GLASS_ORNAMENT, SLEIGH_RIDE, CHRISTMAS_MIRACLE,
     ROMANTIC_REALIZATION, ROMANTIC_RIVAL_TRIANGLE, FAMILY_HEIRLOOM_LOCKET,
-    CHANGE_OF_HEART_TURN, STRANGER_COMFORTS, EMOTIONAL_REUNION
+    CHANGE_OF_HEART_TURN, STRANGER_COMFORTS, EMOTIONAL_REUNION,
+    OLD_FLAME_REAPPEARS, PUBLIC_LOVE_CONFESSION, MAJOR_PLANS_CHANGE,
+    UNEXPECTED_INTERRUPTION, MEANING_OF_LIFE, CITY_PERSON_RETURNS
 }
 
 internal object StorySceneArt {
@@ -99,6 +101,12 @@ internal object StorySceneArt {
         "A Christmas ornament" to StoryScene.GLASS_ORNAMENT,
         "A sleigh ride" to StoryScene.SLEIGH_RIDE,
         "A Christmas miracle" to StoryScene.CHRISTMAS_MIRACLE,
+        "An old flame reappears" to StoryScene.OLD_FLAME_REAPPEARS,
+        "Love is confessed in public" to StoryScene.PUBLIC_LOVE_CONFESSION,
+        "A major change of plans" to StoryScene.MAJOR_PLANS_CHANGE,
+        "An interruption" to StoryScene.UNEXPECTED_INTERRUPTION,
+        "Someone learns the true meaning of life" to StoryScene.MEANING_OF_LIFE,
+        "A big-city person returns home" to StoryScene.CITY_PERSON_RETURNS,
         "First meeting" to StoryScene.FIRST_MEETING,
         "A misunderstanding" to StoryScene.MISUNDERSTANDING,
         "The almost-kiss" to StoryScene.ALMOST_KISS,
@@ -1628,6 +1636,105 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     person(41f, 34f, p.evergreen)
                     dot(5f, 20f, 1.4f, p.snow)
                     dot(43f, 17f, 1.5f, p.snow)
+                }
+
+
+                // Multiplayer launch batch five: six cheese tropes with independent focal scenes.
+                StoryScene.OLD_FLAME_REAPPEARS -> {
+                    // A former sweetheart waits outside a bakery holding an old photograph.
+                    tile(p.blush)
+                    box(3f, 9f, 29f, 35f, p.paper)
+                    box(6f, 13f, 23f, 7f, p.cranberry)
+                    line(8f, 17f, 27f, 17f, p.gold, 1.4f)
+                    box(10f, 23f, 12f, 20f, p.blue)
+                    person(38f, 22f, p.evergreen)
+                    box(24f, 28f, 11f, 13f, p.cocoa, 1f)
+                    box(26f, 30f, 7f, 9f, p.paper, 1f)
+                    dot(29.5f, 33f, 2f, p.skin)
+                    oval(27f, 35f, 5f, 3f, p.cranberry)
+                    line(34f, 35f, 37f, 33f, p.skin, 2f)
+                    heart(37f, 10f, .43f, p.cranberry)
+                }
+                StoryScene.PUBLIC_LOVE_CONFESSION -> {
+                    // A declaration from the town gazebo microphone, heard by the crowd.
+                    tile(p.sky)
+                    shape(p.paper, 1f to 17f, 24f to 4f, 47f to 17f)
+                    box(6f, 18f, 36f, 19f, p.paper)
+                    line(8f, 18f, 8f, 39f, p.cocoa, 2f)
+                    line(40f, 18f, 40f, 39f, p.cocoa, 2f)
+                    person(24f, 15f, p.cranberry)
+                    line(29f, 23f, 34f, 19f, p.ink, 1.5f)
+                    dot(34f, 18f, 2.4f, p.ink)
+                    heart(14f, 12f, .4f, p.cranberry)
+                    person(8f, 35f, p.blue)
+                    person(39f, 35f, p.evergreen)
+                    dot(18f, 44f, 3f, p.gold)
+                    dot(29f, 44f, 3f, p.gold)
+                }
+                StoryScene.MAJOR_PLANS_CHANGE -> {
+                    // A road map is rerouted around a canceled train itinerary.
+                    tile(p.blush)
+                    box(3f, 5f, 42f, 36f, p.paper, 2f)
+                    shape(p.blue, 7f to 9f, 20f to 6f, 28f to 12f, 40f to 8f,
+                        40f to 35f, 27f to 31f, 17f to 37f, 7f to 34f)
+                    line(12f, 13f, 35f, 32f, p.paper, 3f)
+                    line(13f, 32f, 35f, 14f, p.gold, 3f)
+                    dot(13f, 32f, 3f, p.cranberry)
+                    dot(35f, 14f, 3f, p.evergreen)
+                    shape(p.cranberry, 34f to 9f, 43f to 12f, 37f to 18f)
+                    box(12f, 39f, 25f, 7f, p.cocoa, 2f)
+                    line(17f, 42f, 31f, 42f, p.paper, 1.5f)
+                }
+                StoryScene.UNEXPECTED_INTERRUPTION -> {
+                    // A ringing telephone cuts across a candlelit dinner for two.
+                    tile(p.blush)
+                    person(9f, 13f, p.blue)
+                    person(39f, 13f, p.cranberry)
+                    box(6f, 34f, 36f, 6f, p.cocoa)
+                    line(10f, 40f, 10f, 46f, p.ink, 2f)
+                    line(38f, 40f, 38f, 46f, p.ink, 2f)
+                    box(22f, 25f, 4f, 9f, p.paper)
+                    shape(p.gold, 24f to 18f, 21f to 25f, 27f to 25f)
+                    box(26f, 30f, 17f, 8f, p.ink, 2f)
+                    box(29f, 32f, 11f, 4f, p.gold, 1f)
+                    line(28f, 26f, 30f, 23f, p.cranberry, 1.5f)
+                    line(33f, 26f, 33f, 21f, p.cranberry, 1.5f)
+                    line(38f, 26f, 40f, 23f, p.cranberry, 1.5f)
+                }
+                StoryScene.MEANING_OF_LIFE -> {
+                    // A volunteer serves a warm meal while a neighbor offers flowers.
+                    tile(p.sky)
+                    box(3f, 8f, 42f, 28f, p.paper)
+                    box(7f, 12f, 34f, 17f, p.blush)
+                    person(12f, 22f, p.evergreen)
+                    person(38f, 22f, p.blue)
+                    box(7f, 38f, 34f, 6f, p.cocoa)
+                    oval(18f, 34f, 15f, 6f, p.gold)
+                    oval(20f, 33f, 11f, 4f, p.paper)
+                    line(15f, 32f, 21f, 35f, p.skin, 2.5f)
+                    line(32f, 32f, 28f, 34f, p.skin, 2.5f)
+                    line(27f, 27f, 30f, 17f, p.evergreen, 1.6f)
+                    dot(30f, 16f, 3f, p.cranberry)
+                    heart(24f, 8f, .35f, p.cranberry)
+                }
+                StoryScene.CITY_PERSON_RETURNS -> {
+                    // A traveler steps off the bus at a mountain-town welcome sign.
+                    tile(p.sky)
+                    shape(p.evergreen, 0f to 27f, 11f to 14f, 23f to 28f,
+                        36f to 12f, 48f to 27f, 48f to 48f, 0f to 48f)
+                    shape(p.paper, 0f to 40f, 24f to 32f, 48f to 40f,
+                        48f to 48f, 0f to 48f)
+                    box(2f, 23f, 25f, 14f, p.blue, 2f)
+                    box(5f, 26f, 8f, 6f, p.gold)
+                    box(16f, 26f, 8f, 6f, p.gold)
+                    dot(9f, 38f, 3f, p.ink)
+                    dot(22f, 38f, 3f, p.ink)
+                    box(34f, 9f, 2f, 27f, p.cocoa, 1f)
+                    box(28f, 10f, 18f, 9f, p.gold, 1f)
+                    heart(37f, 14f, .3f, p.cranberry)
+                    person(34f, 30f, p.cranberry)
+                    box(40f, 37f, 7f, 8f, p.cocoa, 1f)
+                    line(42f, 37f, 42f, 34f, p.gold, 1.3f)
                 }
 
                 StoryScene.OLD_FLAME -> {
