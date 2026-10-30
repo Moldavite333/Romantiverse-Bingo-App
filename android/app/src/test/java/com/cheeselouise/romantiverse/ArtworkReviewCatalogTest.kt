@@ -20,6 +20,16 @@ class ArtworkReviewCatalogTest {
         }
     }
 
+    @Test fun multiplayerLaunchPreviewContainsOnlyNewDedicatedScenes() {
+        val labels = ArtworkReviewCatalog.labels("Multiplayer launch")
+        assertEquals(6, labels.size)
+        assertEquals(labels.size, labels.toSet().size)
+        labels.forEach { label ->
+            assertTrue("Shared multiplayer motif still used for $label",
+                StorySceneArt.forLabel(label) != null)
+        }
+    }
+
     @Test fun previewDoesNotSilentlyTreatUnknownThemesAsRomance() {
         assertTrue(ArtworkReviewCatalog.labels("Unlisted").isEmpty())
     }
