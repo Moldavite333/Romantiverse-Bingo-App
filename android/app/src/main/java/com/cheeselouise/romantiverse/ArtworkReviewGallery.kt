@@ -96,7 +96,7 @@ internal object ArtworkReviewCatalog {
 
     fun labels(theme: String): List<String> = when (theme) {
         "Multiplayer launch" -> multiplayerLaunchBatch
-        "Multiplayer Fall II" -> multiplayerLaunchBatch.dropLast(6).takeLast(6)
+        "Multiplayer Fall II" -> multiplayerLaunchBatch.dropLast(12).takeLast(6)
         "Multiplayer Fall III" -> multiplayerLaunchBatch.dropLast(6).takeLast(6)
         "Multiplayer Fall IV" -> multiplayerLaunchBatch.takeLast(6)
         "Romance" -> BingoEngine.pool(theme)
