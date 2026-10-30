@@ -20,6 +20,19 @@ This is a **native Jetpack Compose Android app**, not a WebView, TWA, or wrapped
 
 This is an incremental foundation, **not a Play Store release**. The native multiplayer implementation compiles and passes protocol tests; **native-to-native and native-to-web end-to-end testing on real devices is still pending**. Android app-link verification, signed release AAB, Play Store identity and policy declarations, tablet accessibility testing, device performance, and physical Samsung clipboard/share QA are also pending. The Android debug APK is for internal testing only. No login, payments, tracking, or private HQ data.
 
+
+## Physical Samsung acceptance and performance capture (pending device results)
+
+The GitHub APK build and JUnit tests do **not** establish that the app runs smoothly on a Samsung. This validation must be performed with a physical phone and a second phone/browser for multiplayer.
+
+1. Install the current **native debug APK** from the GitHub Actions artifact. Enable USB debugging and authorize the computer in the Android developer settings. Install Android platform-tools (adb) and Node 20+ on the computer. Use `adb devices` to verify the phone is connected.
+2. Run `node scripts/android-device-perf.mjs --hz 60` from the repository root. The script force-stops and relaunches the app five times, clears prior frame records, then waits while you play for at least 60 seconds. Mark/unmark tiles, finish a Bingo, scroll poster results, switch tabs, and open Together before pressing Enter.
+3. The script writes **android-device-performance.json** locally with the phone model, Android version, five relaunch times, median launch time, UI frame-time percentiles, percentage over the specified frame budget, and total PSS memory. Nothing is uploaded. Set `--hz 120` only when evaluating against a 120 Hz budget; 60 Hz remains the launch target. Frame timing is a proxy, **not** proof of 60 displayed frames per second or input latency. No sample means **not validated**, never a pass.
+4. Manually verify the actual user experience: legibility of all 25 tiles, mark and win animations, optional haptics, reduced-motion system setting, offline solo play and restored marks after force-stop, share/copy invite link, two different cards in a shared room, synchronized marks, reconnect after airplane mode, and phone rotation. Repeat on a tablet before Play Store approval.
+5. Log measured results and reproduction steps for any dropped frames, crashes, clipped UI, lost progress or multiplayer disagreement. Fix and rerun the same scenarios. **Do not mark device/performance acceptance complete until measured physical-device evidence exists.**
+
+This is an internal diagnostics tool, not analytics or a benchmark claim. Force-stop relaunches are not first-install cold starts. Run Android Studio Profiler/Perfetto for deeper traces if the measurements expose jank. The tool never accesses private HQ data.
+
 ## Build
 
 With JDK 17, Android SDK 35, and Gradle 8.9 installed:

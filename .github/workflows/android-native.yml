@@ -7,6 +7,7 @@ on:
       - 'public/catalog/movies.json'
       - 'supabase/functions/game-room/index.ts'
       - 'scripts/verify-native-launch-artwork.mjs'
+      - 'scripts/android-device-perf.mjs'
       - '.github/workflows/android-native.yml'
   pull_request:
     paths:
@@ -39,6 +40,8 @@ jobs:
           gradle-version: '8.9'
       - name: Verify native artwork covers authoritative multiplayer launch labels
         run: node scripts/verify-native-launch-artwork.mjs
+      - name: Regression-check Samsung frame and launch metric parsing
+        run: node scripts/android-device-perf.mjs --self-test
       - name: Test native game rules and build real Android APK
         run: gradle -p android --no-daemon :app:testDebugUnitTest :app:assembleDebug
       - name: Verify APK contains the public offline catalog
