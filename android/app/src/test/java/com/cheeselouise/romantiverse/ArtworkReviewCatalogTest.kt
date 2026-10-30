@@ -22,12 +22,21 @@ class ArtworkReviewCatalogTest {
 
     @Test fun multiplayerLaunchPreviewContainsOnlyNewDedicatedScenes() {
         val labels = ArtworkReviewCatalog.labels("Multiplayer launch")
-        assertEquals(36, labels.size)
+        assertEquals(42, labels.size)
         assertEquals(labels.size, labels.toSet().size)
         labels.forEach { label ->
             assertTrue("Shared multiplayer motif still used for $label",
                 StorySceneArt.forLabel(label) != null)
         }
+    }
+
+    @Test fun fallTwoGalleryShowsAllSixAtPhoneScale() {
+        val labels = ArtworkReviewCatalog.labels("Multiplayer Fall II")
+        assertEquals(
+            listOf("Bonfire", "Pie contest", "Corn maze", "Pumpkin carving",
+                "Family orchard", "Apple picking"), labels
+        )
+        assertEquals(6, labels.mapNotNull(StorySceneArt::forLabel).toSet().size)
     }
 
     @Test fun previewDoesNotSilentlyTreatUnknownThemesAsRomance() {
