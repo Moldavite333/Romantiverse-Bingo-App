@@ -5,11 +5,15 @@ on:
     paths:
       - 'android/**'
       - 'public/catalog/movies.json'
+      - 'supabase/functions/game-room/index.ts'
+      - 'scripts/verify-native-launch-artwork.mjs'
       - '.github/workflows/android-native.yml'
   pull_request:
     paths:
       - 'android/**'
       - 'public/catalog/movies.json'
+      - 'supabase/functions/game-room/index.ts'
+      - 'scripts/verify-native-launch-artwork.mjs'
       - '.github/workflows/android-native.yml'
   workflow_dispatch:
 jobs:
@@ -33,6 +37,8 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+      - name: Verify native artwork covers authoritative multiplayer launch labels
+        run: node scripts/verify-native-launch-artwork.mjs
       - name: Test native game rules and build real Android APK
         run: gradle -p android --no-daemon :app:testDebugUnitTest :app:assembleDebug
       - name: Verify APK contains the public offline catalog
