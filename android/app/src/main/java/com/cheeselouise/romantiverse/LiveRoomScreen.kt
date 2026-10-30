@@ -137,14 +137,14 @@ fun LiveRoomScreen(
         }
     }
 
-    fun accept(response: String, requestGeneration: Int, expectedCode: String? = null) {
+    fun accept(response: String, requestGeneration: Int, expectedCode: String? = null): Boolean {
         val next = LiveRoomProtocol.parse(response, snapshot, session)
         if (!RoomResponseGuard.accepts(
                 requestGeneration, roomGeneration, expectedCode, session, next
-            )) return
+            )) return false
         if (!LaunchRoomScope.supports(next.room.movie.theme, next.room.movie.collection)) {
             error = LaunchRoomScope.UNSUPPORTED_MESSAGE
-            return
+            return false
         }
         val newLines = BingoCelebrationRules.newlyConfirmed(snapshot, next)
         val blackoutMode = next.room.movie.mode == "blackout"
@@ -164,6 +164,7 @@ fun LiveRoomScreen(
                     .putString("player_id", new.playerId).apply()
             }
         }
+        return true
     }
 
     // Poll only while this screen is visible and the app is foregrounded.
@@ -177,10 +178,11 @@ fun LiveRoomScreen(
                     runCatching {
                         LiveRoomClient.request(LiveRoomClient.payload("state", activeSession))
                     }.onSuccess {
-                        accept(it, requestGeneration, activeSession.code)
-                    }.onFailure {
+                        val accepted = accept(it, requestGeneration, activeSession.code)
+                        error = RoomConnectionFeedback.afterState(error, accepted)
+                    }.onFailure { failure ->
                         if (roomGeneration == requestGeneration && session == activeSession)
-                            error = "Connection interrupted. Your room will reconnect automatically."
+                            error = RoomConnectionFeedback.failureMessage(failure.message)
                     }
                 }
                 delay(3000)
