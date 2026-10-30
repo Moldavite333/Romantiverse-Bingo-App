@@ -37,8 +37,17 @@ import androidx.compose.ui.unit.sp
  */
 internal object ArtworkReviewCatalog {
     private val romance = BingoEngine.pool("Romance").toSet()
+    private val multiplayerLaunchBatch = listOf(
+        "Career versus love dilemma",
+        "The entire town gets involved",
+        "A relative gives unsolicited love advice",
+        "Someone overhears the wrong half of a conversation",
+        "A romantic deadline approaches",
+        "Two people are forced to spend time together"
+    )
 
     fun labels(theme: String): List<String> = when (theme) {
+        "Multiplayer launch" -> multiplayerLaunchBatch
         "Romance" -> BingoEngine.pool(theme)
         "Christmas", "Fall", "Horror" ->
             BingoEngine.artworkPool(theme).filterNot { it in romance }
@@ -159,6 +168,19 @@ private fun PreviewWinning() = ArtworkReviewGallery("Romance", marked = true, wi
 @Composable
 private fun PreviewLargeText() = ArtworkReviewGallery("Romance")
 
+
+@Preview(name = "Multiplayer original scenes • 320dp", widthDp = 320, heightDp = 360)
+@Composable
+private fun PreviewMultiplayerNarrow() = ArtworkReviewGallery("Multiplayer launch")
+
+@Preview(name = "Multiplayer marked scenes • 360dp", widthDp = 360, heightDp = 360)
+@Composable
+private fun PreviewMultiplayerMarked() = ArtworkReviewGallery("Multiplayer launch", marked = true)
+
+@Preview(name = "Multiplayer winning scenes • large text", widthDp = 320, heightDp = 400, fontScale = 1.3f)
+@Composable
+private fun PreviewMultiplayerWinningLargeText() =
+    ArtworkReviewGallery("Multiplayer launch", marked = true, winning = true)
 
 @Preview(name = "Cheese Louise free square • phone scale", widthDp = 80, heightDp = 118)
 @Composable
