@@ -54,6 +54,7 @@ internal enum class StoryScene {
     FAMILY_ORCHARD, APPLE_PICKING,
     MULTI_COZY_SWEATER, FALL_DECORATIONS, SMALL_TOWN_FAIR,
     FARM_STAND, HARVEST_DANCE, AUTUMN_SUNSET,
+    FALL_TRADITION_TABLE, APPLE_PIE_WINDOW, FALL_ROMANCE_BRIDGE, CRISP_AUTUMN_MORNING,
     PUMPKIN_SPICE_LATTE, FESTIVAL_CLOCK, SCARECROW_FIELD,
     BARN_PARTY_NIGHT, LEAF_PEEPING_LOOKOUT, SUDDEN_FALL_STORM
 }
@@ -134,6 +135,10 @@ internal object StorySceneArt {
         "Farm stand" to StoryScene.FARM_STAND,
         "Harvest dance" to StoryScene.HARVEST_DANCE,
         "Autumn sunset" to StoryScene.AUTUMN_SUNSET,
+        "Fall tradition" to StoryScene.FALL_TRADITION_TABLE,
+        "Apple pie" to StoryScene.APPLE_PIE_WINDOW,
+        "A fall romance" to StoryScene.FALL_ROMANCE_BRIDGE,
+        "Crisp autumn morning" to StoryScene.CRISP_AUTUMN_MORNING,
         "Pumpkin spice" to StoryScene.PUMPKIN_SPICE_LATTE,
         "Festival deadline" to StoryScene.FESTIVAL_CLOCK,
         "Scarecrow" to StoryScene.SCARECROW_FIELD,
@@ -2266,6 +2271,70 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(3f, 46f, 45f, 46f, p.cocoa, 1.7f)
                 }
 
+                // Final Fall multiplayer scenes: four distinct, offline storybook compositions.
+                StoryScene.FALL_TRADITION_TABLE -> {
+                    // A family gathering around a harvest table with a handmade wreath.
+                    tile(p.blush)
+                    box(4f, 30f, 40f, 5f, p.cocoa)
+                    line(8f, 35f, 8f, 46f, p.cocoa, 2.5f)
+                    line(40f, 35f, 40f, 46f, p.cocoa, 2.5f)
+                    oval(16f, 26f, 16f, 6f, p.paper)
+                    oval(20f, 24f, 8f, 6f, p.gold)
+                    dot(24f, 26f, 2f, p.cranberry)
+                    person(10f, 17f, p.evergreen)
+                    person(38f, 17f, p.cranberry)
+                    dot(24f, 8f, 7f, p.evergreen)
+                    dot(24f, 8f, 4f, p.blush)
+                    for (x in listOf(18f, 30f)) dot(x, 8f, 2f, p.gold)
+                }
+                StoryScene.APPLE_PIE_WINDOW -> {
+                    // Lattice-topped apple pie cooling on a farmhouse windowsill.
+                    tile(p.sky)
+                    box(5f, 4f, 38f, 31f, p.paper)
+                    box(8f, 7f, 32f, 25f, p.blue)
+                    line(24f, 7f, 24f, 32f, p.paper, 2.5f)
+                    line(8f, 19f, 40f, 19f, p.paper, 2.5f)
+                    box(2f, 34f, 44f, 7f, p.cocoa)
+                    oval(10f, 27f, 28f, 12f, p.cranberry)
+                    oval(12f, 26f, 24f, 9f, p.gold)
+                    for (x in listOf(17f, 23f, 29f)) {
+                        line(x, 27f, x + 5f, 34f, p.paper, 1.5f)
+                        line(x + 5f, 27f, x, 34f, p.paper, 1.5f)
+                    }
+                    line(17f, 22f, 16f, 18f, p.paper, 1f)
+                    line(28f, 22f, 29f, 17f, p.paper, 1f)
+                }
+                StoryScene.FALL_ROMANCE_BRIDGE -> {
+                    // Two sweethearts meet halfway across a covered autumn bridge.
+                    tile(p.gold)
+                    shape(p.evergreen, 0f to 29f, 48f to 24f, 48f to 48f, 0f to 48f)
+                    shape(p.cranberry, 4f to 18f, 24f to 5f, 44f to 18f)
+                    box(7f, 18f, 34f, 24f, p.cocoa)
+                    box(12f, 22f, 24f, 20f, p.paper)
+                    line(4f, 35f, 44f, 35f, p.gold, 2.5f)
+                    person(19f, 25f, p.cranberry)
+                    person(29f, 25f, p.evergreen)
+                    line(23f, 36f, 25f, 36f, p.skin, 2f)
+                    heart(24f, 10f, .45f)
+                    dot(5f, 10f, 3f, p.gold)
+                    dot(43f, 9f, 3f, p.cranberry)
+                }
+                StoryScene.CRISP_AUTUMN_MORNING -> {
+                    // Dawn sun, frost-kissed meadow, and a steaming takeaway mug.
+                    tile(p.sky)
+                    dot(36f, 11f, 8f, p.gold)
+                    shape(p.evergreen, 0f to 28f, 12f to 18f, 25f to 29f,
+                        38f to 20f, 48f to 27f, 48f to 48f, 0f to 48f)
+                    for (x in listOf(4f, 12f, 41f)) {
+                        line(x, 32f, x + 2f, 28f, p.paper, 1.5f)
+                    }
+                    box(15f, 26f, 18f, 17f, p.paper, 3f)
+                    box(13f, 24f, 22f, 5f, p.cranberry, 2f)
+                    box(19f, 30f, 10f, 8f, p.gold, 2f)
+                    line(20f, 21f, 18f, 16f, p.paper, 1.5f)
+                    line(27f, 21f, 29f, 15f, p.paper, 1.5f)
+                    line(5f, 44f, 43f, 44f, p.gold, 1.5f)
+                }
                 StoryScene.OLD_FLAME -> {
                     // A faded photo and a rekindled candle bring two old sweethearts together.
                     tile(p.sky)

@@ -8,14 +8,14 @@ import org.junit.Test
 class BingoStoryScenesTest {
     @Test fun eachIllustratedTropeHasItsOwnCanonicalScene() {
         val labels = StorySceneArt.labels()
-        assertEquals("Each mapped scene must be an independent composition", 126, labels.size)
+        assertEquals("Each mapped scene must be an independent composition", 130, labels.size)
         assertEquals("Never reuse a scene for a different trope", labels.size, StorySceneArt.uniqueSceneCount())
         assertEquals(StoryScene.entries.size, StorySceneArt.uniqueSceneCount())
         val canonical = listOf("Romance", "Christmas", "Fall", "Horror")
             .flatMap(BingoEngine::artworkPool).toSet()
         assertEquals(72, canonical.size)
         assertTrue("All original canonical scenes must remain mapped", labels.containsAll(canonical))
-        assertEquals("Fifty-four independent multiplayer launch scenes added", 54, (labels - canonical).size)
+        assertEquals("Fifty-eight independent multiplayer launch scenes added", 58, (labels - canonical).size)
         labels.forEach { label ->
             assertTrue("Missing story scene: $label", StorySceneArt.forLabel(label) != null)
         }
@@ -205,6 +205,20 @@ class BingoStoryScenesTest {
         assertNull(StorySceneArt.forLabel("pumpkin spice"))
         assertNull(StorySceneArt.forLabel("Unexpected storm!"))
         assertTrue(StorySceneArt.forLabel("A snowstorm") != StorySceneArt.forLabel("Unexpected storm"))
+    }
+
+
+    @Test fun finalFallMultiplayerBatchHasFourIndependentExactLabelScenes() {
+        val labels = listOf(
+            "Fall tradition", "Apple pie", "A fall romance", "Crisp autumn morning"
+        )
+        val scenes = labels.map { label ->
+            requireNotNull(StorySceneArt.forLabel(label)) { "Missing final Fall scene: $label" }
+        }
+        assertEquals("Final Fall scenes must have independent artwork", 4, scenes.toSet().size)
+        assertNull(StorySceneArt.forLabel("fall tradition"))
+        assertNull(StorySceneArt.forLabel("Crisp autumn morning!"))
+        assertTrue(StorySceneArt.forLabel("A fall romance") != StorySceneArt.forLabel("An old flame"))
     }
 
     @Test fun noGenericArtworkIsMisrepresentedAsAUniqueIllustration() {
