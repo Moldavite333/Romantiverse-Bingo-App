@@ -53,7 +53,9 @@ internal enum class StoryScene {
     MULTI_BONFIRE, MULTI_PIE_CONTEST, CORN_MAZE, MULTI_PUMPKIN_CARVING,
     FAMILY_ORCHARD, APPLE_PICKING,
     MULTI_COZY_SWEATER, FALL_DECORATIONS, SMALL_TOWN_FAIR,
-    FARM_STAND, HARVEST_DANCE, AUTUMN_SUNSET
+    FARM_STAND, HARVEST_DANCE, AUTUMN_SUNSET,
+    PUMPKIN_SPICE_LATTE, FESTIVAL_CLOCK, SCARECROW_FIELD,
+    BARN_PARTY_NIGHT, LEAF_PEEPING_LOOKOUT, SUDDEN_FALL_STORM
 }
 
 internal object StorySceneArt {
@@ -132,6 +134,12 @@ internal object StorySceneArt {
         "Farm stand" to StoryScene.FARM_STAND,
         "Harvest dance" to StoryScene.HARVEST_DANCE,
         "Autumn sunset" to StoryScene.AUTUMN_SUNSET,
+        "Pumpkin spice" to StoryScene.PUMPKIN_SPICE_LATTE,
+        "Festival deadline" to StoryScene.FESTIVAL_CLOCK,
+        "Scarecrow" to StoryScene.SCARECROW_FIELD,
+        "Barn party" to StoryScene.BARN_PARTY_NIGHT,
+        "Leaf-peeping" to StoryScene.LEAF_PEEPING_LOOKOUT,
+        "Unexpected storm" to StoryScene.SUDDEN_FALL_STORM,
         "First meeting" to StoryScene.FIRST_MEETING,
         "A misunderstanding" to StoryScene.MISUNDERSTANDING,
         "The almost-kiss" to StoryScene.ALMOST_KISS,
@@ -2125,6 +2133,137 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     oval(18f, 32f, 7f, 11f, p.ink)
                     oval(26f, 31f, 7f, 12f, p.ink)
                     line(24f, 38f, 27f, 37f, p.skin, 2f)
+                }
+
+
+                // Multiplayer Fall batch four: independent illustrated subjects, drawn offline.
+                StoryScene.PUMPKIN_SPICE_LATTE -> {
+                    // Cinnamon sticks, spiced foam and a pumpkin beside a warm ceramic mug.
+                    tile(p.blush)
+                    box(5f, 32f, 39f, 10f, p.cocoa, 2f)
+                    oval(8f, 37f, 32f, 5f, p.paper)
+                    box(12f, 15f, 22f, 24f, p.paper, 4f)
+                    oval(11f, 12f, 24f, 9f, p.gold)
+                    oval(15f, 14f, 16f, 5f, p.paper)
+                    line(34f, 20f, 40f, 20f, p.paper, 4f)
+                    line(40f, 20f, 40f, 31f, p.paper, 4f)
+                    line(40f, 31f, 34f, 31f, p.paper, 4f)
+                    line(20f, 8f, 18f, 3f, p.cocoa, 1.5f)
+                    line(27f, 8f, 29f, 3f, p.cocoa, 1.5f)
+                    line(21f, 17f, 26f, 17f, p.cranberry, 1.5f)
+                    dot(23f, 16f, 1.3f, p.cocoa)
+                    line(4f, 26f, 11f, 14f, p.cocoa, 3f)
+                    line(7f, 29f, 14f, 17f, p.gold, 1.3f)
+                    oval(36f, 36f, 10f, 7f, p.cranberry)
+                    line(41f, 36f, 42f, 33f, p.evergreen, 1.5f)
+                }
+                StoryScene.FESTIVAL_CLOCK -> {
+                    // The clock is almost at twelve above a closing festival ticket booth.
+                    tile(p.sky)
+                    box(10f, 8f, 22f, 38f, p.paper)
+                    shape(p.cranberry, 7f to 10f, 21f to 2f, 35f to 10f)
+                    dot(21f, 17f, 9f, p.gold)
+                    dot(21f, 17f, 7f, p.paper)
+                    line(21f, 17f, 21f, 11f, p.ink, 2f)
+                    line(21f, 17f, 26f, 19f, p.ink, 2f)
+                    dot(21f, 17f, 1.4f, p.cranberry)
+                    box(14f, 30f, 14f, 16f, p.evergreen)
+                    box(17f, 33f, 8f, 6f, p.gold)
+                    line(3f, 27f, 45f, 27f, p.cocoa, 1.2f)
+                    for (x in listOf(5f, 15f, 32f, 42f)) {
+                        shape(p.cranberry, x to 27f, (x + 6f) to 27f,
+                            (x + 3f) to 33f)
+                    }
+                    dot(41f, 10f, 3f, p.gold)
+                    line(37f, 45f, 45f, 45f, p.cocoa, 1.8f)
+                }
+                StoryScene.SCARECROW_FIELD -> {
+                    // A straw-hatted scarecrow guards the corn, arms spread wide.
+                    tile(p.gold)
+                    shape(p.evergreen, 0f to 39f, 48f to 34f, 48f to 48f, 0f to 48f)
+                    line(24f, 19f, 24f, 46f, p.cocoa, 3f)
+                    line(7f, 25f, 41f, 25f, p.cocoa, 3f)
+                    shape(p.cranberry, 17f to 22f, 31f to 22f,
+                        35f to 34f, 13f to 34f)
+                    dot(24f, 16f, 7f, p.skin)
+                    shape(p.cocoa, 12f to 12f, 35f to 12f,
+                        32f to 7f, 18f to 7f, 16f to 12f)
+                    box(18f, 4f, 13f, 8f, p.cocoa, 1f)
+                    dot(21f, 16f, 1f, p.ink)
+                    dot(27f, 16f, 1f, p.ink)
+                    line(21f, 20f, 27f, 20f, p.cranberry, 1.3f)
+                    for (x in listOf(5f, 42f)) {
+                        line(x, 27f, x, 44f, p.evergreen, 2f)
+                        oval(x - 3f, 31f, 6f, 11f, p.gold)
+                        line(x, 30f, x - 3f, 24f, p.evergreen, 1.5f)
+                    }
+                    for (x in listOf(12f, 36f)) {
+                        line(x, 25f, x - 4f, 21f, p.gold, 2f)
+                        line(x, 25f, x + 3f, 20f, p.gold, 2f)
+                    }
+                }
+                StoryScene.BARN_PARTY_NIGHT -> {
+                    // An open barn, party bunting and guests around a harvest table.
+                    tile(p.blue)
+                    dot(39f, 8f, 4f, p.paper)
+                    shape(p.cranberry, 3f to 19f, 24f to 5f, 45f to 19f)
+                    box(6f, 19f, 36f, 27f, p.cranberry, 1f)
+                    box(13f, 22f, 22f, 24f, p.cocoa)
+                    shape(p.paper, 13f to 22f, 24f to 32f, 35f to 22f)
+                    line(5f, 17f, 43f, 17f, p.paper, 1.4f)
+                    for (x in listOf(9f, 17f, 25f, 33f, 41f)) {
+                        shape(p.gold, x to 17f, (x + 4f) to 17f,
+                            (x + 2f) to 22f)
+                    }
+                    box(17f, 37f, 14f, 3f, p.gold, 1f)
+                    line(19f, 40f, 19f, 45f, p.paper, 1.4f)
+                    line(29f, 40f, 29f, 45f, p.paper, 1.4f)
+                    dot(17f, 32f, 3f, p.skin)
+                    oval(14f, 35f, 6f, 9f, p.evergreen)
+                    dot(32f, 32f, 3f, p.skin)
+                    oval(29f, 35f, 6f, 9f, p.blue)
+                    dot(24f, 36f, 2f, p.gold)
+                }
+                StoryScene.LEAF_PEEPING_LOOKOUT -> {
+                    // Binoculars at a mountain overlook frame brilliant autumn foliage.
+                    tile(p.sky)
+                    shape(p.blue, 0f to 26f, 13f to 11f, 26f to 26f,
+                        38f to 14f, 48f to 26f)
+                    shape(p.evergreen, 0f to 34f, 14f to 23f, 29f to 33f,
+                        43f to 24f, 48f to 29f, 48f to 48f, 0f to 48f)
+                    for ((x, y) in listOf(5f to 29f, 15f to 27f, 35f to 30f, 44f to 29f)) {
+                        dot(x, y, 4.2f, p.gold)
+                        dot(x + 2f, y - 2f, 2f, p.cranberry)
+                    }
+                    box(0f, 38f, 48f, 4f, p.cocoa, 1f)
+                    line(7f, 42f, 7f, 48f, p.cocoa, 2f)
+                    line(41f, 42f, 41f, 48f, p.cocoa, 2f)
+                    person(24f, 27f, p.cranberry)
+                    box(15f, 24f, 18f, 8f, p.ink, 3f)
+                    dot(19f, 28f, 3f, p.gold)
+                    dot(29f, 28f, 3f, p.gold)
+                    line(24f, 30f, 24f, 34f, p.cocoa, 2f)
+                }
+                StoryScene.SUDDEN_FALL_STORM -> {
+                    // Wind whips autumn leaves around a rain-soaked umbrella.
+                    tile(p.blue)
+                    shape(p.ink, 0f to 14f, 12f to 8f, 24f to 13f,
+                        35f to 7f, 48f to 13f, 48f to 0f, 0f to 0f)
+                    for ((x, y) in listOf(7f to 19f, 19f to 15f, 39f to 19f,
+                        8f to 35f, 42f to 33f)) {
+                        line(x, y, x - 3f, y + 6f, p.paper, 1.4f)
+                    }
+                    shape(p.cranberry, 8f to 25f, 13f to 17f, 23f to 13f,
+                        34f to 17f, 40f to 25f, 30f to 23f, 21f to 26f,
+                        14f to 23f)
+                    line(24f, 24f, 24f, 42f, p.cocoa, 2f)
+                    line(24f, 42f, 28f, 42f, p.cocoa, 2f)
+                    person(24f, 31f, p.evergreen)
+                    for ((x, y) in listOf(5f to 29f, 39f to 38f, 9f to 43f)) {
+                        shape(p.gold, x to y, (x + 5f) to (y - 2f),
+                            (x + 3f) to (y + 5f))
+                    }
+                    line(3f, 46f, 45f, 46f, p.cocoa, 1.7f)
                 }
 
                 StoryScene.OLD_FLAME -> {
