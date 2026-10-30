@@ -114,6 +114,22 @@ data class LiveSnapshot(
     val blackout: Boolean get() = marks.size == 25 || marks.size == 24 && 12 !in marks
 }
 
+/** Room lifecycle never runs backwards, even when independent polls share a player's
+ * card revision. Host start/finish does not increment that revision, and a delayed
+ * mark response may have a newer revision but an older room status.
+ */
+internal object RoomStatusProgression {
+    private val order = mapOf("lobby" to 0, "playing" to 1, "finished" to 2)
+
+    fun latest(previous: String?, incoming: String): String {
+        val oldRank = previous?.let { order[it] }
+        val newRank = order[incoming]
+        return if (oldRank != null && newRank != null && newRank < oldRank) {
+            previous
+        } else incoming
+    }
+}
+
 /** Parse server-authoritative cards and marks; do not regenerate a shared card locally. */
 object LiveRoomProtocol {
     fun parse(
@@ -214,7 +230,12 @@ object LiveRoomProtocol {
         val session = if (token.isNotBlank()) {
             LiveSession(code, token, playerId).takeIf { it.valid() }
         } else fallbackSession?.takeIf { playerId.isBlank() || playerId == it.playerId }
-        val next = LiveSnapshot(LiveRoom(code, movie, players), card, marks, revision, session)
+        // Room status is independent of each player's card revision. A late
+        // lobby/playing response must not reopen a started/finished room.
+        val stableMovie = movie.copy(status = RoomStatusProgression.latest(
+            previousForRoom?.room?.movie?.status, movie.status
+        ))
+        val next = LiveSnapshot(LiveRoom(code, stableMovie, players), card, marks, revision, session)
         // Poll responses may arrive after a successful mark or room transition.
         // An older revision must not roll back *any* authoritative room state:
         // restoring only the card/marks would still regress the status and roster.
