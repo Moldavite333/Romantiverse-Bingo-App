@@ -91,8 +91,12 @@ if(room.host_player_id!==player.id)return reply({error:'Only the host can contro
 if(action==='start'&&room.status!=='lobby')return reply({error:'Game already started'},409,origin);
 if(action==='finish'&&room.status!=='playing')return reply({error:'Game is not active'},409,origin);
 const status=action==='start'?'playing':'finished';
-await query('live_rooms','PATCH','?id=eq.'+room.id+'&status=eq.'+room.status,{status,...(status==='playing'?{started_at:new Date().toISOString()}:{})});
-return reply({...base,room:{...base.room,status}},200,origin)
+// A concurrent host action may already have changed the room after our GET.
+// Return success only when this compare-and-swap actually changed one row.
+const updated=await query('live_rooms','PATCH','?id=eq.'+room.id+'&status=eq.'+room.status+'&select=*',
+  {status,...(status==='playing'?{started_at:new Date().toISOString()}:{})});
+if(updated.length!==1)return reply({error:'Room changed; refresh to see the latest status'},409,origin);
+return reply({...base,room:cleanRoom(updated[0],players)},200,origin)
 }
 if(action==='mark'){
 if(room.status!=='playing')return reply({error:'Wait for the host to start'},409,origin);
