@@ -173,6 +173,26 @@ class LiveRoomClientTest {
         assertThrows(IllegalArgumentException::class.java) {
             LiveRoomProtocol.parse(nullLabel, prior)
         }
+        // Distinct server IDs cannot excuse duplicate text on the visible board.
+        val duplicateLabel = valid.replace(
+            """{"label":"Square 8"}""", """{"id":"different","label":"  SQUARE   0  "}"""
+        )
+        assertThrows(IllegalArgumentException::class.java) {
+            LiveRoomProtocol.parse(duplicateLabel, prior)
+        }
+        val unicodeDuplicate = valid.replace(
+            """{"label":"Square 8"}""", """{"label":"Ｓｑｕａｒｅ ０"}"""
+        )
+        assertThrows(IllegalArgumentException::class.java) {
+            LiveRoomProtocol.parse(unicodeDuplicate, prior)
+        }
+        // A number is not a trope label even if JSON can coerce it to text.
+        val numericLabel = valid.replace(
+            """{"label":"Square 8"}""", """{"label":8}"""
+        )
+        assertThrows(IllegalArgumentException::class.java) {
+            LiveRoomProtocol.parse(numericLabel, prior)
+        }
         assertEquals(25, prior.card.size)
         assertEquals(setOf(0, 1, 12), prior.marks)
         assertEquals(4, prior.revision)
