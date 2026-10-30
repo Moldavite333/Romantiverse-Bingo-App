@@ -86,12 +86,19 @@ internal object ArtworkReviewCatalog {
         "Farm stand",
         "Harvest dance",
         "Autumn sunset",
+        "Pumpkin spice",
+        "Festival deadline",
+        "Scarecrow",
+        "Barn party",
+        "Leaf-peeping",
+        "Unexpected storm",
     )
 
     fun labels(theme: String): List<String> = when (theme) {
         "Multiplayer launch" -> multiplayerLaunchBatch
-        "Multiplayer Fall II" -> multiplayerLaunchBatch.dropLast(6).takeLast(6)
-        "Multiplayer Fall III" -> multiplayerLaunchBatch.takeLast(6)
+        "Multiplayer Fall II" -> multiplayerLaunchBatch.dropLast(12).takeLast(6)
+        "Multiplayer Fall III" -> multiplayerLaunchBatch.dropLast(6).takeLast(6)
+        "Multiplayer Fall IV" -> multiplayerLaunchBatch.takeLast(6)
         "Romance" -> BingoEngine.pool(theme)
         "Christmas", "Fall", "Horror" ->
             BingoEngine.artworkPool(theme).filterNot { it in romance }
@@ -275,3 +282,16 @@ private fun PreviewCheeseLouiseFreeSquare() {
         }
     }
 }
+
+@Preview(name = "Fall IV original scenes • 320dp", widthDp = 320, heightDp = 270)
+@Composable
+private fun PreviewFallFourNarrow() = ArtworkReviewGallery("Multiplayer Fall IV")
+
+@Preview(name = "Fall IV marked • 360dp", widthDp = 360, heightDp = 290)
+@Composable
+private fun PreviewFallFourMarked() = ArtworkReviewGallery("Multiplayer Fall IV", marked = true)
+
+@Preview(name = "Fall IV winning • large text", widthDp = 320, heightDp = 300, fontScale = 1.3f)
+@Composable
+private fun PreviewFallFourWinningLargeText() =
+    ArtworkReviewGallery("Multiplayer Fall IV", marked = true, winning = true)

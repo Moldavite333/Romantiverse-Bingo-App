@@ -8,14 +8,14 @@ import org.junit.Test
 class BingoStoryScenesTest {
     @Test fun eachIllustratedTropeHasItsOwnCanonicalScene() {
         val labels = StorySceneArt.labels()
-        assertEquals("Each mapped scene must be an independent composition", 120, labels.size)
+        assertEquals("Each mapped scene must be an independent composition", 126, labels.size)
         assertEquals("Never reuse a scene for a different trope", labels.size, StorySceneArt.uniqueSceneCount())
         assertEquals(StoryScene.entries.size, StorySceneArt.uniqueSceneCount())
         val canonical = listOf("Romance", "Christmas", "Fall", "Horror")
             .flatMap(BingoEngine::artworkPool).toSet()
         assertEquals(72, canonical.size)
         assertTrue("All original canonical scenes must remain mapped", labels.containsAll(canonical))
-        assertEquals("Forty-eight independent multiplayer launch scenes added", 48, (labels - canonical).size)
+        assertEquals("Fifty-four independent multiplayer launch scenes added", 54, (labels - canonical).size)
         labels.forEach { label ->
             assertTrue("Missing story scene: $label", StorySceneArt.forLabel(label) != null)
         }
@@ -190,6 +190,21 @@ class BingoStoryScenesTest {
         assertNull(StorySceneArt.forLabel("cozy sweater"))
         assertNull(StorySceneArt.forLabel("Autumn sunset!"))
         assertTrue(StorySceneArt.forLabel("A cozy sweater") != StorySceneArt.forLabel("Cozy sweater"))
+    }
+
+
+    @Test fun fourthFallMultiplayerBatchHasSixIndependentExactLabelScenes() {
+        val labels = listOf(
+            "Pumpkin spice", "Festival deadline", "Scarecrow",
+            "Barn party", "Leaf-peeping", "Unexpected storm"
+        )
+        val scenes = labels.map { label ->
+            requireNotNull(StorySceneArt.forLabel(label)) { "Missing Fall IV scene: $label" }
+        }
+        assertEquals("Fall IV scenes must be independent", 6, scenes.toSet().size)
+        assertNull(StorySceneArt.forLabel("pumpkin spice"))
+        assertNull(StorySceneArt.forLabel("Unexpected storm!"))
+        assertTrue(StorySceneArt.forLabel("A snowstorm") != StorySceneArt.forLabel("Unexpected storm"))
     }
 
     @Test fun noGenericArtworkIsMisrepresentedAsAUniqueIllustration() {

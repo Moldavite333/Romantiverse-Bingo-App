@@ -22,7 +22,7 @@ class ArtworkReviewCatalogTest {
 
     @Test fun multiplayerLaunchPreviewContainsOnlyNewDedicatedScenes() {
         val labels = ArtworkReviewCatalog.labels("Multiplayer launch")
-        assertEquals(48, labels.size)
+        assertEquals(54, labels.size)
         assertEquals(labels.size, labels.toSet().size)
         labels.forEach { label ->
             assertTrue("Shared multiplayer motif still used for $label",
@@ -47,6 +47,17 @@ class ArtworkReviewCatalogTest {
         )
         assertEquals(6, labels.mapNotNull(StorySceneArt::forLabel).toSet().size)
         assertTrue(ArtworkReviewCatalog.labels("Multiplayer Fall II").intersect(labels.toSet()).isEmpty())
+    }
+
+
+    @Test fun fallFourGalleryShowsSixDistinctNativeScenes() {
+        val labels = ArtworkReviewCatalog.labels("Multiplayer Fall IV")
+        assertEquals(
+            listOf("Pumpkin spice", "Festival deadline", "Scarecrow",
+                "Barn party", "Leaf-peeping", "Unexpected storm"), labels
+        )
+        assertEquals(6, labels.mapNotNull(StorySceneArt::forLabel).toSet().size)
+        assertTrue(ArtworkReviewCatalog.labels("Multiplayer Fall III").intersect(labels.toSet()).isEmpty())
     }
 
     @Test fun previewDoesNotSilentlyTreatUnknownThemesAsRomance() {
