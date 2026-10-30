@@ -42,6 +42,8 @@ internal enum class StoryScene {
     OVERHEARD_HALF, ROMANTIC_DEADLINE, FORCED_TOGETHER,
     DRAMATIC_EXIT, BUSINESS_RESCUE, LAST_POSSIBLE_MOMENT,
     COINCIDENCE, SECRET_DISCOVERED, SURPRISE_ANNOUNCEMENT,
+    CHRISTMAS_CAROLERS, UGLY_CHRISTMAS_SWEATER, SNOWBALL_FIGHT,
+    GLASS_ORNAMENT, SLEIGH_RIDE, CHRISTMAS_MIRACLE,
     ROMANTIC_REALIZATION, ROMANTIC_RIVAL_TRIANGLE, FAMILY_HEIRLOOM_LOCKET,
     CHANGE_OF_HEART_TURN, STRANGER_COMFORTS, EMOTIONAL_REUNION
 }
@@ -91,6 +93,12 @@ internal object StorySceneArt {
         "Someone changes their mind" to StoryScene.CHANGE_OF_HEART_TURN,
         "A stranger knows exactly what to say" to StoryScene.STRANGER_COMFORTS,
         "An emotional reunion" to StoryScene.EMOTIONAL_REUNION,
+        "A Christmas carol" to StoryScene.CHRISTMAS_CAROLERS,
+        "An ugly sweater" to StoryScene.UGLY_CHRISTMAS_SWEATER,
+        "A snowball fight" to StoryScene.SNOWBALL_FIGHT,
+        "A Christmas ornament" to StoryScene.GLASS_ORNAMENT,
+        "A sleigh ride" to StoryScene.SLEIGH_RIDE,
+        "A Christmas miracle" to StoryScene.CHRISTMAS_MIRACLE,
         "First meeting" to StoryScene.FIRST_MEETING,
         "A misunderstanding" to StoryScene.MISUNDERSTANDING,
         "The almost-kiss" to StoryScene.ALMOST_KISS,
@@ -1508,6 +1516,118 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(5f, 37f, 5f, 33f, p.ink, 1.5f)
                     line(5f, 33f, 10f, 33f, p.ink, 1.5f)
                     heart(25f, 17f, .34f, p.cranberry)
+                }
+
+
+                // Multiplayer launch batch four: Christmas moments with six distinct focal subjects.
+                StoryScene.CHRISTMAS_CAROLERS -> {
+                    // Two carolers share an open songbook beside a glowing street lantern.
+                    tile(p.blue)
+                    box(5f, 7f, 3f, 37f, p.ink, 1f)
+                    box(2f, 5f, 9f, 11f, p.gold, 2f)
+                    box(4f, 7f, 5f, 7f, p.paper, 1f)
+                    dot(6.5f, 5f, 3f, p.gold)
+                    person(21f, 23f, p.cranberry)
+                    person(37f, 23f, p.evergreen)
+                    shape(p.paper, 16f to 32f, 24f to 29f, 29f to 33f, 34f to 29f, 43f to 32f, 43f to 42f, 29f to 39f, 16f to 42f)
+                    line(29f, 33f, 29f, 39f, p.cocoa, 1.2f)
+                    line(19f, 34f, 25f, 33f, p.blue, 1f)
+                    line(33f, 33f, 40f, 34f, p.blue, 1f)
+                    dot(22f, 10f, 2f, p.gold)
+                    line(24f, 10f, 24f, 5f, p.gold, 1.5f)
+                    dot(39f, 10f, 2f, p.gold)
+                    line(41f, 10f, 41f, 5f, p.gold, 1.5f)
+                }
+                StoryScene.UGLY_CHRISTMAS_SWEATER -> {
+                    // An oversized knitted sweater with mismatched ornaments and bold zigzags.
+                    tile(p.blush)
+                    line(17f, 7f, 24f, 3f, p.cocoa, 2f)
+                    line(24f, 3f, 31f, 7f, p.cocoa, 2f)
+                    shape(p.cranberry, 15f to 11f, 20f to 8f, 28f to 8f, 33f to 11f,
+                        45f to 20f, 39f to 30f, 33f to 25f, 33f to 43f,
+                        15f to 43f, 15f to 25f, 9f to 30f, 3f to 20f)
+                    box(17f, 10f, 14f, 5f, p.cocoa, 2f)
+                    line(15f, 34f, 33f, 34f, p.gold, 2f)
+                    line(15f, 38f, 33f, 38f, p.paper, 1.6f)
+                    shape(p.evergreen, 24f to 17f, 16f to 30f, 32f to 30f)
+                    box(22f, 29f, 4f, 4f, p.cocoa, 1f)
+                    dot(24f, 16f, 2f, p.gold)
+                    dot(20f, 26f, 2f, p.gold)
+                    dot(29f, 27f, 2f, p.paper)
+                    line(4f, 22f, 10f, 24f, p.paper, 2f)
+                    line(38f, 24f, 44f, 22f, p.gold, 2f)
+                }
+                StoryScene.SNOWBALL_FIGHT -> {
+                    // Snowballs arc between two bundled players sheltering behind snowbanks.
+                    tile(p.blue)
+                    shape(p.snow, 0f to 37f, 13f to 31f, 25f to 40f, 36f to 32f, 48f to 37f, 48f to 48f, 0f to 48f)
+                    person(10f, 20f, p.cranberry)
+                    person(39f, 20f, p.evergreen)
+                    line(14f, 29f, 21f, 21f, p.skin, 2.8f)
+                    line(35f, 29f, 29f, 24f, p.skin, 2.8f)
+                    dot(23f, 14f, 4f, p.snow)
+                    dot(30f, 10f, 2.8f, p.snow)
+                    line(18f, 18f, 21f, 13f, p.gold, 1.5f)
+                    line(26f, 10f, 29f, 7f, p.paper, 1.2f)
+                    dot(6f, 8f, 1.5f, p.snow)
+                    dot(41f, 7f, 1.8f, p.snow)
+                    line(3f, 39f, 15f, 39f, p.paper, 2f)
+                    line(34f, 39f, 46f, 39f, p.paper, 2f)
+                }
+                StoryScene.GLASS_ORNAMENT -> {
+                    // A single glass bauble frames a tiny snowy cottage on a fir branch.
+                    tile(p.sky)
+                    line(2f, 9f, 46f, 5f, p.cocoa, 3f)
+                    shape(p.evergreen, 9f to 7f, 17f to 15f, 3f to 13f)
+                    shape(p.evergreen, 35f to 6f, 44f to 15f, 27f to 12f)
+                    box(22f, 8f, 5f, 5f, p.gold, 1f)
+                    line(24f, 12f, 24f, 17f, p.gold, 1.5f)
+                    dot(24f, 31f, 15f, p.gold)
+                    dot(24f, 31f, 12.5f, p.blue)
+                    shape(p.snow, 12f to 37f, 23f to 32f, 36f to 37f, 36f to 43f, 12f to 43f)
+                    box(19f, 30f, 11f, 9f, p.paper, 1f)
+                    shape(p.cranberry, 17f to 30f, 24f to 24f, 32f to 30f)
+                    box(23f, 34f, 3f, 5f, p.cocoa, 1f)
+                    dot(18f, 24f, 1.5f, p.snow)
+                    dot(32f, 27f, 1.3f, p.snow)
+                    line(16f, 19f, 19f, 17f, p.paper, 1.5f)
+                }
+                StoryScene.SLEIGH_RIDE -> {
+                    // A chestnut horse pulls a red sleigh carrying two bundled passengers.
+                    tile(p.sky)
+                    shape(p.snow, 0f to 38f, 18f to 34f, 48f to 39f, 48f to 48f, 0f to 48f)
+                    oval(5f, 24f, 16f, 10f, p.cocoa)
+                    oval(16f, 20f, 7f, 10f, p.cocoa)
+                    dot(21f, 19f, 4f, p.cocoa)
+                    shape(p.cocoa, 18f to 17f, 20f to 11f, 22f to 17f)
+                    line(9f, 33f, 7f, 40f, p.ink, 2.5f)
+                    line(18f, 33f, 20f, 40f, p.ink, 2.5f)
+                    line(22f, 27f, 31f, 30f, p.ink, 1.7f)
+                    box(29f, 27f, 16f, 12f, p.cranberry, 3f)
+                    person(34f, 19f, p.evergreen)
+                    person(42f, 19f, p.blue)
+                    line(28f, 40f, 46f, 40f, p.gold, 2.3f)
+                    line(32f, 39f, 30f, 43f, p.gold, 1.7f)
+                    line(44f, 39f, 46f, 43f, p.gold, 1.7f)
+                    dot(6f, 10f, 2f, p.snow)
+                }
+                StoryScene.CHRISTMAS_MIRACLE -> {
+                    // A long-dark village window glows again beneath a radiant Christmas star.
+                    tile(p.blue)
+                    cottage(12f, 15f)
+                    box(14f, 30f, 6f, 8f, p.gold)
+                    box(30f, 30f, 5f, 8f, p.gold)
+                    shape(p.snow, 0f to 40f, 13f to 35f, 26f to 41f, 48f to 36f, 48f to 48f, 0f to 48f)
+                    shape(p.gold, 24f to 1f, 27f to 7f, 34f to 8f,
+                        29f to 13f, 30f to 20f, 24f to 16f,
+                        18f to 20f, 19f to 13f, 14f to 8f, 21f to 7f)
+                    line(24f, 19f, 24f, 23f, p.gold, 1.6f)
+                    line(11f, 7f, 14f, 10f, p.paper, 1.5f)
+                    line(38f, 7f, 35f, 10f, p.paper, 1.5f)
+                    person(8f, 34f, p.cranberry)
+                    person(41f, 34f, p.evergreen)
+                    dot(5f, 20f, 1.4f, p.snow)
+                    dot(43f, 17f, 1.5f, p.snow)
                 }
 
                 StoryScene.OLD_FLAME -> {

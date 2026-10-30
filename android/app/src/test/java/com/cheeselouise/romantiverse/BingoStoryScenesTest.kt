@@ -8,14 +8,14 @@ import org.junit.Test
 class BingoStoryScenesTest {
     @Test fun eachIllustratedTropeHasItsOwnCanonicalScene() {
         val labels = StorySceneArt.labels()
-        assertEquals("Each mapped scene must be an independent composition", 90, labels.size)
+        assertEquals("Each mapped scene must be an independent composition", 96, labels.size)
         assertEquals("Never reuse a scene for a different trope", labels.size, StorySceneArt.uniqueSceneCount())
         assertEquals(StoryScene.entries.size, StorySceneArt.uniqueSceneCount())
         val canonical = listOf("Romance", "Christmas", "Fall", "Horror")
             .flatMap(BingoEngine::artworkPool).toSet()
         assertEquals(72, canonical.size)
         assertTrue("All original canonical scenes must remain mapped", labels.containsAll(canonical))
-        assertEquals("Eighteen independent multiplayer launch scenes added", 18, (labels - canonical).size)
+        assertEquals("Twenty-four independent multiplayer launch scenes added", 24, (labels - canonical).size)
         labels.forEach { label ->
             assertTrue("Missing story scene: $label", StorySceneArt.forLabel(label) != null)
         }
@@ -103,6 +103,24 @@ class BingoStoryScenesTest {
         assertEquals(6, scenes.toSet().size)
         assertNull(StorySceneArt.forLabel("a romantic realization"))
         assertNull(StorySceneArt.forLabel("An emotional reunion!"))
+    }
+
+
+    @Test fun christmasMultiplayerLaunchBatchHasSixDistinctNativeScenes() {
+        val labels = listOf(
+            "A Christmas carol",
+            "An ugly sweater",
+            "A snowball fight",
+            "A Christmas ornament",
+            "A sleigh ride",
+            "A Christmas miracle"
+        )
+        val scenes = labels.map { label ->
+            requireNotNull(StorySceneArt.forLabel(label)) { "Missing original scene: $label" }
+        }
+        assertEquals(6, scenes.toSet().size)
+        assertNull(StorySceneArt.forLabel("a christmas carol"))
+        assertNull(StorySceneArt.forLabel("A Christmas miracle!"))
     }
 
     @Test fun noGenericArtworkIsMisrepresentedAsAUniqueIllustration() {
