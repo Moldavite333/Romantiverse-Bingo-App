@@ -8,14 +8,14 @@ import org.junit.Test
 class BingoStoryScenesTest {
     @Test fun eachIllustratedTropeHasItsOwnCanonicalScene() {
         val labels = StorySceneArt.labels()
-        assertEquals("Each mapped scene must be an independent composition", 78, labels.size)
+        assertEquals("Each mapped scene must be an independent composition", 84, labels.size)
         assertEquals("Never reuse a scene for a different trope", labels.size, StorySceneArt.uniqueSceneCount())
         assertEquals(StoryScene.entries.size, StorySceneArt.uniqueSceneCount())
         val canonical = listOf("Romance", "Christmas", "Fall", "Horror")
             .flatMap(BingoEngine::artworkPool).toSet()
         assertEquals(72, canonical.size)
         assertTrue("All original canonical scenes must remain mapped", labels.containsAll(canonical))
-        assertEquals("Six independent multiplayer launch scenes added", 6, (labels - canonical).size)
+        assertEquals("Twelve independent multiplayer launch scenes added", 12, (labels - canonical).size)
         labels.forEach { label ->
             assertTrue("Missing story scene: $label", StorySceneArt.forLabel(label) != null)
         }
@@ -68,6 +68,23 @@ class BingoStoryScenesTest {
         }
         assertEquals("Each multiplayer scene must have its own composition", launch.size, art.toSet().size)
         assertNull(StorySceneArt.forLabel("career versus love dilemma"))
+    }
+
+    @Test fun secondMultiplayerLaunchBatchHasSixIndependentExactLabelScenes() {
+        val launch = listOf(
+            "A dramatic exit",
+            "A beloved business must be saved",
+            "Someone arrives at the last possible moment",
+            "A coincidence",
+            "A secret is discovered",
+            "A surprise announcement"
+        )
+        val scenes = launch.map { label ->
+            requireNotNull(StorySceneArt.forLabel(label)) { "Missing original scene: $label" }
+        }
+        assertEquals(6, scenes.toSet().size)
+        assertNull(StorySceneArt.forLabel("a dramatic exit"))
+        assertNull(StorySceneArt.forLabel("Someone arrives at the last possible moment!"))
     }
 
     @Test fun noGenericArtworkIsMisrepresentedAsAUniqueIllustration() {
