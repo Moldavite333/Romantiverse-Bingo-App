@@ -30,6 +30,15 @@ class ArtworkReviewCatalogTest {
         }
     }
 
+    @Test fun fallTwoGalleryShowsAllSixAtPhoneScale() {
+        val labels = ArtworkReviewCatalog.labels("Multiplayer Fall II")
+        assertEquals(
+            listOf("Bonfire", "Pie contest", "Corn maze", "Pumpkin carving",
+                "Family orchard", "Apple picking"), labels
+        )
+        assertEquals(6, labels.mapNotNull(StorySceneArt::forLabel).toSet().size)
+    }
+
     @Test fun previewDoesNotSilentlyTreatUnknownThemesAsRomance() {
         assertTrue(ArtworkReviewCatalog.labels("Unlisted").isEmpty())
     }
