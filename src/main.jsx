@@ -14,7 +14,7 @@ import{loadStaticCatalog}from './services/staticCatalog.js';
 import Multiplayer from './Multiplayer.jsx';
 import CheeseTray from './CheeseTray.jsx';
 import {bestMovieScores} from './engine/movieScores.mjs';
-import {validateCheesePackage,buildSharedCheeseSuggestions} from './engine/sharedCheese.mjs';
+import {validateCheesePackage,buildSharedCheeseSuggestions,applyEditorialToCard} from './engine/sharedCheese.mjs';
 import './style.css';
 import './cinematic-theme.css';
 import {searchPublicMovies} from './services/movieSearch.js';
@@ -124,7 +124,7 @@ const available=orderMoviesForBrowsing(mergeMovieListings([
 const activePoster=active?approvedMoviePoster(mergeMovieListings([[active],liveMovies,resolvedMovies,publishedMovies])[0]):null;
 function create(movie,selectedTheme=season){try{if(selectedTheme==='Horror'||!isLaunchMovie(movie))throw Error('Horror is reserved for a future standalone game.');const unclassified=movie.season==='Unspecified';const cardTheme=unclassified?selectedTheme:movie.season;const playable={...movie,season:cardTheme};let card=buildCard(playable,{seed:seed(),free,difficulty,cheeseRatio:ratio/100});
  const editorial=buildSharedCheeseSuggestions(playable,sharedPackage?.traits);
- if(editorial.length){const seen=new Set(card.map(t=>t.id));let j=0;card=card.map(t=>{if(t.category!=='cheese')return t;while(j<editorial.length&&seen.has(editorial[j].id))j++;if(j>=editorial.length)return t;const next=editorial[j++];seen.add(next.id);return next})}
+ if(editorial.length)card=applyEditorialToCard(card,editorial);
 setShareUrl('');setGame({movie,cardTheme,card,marked:free?[12]:[],free,mode,difficulty,ratio,startedAt:new Date().toISOString(),completed:false});setTab('play');setEditIndex(null);setNotice(unclassified?'The movie season is unverified. Using your selected '+cardTheme+' card theme.':'Your movie night starts here. Card saved on this device.')}catch(e){setNotice(e.message)}}
 function mark(i){if(!game||game.completed)return;setGame(g=>({...g,marked:toggle(g.marked,i,g.free)}))}
 function edit(i,item){try{setGame(g=>({...g,card:replaceSquare(g.card,i,item)}));setEditIndex(null);setNotice('Square updated.')}catch(e){setNotice(e.message)}}
