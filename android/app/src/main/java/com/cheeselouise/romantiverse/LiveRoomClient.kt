@@ -124,7 +124,7 @@ internal object RoomStatusProgression {
     fun latest(previous: String?, incoming: String): String {
         val oldRank = previous?.let { order[it] }
         val newRank = order[incoming]
-        return if (oldRank != null && newRank != null && newRank < oldRank) {
+        return if (previous != null && oldRank != null && newRank != null && newRank < oldRank) {
             previous
         } else incoming
     }
