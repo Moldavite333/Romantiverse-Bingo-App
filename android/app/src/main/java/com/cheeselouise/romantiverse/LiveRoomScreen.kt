@@ -400,13 +400,20 @@ fun LiveRoomScreen(
                 item {
                     Text("PLAYERS", color = accent, fontWeight = FontWeight.Bold)
                     room.players.forEach { player ->
-                        Text("${player.name} · ${player.lines} lines · ${player.marked} marked",
+                        val hostSuffix = if (player.id == room.hostPlayerId) " · host" else ""
+                        Text("${player.name}$hostSuffix · ${player.lines} lines · ${player.marked} marked",
                             color = parchment)
                     }
                     if (room.movie.status == "lobby") {
-                        Text("Wait for everyone to join before starting.", color = parchment)
-                        Button(onClick = { action("start") }, enabled = !busy) {
-                            Text("Start movie (host only)")
+                        Text(
+                            if (live?.canControlRoom == true) "Start when everyone has joined."
+                            else "Waiting for the host to start the movie.",
+                            color = parchment
+                        )
+                        if (live?.canControlRoom == true) {
+                            Button(onClick = { action("start") }, enabled = !busy) {
+                                Text("Start movie")
+                            }
                         }
                     }
                 }
@@ -477,10 +484,10 @@ fun LiveRoomScreen(
                     }
                 }
             }
-            if (room?.movie?.status == "playing") {
+            if (room?.movie?.status == "playing" && live?.canControlRoom == true) {
                 item {
                     OutlinedButton(onClick = { action("finish") }, enabled = !busy) {
-                        Text("Finish movie (host only)")
+                        Text("Finish movie")
                     }
                 }
             }

@@ -43,7 +43,7 @@ const safePoster=value=>{if(typeof value!=='string')return null;try{const url=ne
 const query=async(table,method='GET',params='',body)=>{const r=await fetch(BASE+'/rest/v1/'+table+params,{method,headers:{apikey:SERVICE,Authorization:'Bearer '+SERVICE,'Content-Type':'application/json',Prefer:'return=representation'},body:body===undefined?undefined:JSON.stringify(body)});if(!r.ok)throw Error('Storage error '+r.status);return r.json()};
 const lines=[...Array.from({length:5},(_,r)=>Array.from({length:5},(_,c)=>r*5+c)),...Array.from({length:5},(_,c)=>Array.from({length:5},(_,r)=>r*5+c)),[0,6,12,18,24],[4,8,12,16,20]];
 const score=(marks,free)=>{const set=new Set(marks);if(free)set.add(12);const n=lines.filter(l=>l.every(i=>set.has(i))).length;return {lines:n,bingo:n>0,blackout:set.size===25}};
-const cleanRoom=(r,players)=>({code:r.code,movie_title:r.movie_title,movie_collection:r.movie_collection||'Unspecified',poster_url:r.poster_url||null,release_year:r.release_year||null,season:r.season,mode:r.mode,status:r.status,players:players.map(p=>({id:p.id,name:p.name,lines:score(p.marked,p.free_center).lines,marked:p.marked.length}))});
+const cleanRoom=(r,players)=>({code:r.code,host_player_id:r.host_player_id,movie_title:r.movie_title,movie_collection:r.movie_collection||'Unspecified',poster_url:r.poster_url||null,release_year:r.release_year||null,season:r.season,mode:r.mode,status:r.status,players:players.map(p=>({id:p.id,name:p.name,lines:score(p.marked,p.free_center).lines,marked:p.marked.length}))});
 Deno.serve(async req=>{
 const origin=req.headers.get('origin')||'';
 if(req.method==='OPTIONS')return new Response(null,{status:204,headers:h(origin)});

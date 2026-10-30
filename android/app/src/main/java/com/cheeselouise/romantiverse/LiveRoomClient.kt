@@ -103,12 +103,15 @@ data class LiveMovie(
     val year: Int?, val poster: String?, val mode: String, val status: String
 )
 data class LiveRoom(
-    val code: String, val movie: LiveMovie, val players: List<LivePlayer>
+    val code: String, val movie: LiveMovie, val players: List<LivePlayer>,
+    val hostPlayerId: String? = null
 )
 data class LiveSnapshot(
     val room: LiveRoom, val card: List<String>, val marks: Set<Int>,
     val revision: Int, val session: LiveSession?
 ) {
+    /** Host-only controls are available only when the server explicitly identifies this player. */
+    val canControlRoom: Boolean get() = session?.playerId?.let { it == room.hostPlayerId } ?: false
     val lines: Int get() = BingoEngine.winningLines(marks).size
     val score: Int get() = BingoEngine.score(marks)
     val blackout: Boolean get() = marks.size == 25 || marks.size == 24 && 12 !in marks
@@ -235,7 +238,11 @@ object LiveRoomProtocol {
         val stableMovie = movie.copy(status = RoomStatusProgression.latest(
             previousForRoom?.room?.movie?.status, movie.status
         ))
-        val next = LiveSnapshot(LiveRoom(code, stableMovie, players), card, marks, revision, session)
+        val next = LiveSnapshot(
+            LiveRoom(code, stableMovie, players,
+                roomData.optString("host_player_id").takeIf { it.isNotBlank() }),
+            card, marks, revision, session
+        )
         // Poll responses may arrive after a successful mark or room transition.
         // An older revision must not roll back *any* authoritative room state:
         // restoring only the card/marks would still regress the status and roster.
