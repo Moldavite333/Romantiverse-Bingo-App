@@ -84,6 +84,7 @@ internal object ArtworkReviewCatalog {
 
     fun labels(theme: String): List<String> = when (theme) {
         "Multiplayer launch" -> multiplayerLaunchBatch
+        "Multiplayer Fall II" -> multiplayerLaunchBatch.takeLast(6)
         "Romance" -> BingoEngine.pool(theme)
         "Christmas", "Fall", "Horror" ->
             BingoEngine.artworkPool(theme).filterNot { it in romance }
@@ -217,6 +218,19 @@ private fun PreviewMultiplayerMarked() = ArtworkReviewGallery("Multiplayer launc
 @Composable
 private fun PreviewMultiplayerWinningLargeText() =
     ArtworkReviewGallery("Multiplayer launch", marked = true, winning = true)
+
+@Preview(name = "Fall II original scenes • 320dp", widthDp = 320, heightDp = 270)
+@Composable
+private fun PreviewFallTwoNarrow() = ArtworkReviewGallery("Multiplayer Fall II")
+
+@Preview(name = "Fall II marked • 360dp", widthDp = 360, heightDp = 290)
+@Composable
+private fun PreviewFallTwoMarked() = ArtworkReviewGallery("Multiplayer Fall II", marked = true)
+
+@Preview(name = "Fall II winning • large text", widthDp = 320, heightDp = 300, fontScale = 1.3f)
+@Composable
+private fun PreviewFallTwoWinningLargeText() =
+    ArtworkReviewGallery("Multiplayer Fall II", marked = true, winning = true)
 
 @Preview(name = "Cheese Louise free square • phone scale", widthDp = 80, heightDp = 118)
 @Composable
