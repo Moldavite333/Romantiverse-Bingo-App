@@ -176,9 +176,13 @@ fun LiveRoomScreen(
             while (currentCoroutineContext().isActive) {
                 if (!busy) {
                     runCatching {
-                        LiveRoomClient.request(LiveRoomClient.payload("state", activeSession))
-                    }.onSuccess {
-                        val accepted = accept(it, requestGeneration, activeSession.code)
+                        val response = LiveRoomClient.request(
+                            LiveRoomClient.payload("state", activeSession)
+                        )
+                        // Parse/validate inside the same failure boundary as transport:
+                        // a malformed response must not terminate foreground polling.
+                        accept(response, requestGeneration, activeSession.code)
+                    }.onSuccess { accepted ->
                         error = RoomConnectionFeedback.afterState(error, accepted)
                     }.onFailure { failure ->
                         if (roomGeneration == requestGeneration && session == activeSession)
