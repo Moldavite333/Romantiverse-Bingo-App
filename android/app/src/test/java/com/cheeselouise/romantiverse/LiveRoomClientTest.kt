@@ -36,6 +36,19 @@ class LiveRoomClientTest {
         assertFalse(LaunchRoomScope.supports(null, "Unspecified"))
     }
 
+    @Test fun reconnectWarningClearsOnlyAfterVerifiedStateAndPreservesRealErrors() {
+        val warning = RoomConnectionFeedback.RECONNECTING
+        assertEquals(warning, RoomConnectionFeedback.afterState(warning, false))
+        assertEquals("", RoomConnectionFeedback.afterState(warning, true))
+        assertEquals("Outdated card revision",
+            RoomConnectionFeedback.afterState("Outdated card revision", true))
+        assertEquals("This room has expired or is unavailable. Leave this device to join or host another game.",
+            RoomConnectionFeedback.failureMessage("Room not found or expired"))
+        assertEquals("Your room session is no longer valid. Leave this device to rejoin the game.",
+            RoomConnectionFeedback.failureMessage("Invalid player session"))
+        assertEquals(warning, RoomConnectionFeedback.failureMessage("Network is unreachable"))
+    }
+
     @Test fun roomHttpResponsesAreBoundedBeforeAllocation() {
         assertEquals("", LiveRoomClient.readBounded(java.io.StringReader(""), 4096))
         assertEquals("ok", LiveRoomClient.readBounded(java.io.StringReader("ok"), 4096))
