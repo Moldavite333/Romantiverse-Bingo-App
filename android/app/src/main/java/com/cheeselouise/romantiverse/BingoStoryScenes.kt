@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
- * One-to-one original, small-format storybook scenes for the 72 canonical tropes.
+ * One-to-one original, small-format storybook scenes for canonical and multiplayer tropes.
  *
  * Keys are the engine's exact canonical labels, never shortened display text.
  * A scene is a distinct composition, not a shared generic symbol or a
@@ -51,7 +51,9 @@ internal enum class StoryScene {
     MULTI_PUMPKIN_PATCH, APPLE_CIDER_PRESS, MULTI_HAYRIDE,
     MULTI_AUTUMN_LEAVES, MULTI_HARVEST_FESTIVAL, FLANNEL_SHIRT,
     MULTI_BONFIRE, MULTI_PIE_CONTEST, CORN_MAZE, MULTI_PUMPKIN_CARVING,
-    FAMILY_ORCHARD, APPLE_PICKING
+    FAMILY_ORCHARD, APPLE_PICKING,
+    MULTI_COZY_SWEATER, FALL_DECORATIONS, SMALL_TOWN_FAIR,
+    FARM_STAND, HARVEST_DANCE, AUTUMN_SUNSET
 }
 
 internal object StorySceneArt {
@@ -124,6 +126,12 @@ internal object StorySceneArt {
         "Pumpkin carving" to StoryScene.MULTI_PUMPKIN_CARVING,
         "Family orchard" to StoryScene.FAMILY_ORCHARD,
         "Apple picking" to StoryScene.APPLE_PICKING,
+        "Cozy sweater" to StoryScene.MULTI_COZY_SWEATER,
+        "Fall decorations" to StoryScene.FALL_DECORATIONS,
+        "Small-town fair" to StoryScene.SMALL_TOWN_FAIR,
+        "Farm stand" to StoryScene.FARM_STAND,
+        "Harvest dance" to StoryScene.HARVEST_DANCE,
+        "Autumn sunset" to StoryScene.AUTUMN_SUNSET,
         "First meeting" to StoryScene.FIRST_MEETING,
         "A misunderstanding" to StoryScene.MISUNDERSTANDING,
         "The almost-kiss" to StoryScene.ALMOST_KISS,
@@ -202,7 +210,7 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
             val p = StoryInk
             fun tile(color: Color = p.sky) {
                 drawRoundRect(color, cornerRadius = CornerRadius(8f), size = Size(48f, 48f))
-                // A quiet inset frame ties 72 distinct scenes into one illustrated collection.
+                // A quiet inset frame ties independent scenes into one illustrated collection.
                 drawRoundRect(
                     p.paper.copy(alpha = .3f), Offset(1.5f, 1.5f),
                     Size(45f, 45f), CornerRadius(7f), style = Stroke(1.3f)
@@ -1995,6 +2003,128 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     line(38f, 35f, 38f, 32f, p.cocoa, 1.5f)
                     line(38f, 32f, 44f, 32f, p.cocoa, 1.5f)
                     dot(40f, 35f, 2f, p.cranberry)
+                }
+
+
+                // Multiplayer Fall batch three: six independent offline mini-paintings.
+                StoryScene.MULTI_COZY_SWEATER -> {
+                    // A chunky cable-knit sweater rests on a porch rocker by an autumn window.
+                    tile(p.sky)
+                    box(5f, 5f, 38f, 25f, p.paper, 2f)
+                    box(8f, 8f, 32f, 19f, p.gold, 1f)
+                    line(24f, 8f, 24f, 27f, p.paper, 2f)
+                    line(8f, 18f, 40f, 18f, p.paper, 2f)
+                    shape(p.cranberry, 12f to 18f, 17f to 14f, 31f to 14f,
+                        36f to 18f, 44f to 27f, 39f to 33f,
+                        34f to 28f, 34f to 43f, 14f to 43f,
+                        14f to 28f, 9f to 33f, 4f to 27f)
+                    shape(p.paper, 19f to 14f, 24f to 20f, 29f to 14f)
+                    for (x in listOf(18f, 24f, 30f)) {
+                        line(x, 23f, x - 1f, 39f, p.gold, 1.5f)
+                        line(x - 1f, 26f, x + 2f, 30f, p.paper, 1f)
+                        line(x + 2f, 30f, x - 1f, 34f, p.paper, 1f)
+                    }
+                    line(10f, 44f, 38f, 44f, p.cocoa, 2f)
+                    shape(p.gold, 38f to 8f, 44f to 12f, 40f to 16f, 35f to 12f)
+                }
+                StoryScene.FALL_DECORATIONS -> {
+                    // A cranberry front door with a golden wreath and three porch pumpkins.
+                    tile(p.blush)
+                    box(7f, 12f, 34f, 34f, p.paper, 2f)
+                    shape(p.cocoa, 4f to 13f, 24f to 3f, 44f to 13f)
+                    box(16f, 16f, 16f, 29f, p.cranberry, 2f)
+                    dot(24f, 23f, 6f, p.evergreen)
+                    dot(24f, 23f, 3.5f, p.cranberry)
+                    for (x in listOf(19f, 24f, 29f)) dot(x, 18f, 1.5f, p.gold)
+                    dot(29f, 33f, 1.2f, p.gold)
+                    line(7f, 13f, 13f, 20f, p.evergreen, 2f)
+                    line(41f, 13f, 35f, 20f, p.evergreen, 2f)
+                    oval(3f, 36f, 12f, 9f, p.gold)
+                    oval(34f, 34f, 12f, 11f, p.cranberry)
+                    oval(29f, 39f, 10f, 7f, p.gold)
+                    for (x in listOf(9f, 34f, 40f)) line(x, 35f, x + 1f, 32f, p.evergreen, 1.5f)
+                    line(2f, 45f, 46f, 45f, p.cocoa, 1.5f)
+                }
+                StoryScene.SMALL_TOWN_FAIR -> {
+                    // A Ferris wheel and tiny ticket booth under bright county-fair pennants.
+                    tile(p.sky)
+                    dot(19f, 21f, 14f, p.paper)
+                    dot(19f, 21f, 12f, p.gold)
+                    for ((x, y) in listOf(19f to 8f, 32f to 21f, 19f to 34f, 6f to 21f,
+                        10f to 12f, 28f to 12f, 28f to 30f, 10f to 30f)) {
+                        line(19f, 21f, x, y, p.cocoa, 1.2f)
+                        dot(x, y, 2.4f, p.cranberry)
+                    }
+                    dot(19f, 21f, 3f, p.evergreen)
+                    line(19f, 21f, 8f, 45f, p.cocoa, 2f)
+                    line(19f, 21f, 30f, 45f, p.cocoa, 2f)
+                    box(31f, 28f, 15f, 17f, p.paper, 2f)
+                    shape(p.cranberry, 30f to 29f, 38f to 20f, 47f to 29f)
+                    box(34f, 34f, 9f, 5f, p.gold, 1f)
+                    line(3f, 5f, 45f, 5f, p.cocoa, 1f)
+                    for (x in listOf(6f, 16f, 26f, 36f)) {
+                        shape(p.evergreen, x to 6f, (x + 7f) to 6f, (x + 3f) to 11f)
+                    }
+                }
+                StoryScene.FARM_STAND -> {
+                    // A striped roadside produce stand stacked with apples and squash.
+                    tile(p.gold)
+                    box(5f, 20f, 38f, 25f, p.paper, 2f)
+                    shape(p.evergreen, 3f to 20f, 9f to 9f, 39f to 9f, 45f to 20f)
+                    for (x in listOf(9f, 19f, 29f, 39f)) {
+                        shape(p.cranberry, x to 10f, (x + 5f) to 10f,
+                            (x + 7f) to 20f, (x - 2f) to 20f)
+                    }
+                    box(7f, 27f, 34f, 5f, p.cocoa, 1f)
+                    box(7f, 38f, 34f, 5f, p.cocoa, 1f)
+                    for ((x, y) in listOf(13f to 25f, 20f to 25f, 28f to 25f, 35f to 25f)) {
+                        dot(x, y, 3.4f, p.cranberry)
+                        line(x, y - 3f, x + 1f, y - 5f, p.evergreen, 1f)
+                    }
+                    for (x in listOf(13f, 22f, 32f)) {
+                        oval(x - 4f, 32f, 9f, 7f, p.gold)
+                        line(x, 32f, x, 29f, p.evergreen, 1f)
+                    }
+                    line(5f, 45f, 43f, 45f, p.evergreen, 1.5f)
+                }
+                StoryScene.HARVEST_DANCE -> {
+                    // Two dancers beneath string lights in an open timber barn.
+                    tile(p.blush)
+                    shape(p.cocoa, 2f to 17f, 24f to 4f, 46f to 17f)
+                    box(5f, 17f, 38f, 30f, p.cocoa, 2f)
+                    box(11f, 19f, 26f, 27f, p.sky, 1f)
+                    line(9f, 19f, 39f, 19f, p.gold, 1.4f)
+                    for (x in listOf(12f, 18f, 24f, 30f, 36f)) {
+                        line(x, 19f, x, 23f, p.paper, 1f)
+                        dot(x, 24f, 1.6f, p.gold)
+                    }
+                    person(19f, 29f, p.cranberry)
+                    person(30f, 27f, p.evergreen)
+                    line(23f, 36f, 26f, 34f, p.skin, 2.3f)
+                    line(17f, 42f, 13f, 46f, p.ink, 2f)
+                    line(21f, 42f, 24f, 46f, p.ink, 2f)
+                    line(28f, 40f, 26f, 46f, p.ink, 2f)
+                    line(33f, 40f, 37f, 46f, p.ink, 2f)
+                    heart(24f, 10f, .43f, p.gold)
+                }
+                StoryScene.AUTUMN_SUNSET -> {
+                    // A couple watches a copper sunset over a lake from a narrow dock.
+                    tile(p.blush)
+                    dot(32f, 15f, 10f, p.gold)
+                    shape(p.cranberry, 0f to 26f, 9f to 17f, 19f to 24f,
+                        32f to 18f, 48f to 28f, 48f to 48f, 0f to 48f)
+                    shape(p.evergreen, 0f to 30f, 13f to 24f, 28f to 32f,
+                        41f to 25f, 48f to 29f, 48f to 48f, 0f to 48f)
+                    box(0f, 34f, 48f, 14f, p.blue, 0f)
+                    for (y in listOf(37f, 42f, 46f)) {
+                        line(4f, y, 43f, y, p.paper.copy(alpha = .7f), 1f)
+                    }
+                    shape(p.cocoa, 19f to 34f, 30f to 34f, 39f to 48f, 10f to 48f)
+                    dot(21f, 29f, 3.2f, p.ink)
+                    dot(29f, 28f, 3.2f, p.ink)
+                    oval(18f, 32f, 7f, 11f, p.ink)
+                    oval(26f, 31f, 7f, 12f, p.ink)
+                    line(24f, 38f, 27f, 37f, p.skin, 2f)
                 }
 
                 StoryScene.OLD_FLAME -> {
