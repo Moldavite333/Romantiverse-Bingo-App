@@ -145,6 +145,41 @@ class LiveRoomClientTest {
         assertEquals(100, stale.score)
     }
 
+    @Test fun delayedSameRevisionPollCannotReopenStartedOrFinishedRoom() {
+        // Host start/finish changes room status without changing a player's
+        // revision, so revision checks alone cannot order these responses.
+        val lobbyJson = snapshot(4, "12")
+            .replace("\"status\":\"playing\"", "\"status\":\"lobby\"")
+        val finishedJson = snapshot(4, "12")
+            .replace("\"status\":\"playing\"", "\"status\":\"finished\"")
+        val lobby = LiveRoomProtocol.parse(lobbyJson)
+        val playing = LiveRoomProtocol.parse(snapshot(4, "12"), lobby)
+        assertEquals("playing", playing.room.movie.status)
+        val lateLobby = LiveRoomProtocol.parse(lobbyJson, playing)
+        assertEquals("playing", lateLobby.room.movie.status)
+        val finished = LiveRoomProtocol.parse(finishedJson, lateLobby)
+        assertEquals("finished", finished.room.movie.status)
+        val latePlaying = LiveRoomProtocol.parse(snapshot(4, "12"), finished)
+        assertEquals("finished", latePlaying.room.movie.status)
+    }
+
+    @Test fun newerMarkRevisionCannotRollBackFinishedRoomStatus() {
+        val finishedJson = snapshot(4, "12")
+            .replace("\"status\":\"playing\"", "\"status\":\"finished\"")
+        val finished = LiveRoomProtocol.parse(finishedJson)
+        val delayedMark = LiveRoomProtocol.parse(snapshot(5, "0,12"), finished)
+        // Keep the newer authoritative mark and revision while retaining the
+        // terminal room state observed from a newer host response.
+        assertEquals(5, delayedMark.revision)
+        assertEquals(setOf(0, 12), delayedMark.marks)
+        assertEquals("finished", delayedMark.room.movie.status)
+        // A new room is independent and must not inherit another room's status.
+        val differentRoom = LiveRoomProtocol.parse(
+            snapshot(0, "12").replace(code, "WXYZ345"), delayedMark
+        )
+        assertEquals("playing", differentRoom.room.movie.status)
+    }
+
     @Test fun malformedServerCardsNeverReplaceAPlayableBoard() {
         val valid = snapshot(4, "0,1,12")
         val prior = LiveRoomProtocol.parse(valid)
