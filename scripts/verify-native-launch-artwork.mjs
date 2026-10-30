@@ -43,7 +43,7 @@ const art = new Map(mapped.map(([, label, scene]) => [label, scene]));
 assert.equal(art.size, mapped.length, 'Duplicate native art label');
 assert.equal(new Set(art.values()).size, art.size, 'Multiple labels share the same native scene');
 
-const MIN_ILLUSTRATED = 62; // 14 original exact matches + 48 independent launch scenes.
+const MIN_ILLUSTRATED = 68; // 14 original exact matches + 54 independent launch scenes.
 const illustrated = launch.filter(label => art.has(label));
 assert.ok(illustrated.length >= MIN_ILLUSTRATED,
   `Native launch art regressed: ${illustrated.length}/114, minimum ${MIN_ILLUSTRATED}`);
