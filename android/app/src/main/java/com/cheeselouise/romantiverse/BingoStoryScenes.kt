@@ -37,7 +37,9 @@ internal enum class StoryScene {
     MEDDLING_RELATIVE, ROMANTIC_RIVAL, LAST_MINUTE_ARRIVAL, UNEXPECTED_KISS, MEANINGFUL_LOOK, INCONVENIENT_DEADLINE, SMALL_TOWN_CELEBRATION, SHARED_MEAL,
     TREE_LIGHTING, SNOWSTORM, CHRISTMAS_COOKIES, HOLIDAY_PARADE, FESTIVE_MARKET, CHRISTMAS_WISH, COZY_FIREPLACE, HOLIDAY_TRADITION,
     PUMPKIN_PATCH, AUTUMN_FESTIVAL, HAYRIDE, HARVEST_MARKET, PIE_CONTEST, COZY_SWEATER, FALLING_LEAVES, APPLE_ORCHARD, BONFIRE, FALL_FUNDRAISER, PUMPKIN_CARVING, FOLIAGE_DRIVE,
-    CREAKING_DOOR, OMINOUS_SHADOW, SUDDEN_SCREAM, FLASHLIGHT_FAILS, STRANGE_NOISE, CREEPY_HALLWAY, MYSTERIOUS_WARNING, JUMP_SCARE, EERIE_PHONE_CALL, LOCKED_DOOR, ABANDONED_HOUSE, FINAL_REVEAL
+    CREAKING_DOOR, OMINOUS_SHADOW, SUDDEN_SCREAM, FLASHLIGHT_FAILS, STRANGE_NOISE, CREEPY_HALLWAY, MYSTERIOUS_WARNING, JUMP_SCARE, EERIE_PHONE_CALL, LOCKED_DOOR, ABANDONED_HOUSE, FINAL_REVEAL,
+    CAREER_OR_LOVE, TOWN_GETS_INVOLVED, RELATIVE_ADVICE,
+    OVERHEARD_HALF, ROMANTIC_DEADLINE, FORCED_TOGETHER
 }
 
 internal object StorySceneArt {
@@ -66,6 +68,13 @@ internal object StorySceneArt {
         "A community fundraiser" to StoryScene.COMMUNITY_FUNDRAISER,
         "A surprise invitation" to StoryScene.SURPRISE_INVITATION,
         "An old flame" to StoryScene.OLD_FLAME,
+        // Multiplayer launch labels: independent original scenes, not generic motifs.
+        "Career versus love dilemma" to StoryScene.CAREER_OR_LOVE,
+        "The entire town gets involved" to StoryScene.TOWN_GETS_INVOLVED,
+        "A relative gives unsolicited love advice" to StoryScene.RELATIVE_ADVICE,
+        "Someone overhears the wrong half of a conversation" to StoryScene.OVERHEARD_HALF,
+        "A romantic deadline approaches" to StoryScene.ROMANTIC_DEADLINE,
+        "Two people are forced to spend time together" to StoryScene.FORCED_TOGETHER,
         "First meeting" to StoryScene.FIRST_MEETING,
         "A misunderstanding" to StoryScene.MISUNDERSTANDING,
         "The almost-kiss" to StoryScene.ALMOST_KISS,
@@ -1201,6 +1210,94 @@ internal fun StorySceneIllustration(scene: StoryScene, modifier: Modifier = Modi
                     dot(24f, 23f, 11f, p.gold)
                     person(24f, 19f, p.evergreen)
                     heart(24f, 11f, .4f, p.cranberry)
+                }
+
+                // Six dedicated multiplayer launch scenes. Each has its own focal composition.
+                StoryScene.CAREER_OR_LOVE -> {
+                    // A briefcase and a love note sit on opposite sides of a forked path.
+                    tile(p.sky)
+                    shape(p.gold, 20f to 48f, 22f to 30f, 12f to 21f,
+                        16f to 18f, 24f to 28f, 32f to 18f, 36f to 21f, 26f to 30f, 28f to 48f)
+                    box(3f, 10f, 18f, 14f, p.cocoa, 2f)
+                    box(8f, 6f, 8f, 5f, p.ink, 1f)
+                    box(6f, 14f, 12f, 2f, p.gold, 1f)
+                    box(28f, 7f, 17f, 21f, p.paper, 2f)
+                    heart(36f, 16f, .6f, p.cranberry)
+                    line(31f, 23f, 41f, 23f, p.blue, 1.5f)
+                    person(24f, 34f, p.evergreen)
+                }
+                StoryScene.TOWN_GETS_INVOLVED -> {
+                    // Three distinct storefronts and a crowd beneath festival bunting.
+                    tile(p.blush)
+                    box(2f, 17f, 15f, 21f, p.evergreen)
+                    box(18f, 11f, 13f, 27f, p.cocoa)
+                    box(32f, 19f, 14f, 19f, p.blue)
+                    shape(p.paper, 2f to 17f, 9f to 10f, 17f to 17f)
+                    shape(p.paper, 18f to 11f, 24f to 4f, 31f to 11f)
+                    shape(p.paper, 32f to 19f, 39f to 12f, 46f to 19f)
+                    box(21f, 18f, 7f, 11f, p.gold)
+                    line(2f, 5f, 46f, 8f, p.ink, 1f)
+                    shape(p.gold, 8f to 5f, 13f to 6f, 10f to 11f)
+                    shape(p.cranberry, 27f to 7f, 33f to 7f, 30f to 13f)
+                    person(10f, 40f, p.cranberry)
+                    person(24f, 40f, p.evergreen)
+                    person(38f, 40f, p.cocoa)
+                }
+                StoryScene.RELATIVE_ADVICE -> {
+                    // An older relative offers heart-shaped advice across a kitchen table.
+                    tile(p.paper)
+                    box(3f, 31f, 42f, 8f, p.cocoa, 2f)
+                    person(12f, 23f, p.evergreen)
+                    person(37f, 25f, p.cranberry)
+                    box(18f, 26f, 11f, 6f, p.gold, 2f)
+                    line(17f, 23f, 25f, 26f, p.skin, 3f)
+                    box(21f, 3f, 23f, 17f, p.sky, 6f)
+                    shape(p.sky, 25f to 17f, 21f to 24f, 33f to 19f)
+                    heart(32f, 11f, .5f, p.cranberry)
+                    dot(8f, 8f, 3f, p.gold)
+                }
+                StoryScene.OVERHEARD_HALF -> {
+                    // A listener behind a doorway hears only half of a speech bubble.
+                    tile(p.blue)
+                    box(3f, 4f, 17f, 42f, p.cocoa)
+                    box(6f, 8f, 11f, 35f, p.evergreen)
+                    dot(15f, 27f, 2f, p.gold)
+                    person(27f, 35f, p.cranberry)
+                    box(20f, 4f, 26f, 16f, p.paper, 5f)
+                    heart(29f, 12f, .4f, p.cranberry)
+                    // The visible bubble ends abruptly at a vertical divider.
+                    box(36f, 5f, 10f, 14f, p.blue, 0f)
+                    line(36f, 4f, 36f, 22f, p.ink, 1.5f)
+                    line(25f, 20f, 22f, 25f, p.paper, 2f)
+                    dot(6f, 39f, 2f, p.gold)
+                }
+                StoryScene.ROMANTIC_DEADLINE -> {
+                    // A large ticking clock hangs over an unsealed love letter.
+                    tile(p.blush)
+                    dot(24f, 17f, 14f, p.paper)
+                    dot(24f, 17f, 11f, p.gold)
+                    dot(24f, 17f, 9f, p.paper)
+                    line(24f, 17f, 24f, 9f, p.ink, 2.5f)
+                    line(24f, 17f, 30f, 20f, p.ink, 2.5f)
+                    dot(24f, 17f, 2f, p.cranberry)
+                    box(7f, 30f, 34f, 15f, p.paper, 2f)
+                    shape(p.cranberry, 8f to 32f, 24f to 41f, 40f to 32f)
+                    heart(24f, 36f, .35f, p.gold)
+                    line(6f, 5f, 12f, 9f, p.cranberry, 1.5f)
+                }
+                StoryScene.FORCED_TOGETHER -> {
+                    // Two strangers share a stalled lift, framed by closed elevator doors.
+                    tile(p.sky)
+                    box(5f, 4f, 38f, 42f, p.cocoa, 3f)
+                    box(9f, 8f, 30f, 33f, p.paper, 2f)
+                    line(24f, 8f, 24f, 41f, p.blue, 1.8f)
+                    person(17f, 30f, p.evergreen)
+                    person(32f, 30f, p.cranberry)
+                    box(13f, 4f, 22f, 7f, p.ink, 2f)
+                    line(17f, 8f, 21f, 6f, p.gold, 1.5f)
+                    line(21f, 6f, 17f, 5f, p.gold, 1.5f)
+                    dot(29f, 7f, 1.5f, p.gold)
+                    heart(24f, 20f, .3f, p.cranberry)
                 }
 
                 StoryScene.OLD_FLAME -> {
