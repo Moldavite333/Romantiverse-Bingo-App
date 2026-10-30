@@ -180,4 +180,42 @@ class PosterRepositoryTest {
             PosterRepository.key("Autumn Dreams", 2015)
         )
     }
+
+    @Test fun verifiedYearCorrectionFindsLastKnownPosterWithoutMixingRemakes() {
+        val corrected = Movie("wikidata-q130582183", "Holiday Date", 2019, "Christmas")
+        val oldKey = PosterRepository.key("Holiday Date", 2022)
+        val posters = mapOf(oldKey to entry("old-release-year"))
+        assertEquals(entry("old-release-year"), PosterRepository.forMovie(corrected, posters))
+        // The fallback is tied to the exact verified catalog ID and corrected year.
+        assertNull(PosterRepository.forMovie(
+            Movie("unrelated-remake", "Holiday Date", 2019, "Christmas"), posters
+        ))
+        assertNull(PosterRepository.forMovie(
+            Movie(corrected.id, corrected.title, 2018, "Christmas"), posters
+        ))
+    }
+
+    @Test fun hqLockOnVerifiedLegacyYearOverridesAutomaticCorrectedYear() {
+        val corrected = Movie("wikidata-q130582183", "Holiday Date", 2019, "Christmas")
+        val canonical = PosterRepository.key("Holiday Date", 2019)
+        val legacy = PosterRepository.key("Holiday Date", 2022)
+        val posters = mapOf(
+            canonical to entry("automatic-new"),
+            legacy to entry("hq-locked-old", locked = true)
+        )
+        assertEquals(entry("hq-locked-old", locked = true),
+            PosterRepository.forMovie(corrected, posters))
+        assertEquals(entry("automatic-new"),
+            PosterRepository.forMovie(corrected, posters - legacy))
+    }
+
+    @Test fun canonicalLockedPosterWinsIfBothYearsHavePublishedLocks() {
+        val corrected = Movie("wikidata-q130582183", "Holiday Date", 2019, "Christmas")
+        val posters = mapOf(
+            PosterRepository.key("Holiday Date", 2019) to entry("hq-current", locked = true),
+            PosterRepository.key("Holiday Date", 2022) to entry("hq-old", locked = true)
+        )
+        assertEquals(entry("hq-current", locked = true),
+            PosterRepository.forMovie(corrected, posters))
+    }
 }
