@@ -149,7 +149,11 @@ object LiveRoomProtocol {
             // playable 5x5 board. Room previews omit card entirely.
             require(cardData.length() == 25) { "Incomplete multiplayer Bingo card" }
             (0 until cardData.length()).map { i ->
-                val label = cardData.optJSONObject(i)?.optString("label").orEmpty()
+                val square = cardData.optJSONObject(i)
+                require(square != null && square.has("label") && !square.isNull("label")) {
+                    "Invalid multiplayer Bingo square"
+                }
+                val label = square.getString("label")
                 require(label.isNotBlank()) { "Invalid multiplayer Bingo square" }
                 label
             }
