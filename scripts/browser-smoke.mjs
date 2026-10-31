@@ -5,7 +5,7 @@ import {resolve,extname,sep} from 'node:path';
 import {chromium} from 'playwright';
 
 const root=resolve('dist');
-const base='/Romantiverse-Bingo-App/';
+const base='/';
 const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.json':'application/json','.webmanifest':'application/manifest+json','.png':'image/png','.jpg':'image/jpeg'};
 const server=createServer(async(req,res)=>{
  try{
