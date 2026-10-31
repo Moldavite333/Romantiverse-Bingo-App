@@ -327,6 +327,39 @@ class LiveRoomClientTest {
         assertEquals(emptyList<String>(), result.card)
     }
 
+    @Test fun sameRoomPublicPreviewNeverInheritsPrivateBoardOrSession() {
+        val prior = LiveRoomProtocol.parse(snapshot(8, "0,1,2,3,4,12"))
+        val preview = """{
+            "room":{"code":"$code","movie_title":"A Movie",
+                "movie_collection":"Unspecified","season":"Romance",
+                "mode":"classic","status":"lobby","players":[]}
+        }"""
+        val next = LiveRoomProtocol.parse(preview, prior)
+        assertEquals(code, next.room.code)
+        assertEquals(emptyList<String>(), next.card)
+        assertEquals(emptySet<Int>(), next.marks)
+        assertEquals(0, next.revision)
+        assertEquals(0, next.score)
+        assertNull(next.session)
+        assertFalse(RoomResponseGuard.accepts(2, 2, code, prior.session, next))
+
+        // Even a response with board fields cannot borrow the previous token
+        // unless the server identifies the same authenticated player.
+        val missingIdentity = snapshot(9, "0,12")
+            .replace("\"token\":\"$token\",", "")
+            .replace("\"player_id\":\"player-1\",", "")
+        val untrusted = LiveRoomProtocol.parse(missingIdentity, prior)
+        assertNull(untrusted.session)
+        assertEquals(setOf(0, 12), untrusted.marks)
+        assertFalse(RoomResponseGuard.accepts(2, 2, code, prior.session, untrusted))
+
+        // Authenticated polling must continue to reuse the session normally.
+        val state = snapshot(9, "0,1,12").replace("\"token\":\"$token\",", "")
+        val authenticated = LiveRoomProtocol.parse(state, prior)
+        assertEquals(prior.session, authenticated.session)
+        assertEquals(setOf(0, 1, 12), authenticated.marks)
+    }
+
     @Test fun switchingRoomsNeverReusesPreviousPlayersPrivateCardOrCredentials() {
         val prior = LiveRoomProtocol.parse(snapshot(9, "0,1,2,3,4,12"))
         val otherRoom = """{
