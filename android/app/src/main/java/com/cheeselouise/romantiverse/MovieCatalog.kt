@@ -12,7 +12,8 @@ data class Movie(
     val title: String,
     val year: Int?,
     val collection: String,
-    val network: String? = null
+    val network: String? = null,
+    val productionCompany: String? = null
 ) {
     val key: String get() = PosterRepository.key(title, year)
 }
@@ -62,6 +63,7 @@ object MovieCatalog {
         val searchable = listOfNotNull(
             movie.title,
             movie.network,
+            movie.productionCompany,
             movie.year?.toString(),
             movie.collection.takeUnless { it == "Unspecified" }
         ).joinToString(" ")
@@ -90,7 +92,10 @@ object MovieCatalog {
             val network = row.optString("network", "").trim().takeIf {
                 !row.isNull("network") && it.length in 1..80 && it.all { char -> char >= ' ' }
             }
-            val movie = Movie(id, title, year, collection, network)
+            val productionCompany = row.optString("production_company", "").trim().takeIf {
+                !row.isNull("production_company") && it.length in 1..120 && it.all { char -> char >= ' ' }
+            }
+            val movie = Movie(id, title, year, collection, network, productionCompany)
             if (seen.add(movie.key)) result += movie
         }
         require(result.isNotEmpty()) { "No usable movies in catalog" }
