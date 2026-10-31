@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mergeMovieListings,movieEvidenceLabel} from '../src/engine/movieListings.mjs';
+import {mergeMovieListings,movieEvidenceLabel,matchesMovieQuery} from '../src/engine/movieListings.mjs';
 
 test('bundled and Supabase versions of the same movie appear only once',()=>{
  const staticTitle={id:'static',title:'Autumn at Apple Hill',release_year:2024,is_demo:false};
@@ -49,4 +49,20 @@ test('unapproved poster URLs and ambiguous remakes never enrich selected titles'
  const known={...base,release_year:2024};
  const unapproved={...other,poster_rights:undefined};
  assert.deepEqual(mergeMovieListings([[known],[unapproved]]),[known]);
+});
+
+
+test('movie discovery matches accents, punctuation, words in any order and release years',()=>{
+ const movie={title:'Café at Apple Hill: A Romance!',release_year:2024,
+  synopsis:'A pastry chef returns to her hometown.',
+  story_facts:{setting:['apple orchard'],relationship:[],conflict:[],event:[]}};
+ for(const query of ['cafe','cafe apple','romance cafe','2024 cafe','pastry hometown','orchard apple',' CAFE, 2024!']){
+  assert.equal(matchesMovieQuery(movie,query),true,query);
+ }
+ for(const query of ['2023','hometown snow','東京']){
+  assert.equal(matchesMovieQuery(movie,query),false,query);
+ }
+ assert.equal(matchesMovieQuery(movie,''),true);
+ assert.equal(matchesMovieQuery(movie,'!?'),true);
+ assert.equal(matchesMovieQuery(null,'cafe'),false);
 });
