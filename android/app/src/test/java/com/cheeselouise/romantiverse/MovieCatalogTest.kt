@@ -203,7 +203,7 @@ class MovieCatalogTest {
                 .put("production_company", "MarVista Entertainment"),
             row("unknown", "A Christmas Village", "Christmas", 2018),
             row("malformed", "Another Film", "Fall", 2022)
-                .put("production_company", "MarVista\\nFake")
+                .put("production_company", "MarVista\nFake")
         ))
         val reel = movies.single { it.id == "reel-one" }
         val marvista = movies.single { it.id == "marvista" }
