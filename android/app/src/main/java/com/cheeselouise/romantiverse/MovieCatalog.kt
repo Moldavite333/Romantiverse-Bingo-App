@@ -6,6 +6,8 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
+import java.text.Normalizer
+import java.util.Locale
 
 data class Movie(
     val id: String,
@@ -57,17 +59,28 @@ object MovieCatalog {
      * combine a title fragment, network, collection and release year, e.g.
      * "Hallmark 2024" or "Christmas Lifetime". Never guess a distributor.
      */
+    // Movie listings can mix composed/decomposed accents and punctuation (e.g.
+    // Noël vs Noël, or Reel-One vs Reel One). Normalize both sides without
+    // changing the canonical title, movie ID, poster key, or saved card.
+    private fun searchText(value: String): String =
+        Normalizer.normalize(value, Normalizer.Form.NFKD)
+            .replace(Regex("\\p{M}+"), "")
+            .lowercase(Locale.ROOT)
+            .replace(Regex("[^\\p{L}\\p{N}]+"), " ")
+            .trim()
+            .replace(Regex("\\s+"), " ")
+
     fun matchesQuery(movie: Movie, query: String): Boolean {
-        val terms = query.trim().split(Regex("\\s+")).filter { it.isNotEmpty() }
+        val terms = searchText(query).split(' ').filter { it.isNotEmpty() }
         if (terms.isEmpty()) return true
-        val searchable = listOfNotNull(
+        val searchable = searchText(listOfNotNull(
             movie.title,
             movie.network,
             movie.productionCompany,
             movie.year?.toString(),
             movie.collection.takeUnless { it == "Unspecified" }
-        ).joinToString(" ")
-        return terms.all { term -> searchable.contains(term, ignoreCase = true) }
+        ).joinToString(" "))
+        return terms.all { term -> searchable.contains(term) }
     }
 
     /** Validate all remote data before it can replace the offline catalog. */
