@@ -77,6 +77,8 @@ private fun restore(context: Context): LiveSession? {
 fun LiveRoomScreen(
     selectedMovie: Movie?,
     selectedPoster: String?,
+    catalogMovies: List<Movie>,
+    publicPosters: Map<String, PosterRepository.Entry>,
     incomingCode: String?,
     hapticsEnabled: Boolean,
     reduceMotion: Boolean
@@ -294,7 +296,8 @@ fun LiveRoomScreen(
             if (preview != null) {
                 item {
                     LiveMovieHeader(preview!!.movie.title, preview!!.movie.collection,
-                        preview!!.movie.theme, preview!!.movie.year, preview!!.movie.poster,
+                        preview!!.movie.theme, preview!!.movie.year,
+                        PosterRepository.forRoom(preview!!.movie, publicPosters, catalogMovies),
                         "YOU'RE INVITED TO WATCH")
                 }
             }
@@ -363,7 +366,9 @@ fun LiveRoomScreen(
             item {
                 if (room != null) {
                     LiveMovieHeader(room.movie.title, room.movie.collection, room.movie.theme,
-                        room.movie.year, room.movie.poster, "YOUR SHARED MOVIE")
+                        room.movie.year,
+                        PosterRepository.forRoom(room.movie, publicPosters, catalogMovies),
+                        "YOUR SHARED MOVIE")
                 } else Text("Reconnecting to room ${session!!.code}…", color = parchment)
             }
             item {

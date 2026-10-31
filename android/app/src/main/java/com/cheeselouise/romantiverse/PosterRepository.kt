@@ -38,6 +38,23 @@ object PosterRepository {
         return candidates.firstOrNull { it.locked } ?: candidates.firstOrNull()
     }
 
+    /**
+     * A joined multiplayer room can carry an older poster chosen by its host.
+     * Use the public HQ-locked poster for the exact movie identity whenever one
+     * is available, including verified legacy-year keys. Never match by title
+     * alone: a remake must not inherit another release's artwork.
+     *
+     * Room metadata and public poster projections only; no private HQ data.
+     */
+    fun forRoom(movie: LiveMovie, entries: Map<String, Entry>, catalog: List<Movie>): String? {
+        val roomKey = key(movie.title, movie.year)
+        val catalogMovie = catalog.firstOrNull { it.key == roomKey }
+        val local = catalogMovie?.let { forMovie(it, entries) } ?: entries[roomKey]
+        return local?.takeIf { it.locked }?.url
+            ?: approved(movie.poster)
+            ?: local?.url
+    }
+
     fun approved(url: String?): String? {
         if (url.isNullOrBlank()) return null
         return try {

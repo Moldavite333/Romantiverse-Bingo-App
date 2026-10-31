@@ -179,6 +179,48 @@ class PosterRepositoryTest {
         assertNotEquals(PosterRepository.key(composed.title, 2024), PosterRepository.key(decomposed, 2025))
     }
 
+    private fun sharedMovie(title: String, year: Int?, poster: String?) =
+        LiveMovie(title, "Christmas", "Christmas", year, poster, "classic", "lobby")
+
+    @Test fun joinedRoomUsesPublicHQLockOverHostPoster() {
+        val key = PosterRepository.key("Café Christmas", 2025)
+        val movie = sharedMovie("Cafe\u0301 Christmas", 2025,
+            "https://image.tmdb.org/t/p/w500/host.jpg")
+        val posters = mapOf(key to entry("hq-locked", locked = true))
+        val catalog = listOf(Movie("cafe-christmas", "Café Christmas", 2025, "Christmas"))
+        assertEquals(entry("hq-locked", locked = true).url,
+            PosterRepository.forRoom(movie, posters, catalog))
+    }
+
+    @Test fun joinedRoomUsesHostPosterUnlessPublicArtworkIsLocked() {
+        val movie = sharedMovie("Autumn Dreams", 2015,
+            "https://image.tmdb.org/t/p/w500/host.jpg")
+        val key = PosterRepository.key("Autumn Dreams", 2015)
+        val automatic = mapOf(key to entry("automatic"))
+        assertEquals(movie.poster, PosterRepository.forRoom(movie, automatic, emptyList()))
+        assertEquals(entry("automatic").url,
+            PosterRepository.forRoom(movie.copy(poster = null), automatic, emptyList()))
+    }
+
+    @Test fun joinedRoomNeverBorrowsHQLockFromDifferentRelease() {
+        val movie = sharedMovie("Autumn Dreams", 2025,
+            "https://image.tmdb.org/t/p/w500/newer.jpg")
+        val posters = mapOf(PosterRepository.key("Autumn Dreams", 2015) to
+            entry("older-hq", locked = true))
+        val catalog = listOf(Movie("older-release", "Autumn Dreams", 2015, "Christmas"))
+        assertEquals(movie.poster, PosterRepository.forRoom(movie, posters, catalog))
+    }
+
+    @Test fun joinedRoomHonorsVerifiedLegacyYearHQLock() {
+        val movie = sharedMovie("Holiday Date", 2019,
+            "https://image.tmdb.org/t/p/w500/automatic.jpg")
+        val posters = mapOf(PosterRepository.key("Holiday Date", 2022) to
+            entry("legacy-hq", locked = true))
+        val catalog = listOf(Movie("wikidata-q130582183", "Holiday Date", 2019, "Christmas"))
+        assertEquals(entry("legacy-hq", locked = true).url,
+            PosterRepository.forRoom(movie, posters, catalog))
+    }
+
     @Test fun titleAndYearMustMatchExactly() {
         assertNotEquals(
             PosterRepository.key("Autumn Dreams", 2015),
