@@ -33,7 +33,7 @@ const card=(season,existingCards=[])=>{
    return labels;
   };
   const dealt=shuffle([...choose(cheese,'cheese'),...choose(themes[season],'seasonal')]);
-  dealt.splice(12,0,{id:'free',label:'FREE SPACE',category:'free'});
+  dealt.splice(12,0,{id:'free',label:'CHEESE LOUISE POD',category:'free'});
   if(!previous.has(cardKey(dealt)))return dealt;
  }
  // Never knowingly issue the same visible card to two players in a room.
