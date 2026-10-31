@@ -98,7 +98,6 @@
       "title": "A Christmas Village",
       "release_year": 2018,
       "season": "Christmas",
-      "network": "Independent",
       "source_url": "https://tv.apple.com/us/movie/a-christmas-village/umc.cmc.4ouz3jorgbe6wtt3kv8zg12d9",
       "story_facts": {
         "setting": [],
@@ -108,7 +107,7 @@
       },
       "facts_status": "title_only_unverified",
       "verification_status": "metadata_verified",
-      "source_name": "Independent",
+      "source_name": "Apple TV (film metadata)",
       "is_demo": false
     },
     {
