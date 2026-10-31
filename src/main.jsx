@@ -9,6 +9,7 @@ import{approvedMoviePoster}from './engine/posters.mjs';
 import{orderMoviesForBrowsing}from './engine/posterOrdering.mjs';
 import{encodeInvitation,parseInvitation}from './engine/invitations.mjs';
 import{parseRoomInvite}from './engine/roomInvites.mjs';
+import{readDiscoverySearch}from './engine/discoverySearch.mjs';
 import{mergeMovieListings,movieEvidenceLabel,matchesMovieQuery}from './engine/movieListings.mjs';
 import{loadStaticCatalog}from './services/staticCatalog.js';
 import Multiplayer from './Multiplayer.jsx';
@@ -35,7 +36,7 @@ const [remoteMovies,setRemoteMovies]=useState([]),[remoteLoading,setRemoteLoadin
 const [liveMovies,setLiveMovies]=useState([]),[catalogError,setCatalogError]=useState(''),[catalogLoading,setCatalogLoading]=useState(true);
 const [publishedMovies,setPublishedMovies]=useState([]),[resolvedMovies,setResolvedMovies]=useState([]);
 const [game,setGame]=useState(()=>refreshUntouchedCard(read(KEY,null))),[history,setHistory]=useState(()=>read(HISTORY,[])),[favorites,setFavorites]=useState(()=>read(FAVORITES,[]));
-const [tab,setTab]=useState(()=>{if(parseRoomInvite(window.location.search))return 'together';try{if(sessionStorage.getItem('romantiverse-last-tab')==='play'&&read(KEY,null))return 'play'}catch{}return 'discover'}),[query,setQuery]=useState(''),[season,setSeason]=useState('Christmas'),[custom,setCustom]=useState(''),[free,setFree]=useState(true),[mode,setMode]=useState('classic'),[difficulty,setDifficulty]=useState('balanced'),[ratio,setRatio]=useState(50),[notice,setNotice]=useState(''),[editIndex,setEditIndex]=useState(null),[filter,setFilter]=useState('All'),[showClues,setShowClues]=useState(false);
+const [tab,setTab]=useState(()=>{if(parseRoomInvite(window.location.search))return 'together';if(readDiscoverySearch(window.location.search))return 'discover';try{if(sessionStorage.getItem('romantiverse-last-tab')==='play'&&read(KEY,null))return 'play'}catch{}return 'discover'}),[query,setQuery]=useState(()=>readDiscoverySearch(window.location.search)),[season,setSeason]=useState('Christmas'),[custom,setCustom]=useState(''),[free,setFree]=useState(true),[mode,setMode]=useState('classic'),[difficulty,setDifficulty]=useState('balanced'),[ratio,setRatio]=useState(50),[notice,setNotice]=useState(''),[editIndex,setEditIndex]=useState(null),[filter,setFilter]=useState('All'),[showClues,setShowClues]=useState(false);
 useEffect(()=>{const ctrl=new AbortController();Promise.allSettled([loadStaticCatalog({signal:ctrl.signal}),searchCatalog('',{limit:100,signal:ctrl.signal})]).then(results=>{if(ctrl.signal.aborted)return;const items=mergeMovieListings(results.map(r=>r.status==='fulfilled'?r.value.items:[]));setLiveMovies(items.filter(isLaunchMovie).map(m=>({...m,story_facts:m.story_facts||{setting:[],relationship:[],conflict:[],event:[]},kind:'CATALOG MOVIE · SCENES UNVERIFIED'})));setCatalogError(items.length?'':'Movie catalog temporarily unavailable. You can still play any title.')}).finally(()=>{if(!ctrl.signal.aborted)setCatalogLoading(false)});return()=>ctrl.abort()},[]);
 useEffect(()=>{
  // HQ changes propagate automatically on page load, when returning to the tab,
