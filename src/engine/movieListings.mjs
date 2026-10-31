@@ -5,7 +5,9 @@
 // overriding the selected movie identity, plot facts, or editorial priority.
 import {approvedMoviePoster} from './posters.mjs';
 function titleKey(title){
- return String(title||'').normalize('NFKC').trim().replace(/\s+/g,' ').toLocaleLowerCase('en');
+ // Canonicalize accent variants (Café / Cafe) across independently sourced
+ // public catalog and HQ-published artwork, while keeping release years distinct.
+ return String(title||'').normalize('NFKD').replace(/\p{M}/gu,'').trim().replace(/\s+/g,' ').toLocaleLowerCase('en');
 }
 export function mergeMovieListings(groups){
  const result=[];
