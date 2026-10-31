@@ -40,15 +40,30 @@ export function prepareOpenDataMovie(candidate){
 }
 export function mergeSourceQualifiedMetadata(catalog,candidates){
  const byId=new Map(catalog.movies.map(m=>[m.id,m]));
- const keys=new Set(catalog.movies.map(m=>m.title.toLowerCase().trim()+'|'+m.release_year));
- let added=0;
+ const movieKey=m=>m.title.toLowerCase().trim()+'|'+m.release_year;
+ const idsByKey=new Map(catalog.movies.map(m=>[movieKey(m),m.id]));
+ let added=0,enriched=0;
  for(const candidate of candidates){
   const m=prepareOpenDataMovie(candidate);if(!m)continue;
-  const key=m.title.toLowerCase().trim()+'|'+m.release_year;
-  if(byId.has(m.id)||keys.has(key))continue;
-  byId.set(m.id,m);keys.add(key);added++;
+  const key=movieKey(m);
+  const existing=byId.get(m.id)||byId.get(idsByKey.get(key));
+  if(existing){
+   // Do not attach source metadata to an ID that now names another movie,
+   // nor rewrite curated fields, posters, or existing network/producer values.
+   if(movieKey(existing)!==key||existing.is_demo)continue;
+   const patch={};
+   if(!existing.network&&m.network)patch.network=m.network;
+   if(!existing.production_company&&m.production_company)
+    patch.production_company=m.production_company;
+   if(Object.keys(patch).length){
+    byId.set(existing.id,{...existing,...patch});
+    enriched++;
+   }
+   continue;
+  }
+  byId.set(m.id,m);idsByKey.set(key,m.id);added++;
  }
- return {catalog:{...catalog,movies:[...byId.values()].sort((a,b)=>a.title.localeCompare(b.title))},added};
+ return {catalog:{...catalog,movies:[...byId.values()].sort((a,b)=>a.title.localeCompare(b.title))},added,enriched};
 }
 // Retain the earlier export for downstream scripts that imported this helper.
 export const mergeVerifiedNetworkMetadata=mergeSourceQualifiedMetadata;
@@ -57,9 +72,9 @@ if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
  const current=JSON.parse(fs.readFileSync(catalogPath,'utf8'));
  const candidates=await discoverWikidata();
  const {catalog,added}=mergeSourceQualifiedMetadata(current,candidates);
- if(added){
+ if(added||enriched){
   catalog.updated_at=new Date().toISOString().slice(0,10);
   fs.writeFileSync(catalogPath,JSON.stringify(catalog,null,2)+'\n');
  }
- console.log('Source-qualified TV movies added: '+added+'. Unknown seasons remain Unspecified; no synopsis stored.');
+ console.log('Source-qualified TV movies added: '+added+', metadata-enriched: '+enriched+'. Unknown seasons remain Unspecified; no synopsis stored.');
 }
