@@ -45,6 +45,15 @@ async function newPage(width){
  return {page,context,errors};
 }
 try{
+ // A search started on the Cheese Louise homepage must arrive ready to play,
+ // without asking visitors to retype the movie title or create an account.
+ const handoff=await newPage(390);
+ await handoff.page.goto(appUrl+'?search=A+Biltmore+Christmas',{waitUntil:'domcontentloaded'});
+ assert.equal(await handoff.page.getByRole('textbox',{name:'Search movies by title'}).inputValue(),'A Biltmore Christmas');
+ await handoff.page.getByRole('heading',{name:'A Biltmore Christmas',exact:true}).waitFor();
+ assert.deepEqual(handoff.errors,[],'Homepage movie-search handoff caused browser errors');
+ await handoff.context.close();
+ console.log('Homepage-to-Bingo search handoff passed browser QA.');
  let invitation;
  let originalSquares;
  for(const width of [320,390,1440]){
