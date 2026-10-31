@@ -285,7 +285,7 @@ class MovieCatalogTest {
         val other = movies.single { it.id == "other" }
 
         assertTrue(MovieCatalog.matchesQuery(noel, "Noel"))
-        assertTrue(MovieCatalog.matchesQuery(noel, "Noe\\u0308l 2024"))
+        assertTrue(MovieCatalog.matchesQuery(noel, "Noël 2024"))
         assertTrue(MovieCatalog.matchesQuery(noel, "NOËL-in-the-Village"))
         assertTrue(MovieCatalog.matchesQuery(reel, "Reel-One 2023"))
         assertTrue(MovieCatalog.matchesQuery(other, "autumn/promise"))
