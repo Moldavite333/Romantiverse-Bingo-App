@@ -80,3 +80,37 @@ test('source-qualified imports preserve IDs and reject unlabeled Wikidata items'
  assert.equal(mergeSourceQualifiedMetadata(merged.catalog,[company,lifetime]).added,0);
  assert.equal(prepareOpenDataMovie({...lifetime,title:'Q66666'}),null);
 });
+
+test('weekly refresh enriches existing titles with verified producer metadata without changing identity or editorial facts',()=>{
+ const existing={id:'editorial-a-christmas-village-2018',title:'A Christmas Village',
+  release_year:2018,season:'Christmas',is_demo:false,verification_status:'metadata_verified',
+  poster_url:'https://image.tmdb.org/t/p/w500/example.jpg',
+  story_facts:{setting:[],relationship:[],conflict:[],event:[]}};
+ const candidate={...movie,source_id:'Q98765',title:existing.title,release_year:2018,
+  network:null,production_company:'Reel One Entertainment',tv_film_evidence:true};
+ const once=mergeSourceQualifiedMetadata({version:1,movies:[existing]},[candidate]);
+ assert.equal(once.added,0);
+ assert.equal(once.enriched,1);
+ assert.equal(once.catalog.movies.length,1);
+ assert.deepEqual(once.catalog.movies[0],{...existing,production_company:'Reel One Entertainment'});
+ const again=mergeSourceQualifiedMetadata(once.catalog,[candidate]);
+ assert.equal(again.added,0);
+ assert.equal(again.enriched,0);
+});
+test('catalog enrichment does not overwrite editorial labels or attach evidence to a different film',()=>{
+ const existing={id:'editorial-film',title:'Winter Wishes',release_year:2024,
+  network:'Hallmark Channel',production_company:'Original Studio',is_demo:false};
+ const conflicting={...movie,source_id:'Q99990',title:'Winter Wishes',release_year:2024,
+  network:'Lifetime',production_company:'Reel One Entertainment',tv_film_evidence:true};
+ const collision={...movie,source_id:'Q99991',title:'Another Film',release_year:2025,
+  network:'Lifetime'};
+ const result=mergeSourceQualifiedMetadata({version:1,movies:[existing]},[conflicting]);
+ assert.equal(result.enriched,0);
+ assert.deepEqual(result.catalog.movies[0],existing);
+ const collisionResult=mergeSourceQualifiedMetadata({version:1,movies:[
+  {...existing,id:'wikidata-q99991'}
+ ]},[collision]);
+ assert.equal(collisionResult.added,0);
+ assert.equal(collisionResult.enriched,0);
+ assert.equal(collisionResult.catalog.movies[0].title,'Winter Wishes');
+});
