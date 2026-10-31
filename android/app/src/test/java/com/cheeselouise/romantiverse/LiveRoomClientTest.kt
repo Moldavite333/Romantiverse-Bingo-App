@@ -415,12 +415,15 @@ class LiveRoomClientTest {
         assertFalse(RoomResponseGuard.accepts(7, 7, code, null, previewOnly))
     }
 
-    @Test fun sameRoomStateOnlyResponseKeepsCardAndRevision() {
+    @Test fun sameRoomAuthenticatedPartialResponseKeepsCardAndRevision() {
         val prior = LiveRoomProtocol.parse(snapshot(9, "0,1,2,3,4,12"))
+        // A partial authenticated state can reuse the card only if the server
+        // identifies the same player. A public preview cannot do so.
         val stateOnly = """{
             "room":{"code":"$code","movie_title":"Autumn at Apple Hill",
                 "movie_collection":"Fall","season":"Romance",
-                "mode":"classic","status":"playing","players":[]}
+                "mode":"classic","status":"playing","players":[]},
+            "player_id":"player-1"
         }"""
         val next = LiveRoomProtocol.parse(stateOnly, prior)
         assertEquals(prior.card, next.card)
