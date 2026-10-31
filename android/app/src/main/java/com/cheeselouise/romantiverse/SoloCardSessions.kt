@@ -15,7 +15,7 @@ object SoloCardSessions {
 
     /** A missing or damaged saved session is treated as a new card, never a different movie's. */
     fun restore(seed: Long?, theme: String?, encodedMarks: String?): SoloCardSession? {
-        if (seed == null || seed < 0 || theme !in allowedThemes || encodedMarks == null) return null
-        return SoloCardSession(seed, theme!!, BingoEngine.decodeMarks(encodedMarks))
+        if (seed == null || seed < 0 || theme == null || theme !in allowedThemes || encodedMarks == null) return null
+        return SoloCardSession(seed, theme, BingoEngine.decodeMarks(encodedMarks))
     }
 }
