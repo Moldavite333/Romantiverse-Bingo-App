@@ -155,7 +155,14 @@ object LiveRoomProtocol {
         )
         // A room-only response must never inherit another room's private card, marks,
         // revision, or player credentials (e.g. after switching an invitation).
-        val previousForRoom = previous?.takeIf { it.room.code == code }
+        // A public room preview has no player_id. Even for the same room, it
+        // must never inherit a previously authenticated player's private card,
+        // marks, revision, or token. Only the matching player may reuse state.
+        val responsePlayerId = root.optString("player_id")
+        val previousForRoom = previous?.takeIf {
+            it.room.code == code && responsePlayerId.isNotBlank() &&
+                it.session?.playerId == responsePlayerId
+        }
         val playersData = roomData.optJSONArray("players") ?: JSONArray()
         val players = (0 until playersData.length()).mapNotNull { i ->
             playersData.optJSONObject(i)?.let {
