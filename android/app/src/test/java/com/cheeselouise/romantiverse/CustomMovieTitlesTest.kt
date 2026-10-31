@@ -20,6 +20,30 @@ class CustomMovieTitlesTest {
         assertEquals(original.key, restored.key)
     }
 
+    @Test fun equivalentUnicodeTitlesKeepTheSameSavedMovieIdentity() {
+        // Poster lookup already uses NFKC; custom movie IDs must agree or an
+        // in-progress offline card becomes unreachable after a keyboard change.
+        val composed = CustomMovieTitles.create("Noël in the Village", "Christmas")!!
+        val decomposed = CustomMovieTitles.create("Noe\u0308l in the Village", "Christmas")!!
+        val compatibility = CustomMovieTitles.create("Ｎｏëｌ in the Village", "Christmas")!!
+        assertEquals(composed.id, decomposed.id)
+        assertEquals(composed.id, compatibility.id)
+        assertEquals(composed.key, decomposed.key)
+        assertEquals(composed.key, compatibility.key)
+    }
+
+    @Test fun legacyKeyboardSpecificIdCanMigrateWithoutResettingTheCard() {
+        val raw = "Noe\u0308l in the Village"
+        val legacy = CustomMovieTitles.legacyId(raw)!!
+        val canonical = CustomMovieTitles.create(raw, "Christmas")!!
+        assertNotEquals(legacy, canonical.id)
+        assertEquals(canonical.id, CustomMovieTitles.create("Noël in the Village", "Christmas")!!.id)
+        assertEquals(
+            CustomMovieTitles.legacyId("A Christmas Village"),
+            CustomMovieTitles.create("A Christmas Village", "Christmas")!!.id
+        )
+    }
+
     @Test fun arbitraryProductionLabelsCannotBeInventedOrUnlockHorror() {
         assertEquals("Unspecified", CustomMovieTitles.create("Peacock Romance", "Peacock")!!.collection)
         assertEquals("Unspecified", CustomMovieTitles.create("Some Film", "Horror")!!.collection)
