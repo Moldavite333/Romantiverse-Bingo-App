@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.snap
@@ -98,7 +100,10 @@ private fun NativeBingoApp(incomingCode: String?) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
     val prefs = remember { context.getSharedPreferences("bingo-native-v1", 0) }
-    var movies by remember { mutableStateOf(MovieCatalog.launchMovies(MovieCatalog.load(context))) }
+    // Decode the bundled/cached catalog off the UI thread; large catalogs must not
+    // stall the first frame or interfere with touch responsiveness.
+    var movies by remember { mutableStateOf<List<Movie>>(emptyList()) }
+    var catalogLoading by remember { mutableStateOf(true) }
     var selectedId by rememberSaveable { mutableStateOf(prefs.getString("movie_id", "") ?: "") }
     var theme by rememberSaveable { mutableStateOf(prefs.getString("theme", "Romance")?.takeIf { it in themes } ?: "Romance") }
     var seed by rememberSaveable { mutableLongStateOf(prefs.getLong("seed", 1L)) }
@@ -116,7 +121,7 @@ private fun NativeBingoApp(incomingCode: String?) {
         if (incomingCode != null) tab = "together"
     }
     var haptics by rememberSaveable { mutableStateOf(prefs.getBoolean("haptics", true)) }
-    var posters by remember { mutableStateOf(PosterRepository.cached(context)) }
+    var posters by remember { mutableStateOf<Map<String, PosterRepository.Entry>>(emptyMap()) }
     val reduceMotion = remember(context) {
         runCatching {
             Settings.Global.getFloat(
@@ -124,9 +129,22 @@ private fun NativeBingoApp(incomingCode: String?) {
             ) == 0f
         }.getOrDefault(false)
     }
-    LaunchedEffect(Unit) { posters = PosterRepository.refresh(context) }
-    // Public-only updates appear without an APK release; bundled movies work offline.
-    LaunchedEffect(Unit) { movies = MovieCatalog.launchMovies(MovieCatalog.refresh(context)) }
+    LaunchedEffect(Unit) {
+        // Show last-known public poster art immediately after background decoding.
+        posters = withContext(Dispatchers.IO) { PosterRepository.cached(context) }
+        posters = PosterRepository.refresh(context)
+    }
+    // Bundled/cached movies remain playable offline; remote refresh is optional.
+    LaunchedEffect(Unit) {
+        val offline = withContext(Dispatchers.IO) {
+            runCatching { MovieCatalog.launchMovies(MovieCatalog.load(context)) }
+                .getOrDefault(emptyList())
+        }
+        movies = offline
+        catalogLoading = false
+        movies = runCatching { MovieCatalog.launchMovies(MovieCatalog.refresh(context)) }
+            .getOrDefault(offline)
+    }
     val movie = movies.firstOrNull { it.id == selectedId }
     val bestScore = remember(movie?.key, marks) {
         SoloScoreProgress.restore(movie, marks) { key ->
@@ -235,7 +253,11 @@ private fun NativeBingoApp(incomingCode: String?) {
                 animationSpec = if (reduceMotion) snap() else tween(260),
                 label = "Native screen transition"
             ) { current ->
-                if (current == "discover") {
+                if (catalogLoading && current != "together") {
+                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator(color = gold)
+                    }
+                } else if (current == "discover") {
                     DiscoverMovies(movies, posters, ::choose)
                 } else if (current == "together") {
                     LiveRoomScreen(movie, movie?.let { PosterRepository.forMovie(it, posters)?.url }, incomingCode, haptics, reduceMotion)
