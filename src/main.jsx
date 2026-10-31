@@ -9,7 +9,7 @@ import{approvedMoviePoster}from './engine/posters.mjs';
 import{orderMoviesForBrowsing}from './engine/posterOrdering.mjs';
 import{encodeInvitation,parseInvitation}from './engine/invitations.mjs';
 import{parseRoomInvite}from './engine/roomInvites.mjs';
-import{mergeMovieListings,movieEvidenceLabel}from './engine/movieListings.mjs';
+import{mergeMovieListings,movieEvidenceLabel,matchesMovieQuery}from './engine/movieListings.mjs';
 import{loadStaticCatalog}from './services/staticCatalog.js';
 import Multiplayer from './Multiplayer.jsx';
 import CheeseTray from './CheeseTray.jsx';
@@ -120,7 +120,7 @@ const available=orderMoviesForBrowsing(mergeMovieListings([
  remoteMovies,
  resolvedMovies,
  publishedMovies
- ]).filter(m=>(query.trim()||m.title.trim().toLowerCase()!=='christmas in the rockies')&&isLaunchMovie(m)&&(filter==='All'||m.season===filter)&&(m.title+' '+(m.synopsis||'')+' '+Object.values(m.story_facts||{}).flat().join(' ')).toLowerCase().includes(query.toLowerCase())),query);
+ ]).filter(m=>(query.trim()||m.title.trim().toLowerCase()!=='christmas in the rockies')&&isLaunchMovie(m)&&(filter==='All'||m.season===filter)&&matchesMovieQuery(m,query)),query);
 const activePoster=active?approvedMoviePoster(mergeMovieListings([[active],liveMovies,resolvedMovies,publishedMovies])[0]):null;
 function create(movie,selectedTheme=season){try{if(selectedTheme==='Horror'||!isLaunchMovie(movie))throw Error('Horror is reserved for a future standalone game.');const unclassified=movie.season==='Unspecified';const cardTheme=unclassified?selectedTheme:movie.season;const playable={...movie,season:cardTheme};let card=buildCard(playable,{seed:seed(),free,difficulty,cheeseRatio:ratio/100});
  const editorial=buildSharedCheeseSuggestions(playable,sharedPackage?.traits);

@@ -52,6 +52,12 @@ try{
   await page.goto(appUrl,{waitUntil:'domcontentloaded'});
   await page.locator('.movie-card').first().waitFor();
   assert.equal(await page.locator('.brand').innerText(),'Brought to you by the Cheese Louise Podcast');
+  // A title and release year in any order must find the bundled movie without a login.
+  await page.getByRole('textbox',{name:'Search movies by title'}).fill('biltmore 2023');
+  await page.getByRole('heading',{name:'A Biltmore Christmas',exact:true}).waitFor();
+  assert.ok(await page.getByRole('heading',{name:'A Biltmore Christmas',exact:true}).isVisible());
+  await page.getByRole('textbox',{name:'Search movies by title'}).fill('');
+
   assert.ok(await page.getByRole('button',{name:'Play This Movie'}).count()>0,'Bundled movie catalog must work without network');
   await page.getByRole('button',{name:'Play This Movie'}).first().click();
   const squares=page.locator('.board .square');

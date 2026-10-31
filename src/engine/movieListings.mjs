@@ -53,3 +53,18 @@ export function movieEvidenceLabel(movie){
  if(movie?.is_demo===false)return 'REAL TITLE · TROPES PREDICTED';
  return 'TITLE UNVERIFIED';
 }
+
+
+// Match the way visitors actually search: ignore accents and punctuation,
+// allow words in any order, and include the verified release year.
+// This only filters existing public movie metadata; it never invents movie facts.
+function normalizeMovieSearchText(value){
+ return String(value??'').normalize('NFKD').replace(/\p{M}/gu,'').toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+}
+export function matchesMovieQuery(movie,query){
+ const terms=normalizeMovieSearchText(query).split(' ').filter(Boolean);
+ if(!terms.length)return true;
+ if(!movie||typeof movie.title!=='string')return false;
+ const text=normalizeMovieSearchText([movie.title,Number.isInteger(movie.release_year)?movie.release_year:'',movie.synopsis||'',...Object.values(movie.story_facts||{}).flat()].join(' '));
+ return terms.every(term=>text.includes(term));
+}
