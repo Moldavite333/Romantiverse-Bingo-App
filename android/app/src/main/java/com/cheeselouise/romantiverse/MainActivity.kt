@@ -114,11 +114,12 @@ private fun NativeBingoApp(incomingCode: String?) {
     // Existing custom cards used the raw keyboard representation for their ID.
     // Migrate only a matching legacy custom ID; keep the seed and marks intact.
     LaunchedEffect(customMovie?.id, selectedId) {
+        val canonical = customMovie ?: return@LaunchedEffect
         val oldTitle = prefs.getString("custom_movie_title", "").orEmpty()
-        if (customMovie != null && selectedId != customMovie.id &&
+        if (selectedId != canonical.id &&
             selectedId == CustomMovieTitles.legacyId(oldTitle)) {
-            selectedId = customMovie.id
-            prefs.edit().putString("movie_id", customMovie.id).apply()
+            selectedId = canonical.id
+            prefs.edit().putString("movie_id", canonical.id).apply()
         }
     }
     var theme by rememberSaveable { mutableStateOf(prefs.getString("theme", "Romance")?.takeIf { it in themes } ?: "Romance") }
