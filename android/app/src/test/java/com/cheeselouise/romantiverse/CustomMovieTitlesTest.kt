@@ -20,6 +20,18 @@ class CustomMovieTitlesTest {
         assertEquals(original.key, restored.key)
     }
 
+    @Test fun equivalentUnicodeTitlesKeepTheSameSavedMovieIdentity() {
+        // Poster lookup already uses NFKC; custom movie IDs must agree or an
+        // in-progress offline card becomes unreachable after a keyboard change.
+        val composed = CustomMovieTitles.create("Noël in the Village", "Christmas")!!
+        val decomposed = CustomMovieTitles.create("Noe\u0308l in the Village", "Christmas")!!
+        val compatibility = CustomMovieTitles.create("Ｎｏëｌ in the Village", "Christmas")!!
+        assertEquals(composed.id, decomposed.id)
+        assertEquals(composed.id, compatibility.id)
+        assertEquals(composed.key, decomposed.key)
+        assertEquals(composed.key, compatibility.key)
+    }
+
     @Test fun arbitraryProductionLabelsCannotBeInventedOrUnlockHorror() {
         assertEquals("Unspecified", CustomMovieTitles.create("Peacock Romance", "Peacock")!!.collection)
         assertEquals("Unspecified", CustomMovieTitles.create("Some Film", "Horror")!!.collection)
