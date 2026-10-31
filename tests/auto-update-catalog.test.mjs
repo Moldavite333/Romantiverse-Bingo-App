@@ -1,5 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {isHallmarkNetwork,isEligibleNetwork,isEligibleTvProducer,seasonalThemeFromTitle,prepareOpenDataMovie,mergeVerifiedNetworkMetadata,mergeSourceQualifiedMetadata} from '../scripts/auto-update-catalog.mjs';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import {isHallmarkNetwork,isEligibleNetwork,isEligibleTvProducer,seasonalThemeFromTitle,prepareOpenDataMovie,mergeVerifiedNetworkMetadata,mergeSourceQualifiedMetadata,refreshCatalogFile} from '../scripts/auto-update-catalog.mjs';
 const movie={source:'wikidata',source_id:'Q12345',source_url:'https://www.wikidata.org/wiki/Q12345',title:'Christmas in the Valley',release_year:2026,network:'Hallmark Channel',synopsis:'Do not retain this source prose'};
 test('only explicitly identified Hallmark networks qualify',()=>{
  assert.equal(isHallmarkNetwork('Hallmark Channel'),true);
@@ -113,4 +116,28 @@ test('catalog enrichment does not overwrite editorial labels or attach evidence 
  assert.equal(collisionResult.added,0);
  assert.equal(collisionResult.enriched,0);
  assert.equal(collisionResult.catalog.movies[0].title,'Winter Wishes');
+});
+
+test('weekly CLI refresh persists enrichment-only changes and safely skips no-op writes',async()=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'romantiverse-catalog-'));
+ const catalogPath=path.join(dir,'movies.json');
+ try{
+  const original={version:1,updated_at:'2026-10-01',movies:[{
+   id:'editorial-holiday',title:'Holiday at Home',release_year:2025,
+   season:'Unspecified',story_facts:{setting:[],relationship:[],conflict:[],event:[]}
+  }]};
+  fs.writeFileSync(catalogPath,JSON.stringify(original,null,2)+'\n');
+  const candidate={...movie,source_id:'Q77777',title:'Holiday at Home',
+   release_year:2025,network:'Lifetime'};
+  const first=await refreshCatalogFile({catalogPath,discover:async()=>[candidate],today:()=> '2026-10-30'});
+  assert.deepEqual(first,{added:0,enriched:1});
+  const updated=JSON.parse(fs.readFileSync(catalogPath,'utf8'));
+  assert.equal(updated.movies.length,1);
+  assert.equal(updated.movies[0].network,'Lifetime');
+  assert.equal(updated.updated_at,'2026-10-30');
+  const before=fs.readFileSync(catalogPath,'utf8');
+  const second=await refreshCatalogFile({catalogPath,discover:async()=>[candidate],today:()=> '2026-10-31'});
+  assert.deepEqual(second,{added:0,enriched:0});
+  assert.equal(fs.readFileSync(catalogPath,'utf8'),before,'No-op refresh must not rewrite the catalog');
+ }finally{fs.rmSync(dir,{recursive:true,force:true});}
 });
