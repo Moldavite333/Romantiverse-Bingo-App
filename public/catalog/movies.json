@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-28",
+  "updated_at": "2026-10-30",
   "source": "Editorial title listings; release years, distributors and seasons require independent verification. No inferred scene evidence.",
   "movies": [
     {
@@ -94,6 +94,42 @@
       "facts_status": "title_only_unverified"
     },
     {
+      "id": "editorial-a-christmas-village-2018",
+      "title": "A Christmas Village",
+      "release_year": 2018,
+      "season": "Christmas",
+      "network": "Independent",
+      "source_url": "https://tv.apple.com/us/movie/a-christmas-village/umc.cmc.4ouz3jorgbe6wtt3kv8zg12d9",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Independent",
+      "is_demo": false
+    },
+    {
+      "id": "editorial-a-christmas-village-romance-2020",
+      "title": "A Christmas Village Romance",
+      "release_year": 2020,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://ca-times.brightspotcdn.com/d3/a5/319faa4e46f6a2b2dff787fedcdc/tvmovies2021-12-19.pdf",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime",
+      "is_demo": false
+    },
+    {
       "id": "wikidata-q3548803",
       "title": "A Christmas Wedding Tail",
       "release_year": 2011,
@@ -165,6 +201,24 @@
         "event": []
       },
       "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "editorial-a-magical-christmas-village-2022",
+      "title": "A Magical Christmas Village",
+      "release_year": 2022,
+      "season": "Christmas",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkplus.com/details/VIDEO/item/MOVINA036722/a-magical-christmas-village",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Hallmark Channel",
+      "is_demo": false
     },
     {
       "id": "wikidata-q105100934",
