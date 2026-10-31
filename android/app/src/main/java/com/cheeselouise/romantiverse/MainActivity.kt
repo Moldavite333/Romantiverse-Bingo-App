@@ -105,6 +105,12 @@ private fun NativeBingoApp(incomingCode: String?) {
     var movies by remember { mutableStateOf<List<Movie>>(emptyList()) }
     var catalogLoading by remember { mutableStateOf(true) }
     var selectedId by rememberSaveable { mutableStateOf(prefs.getString("movie_id", "") ?: "") }
+    var customMovie by remember {
+        mutableStateOf(CustomMovieTitles.create(
+            prefs.getString("custom_movie_title", "") ?: "",
+            prefs.getString("custom_movie_collection", "Unspecified") ?: "Unspecified"
+        ))
+    }
     var theme by rememberSaveable { mutableStateOf(prefs.getString("theme", "Romance")?.takeIf { it in themes } ?: "Romance") }
     var seed by rememberSaveable { mutableLongStateOf(prefs.getLong("seed", 1L)) }
     var marks by remember { mutableStateOf(BingoEngine.decodeMarks(prefs.getString("marks", "") ?: "")) }
@@ -146,6 +152,7 @@ private fun NativeBingoApp(incomingCode: String?) {
             .getOrDefault(offline)
     }
     val movie = movies.firstOrNull { it.id == selectedId }
+        ?: customMovie?.takeIf { it.id == selectedId }
     val bestScore = remember(movie?.key, marks) {
         SoloScoreProgress.restore(movie, marks) { key ->
             prefs.getInt("best:$key", 0)
@@ -170,8 +177,17 @@ private fun NativeBingoApp(incomingCode: String?) {
         theme = if (next.collection in themes) next.collection else "Romance"
         seed = newSeed()
         marks = emptySet()
-        prefs.edit().putString("movie_id", selectedId).putString("theme", theme)
-            .putLong("seed", seed).putString("marks", "").apply()
+        val custom = next.takeIf { it.id.startsWith("custom-") }
+        customMovie = custom
+        val editor = prefs.edit().putString("movie_id", selectedId).putString("theme", theme)
+            .putLong("seed", seed).putString("marks", "")
+        if (custom != null) {
+            editor.putString("custom_movie_title", custom.title)
+                .putString("custom_movie_collection", custom.collection)
+        } else {
+            editor.remove("custom_movie_title").remove("custom_movie_collection")
+        }
+        editor.apply()
         tab = "play"
     }
     fun setTheme(next: String) {
@@ -321,6 +337,8 @@ private fun DiscoverMovies(
                 MovieCatalog.matchesQuery(it, query)
         }
     }
+    val enteredTitle = query.trim().replace(Regex("\\s+"), " ")
+    val exactInCatalog = movies.any { it.title.equals(enteredTitle, ignoreCase = true) }
     LazyColumn(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -361,6 +379,36 @@ private fun DiscoverMovies(
         item {
             Text("${filtered.size} movies · catalog collections are never guessed",
                 color = pale, fontSize = 12.sp)
+        }
+        if (enteredTitle.length in 2..120 && !exactInCatalog) {
+            item {
+                Card(
+                    colors = CardDefaults.cardColors(containerColor = StorybookPalette.boardBottom),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Column(Modifier.fillMaxWidth().padding(16.dp)) {
+                        Text("Can't find your movie?", color = cream,
+                            fontWeight = FontWeight.Bold, fontSize = 17.sp)
+                        Spacer(Modifier.height(6.dp))
+                        Text("Play a private, offline Bingo card for \"$enteredTitle\". " +
+                            "No network, release year, or plot details will be guessed.",
+                            color = pale, fontSize = 13.sp)
+                        Spacer(Modifier.height(12.dp))
+                        Button(
+                            onClick = {
+                                CustomMovieTitles.create(enteredTitle, filter)?.let(onChoose)
+                            }
+                        ) {
+                            Text("Play this title anyway")
+                        }
+                    }
+                }
+            }
+        } else if (filtered.isEmpty() && exactInCatalog) {
+            item {
+                Text("That title is in the catalog. Choose All to clear the collection filter.",
+                    color = pale, fontSize = 13.sp)
+            }
         }
         items(filtered, key = { it.id }) { movie ->
             Card(
