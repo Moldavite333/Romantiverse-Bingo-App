@@ -67,14 +67,23 @@ export function mergeSourceQualifiedMetadata(catalog,candidates){
 }
 // Retain the earlier export for downstream scripts that imported this helper.
 export const mergeVerifiedNetworkMetadata=mergeSourceQualifiedMetadata;
-if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
- const catalogPath='public/catalog/movies.json';
+// Inject discovery for regression tests without contacting Wikidata. A refresh
+// containing only metadata enrichment must be persisted just like new titles.
+export async function refreshCatalogFile({
+ catalogPath='public/catalog/movies.json',
+ discover=discoverWikidata,
+ today=()=>new Date().toISOString().slice(0,10)
+}={}){
  const current=JSON.parse(fs.readFileSync(catalogPath,'utf8'));
- const candidates=await discoverWikidata();
- const {catalog,added}=mergeSourceQualifiedMetadata(current,candidates);
+ const candidates=await discover();
+ const {catalog,added,enriched}=mergeSourceQualifiedMetadata(current,candidates);
  if(added||enriched){
-  catalog.updated_at=new Date().toISOString().slice(0,10);
+  catalog.updated_at=today();
   fs.writeFileSync(catalogPath,JSON.stringify(catalog,null,2)+'\n');
  }
+ return {added,enriched};
+}
+if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
+ const {added,enriched}=await refreshCatalogFile();
  console.log('Source-qualified TV movies added: '+added+', metadata-enriched: '+enriched+'. Unknown seasons remain Unspecified; no synopsis stored.');
 }
