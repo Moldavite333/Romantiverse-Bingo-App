@@ -76,3 +76,19 @@ test('HQ-locked artwork overrides a public catalog auto match, while unlocked HQ
  assert.equal(mergeMovieListings([[staticMovie],[auto],[locked]])[0].poster_url,art('hq'));
  assert.equal(mergeMovieListings([[staticMovie],[auto],[unlocked]])[0].poster_url,art('auto'));
 });
+
+test('accent variants share a movie identity for exact-year HQ artwork only',()=>{
+ const catalog={id:'catalog-cafe',title:'Cafe Noël',release_year:2024,is_demo:false,season:'Christmas',
+  poster_url:art('automatic'),story_facts:{event:['holiday_party']}};
+ const published={id:'hq-cafe',title:'Café Noël',release_year:2024,is_demo:false,
+  poster_source:'hq_published',poster_locked:true,poster_url:art('hq-cafe')};
+ const [merged]=mergeMovieListings([[catalog],[published]]);
+ assert.equal(merged.id,'catalog-cafe');
+ assert.equal(merged.poster_url,art('hq-cafe'));
+ assert.equal(merged.poster_locked,true);
+ assert.deepEqual(merged.story_facts,catalog.story_facts);
+ assert.equal(mergeMovieListings([[catalog],[{...published,release_year:2025}]]).length,2,
+  'different-year releases must not share artwork');
+ assert.equal(mergeMovieListings([[{...catalog,is_demo:true}],[published]])[0].poster_url,art('automatic'),
+  'fictional demos must not inherit HQ artwork');
+});
