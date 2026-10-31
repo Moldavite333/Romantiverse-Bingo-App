@@ -57,8 +57,9 @@ jobs:
   publish-public-android-tester:
     name: Publish login-free Android tester download
     needs: native-android
-    # A pull request can build an APK, but must never publish an executable.
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    # Public APK distribution is paused while Cheese Louise launches the web experience.
+    # Keep the native build and release logic in version control for an explicit future resumption.
+    if: ${{ false }}
     runs-on: ubuntu-latest
     concurrency:
       group: romantiverse-android-tester-release
