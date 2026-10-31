@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-30",
+  "updated_at": "2026-10-31",
   "source": "Editorial title listings; release years, distributors and seasons require independent verification. No inferred scene evidence.",
   "movies": [
     {
@@ -36,6 +36,24 @@
         "event": []
       },
       "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "editorial-a-carpenter-christmas-romance-2024",
+      "title": "A Carpenter Christmas Romance",
+      "release_year": 2024,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/a-carpenter-christmas-romance",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
     },
     {
       "id": "wikidata-q109978514",
@@ -254,6 +272,24 @@
       "facts_status": "title_only_unverified"
     },
     {
+      "id": "editorial-a-very-merry-beauty-salon-2024",
+      "title": "A Very Merry Beauty Salon",
+      "release_year": 2024,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/a-very-merry-beauty-salon",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
+    },
+    {
       "id": "catalog-a-very-merry-mix-up-2013",
       "title": "A Very Merry Mix-Up",
       "release_year": 2013,
@@ -268,6 +304,24 @@
         "event": []
       },
       "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "editorial-a-very-merry-toy-store-2017",
+      "title": "A Very Merry Toy Store",
+      "release_year": 2017,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/a-very-merry-toy-store",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
     },
     {
       "id": "wikidata-q105486763",
@@ -413,6 +467,24 @@
       "is_demo": false
     },
     {
+      "id": "editorial-christmas-at-plumhill-manor-2024",
+      "title": "Christmas at Plumhill Manor",
+      "release_year": 2024,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/christmas-at-plumhill-manor",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
+    },
+    {
       "id": "catalog-christmas-at-the-plaza-2019",
       "title": "Christmas at the Plaza",
       "release_year": 2019,
@@ -498,6 +570,24 @@
       "source_name": "Wikidata (CC0)",
       "source_url": "https://www.wikidata.org/wiki/Q105917009",
       "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "editorial-christmas-in-the-spotlight-2024",
+      "title": "Christmas in the Spotlight",
+      "release_year": 2024,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/christmas-in-the-spotlight",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
       "is_demo": false
     },
     {
@@ -703,6 +793,24 @@
       "is_demo": false
     },
     {
+      "id": "editorial-engaged-by-christmas-2024",
+      "title": "Engaged By Christmas",
+      "release_year": 2024,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/engaged-by-christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
+    },
+    {
       "id": "catalog-falling-for-vermont-2017",
       "title": "Falling for Vermont",
       "release_year": 2017,
@@ -841,6 +949,24 @@
       "is_demo": false
     },
     {
+      "id": "editorial-holiday-in-happy-hollow-2024",
+      "title": "Holiday in Happy Hollow",
+      "release_year": 2024,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/holiday-in-happy-hollow",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
+    },
+    {
       "id": "wikidata-q101171543",
       "title": "Holly & Ivy",
       "release_year": 2020,
@@ -859,6 +985,24 @@
       "is_demo": false
     },
     {
+      "id": "editorial-how-to-fall-in-love-by-christmas-2024",
+      "title": "How to Fall in Love By Christmas",
+      "release_year": 2024,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/how-to-fall-in-love-by-christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
+    },
+    {
       "id": "wikidata-q97354773",
       "title": "Just My Type",
       "release_year": 2020,
@@ -874,6 +1018,25 @@
       "source_name": "Wikidata (CC0)",
       "source_url": "https://www.wikidata.org/wiki/Q97354773",
       "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "editorial-leah-s-perfect-gift-2024",
+      "title": "Leah's Perfect Gift",
+      "release_year": 2024,
+      "season": "Christmas",
+      "network": "Hallmark Channel",
+      "production_company": "MarVista Entertainment",
+      "source_url": "https://www.crew-united.com/en/Leah-s-Perfect-Gift__364224.html",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Crew United TV-film and production credits",
       "is_demo": false
     },
     {
@@ -985,6 +1148,24 @@
       "source_name": "Wikidata (CC0)",
       "source_url": "https://www.wikidata.org/wiki/Q115247552",
       "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "editorial-make-or-bake-christmas-2024",
+      "title": "Make or Bake Christmas",
+      "release_year": 2024,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/make-or-bake-christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
       "is_demo": false
     },
     {
@@ -1154,6 +1335,24 @@
         "event": []
       },
       "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "editorial-peppermint-and-postcards-2023",
+      "title": "Peppermint and Postcards",
+      "release_year": 2023,
+      "season": "Christmas",
+      "production_company": "Reel One Entertainment",
+      "source_url": "https://www.primevideo.com/-/id/detail/0FF2EMO0AHIXNTZ8QCVKU3U2B9",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Prime Video movie and studio listing",
+      "is_demo": false
     },
     {
       "id": "wikidata-q96739585",
@@ -1515,6 +1714,25 @@
       "facts_status": "title_only_unverified"
     },
     {
+      "id": "editorial-the-christmas-setup-2020",
+      "title": "The Christmas Setup",
+      "release_year": 2020,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "production_company": "MarVista Entertainment",
+      "source_url": "https://www.mylifetime.com/movies/the-christmas-setup",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
+    },
+    {
       "id": "catalog-the-christmas-train-2017",
       "title": "The Christmas Train",
       "release_year": 2017,
@@ -1529,6 +1747,24 @@
         "event": []
       },
       "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "editorial-the-holiday-junkie-2024",
+      "title": "The Holiday Junkie",
+      "release_year": 2024,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/the-holiday-junkie",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
     },
     {
       "id": "catalog-the-lost-valentine-2011",
@@ -1597,6 +1833,24 @@
       "facts_status": "machine_inferred_unverified"
     },
     {
+      "id": "editorial-the-princess-and-the-bodyguard-2022",
+      "title": "The Princess and the Bodyguard",
+      "release_year": 2022,
+      "season": "Unspecified",
+      "production_company": "Reel One Entertainment",
+      "source_url": "https://www.primevideo.com/-/sv/detail/0J7QCO2V8UXE2QYSEK9869WCSN",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Prime Video movie and studio listing",
+      "is_demo": false
+    },
+    {
       "id": "wikidata-q3549131",
       "title": "The Wishing Well",
       "release_year": 2010,
@@ -1646,6 +1900,25 @@
       "source_name": "Wikidata (CC0)",
       "source_url": "https://www.wikidata.org/wiki/Q104903150",
       "network": "Hallmark Channel",
+      "is_demo": false
+    },
+    {
+      "id": "editorial-two-scoops-of-italy-2024",
+      "title": "Two Scoops of Italy",
+      "release_year": 2024,
+      "season": "Unspecified",
+      "network": "Hallmark Channel",
+      "production_company": "MarVista Entertainment",
+      "source_url": "https://www.crew-united.com/fr/Two-Scoops-of-Italy__345708.html",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Crew United TV-film and production credits",
       "is_demo": false
     },
     {
