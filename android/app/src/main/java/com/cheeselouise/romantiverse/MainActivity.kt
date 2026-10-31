@@ -111,6 +111,16 @@ private fun NativeBingoApp(incomingCode: String?) {
             prefs.getString("custom_movie_collection", "Unspecified") ?: "Unspecified"
         ))
     }
+    // Existing custom cards used the raw keyboard representation for their ID.
+    // Migrate only a matching legacy custom ID; keep the seed and marks intact.
+    LaunchedEffect(customMovie?.id, selectedId) {
+        val oldTitle = prefs.getString("custom_movie_title", "").orEmpty()
+        if (customMovie != null && selectedId != customMovie.id &&
+            selectedId == CustomMovieTitles.legacyId(oldTitle)) {
+            selectedId = customMovie.id
+            prefs.edit().putString("movie_id", customMovie.id).apply()
+        }
+    }
     var theme by rememberSaveable { mutableStateOf(prefs.getString("theme", "Romance")?.takeIf { it in themes } ?: "Romance") }
     var seed by rememberSaveable { mutableLongStateOf(prefs.getLong("seed", 1L)) }
     var marks by remember { mutableStateOf(BingoEngine.decodeMarks(prefs.getString("marks", "") ?: "")) }
