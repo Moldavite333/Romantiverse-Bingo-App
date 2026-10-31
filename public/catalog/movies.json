@@ -76,6 +76,24 @@
       "is_demo": false
     },
     {
+      "id": "editorial-a-christmas-cookbook-2025",
+      "title": "A Christmas Cookbook",
+      "release_year": 2025,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/a-christmas-cookbook",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
+    },
+    {
       "id": "hallmark-a-christmas-detour-2015",
       "title": "A Christmas Detour",
       "release_year": 2015,
@@ -256,6 +274,42 @@
       "is_demo": false
     },
     {
+      "id": "editorial-a-newport-christmas-2025",
+      "title": "A Newport Christmas",
+      "release_year": 2025,
+      "season": "Christmas",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/a-newport-christmas/about-a-newport-christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Hallmark Channel official movie page",
+      "is_demo": false
+    },
+    {
+      "id": "editorial-a-pickleball-christmas-2025",
+      "title": "A Pickleball Christmas",
+      "release_year": 2025,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/a-pickleball-christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
+    },
+    {
       "id": "catalog-a-royal-christmas-2014",
       "title": "A Royal Christmas",
       "release_year": 2014,
@@ -270,6 +324,24 @@
         "event": []
       },
       "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "editorial-a-runaway-bride-for-christmas-2025",
+      "title": "A Runaway Bride For Christmas",
+      "release_year": 2025,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/a-runaway-bride-for-christmas",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
     },
     {
       "id": "editorial-a-very-merry-beauty-salon-2024",
@@ -467,6 +539,24 @@
       "is_demo": false
     },
     {
+      "id": "editorial-christmas-above-the-clouds-2025",
+      "title": "Christmas Above the Clouds",
+      "release_year": 2025,
+      "season": "Christmas",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/christmas-above-the-clouds/about-christmas-above-the-clouds",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Hallmark Channel official movie page",
+      "is_demo": false
+    },
+    {
       "id": "editorial-christmas-at-plumhill-manor-2024",
       "title": "Christmas at Plumhill Manor",
       "release_year": 2024,
@@ -535,6 +625,24 @@
         "event": []
       },
       "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "editorial-christmas-in-alaska-2025",
+      "title": "Christmas in Alaska",
+      "release_year": 2025,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/christmas-in-alaska",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
     },
     {
       "id": "catalog-christmas-in-evergreen-2017",
@@ -1506,6 +1614,24 @@
       "facts_status": "title_only_unverified"
     },
     {
+      "id": "editorial-rodeo-christmas-romance-2025",
+      "title": "Rodeo Christmas Romance",
+      "release_year": 2025,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/rodeo-christmas-romance",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
+    },
+    {
       "id": "wikidata-q98384414",
       "title": "Roux the Day: A Gourmet Detective Mystery",
       "release_year": 2020,
@@ -1539,6 +1665,24 @@
       "source_name": "Wikidata (CC0)",
       "source_url": "https://www.wikidata.org/wiki/Q96742752",
       "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "editorial-santa-tell-me-2024",
+      "title": "Santa Tell Me",
+      "release_year": 2024,
+      "season": "Christmas",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/santa-tell-me",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Hallmark Channel official movie page",
       "is_demo": false
     },
     {
@@ -1634,6 +1778,24 @@
       "is_demo": false
     },
     {
+      "id": "editorial-thank-god-christmas-at-the-keller-ranch-2025",
+      "title": "Thank God: Christmas at the Keller Ranch",
+      "release_year": 2025,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/thank-god-christmas-at-the-keller-ranch",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
+    },
+    {
       "id": "catalog-the-birthday-wish-2017",
       "title": "The Birthday Wish",
       "release_year": 2017,
@@ -1648,6 +1810,24 @@
         "event": []
       },
       "facts_status": "title_only_unverified"
+    },
+    {
+      "id": "editorial-the-christmas-campaign-2025",
+      "title": "The Christmas Campaign",
+      "release_year": 2025,
+      "season": "Christmas",
+      "network": "Lifetime",
+      "source_url": "https://www.mylifetime.com/movies/the-christmas-campaign",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Lifetime official movie page",
+      "is_demo": false
     },
     {
       "id": "hallmark-the-christmas-card-2006",
@@ -1955,6 +2135,24 @@
       "source_name": "Wikidata (CC0)",
       "source_url": "https://www.wikidata.org/wiki/Q109914253",
       "network": "Hallmark Mystery",
+      "is_demo": false
+    },
+    {
+      "id": "editorial-we-met-in-december-2025",
+      "title": "We Met in December",
+      "release_year": 2025,
+      "season": "Christmas",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/we-met-in-december/about-we-met-in-december",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "verification_status": "metadata_verified",
+      "source_name": "Hallmark Channel official movie page",
       "is_demo": false
     },
     {
