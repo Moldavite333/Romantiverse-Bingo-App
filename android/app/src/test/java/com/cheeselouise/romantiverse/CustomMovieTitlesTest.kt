@@ -29,6 +29,6 @@ class CustomMovieTitlesTest {
     @Test fun blankOverlongAndControlCharacterTitlesAreRejected() {
         assertNull(CustomMovieTitles.create(" "))
         assertNull(CustomMovieTitles.create("a".repeat(121)))
-        assertNull(CustomMovieTitles.create("Fake\\u0000Title"))
+        assertNull(CustomMovieTitles.create("Fake\u0000Title"))
     }
 }
