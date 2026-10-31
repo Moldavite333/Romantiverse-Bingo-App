@@ -9,6 +9,7 @@ import java.net.HttpURLConnection
 import java.net.URI
 import java.net.URL
 import java.util.Locale
+import java.text.Normalizer
 
 /** Public poster projections only. Never reads or bundles private HQ tables. */
 object PosterRepository {
@@ -22,7 +23,8 @@ object PosterRepository {
 
     data class Entry(val url: String, val locked: Boolean)
     fun key(title: String, year: Int?): String =
-        title.trim().replace(Regex("\\s+"), " ").lowercase(Locale.ROOT) + "|" + (year ?: "")
+        Normalizer.normalize(title, Normalizer.Form.NFKC)
+            .trim().replace(Regex("\\s+"), " ").lowercase(Locale.ROOT) + "|" + (year ?: "")
 
     /**
      * Five verified original-release corrections changed a movie's public key.
