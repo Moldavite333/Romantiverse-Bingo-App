@@ -88,3 +88,19 @@ test('romance rooms remain previewable with their real collection', async () => 
   assert.equal('token' in result.data, false, 'Public previews must never contain credentials');
   assert.equal('token_hash' in result.data.room, false);
 });
+
+
+test('branded Bingo origin can make cross-origin multiplayer requests without opening access to arbitrary origins', async () => {
+  const {handler} = makeServer();
+  for (const origin of ['https://bingo.cheeselouisepod.com', 'https://moldavite333.github.io']) {
+    const response = await handler(new Request('https://unit.example/functions/v1/game-room', {
+      method: 'OPTIONS', headers: {Origin: origin}
+    }));
+    assert.equal(response.status, 204);
+    assert.equal(response.headers.get('Access-Control-Allow-Origin'), origin);
+  }
+  const untrusted = await handler(new Request('https://unit.example/functions/v1/game-room', {
+    method: 'OPTIONS', headers: {Origin: 'https://unrelated.example'}
+  }));
+  assert.notEqual(untrusted.headers.get('Access-Control-Allow-Origin'), 'https://unrelated.example');
+});

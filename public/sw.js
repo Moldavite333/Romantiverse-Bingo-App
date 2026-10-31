@@ -1,6 +1,6 @@
 // Offline-ready static app shell. Room state and private tokens are never cached.
-const CACHE='romantiverse-v5-shell';
-const BASE='/Romantiverse-Bingo-App/';
+const CACHE='romantiverse-v6-shell';
+const BASE='/';
 const SHELL=BASE+'index.html';
 const PRECACHE=[BASE+'catalog/movies.json',BASE+'manifest.webmanifest',BASE+'icon.svg'];
 
@@ -11,7 +11,7 @@ self.addEventListener('install',event=>{
   if(!response.ok)throw Error('Could not precache the Bingo app shell');
   const html=await response.clone().text();
   // Vite fingerprints production JS/CSS filenames; discover them from the built HTML.
-  const assets=[...html.matchAll(/(?:src|href)="(\/Romantiverse-Bingo-App\/assets\/[^"?#]+)"/g)].map(match=>match[1]);
+  const assets=[...html.matchAll(/(?:src|href)="(\/assets\/[^"?#]+)"/g)].map(match=>match[1]);
   await cache.put(SHELL,response);
   await cache.addAll([...new Set([...PRECACHE,...assets])]);
   await self.skipWaiting();
@@ -30,7 +30,8 @@ self.addEventListener('fetch',event=>{
  const req=event.request;
  if(req.method!=='GET')return;
  const url=new URL(req.url);
- if(url.origin!==self.location.origin||!url.pathname.startsWith(BASE))return;
+ // Only intercept the public app shell and its assets, never unrelated same-origin paths.
+ if(url.origin!==self.location.origin||!(url.pathname===BASE||url.pathname===SHELL||url.pathname.startsWith(BASE+'assets/')||PRECACHE.includes(url.pathname)))return;
  if(req.mode==='navigate'){
   // A direct invitation may include ?room=CODE. Cache only canonical public HTML,
   // never a URL containing invitation or session parameters.

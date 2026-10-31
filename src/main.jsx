@@ -172,4 +172,4 @@ return <div className="app">
 </main><footer><div className="ornament">✧ ✦ ✧</div><strong>{BRAND}</strong><small>Romantiverse Bingo · Independent movie-night game · Early access</small><small className="poster-attribution">This product uses the TMDB API but is not endorsed or certified by TMDB. <a href="https://www.themoviedb.org/">The Movie Database</a>.</small></footer>{notice&&<div className="toast" role="status"><span>{notice}</span><button aria-label="Dismiss notice" onClick={()=>setNotice('')}>×</button></div>}</div>}
 createRoot(document.getElementById('root')).render(<App/>);
 
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/Romantiverse-Bingo-App/sw.js',{updateViaCache:'none'}).catch(()=>{}));}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js',{updateViaCache:'none'}).catch(()=>{}));}

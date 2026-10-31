@@ -33,7 +33,7 @@ npm test
 npm run build
 ```
 
-GitHub Actions is configured to test and build on pushes to `main`. The intended public game URL is https://moldavite333.github.io/Romantiverse-Bingo-App/ .
+GitHub Actions is configured to test and build on pushes to `main`. The intended public game URL is https://bingo.cheeselouisepod.com/ .
 
 ## Attribution
 
