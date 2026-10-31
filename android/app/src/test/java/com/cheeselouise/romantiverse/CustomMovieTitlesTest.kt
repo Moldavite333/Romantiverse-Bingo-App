@@ -32,6 +32,18 @@ class CustomMovieTitlesTest {
         assertEquals(composed.key, compatibility.key)
     }
 
+    @Test fun legacyKeyboardSpecificIdCanMigrateWithoutResettingTheCard() {
+        val raw = "Noe\u0308l in the Village"
+        val legacy = CustomMovieTitles.legacyId(raw)!!
+        val canonical = CustomMovieTitles.create(raw, "Christmas")!!
+        assertNotEquals(legacy, canonical.id)
+        assertEquals(canonical.id, CustomMovieTitles.create("Noël in the Village", "Christmas")!!.id)
+        assertEquals(
+            CustomMovieTitles.legacyId("A Christmas Village"),
+            CustomMovieTitles.create("A Christmas Village", "Christmas")!!.id
+        )
+    }
+
     @Test fun arbitraryProductionLabelsCannotBeInventedOrUnlockHorror() {
         assertEquals("Unspecified", CustomMovieTitles.create("Peacock Romance", "Peacock")!!.collection)
         assertEquals("Unspecified", CustomMovieTitles.create("Some Film", "Horror")!!.collection)
