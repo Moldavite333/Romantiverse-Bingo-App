@@ -4,13 +4,13 @@ import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 
 const SOURCE=readFileSync(new URL('../public/sw.js',import.meta.url),'utf8');
-const ORIGIN='https://moldavite333.github.io';
-const BASE='/Romantiverse-Bingo-App/';
+const ORIGIN='https://bingo.cheeselouisepod.com';
+const BASE='/';
 class BrowserRequest extends Request {
  constructor(input,init){super(new URL(typeof input==='string'?input:input instanceof URL?input.href:input.url,ORIGIN),init);this._mode=typeof input==='object'&&input._mode?input._mode:'cors'}
  get mode(){return this._mode}
 }
-const HTML='<html><script type="module" src="/Romantiverse-Bingo-App/assets/index-123.js"></script><link rel="stylesheet" href="/Romantiverse-Bingo-App/assets/index-456.css"></html>';
+const HTML='<html><script type="module" src="/assets/index-123.js"></script><link rel="stylesheet" href="/assets/index-456.css"></html>';
 
 function harness(){
  const listeners=new Map(),stores=new Map(),calls=[];
