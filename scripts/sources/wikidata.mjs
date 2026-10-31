@@ -70,9 +70,34 @@ export function normalizeWikidataResults(data){
  }
  return [...byId.values()];
 }
-export async function discoverWikidata({fetcher=fetch,userAgent='RomantiverseBingoCatalog/1.0 (https://github.com/Moldavite333/Romantiverse-Bingo-App)'}={}){
+// Wikidata occasionally rate-limits or temporarily fails during the weekly job.
+// Honor Retry-After, but never spin, retry indefinitely, or hold a runner for
+// minutes. A long cooldown is a signal to defer until the next scheduled run.
+const RETRYABLE_STATUS=new Set([429,502,503,504]);
+const MAX_RETRY_WAIT_MS=12000;
+function retryDelayMs(response,now){
+ const raw=response.headers?.get?.('Retry-After')?.trim();
+ if(!raw)return 1500;
+ if(/^\\d+(?:\\.\\d+)?$/.test(raw))return Number(raw)*1000;
+ const timestamp=Date.parse(raw);
+ return Number.isFinite(timestamp)?Math.max(0,timestamp-now):1500;
+}
+export async function discoverWikidata({
+ fetcher=fetch,
+ userAgent='RomantiverseBingoCatalog/1.0 (https://github.com/Moldavite333/Romantiverse-Bingo-App)',
+ sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms)),
+ now=()=>Date.now()
+}={}){
  const url=ENDPOINT+'?format=json&query='+encodeURIComponent(QUERY);
- const res=await fetcher(url,{headers:{Accept:'application/sparql-results+json','User-Agent':userAgent},signal:AbortSignal.timeout(20000)});
- if(!res.ok)throw Error('Wikidata returned '+res.status+'; retry later, do not hammer the endpoint');
- return normalizeWikidataResults(await res.json());
+ for(let attempt=0;attempt<2;attempt++){
+  const res=await fetcher(url,{headers:{Accept:'application/sparql-results+json','User-Agent':userAgent},signal:AbortSignal.timeout(20000)});
+  if(res.ok)return normalizeWikidataResults(await res.json());
+  if(attempt===1||!RETRYABLE_STATUS.has(res.status))
+   throw Error('Wikidata returned '+res.status+'; retry later, do not hammer the endpoint');
+  const wait=retryDelayMs(res,now());
+  if(!Number.isFinite(wait)||wait>MAX_RETRY_WAIT_MS)
+   throw Error('Wikidata returned '+res.status+'; Retry-After exceeds bounded retry window');
+  await sleep(Math.max(0,wait));
+ }
+ throw Error('Wikidata retry exhausted');
 }
