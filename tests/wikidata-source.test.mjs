@@ -9,7 +9,7 @@ test('Wikidata movie leads do not claim a plot synopsis or verified network',()=
 test('Wikidata fetch uses an identified user agent and rejects rate limits',async()=>{
  const [m]=await discoverWikidata({fetcher:async(url,options)=>{assert.match(url,/format=json/);assert.match(options.headers['User-Agent'],/RomantiverseBingo/);return {ok:true,json:async()=>example}}});
  assert.equal(m.title,'Example Film');
- await assert.rejects(discoverWikidata({fetcher:async()=>({ok:false,status:429})}),/429/);
+ await assert.rejects(discoverWikidata({fetcher:async()=>({ok:false,status:429}),sleep:async()=>{}}),/429/);
 });
 
 test('release-year discovery uses first release and collapses later rebroadcast dates',()=>{
@@ -60,4 +60,56 @@ test('duplicate Wikidata releases preserve source evidence and earliest year',()
  assert.equal(lead.network,'Lifetime');
  assert.equal(lead.production_company,'MarVista Entertainment');
  assert.equal(lead.tv_film_evidence,true);
+});
+
+test('temporary rate limits retry once after the requested short cooldown',async()=>{
+ let calls=0;const waits=[];
+ const result=await discoverWikidata({
+  fetcher:async()=>{
+   calls++;
+   return calls===1
+    ?{ok:false,status:429,headers:{get:()=> '2'}}
+    :{ok:true,json:async()=>example};
+  },
+  sleep:async ms=>{waits.push(ms);}
+ });
+ assert.equal(calls,2);
+ assert.deepEqual(waits,[2000]);
+ assert.equal(result[0].source_id,'Q123');
+});
+
+test('transient service errors retry only once and permanent failures never retry',async()=>{
+ let attempts=0;
+ await assert.rejects(discoverWikidata({
+  fetcher:async()=>{attempts++;return {ok:false,status:503};},
+  sleep:async ms=>{assert.equal(ms,1500);}
+ }),/503/);
+ assert.equal(attempts,2);
+ attempts=0;
+ await assert.rejects(discoverWikidata({
+  fetcher:async()=>{attempts++;return {ok:false,status:400};},
+  sleep:async()=>{throw Error('Must not sleep for permanent failure');}
+ }),/400/);
+ assert.equal(attempts,1);
+});
+
+test('long Retry-After defers to a future run rather than hammering Wikidata',async()=>{
+ let attempts=0;
+ await assert.rejects(discoverWikidata({
+  fetcher:async()=>{attempts++;return {ok:false,status:429,headers:{get:()=> '90'}};},
+  sleep:async()=>{throw Error('Long cooldown must not be ignored');}
+ }),/Retry-After exceeds bounded retry window/);
+ assert.equal(attempts,1);
+});
+
+test('HTTP-date Retry-After is respected without real waiting',async()=>{
+ const waits=[];
+ await discoverWikidata({
+  fetcher:(()=>{let count=0;return async()=>++count===1
+   ?{ok:false,status:503,headers:{get:()=> 'Sat, 31 Oct 2026 12:00:05 GMT'}}
+   :{ok:true,json:async()=>example};})(),
+  now:()=>Date.parse('2026-10-31T12:00:00Z'),
+  sleep:async ms=>{waits.push(ms);}
+ });
+ assert.deepEqual(waits,[5000]);
 });
