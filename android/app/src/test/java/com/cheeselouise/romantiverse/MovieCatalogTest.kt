@@ -195,6 +195,27 @@ class MovieCatalogTest {
     }
 
 
+    @Test fun nativeSearchSupportsVerifiedProducersWithoutTreatingThemAsNetworks() {
+        val movies = MovieCatalog.parse(catalog(
+            row("reel-one", "A Winter Promise", "Christmas", 2024)
+                .put("production_company", "Reel One Entertainment"),
+            row("marvista", "A Summer Promise", "Unspecified", 2023)
+                .put("production_company", "MarVista Entertainment"),
+            row("unknown", "A Christmas Village", "Christmas", 2018),
+            row("malformed", "Another Film", "Fall", 2022)
+                .put("production_company", "MarVista\\nFake")
+        ))
+        val reel = movies.single { it.id == "reel-one" }
+        val marvista = movies.single { it.id == "marvista" }
+        assertNull(reel.network)
+        assertEquals("Reel One Entertainment", reel.productionCompany)
+        assertTrue(MovieCatalog.matchesQuery(reel, "Reel One 2024"))
+        assertTrue(MovieCatalog.matchesQuery(marvista, "MarVista"))
+        assertFalse(MovieCatalog.matchesQuery(reel, "MarVista"))
+        assertFalse(MovieCatalog.matchesQuery(movies.single { it.id == "unknown" }, "Reel One"))
+        assertNull(movies.single { it.id == "malformed" }.productionCompany)
+    }
+
     @Test fun nativeSearchMatchesOnlyPubliclyListedNetworksWithoutGuessing() {
         val hallmark = row("hallmark-film", "Autumn Dreams", "Fall", 2015)
             .put("network", "Hallmark Channel")
