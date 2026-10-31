@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {copyRoomInvite,shareRoomInvite,roomInviteMessage} from '../src/engine/shareRoomInvite.mjs';
 import {roomInviteUrl,parseRoomInvite} from '../src/engine/roomInvites.mjs';
-const base='https://moldavite333.github.io/Romantiverse-Bingo-App/';
+const base='https://bingo.cheeselouisepod.com/';
 const url=roomInviteUrl(base+'?old=secret#fragment','ABC2DEF');
 function field(value=url){
  const events=[];
@@ -10,8 +10,8 @@ function field(value=url){
 }
 test('unique room invitation strips unrelated query/hash and never contains a player token',()=>{
  const invite=new URL(url);
- assert.equal(invite.origin,'https://moldavite333.github.io');
- assert.equal(invite.pathname,'/Romantiverse-Bingo-App/');
+ assert.equal(invite.origin,'https://bingo.cheeselouisepod.com');
+ assert.equal(invite.pathname,'/');
  assert.equal(invite.search,'?room=ABC2DEF');
  assert.equal(invite.hash,'');
  assert.equal(parseRoomInvite(invite.search),'ABC2DEF');
