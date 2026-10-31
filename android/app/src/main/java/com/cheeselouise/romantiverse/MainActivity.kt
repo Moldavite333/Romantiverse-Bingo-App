@@ -362,7 +362,7 @@ private fun DiscoverMovies(
         item {
             OutlinedTextField(
                 value = query, onValueChange = { query = it },
-                label = { Text("Search title, network, season or year") },
+                label = { Text("Search title, network, studio, season or year") },
                 singleLine = true, modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(14.dp)
             )
@@ -428,7 +428,8 @@ private fun DiscoverMovies(
                         Spacer(Modifier.height(5.dp))
                         Text(listOfNotNull(movie.year?.toString(),
                             movie.collection.takeUnless { it == "Unspecified" },
-                            movie.network).joinToString(" · ")
+                            movie.network,
+                            movie.productionCompany?.let { "Produced by $it" }).joinToString(" · ")
                             .ifBlank { "Collection unverified" }, color = pale, fontSize = 12.sp)
                         Spacer(Modifier.height(12.dp))
                         Text("PLAY THIS MOVIE  ›", color = gold,
