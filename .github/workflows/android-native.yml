@@ -53,3 +53,63 @@ jobs:
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 7
+
+  publish-public-android-tester:
+    name: Publish login-free Android tester download
+    needs: native-android
+    # A pull request can build an APK, but must never publish an executable.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: romantiverse-android-tester-release
+      cancel-in-progress: false
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: romantiverse-native-debug-apk
+          path: release-apk
+      - name: Prepare the APK and checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s release-apk/app-debug.apk
+          mv release-apk/app-debug.apk release-apk/Romantiverse-Bingo-Android-Tester.apk
+          (cd release-apk && sha256sum Romantiverse-Bingo-Android-Tester.apk > Romantiverse-Bingo-Android-Tester.apk.sha256)
+      - name: Publish rolling prerelease after successful native tests
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # Do not let an older, slower build overwrite a newer APK.
+          latest_sha="$(gh api "repos/$GITHUB_REPOSITORY/commits/main" --jq '.sha')"
+          if [[ "$latest_sha" != "$GITHUB_SHA" ]]; then
+            echo "Main has moved; skipping superseded tester APK."
+            exit 0
+          fi
+          cat > release-notes.md <<EOF
+          **Android tester build only — not a production or Play Store release.**
+
+          Native Jetpack Compose APK, compiled and unit-tested from commit \`$GITHUB_SHA\`.
+          Free to download without signing in to GitHub. No Bingo account is required.
+
+          **Important:** This is a debug-signed build. GitHub runners may use different
+          debug signing certificates on successive builds. Android can refuse an
+          in-place update; uninstalling the old test app first may be necessary and
+          **deletes local cards and marks**. Do not uninstall if you need that data.
+
+          Android's unknown-app installation rules and Samsung Auto Blocker still
+          apply. This download does not bypass device security settings.
+          Physical-device multiplayer, performance and Play Store release checks
+          are not yet complete.
+
+          Brought to you by the Cheese Louise Podcast
+          EOF
+          if gh release view android-tester --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload android-tester release-apk/Romantiverse-Bingo-Android-Tester.apk release-apk/Romantiverse-Bingo-Android-Tester.apk.sha256 --clobber --repo "$GITHUB_REPOSITORY"
+            gh release edit android-tester --repo "$GITHUB_REPOSITORY" --prerelease --title "Romantiverse Bingo — Android tester (rolling)" --notes-file release-notes.md
+          else
+            gh release create android-tester release-apk/Romantiverse-Bingo-Android-Tester.apk release-apk/Romantiverse-Bingo-Android-Tester.apk.sha256 --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "Romantiverse Bingo — Android tester (rolling)" --notes-file release-notes.md
+          fi
