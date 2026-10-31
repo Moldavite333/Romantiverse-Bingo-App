@@ -3,23 +3,24 @@
 import assert from 'node:assert/strict';
 import {roomInviteUrl,parseRoomInvite} from '../src/engine/roomInvites.mjs';
 const ENDPOINT='https://yxpamyibhclilgdhgsjd.supabase.co/functions/v1/game-room';
+const PUBLIC_ORIGIN='https://bingo.cheeselouisepod.com';
 /** A missing public poster is legitimate: the native and web clients render a fallback. */
 export function verifiedPosterForMovie(movie,feed){
  const url=feed.movies.find(m=>m.title===movie.title&&m.release_year===movie.release_year)?.poster_url;
  return typeof url==='string'&&url.startsWith('https://image.tmdb.org/t/p/')?url:null;
 }
 async function post(action,payload={}){
- const response=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Origin:'https://moldavite333.github.io'},body:JSON.stringify({action,...payload}),signal:AbortSignal.timeout(15000)});
+ const response=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Origin:PUBLIC_ORIGIN},body:JSON.stringify({action,...payload}),signal:AbortSignal.timeout(15000)});
  const data=await response.json();
  if(!response.ok)throw Error(action+' failed: HTTP '+response.status+' '+(data?.error||'unknown'));
- assert.equal(response.headers.get('access-control-allow-origin'),'https://moldavite333.github.io');
+ assert.equal(response.headers.get('access-control-allow-origin'),PUBLIC_ORIGIN);
  return data;
 }
 /** Live deployment must refuse horror room creation even from direct API clients. */
 async function assertHorrorRoomRejected(payload){
  const response=await fetch(ENDPOINT,{
   method:'POST',
-  headers:{'Content-Type':'application/json',Origin:'https://moldavite333.github.io'},
+  headers:{'Content-Type':'application/json',Origin:PUBLIC_ORIGIN},
   body:JSON.stringify({action:'create',...payload}),
   signal:AbortSignal.timeout(15000)
  });
@@ -31,7 +32,8 @@ async function assertHorrorRoomRejected(payload){
 export async function verifyLiveRoom(siteUrl){
  const site=new URL(siteUrl);
  assert.equal(site.protocol,'https:');
- assert.equal(site.pathname,'/Romantiverse-Bingo-App/');
+ assert.equal(site.pathname,'/');
+ assert.equal(site.origin,PUBLIC_ORIGIN,'Live room checks must use the branded public domain');
  const catalogResponse=await fetch(new URL('catalog/movies.json',site),{cache:'no-store',signal:AbortSignal.timeout(15000)});
  assert.ok(catalogResponse.ok,'Live movie catalog must be reachable');
  const catalog=await catalogResponse.json();
@@ -110,7 +112,7 @@ export async function verifyLiveRoom(siteUrl){
  assert.deepEqual(state.card,guest.card);
  // The guest must not gain room-control authority just because the host ID is public.
  const deniedStart=await fetch(ENDPOINT,{
-  method:'POST',headers:{'Content-Type':'application/json',Origin:'https://moldavite333.github.io'},
+  method:'POST',headers:{'Content-Type':'application/json',Origin:PUBLIC_ORIGIN},
   body:JSON.stringify({action:'start',code:host.room.code,token:guest.token}),
   signal:AbortSignal.timeout(15000)
  });
@@ -125,6 +127,6 @@ export async function verifyLiveRoom(siteUrl){
  return {movie:movie.title,collection:movie.season,room:host.room.code,invite,players:2};
 }
 if(process.argv[1]?.endsWith('verify-live-room.mjs')){
- const result=await verifyLiveRoom(process.argv[2]||'https://moldavite333.github.io/Romantiverse-Bingo-App/');
+ const result=await verifyLiveRoom(process.argv[2]||PUBLIC_ORIGIN+'/');
  console.log('Verified unique public room invitation, server movie metadata, two independent cards, join, marks and finish for '+result.movie+'.');
 }
