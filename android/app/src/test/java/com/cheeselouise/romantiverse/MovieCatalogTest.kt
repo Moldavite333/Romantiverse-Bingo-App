@@ -272,4 +272,25 @@ class MovieCatalogTest {
         assertEquals(4, titles("  ").size)
     }
 
+    @Test fun nativeSearchFindsEquivalentUnicodeAccentsAndPunctuation() {
+        val movies = MovieCatalog.parse(catalog(
+            row("noel", "Noël in the Village", "Christmas", 2024)
+                .put("network", "Hallmark Channel"),
+            row("reel", "A Winter Promise", "Unspecified", 2023)
+                .put("production_company", "Reel One Entertainment"),
+            row("other", "An Autumn Promise", "Fall", 2025)
+        ))
+        val noel = movies.single { it.id == "noel" }
+        val reel = movies.single { it.id == "reel" }
+        val other = movies.single { it.id == "other" }
+
+        assertTrue(MovieCatalog.matchesQuery(noel, "Noel"))
+        assertTrue(MovieCatalog.matchesQuery(noel, "Noe\\u0308l 2024"))
+        assertTrue(MovieCatalog.matchesQuery(noel, "NOËL-in-the-Village"))
+        assertTrue(MovieCatalog.matchesQuery(reel, "Reel-One 2023"))
+        assertTrue(MovieCatalog.matchesQuery(other, "autumn/promise"))
+        assertFalse(MovieCatalog.matchesQuery(other, "Hallmark"))
+        assertFalse(MovieCatalog.matchesQuery(reel, "2024"))
+    }
+
 }
