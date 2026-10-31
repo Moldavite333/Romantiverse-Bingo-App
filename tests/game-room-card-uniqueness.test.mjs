@@ -22,6 +22,7 @@ test('live room cards have 24 unique visible labels in all launch themes', () =>
       const card = deal(theme);
       assert.equal(card.length, 25);
       assert.equal(card[12].category, 'free');
+      assert.equal(card[12].label, 'CHEESE LOUISE POD', 'free center must carry podcast branding');
       assert.equal(card.filter(t => t.category === 'cheese').length, 12);
       assert.equal(card.filter(t => t.category === 'seasonal').length, 12);
       assert.equal(new Set(card.map(t => key(t.label))).size, 25, theme + ' deal ' + n);
