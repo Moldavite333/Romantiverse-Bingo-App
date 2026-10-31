@@ -182,16 +182,47 @@ private fun NativeBingoApp(incomingCode: String?) {
         if (movie == null) emptyList() else BingoEngine.deal(BingoEngine.pool(theme), seed)
     }
     fun newSeed(): Long = SecureRandom().nextLong().ushr(1)
+    fun saveSession(
+        editor: android.content.SharedPreferences.Editor,
+        id: String, sessionTheme: String, sessionSeed: Long, sessionMarks: Set<Int>
+    ) {
+        if (id.isBlank()) return
+        editor.putLong(SoloCardSessions.key(id, "seed"), sessionSeed)
+            .putString(SoloCardSessions.key(id, "theme"), sessionTheme)
+            .putString(SoloCardSessions.key(id, "marks"), BingoEngine.encodeMarks(sessionMarks))
+    }
+    fun readSession(id: String): SoloCardSession? {
+        val seedKey = SoloCardSessions.key(id, "seed")
+        if (!prefs.contains(seedKey)) return null
+        return SoloCardSessions.restore(
+            runCatching { prefs.getLong(seedKey, -1L) }.getOrNull(),
+            runCatching { prefs.getString(SoloCardSessions.key(id, "theme"), null) }.getOrNull(),
+            runCatching { prefs.getString(SoloCardSessions.key(id, "marks"), null) }.getOrNull()
+        )
+    }
     fun choose(next: Movie) {
+        // Tapping the current movie is navigation, not permission to erase its card.
+        if (next.id == selectedId) {
+            tab = "play"
+            return
+        }
         celebration = null
+        // Preserve the legacy active card on its first switch after upgrading.
+        if (selectedId.isNotBlank()) {
+            val outgoing = prefs.edit()
+            saveSession(outgoing, selectedId, theme, seed, marks)
+            outgoing.apply()
+        }
+        val resumed = readSession(next.id)
         selectedId = next.id
-        theme = if (next.collection in themes) next.collection else "Romance"
-        seed = newSeed()
-        marks = emptySet()
+        theme = resumed?.theme ?: if (next.collection in themes) next.collection else "Romance"
+        seed = resumed?.seed ?: newSeed()
+        marks = resumed?.marks ?: emptySet()
         val custom = next.takeIf { it.id.startsWith("custom-") }
         customMovie = custom
         val editor = prefs.edit().putString("movie_id", selectedId).putString("theme", theme)
-            .putLong("seed", seed).putString("marks", "")
+            .putLong("seed", seed).putString("marks", BingoEngine.encodeMarks(marks))
+        saveSession(editor, selectedId, theme, seed, marks)
         if (custom != null) {
             editor.putString("custom_movie_title", custom.title)
                 .putString("custom_movie_collection", custom.collection)
@@ -207,8 +238,10 @@ private fun NativeBingoApp(incomingCode: String?) {
         theme = next
         seed = newSeed()
         marks = emptySet()
-        prefs.edit().putString("theme", theme).putLong("seed", seed)
-            .putString("marks", "").apply()
+        val editor = prefs.edit().putString("theme", theme).putLong("seed", seed)
+            .putString("marks", "")
+        saveSession(editor, selectedId, theme, seed, marks)
+        editor.apply()
     }
     fun mark(index: Int) {
         if (index == BingoEngine.CENTER) return
@@ -217,6 +250,7 @@ private fun NativeBingoApp(incomingCode: String?) {
         val newLines = BingoCelebrationRules.newlyCompleted(previous, updated)
         marks = updated
         val editor = prefs.edit().putString("marks", BingoEngine.encodeMarks(marks))
+        saveSession(editor, selectedId, theme, seed, marks)
         val updatedBest = SoloScoreProgress.restore(movie, marks) { key ->
             prefs.getInt("best:$key", 0)
         }
@@ -319,7 +353,9 @@ private fun NativeBingoApp(incomingCode: String?) {
                             celebration = null
                             seed = newSeed()
                             marks = emptySet()
-                            prefs.edit().putLong("seed", seed).putString("marks", "").apply()
+                            val editor = prefs.edit().putLong("seed", seed).putString("marks", "")
+                            saveSession(editor, selectedId, theme, seed, marks)
+                            editor.apply()
                         }
                     )
                 }
