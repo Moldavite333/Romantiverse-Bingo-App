@@ -2,6 +2,7 @@ package com.cheeselouise.romantiverse
 
 import java.security.MessageDigest
 import java.util.Locale
+import java.text.Normalizer
 
 /**
  * Local-only fallback for a real movie missing from the public catalog.
@@ -10,7 +11,8 @@ import java.util.Locale
  */
 object CustomMovieTitles {
     fun create(rawTitle: String, requestedCollection: String = "Unspecified"): Movie? {
-        val title = rawTitle.trim().replace(Regex("\\s+"), " ")
+        val title = Normalizer.normalize(rawTitle, Normalizer.Form.NFKC)
+            .trim().replace(Regex("\\s+"), " ")
         if (title.length !in 2..120 || title.any { Character.isISOControl(it) }) return null
         val collection = requestedCollection.takeIf { it == "Christmas" || it == "Fall" }
             ?: "Unspecified"
