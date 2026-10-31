@@ -78,7 +78,7 @@ const MAX_RETRY_WAIT_MS=12000;
 function retryDelayMs(response,now){
  const raw=response.headers?.get?.('Retry-After')?.trim();
  if(!raw)return 1500;
- if(/^\\d+(?:\\.\\d+)?$/.test(raw))return Number(raw)*1000;
+ if(/^\d+(?:\.\d+)?$/.test(raw))return Number(raw)*1000;
  const timestamp=Date.parse(raw);
  return Number.isFinite(timestamp)?Math.max(0,timestamp-now):1500;
 }
