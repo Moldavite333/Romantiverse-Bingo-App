@@ -170,6 +170,15 @@ class PosterRepositoryTest {
         )
     }
 
+    @Test fun canonicallyEquivalentPosterTitlesMatchAcrossPublicFeeds() {
+        val composed = Movie("cafe-christmas", "Café Christmas", 2025, "Christmas")
+        val decomposed = "Cafe\u0301 Christmas"
+        val published = mapOf(PosterRepository.key(decomposed, 2025) to entry("hq-lock", locked = true))
+        assertEquals(PosterRepository.key(composed.title, 2025), PosterRepository.key(decomposed, 2025))
+        assertEquals(entry("hq-lock", locked = true), PosterRepository.forMovie(composed, published))
+        assertNotEquals(PosterRepository.key(composed.title, 2024), PosterRepository.key(decomposed, 2025))
+    }
+
     @Test fun titleAndYearMustMatchExactly() {
         assertNotEquals(
             PosterRepository.key("Autumn Dreams", 2015),
