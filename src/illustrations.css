@@ -9,3 +9,5 @@
 .victory p{color:#513344}
 .square-art-missing{display:grid;place-items:center;min-height:64px;max-width:100%;padding:3px;border:2px dashed #91364b;border-radius:6px;font:10px/1.2 system-ui;color:#732339;background:#fff8ea}
 @media(max-width:600px){.square{min-height:132px;padding:4px 2px;gap:5px}.square-art{width:100%;height:auto;max-width:80px}.square-label{font-size:10px;line-height:1.2}}
+
+.square.saving{box-shadow:inset 0 0 0 3px #be8b32}.room-play-progress{background:#fff8ea;color:#173f36;border:1px solid #d7b79a;border-radius:8px;padding:10px;font-weight:700}.room-invite>summary{cursor:pointer;font-weight:700;padding:8px}.room-header>div:last-child{display:flex;flex-wrap:wrap;gap:8px}.room-play-progress+.board{scroll-margin-top:90px}

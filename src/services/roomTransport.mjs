@@ -1,8 +1,10 @@
 // Keep network failures bounded on unreliable mobile connections.
 // Never automatically retry a write: a timed-out create, join, or mark may
 // already have reached the server, so retrying could duplicate or undo it.
-export async function postRoomAction(url, payload, {fetcher=globalThis.fetch, timeoutMs=12000}={}) {
+export async function postRoomAction(url, payload, {fetcher=globalThis.fetch, timeoutMs=12000,signal}={}) {
   const controller=new AbortController();
+  const cancel=()=>controller.abort();
+  signal?.addEventListener('abort',cancel,{once:true});if(signal?.aborted)cancel();
   const timer=setTimeout(()=>controller.abort(),timeoutMs);
   try {
     let response;
@@ -14,6 +16,7 @@ export async function postRoomAction(url, payload, {fetcher=globalThis.fetch, ti
         signal:controller.signal
       });
     } catch (error) {
+      if(signal?.aborted)throw Object.assign(Error('Room read cancelled'),{name:'AbortError'});
       if(controller.signal.aborted) {
         throw Error('Room request timed out. Check your connection and refresh the room before trying again.');
       }
@@ -26,5 +29,6 @@ export async function postRoomAction(url, payload, {fetcher=globalThis.fetch, ti
     return data;
   } finally {
     clearTimeout(timer);
+    signal?.removeEventListener('abort',cancel);
   }
 }

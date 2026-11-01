@@ -8,11 +8,12 @@ import {copyRoomInvite,shareRoomInvite,roomInviteMessage} from './engine/shareRo
 import {normalizeRoomCode,parseRoomInvite,roomInviteUrl} from './engine/roomInvites.mjs';
 import TropeIllustration from './TropeIllustration.jsx';
 import CardArtGuide from './CardArtGuide.jsx';
-import {nextPlayerSnapshot} from './engine/roomState.mjs';
-import {winningLines} from './engine/bingo.mjs';
+import {nextPlayerSnapshot,nextRoomState} from './engine/roomState.mjs';
+import {winningLines,LINES} from './engine/bingo.mjs';
 import {LAUNCH_THEMES,isLaunchMovie} from './engine/launchCollections.mjs';
-const KEY='romantiverse-room-v1';
-const saved=()=>{try{return JSON.parse(sessionStorage.getItem(KEY))}catch{return null}};
+import {readActiveRoom,roomCredentials,rememberRoom,forgetRoom} from './engine/roomMemory.mjs';
+import {startRoomPolling} from './services/roomPolling.mjs';
+import {createRoomMarkQueue} from './services/roomMarkQueue.mjs';
 const THEMES=LAUNCH_THEMES;
 function MovieDetails({movie,theme,heading='TONIGHT’S MOVIE'}){
  if(!movie)return null;
@@ -26,11 +27,14 @@ function MovieDetails({movie,theme,heading='TONIGHT’S MOVIE'}){
   </div></div>;
 }
 export default function Multiplayer({catalog=[],mode='classic'}){
-const [session,setSession]=useState(saved),[room,setRoom]=useState(null),[card,setCard]=useState(null),[marks,setMarks]=useState([]),[revision,setRevision]=useState(0),[name,setName]=useState(''),[code,setCode]=useState(()=>parseRoomInvite(window.location.search)||''),[error,setError]=useState(''),[busy,setBusy]=useState(false),[pending,setPending]=useState(false);
+const [initial]=useState(readActiveRoom);
+const [session,setSession]=useState(()=>roomCredentials(initial)),[room,setRoom]=useState(initial?.room||null),[card,setCard]=useState(initial?.card||null),[marks,setMarks]=useState(initial?.marked||[]),[revision,setRevision]=useState(initial?.revision||0),[name,setName]=useState(''),[code,setCode]=useState(()=>parseRoomInvite(window.location.search)||''),[error,setError]=useState(''),[busy,setBusy]=useState(false),[pending,setPending]=useState(false),[connected,setConnected]=useState(false),[memoryError,setMemoryError]=useState('');
 const [selected,setSelected]=useState(null),[theme,setTheme]=useState('Romance'),[hostMode,setHostMode]=useState(mode);
 const [search,setSearch]=useState(''),[remoteMovies,setRemoteMovies]=useState([]),[searching,setSearching]=useState(false),[preview,setPreview]=useState(null),[notice,setNotice]=useState(''),[manualInvite,setManualInvite]=useState(false);
-const inviteInput=useRef(null);
-const active=useRef(false);
+const inviteInput=useRef(null),markQueue=useRef(null);
+const [pendingSquares,setPendingSquares]=useState([]);
+const isHost=Boolean(session&&room?.host_player_id===session.player_id);
+useEffect(()=>{if(card)requestAnimationFrame(()=>document.querySelector('.live-board')?.scrollIntoView({block:'start',behavior:'instant'}))},[session?.code,Boolean(card)]);
 const chosen=selected?mergeMovieListings([[selected],catalog,remoteMovies])[0]:null;
 const choices=useMemo(()=>mergeMovieListings([catalog,remoteMovies]).filter(m=>isLaunchMovie(m)&&(m.title+' '+(m.release_year||'')).toLowerCase().includes(search.trim().toLowerCase())).slice(0,12),[catalog,remoteMovies,search]);
 function selectMovie(m){if(!isLaunchMovie(m)){setError('Horror is reserved for a future standalone game.');return;}setSelected(m);setTheme(THEMES.includes(m.season)?m.season:'Romance');setSearch(m.title);setError('')}
@@ -50,7 +54,8 @@ useEffect(()=>{
  let alive=true;const timer=setTimeout(()=>roomRequest({action:'preview',code:normalized}).then(data=>{if(alive)setPreview(data.room||null)}).catch(()=>{if(alive)setPreview(null)}),250);
  return()=>{alive=false;clearTimeout(timer)};
 },[session?.code,code]);
-const latestSnapshot=useRef({revision:-1,marked:[]});
+const latestRoom=useRef(initial?.room||null);
+const latestSnapshot=useRef({revision:initial?.revision??-1,marked:initial?.marked||[]});
 const incomingRoomCode=parseRoomInvite(window.location.search);
 let inviteLink='';
 try{if(session?.code)inviteLink=roomInviteUrl(window.location.href,session.code)}catch{}
@@ -79,12 +84,18 @@ async function shareInviteLink(){
   if(result==='manual'){setManualInvite(true);setNotice('Sharing and copying are unavailable here. Long-press the invitation text below to copy it.');}
  }catch{setError('Share unavailable. Long-press the link to copy it.')}
 }
-const update=data=>{if(data.room)setRoom(data.room);if(data.card)setCard(data.card);const next=nextPlayerSnapshot(latestSnapshot.current,data);if(next!==latestSnapshot.current){latestSnapshot.current=next;setMarks(next.marked);setRevision(next.revision)}};
-async function call(action,payload={}){setError('');setBusy(true);try{const data=await roomRequest({action,...payload,...(session?{code:session.code,token:session.token}:{})});update(data);if(['create','join'].includes(action)){const next={code:data.room.code,token:data.token,player_id:data.player_id};sessionStorage.setItem(KEY,JSON.stringify(next));setSession(next)}return data}catch(e){setError(e.message);return null}finally{setBusy(false)}}
-useEffect(()=>{if(!session)return;let alive=true;const poll=async()=>{if(!alive||active.current)return;active.current=true;try{const data=await roomRequest({action:'state',code:session.code,token:session.token});if(alive){update(data);setError('')}}catch(e){if(alive)setError('Connection interrupted: '+e.message)}finally{active.current=false}};poll();const timer=setInterval(poll,3000);return()=>{alive=false;clearInterval(timer)}},[session?.code,session?.token]);
-async function mark(index){if(pending||busy)return;setPending(true);try{const data=await roomRequest({action:'mark',code:session.code,token:session.token,index,revision});update(data);setError('')}catch(e){setError(e.message);try{update(await roomRequest({action:'state',code:session.code,token:session.token}))}catch{}}finally{setPending(false)}}
-function leave(){try{sessionStorage.removeItem(KEY)}catch{};latestSnapshot.current={revision:-1,marked:[]};setSession(null);setRoom(null);setCard(null);setMarks([]);setRevision(0);setError('');setNotice('');setManualInvite(false)}
-// The backend enforces host permissions; controls may be shown but unauthorized actions are rejected.
+const update=(data,credentials=session)=>{if(data.room){latestRoom.current=nextRoomState(latestRoom.current,data.room);setRoom(latestRoom.current);}if(data.card)setCard(data.card);const next=nextPlayerSnapshot(latestSnapshot.current,data);if(next!==latestSnapshot.current){latestSnapshot.current=next;setMarks(next.marked);setRevision(next.revision)}if(credentials){const stored=rememberRoom(credentials,{room:latestRoom.current,card:data.card||card,...next},undefined,{activate:false});setMemoryError(stored?'':'This browser could not save your game on this device. Keep this window open until storage is available.');}setConnected(true)};
+async function call(action,payload={}){if(action==='finish'&&!window.confirm('End this shared game for everyone? Your card and marks will stay in saved games.'))return null;setError('');setBusy(true);try{const data=await roomRequest({action,...payload,...(session?{code:session.code,token:session.token}:{})});let credentials=session;if(['create','join'].includes(action)){credentials={code:data.room.code,token:data.token,player_id:data.player_id};latestSnapshot.current={revision:-1,marked:[]};rememberRoom(credentials);setSession(credentials)}update(data,credentials);return data}catch(e){setError(e.message);return null}finally{setBusy(false)}}
+useEffect(()=>{if(!session)return;return startRoomPolling({read:signal=>roomRequest({action:'state',code:session.code,token:session.token},{signal}),onData:data=>{update(data);setError('')},onReconnect:()=>setConnected(false),onError:e=>{setConnected(false);setError('Connection interrupted: '+e.message)}})},[session?.code,session?.token]);
+useEffect(()=>{
+ if(!session)return;let alive=true;
+ const queue=createRoomMarkQueue({send:(index,revision)=>roomRequest({action:'mark',code:session.code,token:session.token,index,revision}),getRevision:()=>latestSnapshot.current.revision,onData:data=>{update(data);setError('')},onPending:indices=>{setPending(indices.length>0);setPendingSquares(indices)},onError:async error=>{setConnected(false);setError(error.message+' Queued taps were not confirmed. Reconnect, check your marks, then tap those squares again.');try{const data=await roomRequest({action:'state',code:session.code,token:session.token});if(alive)update(data)}catch{}}});
+ markQueue.current=queue;return()=>{alive=false;queue.dispose();markQueue.current=null};
+},[session?.code,session?.token]);
+function mark(index){if(busy||!connected)return;markQueue.current?.enqueue(index)}
+
+function leave(){if(room?.status!=='finished'&&!window.confirm('Leave this game on this device? Your saved player access to this room will be removed.'))return;markQueue.current?.dispose();forgetRoom(session);latestRoom.current=null;latestSnapshot.current={revision:-1,marked:[]};setSession(null);setRoom(null);setCard(null);setMarks([]);setRevision(0);setPending(false);setPendingSquares([]);setMemoryError('');setConnected(false);setError('');setNotice('');setManualInvite(false)}
+// The backend enforces permissions; the UI also keeps host controls out of the guest flow.
 const completedLines=winningLines(marks,true);
 const myLines=completedLines.length;
 const winningIndices=new Set(completedLines.flat());
@@ -114,19 +125,22 @@ return <section className="panel multiplayer"><div className="eyebrow">LIVE MOVI
 {session?<>
  {incomingRoomCode&&incomingRoomCode!==session.code&&<p role="status" className="room-error">This device is still in room {session.code}. <button type="button" onClick={leave}>Switch to invited room {incomingRoomCode}</button></p>}
  <MovieDetails movie={room} theme={room?.season} heading="YOUR SHARED MOVIE"/>
- <div className="room-header"><div><small>YOUR ROOM CODE</small><strong>{session.code}</strong></div><button onClick={leave}>Leave This Device</button></div>
- {inviteLink&&<div className="room-invite"><label htmlFor="room-invite-url">Invite friends with this unique room link</label>
+ <div className="room-header"><div><small>YOUR ROOM CODE</small><strong>{session.code}</strong></div><div><button onClick={()=>document.getElementById('shared-bingo-card')?.scrollIntoView({block:'start',behavior:'smooth'})}>Back to my card</button><button onClick={leave}>Leave This Device</button></div></div>
+ {inviteLink&&<details className="room-invite" open={room?.status==='lobby'}><summary>Invite friends to this game</summary><label htmlFor="room-invite-url">Invite friends with this unique room link</label>
   <input ref={inviteInput} id="room-invite-url" aria-label="Room invitation link" readOnly value={inviteLink} onFocus={e=>e.target.select()} onClick={e=>e.currentTarget.select()}/>
   <div className="room-invite-controls"><button className="primary" type="button" onClick={copyInviteLink}>Copy Invite Link</button><button type="button" onClick={shareInviteLink}>Share Invite</button><button type="button" onClick={()=>{setManualInvite(true);setNotice("Use the selectable invitation text below if Samsung blocks copying.");}}>Copy Manually</button></div>
   {manualInvite&&<div className="room-invite-fallback" role="group" aria-label="Manual invitation text"><label htmlFor="room-invite-message">Ready-to-send invitation — long-press to copy</label><textarea id="room-invite-message" readOnly rows={4} value={invitationText} onFocus={e=>e.currentTarget.select()} onClick={e=>e.currentTarget.select()}/><button type="button" onClick={()=>{const el=document.getElementById('room-invite-message');el?.focus();el?.select()}}>Select Invitation Text</button></div>}
   <p className="fineprint">On Samsung, Share Invite opens Android sharing when supported. If copying is blocked, the complete invitation text appears above. The URL contains only the room code, never your private session token.</p>
- </div>}
+ </details>}
  <p><strong>{room?.movie_title||'Loading movie…'}</strong> · {room?.status||'connecting'}</p>
  <div className="player-list" aria-label="Players in room">{room?.players?.map(p=><div key={p.id}><strong>{p.name}{p.id===session.player_id?' (you)':''}</strong><span>{p.lines} lines · {p.marked} marked</span></div>)}</div>
- {room?.status==='lobby'&&<><p>Wait until everyone has joined before starting the movie.</p><button className="primary" disabled={busy} onClick={()=>call('start')}>Start Movie (host only)</button></>}
- {card&&<><div className={"board live-board"+(celebrate?" winner":"")} role="group" aria-label="Multiplayer Bingo card" aria-busy={pending}>{'BINGO'.split('').map((l,i)=><div className="letter" key={'letter-'+i}>{l}</div>)}{card.map((t,i)=>{const marked=i===12||marks.includes(i);return <button key={i} className={'square '+(marked?'marked ':'')+(winningIndices.has(i)?'in-line':'')} aria-label={'BINGO'[i%5]+(Math.floor(i/5)+1)+': '+(i===12?'CHEESE LOUISE POD':t.label)+(i===12?' (free center square)':'')} aria-pressed={marked} aria-disabled={pending||room?.status!=='playing'||i===12} disabled={room?.status!=='playing'||i===12} onClick={()=>mark(i)} title={t.reason||t.label}><TropeIllustration trope={t}/><span className="square-label">{i===12?'CHEESE LOUISE POD':t.label}</span>{marked&&<b aria-hidden="true">✦</b>}</button>})}</div><CardArtGuide card={card} marked={marks} free={true} disabled={pending||busy||room?.status!=='playing'} onMark={mark}/><p className="fineprint" aria-live="polite">{myLines} completed lines. Marks are saved on the server and restored after reconnection.</p>{celebrate&&<div className="victory" role="status"><h3>{room?.mode==='blackout'?'Blackout!':'BINGO!'}</h3><p>{myLines} completed {myLines===1?'line':'lines'} on your card.</p></div>}</>}
- {room?.status==='playing'&&<button disabled={busy} onClick={()=>call('finish')}>Finish Movie (host only)</button>}
- {room?.status==='finished'&&<p>Movie night complete. Results are preserved until the room expires.</p>}
+ {memoryError&&<p className="room-error" role="status">{memoryError}</p>}
+ {!connected&&<p className="room-notice" role="status">{card?'Your saved card and marks are here. Reconnecting to the game…':'Reconnecting to your saved game…'}</p>}
+ {room?.status==='lobby'&&isHost&&<><p>Wait until everyone has joined before starting the movie.</p><button className="primary" disabled={busy||!connected} onClick={()=>call('start')}>Start Movie (host only)</button></>}
+ {room?.status==='lobby'&&!isHost&&<p role="status">Waiting for the host to start the movie.</p>}
+ {card&&<><p className="room-play-progress" role="status">{pending?('Saving '+pendingSquares.length+' tap'+(pendingSquares.length===1?'':'s')+'…'):(marks.filter(i=>i!==12).length+' of 24 marked · '+myLines+' completed line'+(myLines===1?'':'s'))}{!pending&&room?.status==='playing'&&(' · '+(room.mode==='blackout'?(25-marks.length)+' squares to blackout':Math.min(...LINES.map(line=>line.filter(i=>i!==12&&!marks.includes(i)).length).filter(n=>n>0),5)+' squares to the next line'))}</p><div id="shared-bingo-card" className={"board live-board"+(celebrate?" winner":"")} role="group" aria-label="Multiplayer Bingo card" aria-busy={pending}>{'BINGO'.split('').map((l,i)=><div className="letter" key={'letter-'+i}>{l}</div>)}{card.map((t,i)=>{const marked=i===12||marks.includes(i);return <button key={i} className={'square '+(pendingSquares.includes(i)?'saving ':'')+(marked?'marked ':'')+(winningIndices.has(i)?'in-line':'')} aria-label={'BINGO'[i%5]+(Math.floor(i/5)+1)+': '+(i===12?'CHEESE LOUISE POD':t.label)+(i===12?' (free center square)':'')} aria-pressed={marked} aria-busy={pendingSquares.includes(i)} aria-disabled={!connected||room?.status!=='playing'||i===12} disabled={!connected||room?.status!=='playing'||i===12} onClick={()=>mark(i)} title={t.reason||t.label}><TropeIllustration trope={t}/><span className="square-label">{i===12?'CHEESE LOUISE POD':t.label}</span>{marked&&<b aria-hidden="true">✦</b>}</button>})}</div><CardArtGuide card={card} marked={marks} free={true} disabled={busy||!connected||room?.status!=='playing'} onMark={mark}/><p className="fineprint" aria-live="polite">{myLines} completed lines. Marks are saved on the server and restored after reconnection.</p>{celebrate&&<div className="victory" role="status"><h3>{room?.mode==='blackout'?'Blackout!':'BINGO!'}</h3><p>{myLines} completed {myLines===1?'line':'lines'} on your card.</p></div>}</>}
+ {room?.status==='playing'&&isHost&&<button disabled={busy||pending||!connected} onClick={()=>call('finish')}>Finish Movie (host only)</button>}
+ {room?.status==='finished'&&<p>Movie night complete. Your card and marks remain in Your saved games on this device.</p>}
 </>:<>
  {incomingRoomCode?<>{joinForm}{hostForm}</>:<>{hostForm}{joinForm}</>}
 </>}
