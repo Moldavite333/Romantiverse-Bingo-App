@@ -1,21 +1,8 @@
 name: Native Android build and rules tests
+# Native Android work is paused for the web-first Cheese Louise launch.
+# Keep the complete native build/release workflow for explicit future resumption,
+# but do not build or upload APK artifacts on web/catalog pushes or pull requests.
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'android/**'
-      - 'public/catalog/movies.json'
-      - 'supabase/functions/game-room/index.ts'
-      - 'scripts/verify-native-launch-artwork.mjs'
-      - 'scripts/android-device-perf.mjs'
-      - '.github/workflows/android-native.yml'
-  pull_request:
-    paths:
-      - 'android/**'
-      - 'public/catalog/movies.json'
-      - 'supabase/functions/game-room/index.ts'
-      - 'scripts/verify-native-launch-artwork.mjs'
-      - '.github/workflows/android-native.yml'
   workflow_dispatch:
 jobs:
   native-android:
