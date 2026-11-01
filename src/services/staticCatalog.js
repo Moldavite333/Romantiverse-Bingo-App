@@ -23,7 +23,12 @@ export function validateStaticMovies(body){
  for(const raw of body.movies){
   const movie=normalizeMovie(raw);
   if(!movie)continue;
-  const key=movie.title.normalize('NFKC').toLocaleLowerCase('en')+'|'+(movie.release_year??'');
+  // Match the web game's merged listings and the public website. Exact
+  // release years still distinguish remakes with the same normalized title.
+  const identity=movie.title.normalize('NFKD').replace(/\p{M}/gu,'')
+    .toLocaleLowerCase('en').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+  if(!identity)continue;
+  const key=identity+'|'+(movie.release_year??'');
   if(seen.has(key))continue;
   seen.add(key);items.push(movie);
  }

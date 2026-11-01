@@ -92,3 +92,20 @@ test('accent variants share a movie identity for exact-year HQ artwork only',()=
  assert.equal(mergeMovieListings([[{...catalog,is_demo:true}],[published]])[0].poster_url,art('automatic'),
   'fictional demos must not inherit HQ artwork');
 });
+
+
+test('HQ-locked poster follows punctuation variants but never a different-year remake',()=>{
+ const catalog={id:'catalog',title:'Love-Classified',release_year:2022,is_demo:false,season:'Fall',
+  poster_url:art('automatic'),story_facts:{event:['festival']}};
+ const published={id:'published',title:'Love, Classified',release_year:2022,is_demo:false,
+  poster_source:'hq_published',poster_locked:true,poster_url:art('approved-hq'),notes:'PRIVATE HQ NOTE'};
+ const [merged]=mergeMovieListings([[catalog],[published]]);
+ assert.equal(merged.id,'catalog');
+ assert.equal(merged.poster_url,art('approved-hq'));
+ assert.equal(merged.poster_locked,true);
+ assert.deepEqual(merged.story_facts,catalog.story_facts);
+ assert.equal(merged.notes,undefined,'private HQ metadata must not leak into public listings');
+ const remakes=mergeMovieListings([[catalog],[{...published,release_year:2023}]]);
+ assert.equal(remakes.length,2);
+ assert.equal(remakes[0].poster_url,art('automatic'),'wrong-year HQ poster cannot override original');
+});

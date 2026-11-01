@@ -51,3 +51,14 @@ test('loads bundled catalog without Vite runtime globals',async t=>{
  assert.equal(data.items.length,1);
  assert.equal(data.updatedAt,'2026-10-26');
 });
+
+
+test('static catalog deduplicates punctuation and accent variants but preserves release years',()=>{
+ const first={id:'a',title:'Cafe-Noel',season:'Christmas',release_year:2024,
+  verification_status:'metadata_verified',source_url:'https://example.com/film'};
+ const same={...first,id:'b',title:'Café Noël'};
+ const remake={...first,id:'c',title:'Cafe Noel',release_year:2025};
+ const movies=validateStaticMovies({version:1,movies:[first,same,remake,{...first,id:'d',title:'!!!'}]});
+ assert.deepEqual(movies.map(m=>m.id),['a','c']);
+ assert.equal(movies[0].verification_status,'metadata_verified');
+});
