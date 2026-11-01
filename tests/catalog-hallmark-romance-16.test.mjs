@@ -87,7 +87,7 @@ const references=[
   ]
 ];
 test('16 existing romance movies retain official Hallmark identity, year and network sources',()=>{
- assert.equal(catalog.movies.length,121,'Metadata verification must not alter catalog size');
+ assert.ok(catalog.movies.length>=121,'Previously verified titles must remain in the expanding catalog');
  assert.ok(catalog.movies.filter(m=>m.verification_status==='metadata_verified').length>=71);
  for(const [title,year,url] of references){
   const matches=catalog.movies.filter(m=>m.title===title&&m.release_year===year);
