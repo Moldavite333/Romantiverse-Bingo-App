@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
-    "test": "node --test tests/*.test.mjs"
+    "build": "node scripts/validate-illustrations.mjs && vite build",
+    "test": "node --test tests/*.test.mjs",
+    "art:validate": "node scripts/validate-illustrations.mjs"
   },
   "dependencies": {
     "react": "^19.0.0",

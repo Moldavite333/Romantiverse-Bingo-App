@@ -19,6 +19,13 @@ export async function verifyLiveDeployment(siteUrl,{distDir='dist',fetcher=fetch
  const assets=referencedAssets(localHtml.toString('utf8'),base);
  if(!assets.some(p=>p.endsWith('.js'))||!assets.some(p=>p.endsWith('.css')))throw Error('Built HTML is missing fingerprinted JavaScript or CSS');
  const paths=[base,base+'catalog/movies.json',...assets];
+ // Scene assets are part of the release, not optional category fallbacks.
+ let art;
+ try{art=JSON.parse(await readFile(join(distDir,'illustrations/manifest.json'),'utf8'))}catch(error){if(error.code!=='ENOENT')throw error}
+ if(art){
+  if(!Array.isArray(art)||!art.every(path=>/^illustrations\/[a-zA-Z0-9-]+\.webp$/.test(path)))throw Error('Invalid built illustration manifest');
+  paths.push(base+'illustrations/manifest.json',...art.map(path=>base+path));
+ }
  const expected=new Map();
  for(const path of paths){
   const relative=path===base?'index.html':path.slice(base.length);

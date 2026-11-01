@@ -5,9 +5,10 @@ import {createServer} from 'node:http';
 import {readFile} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 import {chromium} from 'playwright';
+import roomArtAliases from '../src/art/room-illustration-aliases.json' with {type:'json'};
 const base='/';
 const root=resolve('dist');
-const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.json':'application/json','.webmanifest':'application/manifest+json'};
+const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.json':'application/json','.webmanifest':'application/manifest+json','.webp':'image/webp'};
 const server=createServer(async(req,res)=>{
  try{
   const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
@@ -20,10 +21,13 @@ const server=createServer(async(req,res)=>{
 });
 await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
 const appUrl='http://127.0.0.1:'+server.address().port+base;
-const browser=await chromium.launch({headless:true});
+const browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_EXECUTABLE_PATH?{executablePath:process.env.PLAYWRIGHT_EXECUTABLE_PATH}:{})});
 const code='AB7K2XY',poster='https://image.tmdb.org/t/p/w780/approved-test.jpg';
-const hostCard=Array.from({length:25},(_,i)=>({id:'host-'+i,label:i===12?'FREE SPACE':'Host trope '+i,category:i===12?'free':'cheese'}));
-const guestCard=Array.from({length:25},(_,i)=>({id:'guest-'+i,label:i===12?'FREE SPACE':'Guest trope '+i,category:i===12?'free':'cheese'}));
+const fixtureCard=(offset,stable)=>{
+ const card=Object.keys(roomArtAliases).slice(offset,offset+24).map((label,i)=>({id:stable?'room-'+label.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''):'cheese-'+i,label,category:'cheese'}));
+ card.splice(12,0,{id:'free',label:'CHEESE LOUISE POD',category:'free'});return card;
+};
+const hostCard=fixtureCard(0,false),guestCard=fixtureCard(30,true);
 let room={code,movie_title:'Autumn Dreams',movie_collection:'Fall',poster_url:poster,release_year:2015,season:'Fall',mode:'classic',status:'lobby',players:[{id:'host',name:'Nick',lines:0,marked:1}]};
 const snapshots={host:{card:hostCard,marked:[12],revision:0},guest:{card:guestCard,marked:[12],revision:0}};
 function playerResponse(id){const snap=snapshots[id];return {room,player_id:id,card:snap.card,marked:[...snap.marked],revision:snap.revision}}
@@ -54,7 +58,7 @@ function responseFor(body){
  return playerResponse(id);
 }
 async function contextFor(width,mobile){
- const context=await browser.newContext({viewport:{width,height:844},isMobile:mobile,hasTouch:mobile});
+ const context=await browser.newContext({viewport:{width,height:844},isMobile:mobile,hasTouch:mobile,serviceWorkers:'block'});
  const page=await context.newPage(),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  await page.route('https://*.supabase.co/**',async route=>{
@@ -142,6 +146,9 @@ try{
  await host.page.getByRole('status').filter({hasText:'Sharing cancelled.'}).waitFor();
  assert.ok((await host.page.locator('#room-invite-message').inputValue()).includes(invite),'Cancelled share must retain the complete selectable invitation');
  assert.equal(await host.page.locator('.board.live-board .square').count(),25);
+ await host.page.waitForFunction(()=>{const images=[...document.querySelectorAll('.live-board .square-art')];return images.length===25&&images.every(img=>img.complete&&img.naturalWidth===384)});
+ assert.equal(new Set(await host.page.locator('.live-board .square-art').evaluateAll(images=>images.map(img=>img.src))).size,25);
+ await host.page.locator('.live-board').screenshot({path:'artifacts/multiplayer-host-390.png',animations:'disabled'});
  const hostLabels=await host.page.locator('.board.live-board .square-label').allTextContents();
  const hostOverflow=await host.page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
  assert.ok(hostOverflow<=2,'Mobile multiplayer must not overflow horizontally: '+hostOverflow);
@@ -159,6 +166,8 @@ try{
  const guestLabels=await guest.page.locator('.board.live-board .square-label').allTextContents();
  assert.equal(guestLabels.length,25);
  assert.notDeepEqual(guestLabels,hostLabels,'Guest must receive a different randomized card');
+ await guest.page.waitForFunction(()=>{const images=[...document.querySelectorAll('.live-board .square-art')];return images.length===25&&images.every(img=>img.complete&&img.naturalWidth===384)});
+ await guest.page.locator('.live-board').screenshot({path:'artifacts/multiplayer-guest-1440.png',animations:'disabled'});
  assert.match(await guest.page.locator('.room-movie-details').innerText(),/Autumn Dreams[\s\S]*Collection: Fall[\s\S]*Bingo theme: Fall/);
  const desktopOverflow=await guest.page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
  assert.ok(desktopOverflow<=2,'Desktop multiplayer must not overflow horizontally');
@@ -171,6 +180,7 @@ try{
  assert.match(await host.page.locator('.multiplayer .victory').innerText(),/BINGO!/);
  assert.match(await host.page.locator('.multiplayer .victory').innerText(),/1 completed line/);
  assert.equal(await guest.page.locator('.live-board.winner').count(),0,'Host wins must not mark guest card');
+ await host.page.locator('.live-board').screenshot({path:'artifacts/multiplayer-winning-390.png',animations:'disabled'});
  await host.page.emulateMedia({reducedMotion:'reduce'});
  assert.equal(await host.page.locator('.live-board.winner').evaluate(el=>getComputedStyle(el).animationName),'none');
  assert.equal(await host.page.locator('.live-board .square.marked').first().evaluate(el=>getComputedStyle(el).animationName),'none');

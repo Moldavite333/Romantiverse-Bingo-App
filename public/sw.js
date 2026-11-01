@@ -1,8 +1,8 @@
 // Offline-ready static app shell. Room state and private tokens are never cached.
-const CACHE='romantiverse-v6-shell';
+const CACHE='romantiverse-v7-scene-art';
 const BASE='/';
 const SHELL=BASE+'index.html';
-const PRECACHE=[BASE+'catalog/movies.json',BASE+'manifest.webmanifest',BASE+'icon.svg'];
+const PRECACHE=[BASE+'catalog/movies.json',BASE+'manifest.webmanifest',BASE+'icon.svg',BASE+'illustrations/manifest.json'];
 
 self.addEventListener('install',event=>{
  event.waitUntil((async()=>{
@@ -13,7 +13,11 @@ self.addEventListener('install',event=>{
   // Vite fingerprints production JS/CSS filenames; discover them from the built HTML.
   const assets=[...html.matchAll(/(?:src|href)="(\/assets\/[^"?#]+)"/g)].map(match=>match[1]);
   await cache.put(SHELL,response);
-  await cache.addAll([...new Set([...PRECACHE,...assets])]);
+  const artResponse=await fetch(BASE+'illustrations/manifest.json');
+  if(!artResponse.ok)throw Error('Missing illustration manifest');
+  const art=await artResponse.json();
+  if(!Array.isArray(art)||!art.every(path=>/^illustrations\/[a-zA-Z0-9-]+\.webp$/.test(path)))throw Error('Invalid illustration manifest');
+  await cache.addAll([...new Set([...PRECACHE,...assets,...art.map(path=>BASE+path)])]);
   await self.skipWaiting();
  })());
 });
@@ -31,7 +35,7 @@ self.addEventListener('fetch',event=>{
  if(req.method!=='GET')return;
  const url=new URL(req.url);
  // Only intercept the public app shell and its assets, never unrelated same-origin paths.
- if(url.origin!==self.location.origin||!(url.pathname===BASE||url.pathname===SHELL||url.pathname.startsWith(BASE+'assets/')||PRECACHE.includes(url.pathname)))return;
+ if(url.origin!==self.location.origin||!(url.pathname===BASE||url.pathname===SHELL||url.pathname.startsWith(BASE+'assets/')||url.pathname.startsWith(BASE+'illustrations/')||PRECACHE.includes(url.pathname)))return;
  if(req.mode==='navigate'){
   // A direct invitation may include ?room=CODE. Cache only canonical public HTML,
   // never a URL containing invitation or session parameters.

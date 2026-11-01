@@ -28,7 +28,7 @@ function harness(){
   delete:async name=>stores.delete(name),
   match:async req=>{const key=new URL(typeof req==='string'?req:req.url,ORIGIN).href;for(const store of stores.values())if(store.has(key))return store.get(key).clone();return undefined}
  };
- async function fakeFetch(req){const url=new URL(typeof req==='string'?req:req.url,ORIGIN);calls.push(url.href);if(!online)throw Error('Offline');return new Response(url.pathname===BASE+'index.html'||url.pathname===BASE?HTML:'asset '+url.pathname,{status:200})}
+ async function fakeFetch(req){const url=new URL(typeof req==='string'?req:req.url,ORIGIN);calls.push(url.href);if(!online)throw Error('Offline');return new Response(url.pathname===BASE+'illustrations/manifest.json'?JSON.stringify(['illustrations/coincidence.webp']):url.pathname===BASE+'index.html'||url.pathname===BASE?HTML:'asset '+url.pathname,{status:200})}
  const self={location:{origin:ORIGIN},addEventListener:(type,fn)=>listeners.set(type,fn),skipWaiting:async()=>{},clients:{claim:async()=>{}}};
  vm.runInNewContext(SOURCE,{self,caches:cacheApi,fetch:fakeFetch,Request:BrowserRequest,Response,URL,Set,Error,Promise});
  async function dispatch(type,request){const pending=[];let response;const event={request,waitUntil:p=>pending.push(Promise.resolve(p)),respondWith:p=>{response=Promise.resolve(p)}};listeners.get(type)(event);if(response){const result=await response;await Promise.all(pending);return result}await Promise.all(pending)}
@@ -38,7 +38,7 @@ function harness(){
 test('installation precaches built HTML, fingerprinted assets and public catalog',async()=>{
  const h=harness();await h.dispatch('install');
  const cached=[...h.stores.values()][0];
- for(const path of ['index.html','assets/index-123.js','assets/index-456.css','catalog/movies.json','manifest.webmanifest','icon.svg']){
+ for(const path of ['index.html','assets/index-123.js','assets/index-456.css','catalog/movies.json','manifest.webmanifest','icon.svg','illustrations/manifest.json','illustrations/coincidence.webp']){
   assert.ok(cached.has(ORIGIN+BASE+path),'Missing offline resource: '+path);
  }
 });
