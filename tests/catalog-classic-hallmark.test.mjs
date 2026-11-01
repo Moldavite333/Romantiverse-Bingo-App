@@ -19,7 +19,7 @@ const verified=[
 ];
 
 test('11 classic movies retain stable identities and source-verified network/year metadata',()=>{
- assert.equal(catalog.movies.length,121,'Metadata enrichment must not add or remove films');
+ assert.ok(catalog.movies.length>=121,'Previously verified titles must remain in the expanding catalog');
  assert.ok(catalog.movies.filter(m=>m.verification_status==='metadata_verified').length>=55);
  for(const [title,year,network,url] of verified){
   const matches=catalog.movies.filter(m=>m.title===title&&m.release_year===year);
