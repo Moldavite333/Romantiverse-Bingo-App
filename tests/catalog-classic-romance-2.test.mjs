@@ -15,8 +15,8 @@ const evidence=[
 ];
 
 test('two classic romance titles have independently sourced identity, US premiere year and network',()=>{
- assert.equal(catalog.movies.length,121,'No catalog titles added or removed');
- assert.equal(catalog.movies.filter(m=>m.verification_status==='metadata_verified').length,101);
+ assert.ok(catalog.movies.length>=121,'Previously verified titles must remain in the expanding catalog');
+ assert.ok(catalog.movies.filter(m=>m.verification_status==='metadata_verified').length>=101);
  assert.equal(catalog.movies.filter(m=>m.verification_status==='unverified').length,20);
  for(const [title,year,network,source_name,source_url,events] of evidence){
   const matches=catalog.movies.filter(m=>m.title===title&&m.release_year===year);
