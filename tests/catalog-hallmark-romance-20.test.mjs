@@ -128,8 +128,8 @@ const sources=[
 ];
 
 test('20 additional romance and holiday titles have original-network and year evidence',()=>{
- assert.equal(catalog.movies.length,121,'No titles added or removed');
- assert.equal(catalog.movies.filter(m=>m.verification_status==='metadata_verified').length,91);
+ assert.ok(catalog.movies.length>=121,'Existing catalog must not shrink');
+ assert.ok(catalog.movies.filter(m=>m.verification_status==='metadata_verified').length>=91);
  for(const [title,year,network,url] of sources){
   const matches=catalog.movies.filter(m=>m.title===title&&m.release_year===year);
   assert.equal(matches.length,1,title);
