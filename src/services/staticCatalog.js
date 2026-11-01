@@ -8,8 +8,14 @@ function normalizeMovie(m){
  if(!title||title.length>200||!SEASONS.has(m.season))return null;
  if(m.release_year!==undefined&&(!Number.isInteger(m.release_year)||m.release_year<1900||m.release_year>2100))return null;
  const story_facts=Object.fromEntries(FACT_KEYS.map(key=>[key,Array.isArray(m.story_facts?.[key])?m.story_facts[key].filter(v=>typeof v==='string'&&/^[a-z0-9_]{1,80}$/.test(v)).slice(0,30):[]]));
- const verified=m.verification_status==='verified'&&typeof m.source_url==='string'&&/^https:\/\//.test(m.source_url);
- return {...m,title,season:m.season,verification_status:verified?'verified':'unverified',story_facts,is_demo:false};
+ // Preserve editorially verified metadata without claiming that movie scenes
+ // or Bingo tropes were observed. A bare URL or legacy `verified` flag alone
+ // must not upgrade unverified records.
+ const sourced=typeof m.source_url==='string'&&/^https:\/\/[^/\s?#]+(?:[/?#]|$)/i.test(m.source_url);
+ const metadataVerified=sourced&&m.verification_status==='metadata_verified';
+ const sceneVerified=sourced&&m.verification_status==='scene_verified'&&m.facts_status==='scene_verified';
+ const verification_status=sceneVerified?'scene_verified':metadataVerified?'metadata_verified':'unverified';
+ return {...m,title,season:m.season,verification_status,story_facts,is_demo:false};
 }
 export function validateStaticMovies(body){
  if(body?.version!==1||!Array.isArray(body.movies))throw Error('Unsupported catalog format');
