@@ -1,3 +1,4 @@
+import {tropeSceneSvg} from './tropeScenes.mjs';
 // Shared, deterministic, offline SVG illustrations adapted from the Cheese Louise HQ trait-art library.
 // No remote images, tracking, database calls, or user-specific data.
 const TRAIT_ART_COLORS={cream:'#f4ead1',paper:'#fffaf0',green:'#173f36',red:'#c43e46',pink:'#e96b78',gold:'#d4a52e',ink:'#1d2924'};
@@ -92,6 +93,8 @@ function traitArtIcon(key){
 }
 
 function traitArtSvg(name,category,seed=''){
+  const scene=tropeSceneSvg(name,category);
+  if(scene)return scene;
   const motif=traitArtMotif(name,category);const s=seed||traitArtSeed(name,category);
   const C=TRAIT_ART_COLORS;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="${String(name||'Cheese Trait').replace(/[&<>\"]/g,'')}"><rect width="128" height="128" rx="18" fill="${C.cream}"/><rect x="4" y="4" width="120" height="120" rx="15" fill="none" stroke="${C.green}" stroke-width="4" opacity=".9"/>${traitArtSparkles(s)}<g transform="translate(0 0)">${traitArtIcon(motif)}</g><path d="M12 113c28 6 76 6 104 0" fill="none" stroke="${C.red}" stroke-width="3" opacity=".28"/></svg>`;
