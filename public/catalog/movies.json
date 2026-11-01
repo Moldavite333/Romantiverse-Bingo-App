@@ -58,6 +58,23 @@
       "is_demo": false
     },
     {
+      "id": "editorial-a-christmas-arrangement-2018",
+      "title": "A Christmas Arrangement",
+      "release_year": 2018,
+      "season": "Christmas",
+      "source_name": "Peacock official movie page",
+      "source_url": "https://www.peacocktv.com/watch-online/movies/a-christmas-arrangement/ab1e7581-bd47-3650-b018-4b7fd097ee59",
+      "verification_status": "metadata_verified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
       "id": "wikidata-q109978514",
       "title": "A Christmas Carousel",
       "release_year": 2020,
@@ -136,6 +153,23 @@
       "network": "Hallmark Channel"
     },
     {
+      "id": "editorial-a-christmas-princess-2019",
+      "title": "A Christmas Princess",
+      "release_year": 2019,
+      "season": "Christmas",
+      "source_name": "Peacock official movie page",
+      "source_url": "https://www.peacocktv.com/watch-online/movies/romance/a-christmas-princess/c7704ca5-d54c-3938-a05b-26a52a6c53e5",
+      "verification_status": "metadata_verified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
       "id": "editorial-a-christmas-village-2018",
       "title": "A Christmas Village",
       "release_year": 2018,
@@ -169,6 +203,23 @@
       "verification_status": "metadata_verified",
       "source_name": "Lifetime",
       "is_demo": false
+    },
+    {
+      "id": "editorial-a-christmas-vintage-2023",
+      "title": "A Christmas Vintage",
+      "release_year": 2023,
+      "season": "Christmas",
+      "source_name": "Peacock official movie page",
+      "source_url": "https://www.peacocktv.com/watch-online/movies/a-christmas-vintage/321d10d9-3920-3869-8e36-dfac9207da6e",
+      "verification_status": "metadata_verified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
     },
     {
       "id": "wikidata-q3548803",
@@ -338,6 +389,23 @@
       "network": "Hallmark Channel"
     },
     {
+      "id": "editorial-a-royal-christmas-ball-2017",
+      "title": "A Royal Christmas Ball",
+      "release_year": 2017,
+      "season": "Christmas",
+      "source_name": "Peacock official movie page",
+      "source_url": "https://www.peacocktv.com/watch-online/movies/a-royal-christmas-ball/94d4aed6-9a1f-3623-9078-33916a992ca6",
+      "verification_status": "metadata_verified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified"
+    },
+    {
       "id": "editorial-a-runaway-bride-for-christmas-2025",
       "title": "A Runaway Bride For Christmas",
       "release_year": 2025,
@@ -354,6 +422,24 @@
       "verification_status": "metadata_verified",
       "source_name": "Lifetime official movie page",
       "is_demo": false
+    },
+    {
+      "id": "editorial-a-very-english-christmas-2023",
+      "title": "A Very English Christmas",
+      "release_year": 2023,
+      "season": "Christmas",
+      "source_name": "Peacock official movie page",
+      "source_url": "https://www.peacocktv.com/watch-online/movies/a-very-english-christmas/f934cb43-af4a-357e-bbfe-e26ed8d319f8",
+      "verification_status": "metadata_verified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "production_company": "Reel One Entertainment"
     },
     {
       "id": "editorial-a-very-merry-beauty-salon-2024",
