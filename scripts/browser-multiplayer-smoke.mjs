@@ -2,9 +2,10 @@
 // Mocks the room API deterministically; the deploy workflow separately exercises real live rooms.
 import assert from 'node:assert/strict';
 import {createServer} from 'node:http';
-import {readFile} from 'node:fs/promises';
+import {readFile,mkdir} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 import {chromium} from 'playwright';
+import aliases from '../src/engine/roomIllustrationAliases.json' with {type:'json'};
 const base='/';
 const root=resolve('dist');
 const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.json':'application/json','.webmanifest':'application/manifest+json'};
@@ -22,8 +23,9 @@ await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
 const appUrl='http://127.0.0.1:'+server.address().port+base;
 const browser=await chromium.launch({headless:true});
 const code='AB7K2XY',poster='https://image.tmdb.org/t/p/w780/approved-test.jpg';
-const hostCard=Array.from({length:25},(_,i)=>({id:'host-'+i,label:i===12?'FREE SPACE':'Host trope '+i,category:i===12?'free':'cheese'}));
-const guestCard=Array.from({length:25},(_,i)=>({id:'guest-'+i,label:i===12?'FREE SPACE':'Guest trope '+i,category:i===12?'free':'cheese'}));
+const labels=Object.keys(aliases);
+const hostCard=Array.from({length:25},(_,i)=>({id:i===12?'free':'cheese-'+i,label:i===12?'FREE SPACE':labels[i],category:i===12?'free':'cheese'}));
+const guestCard=Array.from({length:25},(_,i)=>({id:i===12?'free':'seasonal-'+i,label:i===12?'FREE SPACE':labels[i+30],category:i===12?'free':'seasonal'}));
 let room={code,movie_title:'Autumn Dreams',movie_collection:'Fall',poster_url:poster,release_year:2015,season:'Fall',mode:'classic',status:'lobby',players:[{id:'host',name:'Nick',lines:0,marked:1}]};
 const snapshots={host:{card:hostCard,marked:[12],revision:0},guest:{card:guestCard,marked:[12],revision:0}};
 function playerResponse(id){const snap=snapshots[id];return {room,player_id:id,card:snap.card,marked:[...snap.marked],revision:snap.revision}}
@@ -174,6 +176,10 @@ try{
  await host.page.emulateMedia({reducedMotion:'reduce'});
  assert.equal(await host.page.locator('.live-board.winner').evaluate(el=>getComputedStyle(el).animationName),'none');
  assert.equal(await host.page.locator('.live-board .square.marked').first().evaluate(el=>getComputedStyle(el).animationName),'none');
+ await mkdir('artifacts/artwork',{recursive:true});
+ for(const fixture of [host,guest])await fixture.page.waitForFunction(()=>document.querySelectorAll('.live-board .square-art').length===25&&[...document.querySelectorAll('.live-board .square-art')].every(img=>img.complete&&img.naturalWidth>0));
+ await host.page.screenshot({path:'artifacts/artwork/multiplayer-mobile-winning.png',fullPage:true,animations:'disabled'});
+ await guest.page.screenshot({path:'artifacts/artwork/multiplayer-desktop-guest.png',fullPage:true,animations:'disabled'});
  console.log('Verified mobile host copy/share fallback, movie metadata, unique room URL, desktop guest join and independent cards.');
  await host.context.close();await guest.context.close();
 }finally{await browser.close();await new Promise(ok=>server.close(ok))}

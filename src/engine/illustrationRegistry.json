@@ -1,0 +1,956 @@
+{
+  "meet-cute": {
+    "id": "meet-cute",
+    "label": "First meeting",
+    "src": "illustrations/meet-cute.webp",
+    "status": "ready"
+  },
+  "career-vs-love": {
+    "id": "career-vs-love",
+    "label": "Career versus love dilemma",
+    "src": "illustrations/career-vs-love.webp",
+    "status": "ready"
+  },
+  "return-home": {
+    "id": "return-home",
+    "label": "Big-city person returns home",
+    "src": "illustrations/return-home.webp",
+    "status": "ready"
+  },
+  "old-flame": {
+    "id": "old-flame",
+    "label": "An old flame reappears",
+    "src": "illustrations/old-flame.webp",
+    "status": "ready"
+  },
+  "save-the-business": {
+    "id": "save-the-business",
+    "label": "A beloved business must be saved",
+    "src": "illustrations/save-the-business.webp",
+    "status": "ready"
+  },
+  "misunderstanding": {
+    "id": "misunderstanding",
+    "label": "A misunderstanding",
+    "src": "illustrations/misunderstanding.webp",
+    "status": "ready"
+  },
+  "interruption": {
+    "id": "interruption",
+    "label": "An interruption",
+    "src": "illustrations/interruption.webp",
+    "status": "ready"
+  },
+  "grand-gesture": {
+    "id": "grand-gesture",
+    "label": "A romantic gesture",
+    "src": "illustrations/grand-gesture.webp",
+    "status": "ready"
+  },
+  "wise-relative": {
+    "id": "wise-relative",
+    "label": "A relative gives unsolicited love advice",
+    "src": "illustrations/wise-relative.webp",
+    "status": "ready"
+  },
+  "almost-kiss": {
+    "id": "almost-kiss",
+    "label": "The almost-kiss",
+    "src": "illustrations/almost-kiss.webp",
+    "status": "ready"
+  },
+  "townspeople": {
+    "id": "townspeople",
+    "label": "The entire town gets involved",
+    "src": "illustrations/townspeople.webp",
+    "status": "ready"
+  },
+  "deadline": {
+    "id": "deadline",
+    "label": "A romantic deadline approaches",
+    "src": "illustrations/deadline.webp",
+    "status": "ready"
+  },
+  "misplaced-priorities": {
+    "id": "misplaced-priorities",
+    "label": "Someone learns the true meaning of life",
+    "src": "illustrations/misplaced-priorities.webp",
+    "status": "ready"
+  },
+  "coincidence": {
+    "id": "coincidence",
+    "label": "A coincidence",
+    "src": "illustrations/coincidence.webp",
+    "status": "ready"
+  },
+  "rival": {
+    "id": "rival",
+    "label": "An inconvenient romantic rival",
+    "src": "illustrations/rival.webp",
+    "status": "ready"
+  },
+  "decorating": {
+    "id": "decorating",
+    "label": "Decorating turns into accidental flirting",
+    "src": "illustrations/decorating.webp",
+    "status": "ready"
+  },
+  "awkward-date": {
+    "id": "awkward-date",
+    "label": "An awkward date",
+    "src": "illustrations/awkward-date.webp",
+    "status": "ready"
+  },
+  "forced-proximity": {
+    "id": "forced-proximity",
+    "label": "Two people are forced to spend time together",
+    "src": "illustrations/forced-proximity.webp",
+    "status": "ready"
+  },
+  "town-event": {
+    "id": "town-event",
+    "label": "A town event saves the day",
+    "src": "illustrations/town-event.webp",
+    "status": "ready"
+  },
+  "hidden-talent": {
+    "id": "hidden-talent",
+    "label": "Someone reveals a secret talent",
+    "src": "illustrations/hidden-talent.webp",
+    "status": "ready"
+  },
+  "late-realization": {
+    "id": "late-realization",
+    "label": "A romantic realization",
+    "src": "illustrations/late-realization.webp",
+    "status": "ready"
+  },
+  "last-minute-arrival": {
+    "id": "last-minute-arrival",
+    "label": "Someone arrives at the last possible moment",
+    "src": "illustrations/last-minute-arrival.webp",
+    "status": "ready"
+  },
+  "overheard": {
+    "id": "overheard",
+    "label": "Someone overhears the wrong half of a conversation",
+    "src": "illustrations/overheard.webp",
+    "status": "ready"
+  },
+  "family-pressure": {
+    "id": "family-pressure",
+    "label": "Family pressure complicates everything",
+    "src": "illustrations/family-pressure.webp",
+    "status": "ready"
+  },
+  "big-city": {
+    "id": "big-city",
+    "label": "Big-city life loses its appeal",
+    "src": "illustrations/big-city.webp",
+    "status": "ready"
+  },
+  "perfect-stranger": {
+    "id": "perfect-stranger",
+    "label": "A stranger knows exactly what to say",
+    "src": "illustrations/perfect-stranger.webp",
+    "status": "ready"
+  },
+  "public-confession": {
+    "id": "public-confession",
+    "label": "Love is confessed in public",
+    "src": "illustrations/public-confession.webp",
+    "status": "ready"
+  },
+  "too-perfect": {
+    "id": "too-perfect",
+    "label": "The love interest has no apparent flaws",
+    "src": "illustrations/too-perfect.webp",
+    "status": "ready"
+  },
+  "small-town-magic": {
+    "id": "small-town-magic",
+    "label": "Small-town magic fixes a real-world problem",
+    "src": "illustrations/small-town-magic.webp",
+    "status": "ready"
+  },
+  "obvious-ending": {
+    "id": "obvious-ending",
+    "label": "Everyone knows the ending except the leads",
+    "src": "illustrations/obvious-ending.webp",
+    "status": "ready"
+  },
+  "family-heirloom": {
+    "id": "family-heirloom",
+    "label": "A sentimental family heirloom matters",
+    "src": "illustrations/family-heirloom.webp",
+    "status": "ready"
+  },
+  "stranded-in-town": {
+    "id": "stranded-in-town",
+    "label": "Breaking down / stuck in town",
+    "src": "illustrations/stranded-in-town.webp",
+    "status": "ready"
+  },
+  "family-tragedy": {
+    "id": "family-tragedy",
+    "label": "Family tragedy",
+    "src": "illustrations/family-tragedy.webp",
+    "status": "ready"
+  },
+  "objects-alive": {
+    "id": "objects-alive",
+    "label": "Objects come to life",
+    "src": "illustrations/objects-alive.webp",
+    "status": "ready"
+  },
+  "parallel-life": {
+    "id": "parallel-life",
+    "label": "Time travel / parallel-universe life",
+    "src": "illustrations/parallel-life.webp",
+    "status": "ready"
+  },
+  "free-food": {
+    "id": "free-food",
+    "label": "Free food",
+    "src": "illustrations/free-food.webp",
+    "status": "ready"
+  },
+  "season-Christmas-0": {
+    "id": "season-Christmas-0",
+    "label": "Hot cocoa fixes everything",
+    "src": "illustrations/season-Christmas-0.webp",
+    "status": "ready"
+  },
+  "season-Christmas-1": {
+    "id": "season-Christmas-1",
+    "label": "A town Christmas tree lighting",
+    "src": "illustrations/season-Christmas-1.webp",
+    "status": "ready"
+  },
+  "season-Christmas-2": {
+    "id": "season-Christmas-2",
+    "label": "A snowstorm changes plans",
+    "src": "illustrations/season-Christmas-2.webp",
+    "status": "ready"
+  },
+  "season-Christmas-3": {
+    "id": "season-Christmas-3",
+    "label": "Mistletoe appears at the perfect time",
+    "src": "illustrations/season-Christmas-3.webp",
+    "status": "ready"
+  },
+  "season-Christmas-4": {
+    "id": "season-Christmas-4",
+    "label": "Christmas cookies are plot-critical",
+    "src": "illustrations/season-Christmas-4.webp",
+    "status": "ready"
+  },
+  "season-Christmas-5": {
+    "id": "season-Christmas-5",
+    "label": "A festive fundraiser",
+    "src": "illustrations/season-Christmas-5.webp",
+    "status": "ready"
+  },
+  "season-Christmas-6": {
+    "id": "season-Christmas-6",
+    "label": "A Christmas market",
+    "src": "illustrations/season-Christmas-6.webp",
+    "status": "ready"
+  },
+  "season-Christmas-7": {
+    "id": "season-Christmas-7",
+    "label": "A Christmas Eve deadline",
+    "src": "illustrations/season-Christmas-7.webp",
+    "status": "ready"
+  },
+  "season-Christmas-8": {
+    "id": "season-Christmas-8",
+    "label": "A tree-decorating scene",
+    "src": "illustrations/season-Christmas-8.webp",
+    "status": "ready"
+  },
+  "season-Christmas-9": {
+    "id": "season-Christmas-9",
+    "label": "A magical snowfall",
+    "src": "illustrations/season-Christmas-9.webp",
+    "status": "ready"
+  },
+  "season-Christmas-10": {
+    "id": "season-Christmas-10",
+    "label": "A holiday parade",
+    "src": "illustrations/season-Christmas-10.webp",
+    "status": "ready"
+  },
+  "season-Christmas-11": {
+    "id": "season-Christmas-11",
+    "label": "A Christmas wish",
+    "src": "illustrations/season-Christmas-11.webp",
+    "status": "ready"
+  },
+  "season-Christmas-12": {
+    "id": "season-Christmas-12",
+    "label": "A Christmas carol",
+    "src": "illustrations/season-Christmas-12.webp",
+    "status": "ready"
+  },
+  "season-Christmas-13": {
+    "id": "season-Christmas-13",
+    "label": "An ugly Christmas sweater",
+    "src": "illustrations/season-Christmas-13.webp",
+    "status": "ready"
+  },
+  "season-Christmas-14": {
+    "id": "season-Christmas-14",
+    "label": "A last-minute Christmas gift",
+    "src": "illustrations/season-Christmas-14.webp",
+    "status": "ready"
+  },
+  "season-Christmas-15": {
+    "id": "season-Christmas-15",
+    "label": "A cozy fireplace moment",
+    "src": "illustrations/season-Christmas-15.webp",
+    "status": "ready"
+  },
+  "season-Christmas-16": {
+    "id": "season-Christmas-16",
+    "label": "A holiday baking contest",
+    "src": "illustrations/season-Christmas-16.webp",
+    "status": "ready"
+  },
+  "season-Christmas-17": {
+    "id": "season-Christmas-17",
+    "label": "A Christmas miracle",
+    "src": "illustrations/season-Christmas-17.webp",
+    "status": "ready"
+  },
+  "season-Christmas-18": {
+    "id": "season-Christmas-18",
+    "label": "An unexpected sleigh ride",
+    "src": "illustrations/season-Christmas-18.webp",
+    "status": "ready"
+  },
+  "season-Christmas-19": {
+    "id": "season-Christmas-19",
+    "label": "A family holiday tradition",
+    "src": "illustrations/season-Christmas-19.webp",
+    "status": "ready"
+  },
+  "season-Christmas-20": {
+    "id": "season-Christmas-20",
+    "label": "Christmas lights everywhere",
+    "src": "illustrations/season-Christmas-20.webp",
+    "status": "ready"
+  },
+  "season-Christmas-21": {
+    "id": "season-Christmas-21",
+    "label": "A charming tree farm",
+    "src": "illustrations/season-Christmas-21.webp",
+    "status": "ready"
+  },
+  "season-Christmas-22": {
+    "id": "season-Christmas-22",
+    "label": "An overdecorated small town",
+    "src": "illustrations/season-Christmas-22.webp",
+    "status": "ready"
+  },
+  "season-Christmas-23": {
+    "id": "season-Christmas-23",
+    "label": "An emotional holiday reunion",
+    "src": "illustrations/season-Christmas-23.webp",
+    "status": "ready"
+  },
+  "season-Christmas-24": {
+    "id": "season-Christmas-24",
+    "label": "A festive kiss",
+    "src": "illustrations/season-Christmas-24.webp",
+    "status": "ready"
+  },
+  "season-Christmas-25": {
+    "id": "season-Christmas-25",
+    "label": "Meddling Santas",
+    "src": "illustrations/season-Christmas-25.webp",
+    "status": "ready"
+  },
+  "season-Christmas-26": {
+    "id": "season-Christmas-26",
+    "label": "Snowball fights",
+    "src": "illustrations/season-Christmas-26.webp",
+    "status": "ready"
+  },
+  "season-Christmas-27": {
+    "id": "season-Christmas-27",
+    "label": "Snow angels",
+    "src": "illustrations/season-Christmas-27.webp",
+    "status": "ready"
+  },
+  "season-Fall-0": {
+    "id": "season-Fall-0",
+    "label": "Pumpkin patch encounter",
+    "src": "illustrations/season-Fall-0.webp",
+    "status": "ready"
+  },
+  "season-Fall-1": {
+    "id": "season-Fall-1",
+    "label": "Apple cider conversation",
+    "src": "illustrations/season-Fall-1.webp",
+    "status": "ready"
+  },
+  "season-Fall-2": {
+    "id": "season-Fall-2",
+    "label": "A scenic hayride",
+    "src": "illustrations/season-Fall-2.webp",
+    "status": "ready"
+  },
+  "season-Fall-3": {
+    "id": "season-Fall-3",
+    "label": "Autumn leaves everywhere",
+    "src": "illustrations/season-Fall-3.webp",
+    "status": "ready"
+  },
+  "season-Fall-4": {
+    "id": "season-Fall-4",
+    "label": "Harvest festival showdown",
+    "src": "illustrations/season-Fall-4.webp",
+    "status": "ready"
+  },
+  "season-Fall-5": {
+    "id": "season-Fall-5",
+    "label": "A flannel-clad love interest",
+    "src": "illustrations/season-Fall-5.webp",
+    "status": "ready"
+  },
+  "season-Fall-6": {
+    "id": "season-Fall-6",
+    "label": "Bonfire heart-to-heart",
+    "src": "illustrations/season-Fall-6.webp",
+    "status": "ready"
+  },
+  "season-Fall-7": {
+    "id": "season-Fall-7",
+    "label": "Pie contest rivalry",
+    "src": "illustrations/season-Fall-7.webp",
+    "status": "ready"
+  },
+  "season-Fall-8": {
+    "id": "season-Fall-8",
+    "label": "Corn maze mishap",
+    "src": "illustrations/season-Fall-8.webp",
+    "status": "ready"
+  },
+  "season-Fall-9": {
+    "id": "season-Fall-9",
+    "label": "Pumpkin carving",
+    "src": "illustrations/season-Fall-9.webp",
+    "status": "ready"
+  },
+  "season-Fall-10": {
+    "id": "season-Fall-10",
+    "label": "Family orchard crisis",
+    "src": "illustrations/season-Fall-10.webp",
+    "status": "ready"
+  },
+  "season-Fall-11": {
+    "id": "season-Fall-11",
+    "label": "Apple-picking date",
+    "src": "illustrations/season-Fall-11.webp",
+    "status": "ready"
+  },
+  "season-Fall-12": {
+    "id": "season-Fall-12",
+    "label": "A cozy sweater",
+    "src": "illustrations/season-Fall-12.webp",
+    "status": "ready"
+  },
+  "season-Fall-13": {
+    "id": "season-Fall-13",
+    "label": "Fall decorations montage",
+    "src": "illustrations/season-Fall-13.webp",
+    "status": "ready"
+  },
+  "season-Fall-14": {
+    "id": "season-Fall-14",
+    "label": "Small-town fall fair",
+    "src": "illustrations/season-Fall-14.webp",
+    "status": "ready"
+  },
+  "season-Fall-15": {
+    "id": "season-Fall-15",
+    "label": "A farm stand meet-cute",
+    "src": "illustrations/season-Fall-15.webp",
+    "status": "ready"
+  },
+  "season-Fall-16": {
+    "id": "season-Fall-16",
+    "label": "A harvest dance",
+    "src": "illustrations/season-Fall-16.webp",
+    "status": "ready"
+  },
+  "season-Fall-17": {
+    "id": "season-Fall-17",
+    "label": "An autumn sunset kiss",
+    "src": "illustrations/season-Fall-17.webp",
+    "status": "ready"
+  },
+  "season-Fall-18": {
+    "id": "season-Fall-18",
+    "label": "Pumpkin spice is mentioned",
+    "src": "illustrations/season-Fall-18.webp",
+    "status": "ready"
+  },
+  "season-Fall-19": {
+    "id": "season-Fall-19",
+    "label": "A festival deadline",
+    "src": "illustrations/season-Fall-19.webp",
+    "status": "ready"
+  },
+  "season-Fall-20": {
+    "id": "season-Fall-20",
+    "label": "Scarecrow sighting",
+    "src": "illustrations/season-Fall-20.webp",
+    "status": "ready"
+  },
+  "season-Fall-21": {
+    "id": "season-Fall-21",
+    "label": "A barn party",
+    "src": "illustrations/season-Fall-21.webp",
+    "status": "ready"
+  },
+  "season-Fall-22": {
+    "id": "season-Fall-22",
+    "label": "A leaf-peeping trip",
+    "src": "illustrations/season-Fall-22.webp",
+    "status": "ready"
+  },
+  "season-Fall-23": {
+    "id": "season-Fall-23",
+    "label": "An unexpected autumn storm",
+    "src": "illustrations/season-Fall-23.webp",
+    "status": "ready"
+  },
+  "season-Fall-24": {
+    "id": "season-Fall-24",
+    "label": "A fall tradition",
+    "src": "illustrations/season-Fall-24.webp",
+    "status": "ready"
+  },
+  "season-Horror-0": {
+    "id": "season-Horror-0",
+    "label": "Someone ignores a clear warning",
+    "src": "illustrations/season-Horror-0.webp",
+    "status": "ready"
+  },
+  "season-Horror-1": {
+    "id": "season-Horror-1",
+    "label": "A suspiciously unlocked door",
+    "src": "illustrations/season-Horror-1.webp",
+    "status": "ready"
+  },
+  "season-Horror-2": {
+    "id": "season-Horror-2",
+    "label": "A creepy basement visit",
+    "src": "illustrations/season-Horror-2.webp",
+    "status": "ready"
+  },
+  "season-Horror-3": {
+    "id": "season-Horror-3",
+    "label": "Someone splits up",
+    "src": "illustrations/season-Horror-3.webp",
+    "status": "ready"
+  },
+  "season-Horror-4": {
+    "id": "season-Horror-4",
+    "label": "A flashlight fails",
+    "src": "illustrations/season-Horror-4.webp",
+    "status": "ready"
+  },
+  "season-Horror-5": {
+    "id": "season-Horror-5",
+    "label": "A jump scare",
+    "src": "illustrations/season-Horror-5.webp",
+    "status": "ready"
+  },
+  "season-Horror-6": {
+    "id": "season-Horror-6",
+    "label": "A power outage",
+    "src": "illustrations/season-Horror-6.webp",
+    "status": "ready"
+  },
+  "season-Horror-7": {
+    "id": "season-Horror-7",
+    "label": "A mysterious noise",
+    "src": "illustrations/season-Horror-7.webp",
+    "status": "ready"
+  },
+  "season-Horror-8": {
+    "id": "season-Horror-8",
+    "label": "A character has no signal",
+    "src": "illustrations/season-Horror-8.webp",
+    "status": "ready"
+  },
+  "season-Horror-9": {
+    "id": "season-Horror-9",
+    "label": "An ominous reflection",
+    "src": "illustrations/season-Horror-9.webp",
+    "status": "ready"
+  },
+  "season-Horror-10": {
+    "id": "season-Horror-10",
+    "label": "A car refuses to start",
+    "src": "illustrations/season-Horror-10.webp",
+    "status": "ready"
+  },
+  "season-Horror-11": {
+    "id": "season-Horror-11",
+    "label": "A false alarm",
+    "src": "illustrations/season-Horror-11.webp",
+    "status": "ready"
+  },
+  "season-Horror-12": {
+    "id": "season-Horror-12",
+    "label": "A strange symbol",
+    "src": "illustrations/season-Horror-12.webp",
+    "status": "ready"
+  },
+  "season-Horror-13": {
+    "id": "season-Horror-13",
+    "label": "A locked room",
+    "src": "illustrations/season-Horror-13.webp",
+    "status": "ready"
+  },
+  "season-Horror-14": {
+    "id": "season-Horror-14",
+    "label": "A terrifying phone call",
+    "src": "illustrations/season-Horror-14.webp",
+    "status": "ready"
+  },
+  "season-Horror-15": {
+    "id": "season-Horror-15",
+    "label": "An old diary",
+    "src": "illustrations/season-Horror-15.webp",
+    "status": "ready"
+  },
+  "season-Horror-16": {
+    "id": "season-Horror-16",
+    "label": "A character runs upstairs",
+    "src": "illustrations/season-Horror-16.webp",
+    "status": "ready"
+  },
+  "season-Horror-17": {
+    "id": "season-Horror-17",
+    "label": "A suspicious stranger",
+    "src": "illustrations/season-Horror-17.webp",
+    "status": "ready"
+  },
+  "season-Horror-18": {
+    "id": "season-Horror-18",
+    "label": "Footsteps with no explanation",
+    "src": "illustrations/season-Horror-18.webp",
+    "status": "ready"
+  },
+  "season-Horror-19": {
+    "id": "season-Horror-19",
+    "label": "A sudden scream",
+    "src": "illustrations/season-Horror-19.webp",
+    "status": "ready"
+  },
+  "season-Horror-20": {
+    "id": "season-Horror-20",
+    "label": "A door slams",
+    "src": "illustrations/season-Horror-20.webp",
+    "status": "ready"
+  },
+  "season-Horror-21": {
+    "id": "season-Horror-21",
+    "label": "An eerie photograph",
+    "src": "illustrations/season-Horror-21.webp",
+    "status": "ready"
+  },
+  "season-Horror-22": {
+    "id": "season-Horror-22",
+    "label": "A shadow moves",
+    "src": "illustrations/season-Horror-22.webp",
+    "status": "ready"
+  },
+  "season-Horror-23": {
+    "id": "season-Horror-23",
+    "label": "Someone says it is probably nothing",
+    "src": "illustrations/season-Horror-23.webp",
+    "status": "ready"
+  },
+  "season-Horror-24": {
+    "id": "season-Horror-24",
+    "label": "A final survivor",
+    "src": "illustrations/season-Horror-24.webp",
+    "status": "ready"
+  },
+  "free": {
+    "id": "free",
+    "label": "CHEESE LOUISE POD",
+    "src": "illustrations/free.webp",
+    "status": "ready"
+  },
+  "room-someone-changes-their-mind": {
+    "id": "room-someone-changes-their-mind",
+    "label": "Someone changes their mind",
+    "src": "illustrations/room-someone-changes-their-mind.webp",
+    "status": "ready"
+  },
+  "room-a-surprise-visitor": {
+    "id": "room-a-surprise-visitor",
+    "label": "A surprise visitor",
+    "src": "illustrations/room-a-surprise-visitor.webp",
+    "status": "ready"
+  },
+  "room-an-emotional-reunion": {
+    "id": "room-an-emotional-reunion",
+    "label": "An emotional reunion",
+    "src": "illustrations/room-an-emotional-reunion.webp",
+    "status": "ready"
+  },
+  "room-a-secret-is-discovered": {
+    "id": "room-a-secret-is-discovered",
+    "label": "A secret is discovered",
+    "src": "illustrations/room-a-secret-is-discovered.webp",
+    "status": "ready"
+  },
+  "room-a-dramatic-exit": {
+    "id": "room-a-dramatic-exit",
+    "label": "A dramatic exit",
+    "src": "illustrations/room-a-dramatic-exit.webp",
+    "status": "ready"
+  },
+  "room-a-surprise-announcement": {
+    "id": "room-a-surprise-announcement",
+    "label": "A surprise announcement",
+    "src": "illustrations/room-a-surprise-announcement.webp",
+    "status": "ready"
+  },
+  "room-a-major-change-of-plans": {
+    "id": "room-a-major-change-of-plans",
+    "label": "A major change of plans",
+    "src": "illustrations/room-a-major-change-of-plans.webp",
+    "status": "ready"
+  },
+  "room-second-chance-at-love": {
+    "id": "room-second-chance-at-love",
+    "label": "Second chance at love",
+    "src": "illustrations/room-second-chance-at-love.webp",
+    "status": "ready"
+  },
+  "room-unexpected-reunion": {
+    "id": "room-unexpected-reunion",
+    "label": "Unexpected reunion",
+    "src": "illustrations/room-unexpected-reunion.webp",
+    "status": "ready"
+  },
+  "room-first-dance": {
+    "id": "room-first-dance",
+    "label": "First dance",
+    "src": "illustrations/room-first-dance.webp",
+    "status": "ready"
+  },
+  "room-a-shared-meal": {
+    "id": "room-a-shared-meal",
+    "label": "A shared meal",
+    "src": "illustrations/room-a-shared-meal.webp",
+    "status": "ready"
+  },
+  "room-a-surprise-invitation": {
+    "id": "room-a-surprise-invitation",
+    "label": "A surprise invitation",
+    "src": "illustrations/room-a-surprise-invitation.webp",
+    "status": "ready"
+  },
+  "room-a-meaningful-gift": {
+    "id": "room-a-meaningful-gift",
+    "label": "A meaningful gift",
+    "src": "illustrations/room-a-meaningful-gift.webp",
+    "status": "ready"
+  },
+  "room-a-romantic-confession": {
+    "id": "room-a-romantic-confession",
+    "label": "A romantic confession",
+    "src": "illustrations/room-a-romantic-confession.webp",
+    "status": "ready"
+  },
+  "room-a-heartfelt-apology": {
+    "id": "room-a-heartfelt-apology",
+    "label": "A heartfelt apology",
+    "src": "illustrations/room-a-heartfelt-apology.webp",
+    "status": "ready"
+  },
+  "room-a-secret-crush": {
+    "id": "room-a-secret-crush",
+    "label": "A secret crush",
+    "src": "illustrations/room-a-secret-crush.webp",
+    "status": "ready"
+  },
+  "room-a-chance-encounter": {
+    "id": "room-a-chance-encounter",
+    "label": "A chance encounter",
+    "src": "illustrations/room-a-chance-encounter.webp",
+    "status": "ready"
+  },
+  "room-an-unexpected-phone-call": {
+    "id": "room-an-unexpected-phone-call",
+    "label": "An unexpected phone call",
+    "src": "illustrations/room-an-unexpected-phone-call.webp",
+    "status": "ready"
+  },
+  "room-a-thoughtful-surprise": {
+    "id": "room-a-thoughtful-surprise",
+    "label": "A thoughtful surprise",
+    "src": "illustrations/room-a-thoughtful-surprise.webp",
+    "status": "ready"
+  },
+  "room-a-missed-connection": {
+    "id": "room-a-missed-connection",
+    "label": "A missed connection",
+    "src": "illustrations/room-a-missed-connection.webp",
+    "status": "ready"
+  },
+  "room-an-emotional-goodbye": {
+    "id": "room-an-emotional-goodbye",
+    "label": "An emotional goodbye",
+    "src": "illustrations/room-an-emotional-goodbye.webp",
+    "status": "ready"
+  },
+  "room-a-long-awaited-kiss": {
+    "id": "room-a-long-awaited-kiss",
+    "label": "A long-awaited kiss",
+    "src": "illustrations/room-a-long-awaited-kiss.webp",
+    "status": "ready"
+  },
+  "room-a-change-of-heart": {
+    "id": "room-a-change-of-heart",
+    "label": "A change of heart",
+    "src": "illustrations/room-a-change-of-heart.webp",
+    "status": "ready"
+  },
+  "room-a-difficult-choice": {
+    "id": "room-a-difficult-choice",
+    "label": "A difficult choice",
+    "src": "illustrations/room-a-difficult-choice.webp",
+    "status": "ready"
+  },
+  "room-a-romantic-getaway": {
+    "id": "room-a-romantic-getaway",
+    "label": "A romantic getaway",
+    "src": "illustrations/room-a-romantic-getaway.webp",
+    "status": "ready"
+  },
+  "room-a-special-celebration": {
+    "id": "room-a-special-celebration",
+    "label": "A special celebration",
+    "src": "illustrations/room-a-special-celebration.webp",
+    "status": "ready"
+  },
+  "room-a-meaningful-photograph": {
+    "id": "room-a-meaningful-photograph",
+    "label": "A meaningful photograph",
+    "src": "illustrations/room-a-meaningful-photograph.webp",
+    "status": "ready"
+  },
+  "room-an-awkward-introduction": {
+    "id": "room-an-awkward-introduction",
+    "label": "An awkward introduction",
+    "src": "illustrations/room-an-awkward-introduction.webp",
+    "status": "ready"
+  },
+  "room-an-unexpected-date": {
+    "id": "room-an-unexpected-date",
+    "label": "An unexpected date",
+    "src": "illustrations/room-an-unexpected-date.webp",
+    "status": "ready"
+  },
+  "room-a-moment-of-honesty": {
+    "id": "room-a-moment-of-honesty",
+    "label": "A moment of honesty",
+    "src": "illustrations/room-a-moment-of-honesty.webp",
+    "status": "ready"
+  },
+  "room-a-supportive-friend": {
+    "id": "room-a-supportive-friend",
+    "label": "A supportive friend",
+    "src": "illustrations/room-a-supportive-friend.webp",
+    "status": "ready"
+  },
+  "room-a-chance-to-start-over": {
+    "id": "room-a-chance-to-start-over",
+    "label": "A chance to start over",
+    "src": "illustrations/room-a-chance-to-start-over.webp",
+    "status": "ready"
+  },
+  "room-an-important-letter": {
+    "id": "room-an-important-letter",
+    "label": "An important letter",
+    "src": "illustrations/room-an-important-letter.webp",
+    "status": "ready"
+  },
+  "room-a-shared-tradition": {
+    "id": "room-a-shared-tradition",
+    "label": "A shared tradition",
+    "src": "illustrations/room-a-shared-tradition.webp",
+    "status": "ready"
+  },
+  "room-a-happy-ending": {
+    "id": "room-a-happy-ending",
+    "label": "A happy ending",
+    "src": "illustrations/room-a-happy-ending.webp",
+    "status": "ready"
+  },
+  "room-a-festive-party": {
+    "id": "room-a-festive-party",
+    "label": "A festive party",
+    "src": "illustrations/room-a-festive-party.webp",
+    "status": "ready"
+  },
+  "room-a-christmas-ornament": {
+    "id": "room-a-christmas-ornament",
+    "label": "A Christmas ornament",
+    "src": "illustrations/room-a-christmas-ornament.webp",
+    "status": "ready"
+  },
+  "room-a-surprise-present": {
+    "id": "room-a-surprise-present",
+    "label": "A surprise present",
+    "src": "illustrations/room-a-surprise-present.webp",
+    "status": "ready"
+  },
+  "room-apple-pie": {
+    "id": "room-apple-pie",
+    "label": "Apple pie",
+    "src": "illustrations/room-apple-pie.webp",
+    "status": "ready"
+  },
+  "room-a-fall-romance": {
+    "id": "room-a-fall-romance",
+    "label": "A fall romance",
+    "src": "illustrations/room-a-fall-romance.webp",
+    "status": "ready"
+  },
+  "room-crisp-autumn-morning": {
+    "id": "room-crisp-autumn-morning",
+    "label": "Crisp autumn morning",
+    "src": "illustrations/room-crisp-autumn-morning.webp",
+    "status": "ready"
+  },
+  "room-an-ominous-warning": {
+    "id": "room-an-ominous-warning",
+    "label": "An ominous warning",
+    "src": "illustrations/room-an-ominous-warning.webp",
+    "status": "ready"
+  },
+  "room-a-creepy-doll": {
+    "id": "room-a-creepy-doll",
+    "label": "A creepy doll",
+    "src": "illustrations/room-a-creepy-doll.webp",
+    "status": "ready"
+  },
+  "room-abandoned-house": {
+    "id": "room-abandoned-house",
+    "label": "Abandoned house",
+    "src": "illustrations/room-abandoned-house.webp",
+    "status": "ready"
+  }
+}

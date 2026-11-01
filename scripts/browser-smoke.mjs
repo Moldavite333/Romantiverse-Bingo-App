@@ -3,6 +3,7 @@ import {createServer} from 'node:http';
 import {readFile,mkdir} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 import {chromium} from 'playwright';
+import aliases from '../src/engine/roomIllustrationAliases.json' with {type:'json'};
 
 const root=resolve('dist');
 const base='/';
@@ -293,7 +294,8 @@ try{
  // Guest multiplayer cards must be as usable with screen readers and keyboards
  // as solo cards. Mock the public room endpoint; never use a real room token.
  const multi=await newPage(390);
- const multiCard=Array.from({length:25},(_,i)=>({id:'qa-trope-'+i,label:i===12?'Free Center':'Trope '+i,category:i===12?'free':'cheese',reason:'Illustrated test trope'}));
+ const roomLabels=Object.keys(aliases);
+ const multiCard=Array.from({length:25},(_,i)=>({id:i===12?'free':'cheese-'+i,label:i===12?'Free Center':roomLabels[i],category:i===12?'free':'cheese',reason:'Illustrated test trope'}));
  let multiRevision=0;
  let multiMarks=[12];
  const multiRoom={code:'ABC2345',status:'playing',movie_title:'Autumn Dreams',players:[{id:'qa-player',name:'Guest QA',lines:0,marked:0}]};

@@ -3,3 +3,7 @@ dist/
 .env
 .env.*
 !.env.example
+
+.pnpm-store/
+artifacts/
+docs/artwork/generated-sources.json

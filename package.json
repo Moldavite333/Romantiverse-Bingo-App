@@ -6,15 +6,20 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "artwork:check": "node scripts/validate-illustrations.mjs",
+    "artwork:contact-sheet": "node scripts/illustration-contact-sheet.mjs",
+    "test:artwork-browser": "node scripts/illustration-browser-qa.mjs"
   },
   "dependencies": {
+    "lucide-react": "^0.468.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "lucide-react": "^0.468.0"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
+    "playwright": "1.56.1",
+    "sharp": "0.35.5",
     "vite": "^6.0.0"
   }
 }

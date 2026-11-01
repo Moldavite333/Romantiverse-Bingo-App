@@ -1,27 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {SCENE_ART,SCENE_LABELS,tropeSceneSvg} from '../src/engine/tropeScenes.mjs';
-import {tropeArtDataUri} from '../src/engine/tropeArt.mjs';
-
-test('the 25 illustrated Bingo moments each use dedicated, deterministic scenes',()=>{
- assert.equal(SCENE_LABELS.length,25);
- const images=SCENE_LABELS.map(label=>tropeSceneSvg(label,'cheese'));
- assert.equal(new Set(images).size,SCENE_LABELS.length,'no duplicated scene SVGs');
- for(const [i,svg] of images.entries()){
-  assert.match(svg,/^<svg[^>]+viewBox="0 0 128 128"/);
-  assert.match(svg,/<g|<path/);
-  assert.ok(!svg.includes('<script')&&!svg.includes('<foreignObject'));
-  assert.ok(!svg.includes('<image '));
-  assert.equal(svg,decodeURIComponent(tropeArtDataUri({label:SCENE_LABELS[i],category:'cheese'}).split(',')[1]));
+import aliases from '../src/engine/roomIllustrationAliases.json' with {type:'json'};
+import {ILLUSTRATIONS,illustrationFor} from '../src/engine/tropeArt.mjs';
+import {roomTropeLabels} from '../scripts/validate-illustrations.mjs';
+test('every server-side room label resolves through its explicit canonical alias',()=>{
+ for(const label of roomTropeLabels()){
+  const row=illustrationFor({id:'seasonal-0',label});
+  assert.equal(row?.id,aliases[label],label);
  }
+ assert.equal(illustrationFor({id:'seasonal-0',label:'A new unapproved trope'}),null);
 });
-test('free center art is branded and distinct from the Christmas wreath fallback',()=>{
- const free=decodeURIComponent(tropeArtDataUri({label:'FREE SPACE',category:'free'}).split(',')[1]);
- assert.equal(free,SCENE_ART['cheese louise pod']);
- assert.notEqual(free,tropeSceneSvg('A Christmas wish','seasonal'));
-});
-test('unrecognized tropes keep offline safe legacy fallback',()=>{
- assert.equal(tropeSceneSvg('A brand new trope','cheese'),null);
- const uri=tropeArtDataUri({label:'A brand new trope',category:'cheese'});
- assert.ok(uri.startsWith('data:image/svg+xml'));
+test('free center has its own Cheese Louise identity',()=>{
+ const free=illustrationFor({id:'free',label:'FREE SPACE',category:'free'});
+ assert.equal(free.label,'CHEESE LOUISE POD');
+ assert.notEqual(free.src,ILLUSTRATIONS['season-Christmas-11'].src);
 });

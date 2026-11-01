@@ -24,6 +24,15 @@ jobs:
       - run: npm install --no-audit --no-fund
       - run: npm test
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/browser-smoke.mjs
+      - run: node scripts/browser-multiplayer-smoke.mjs
+      - run: node scripts/illustration-browser-qa.mjs
+      - run: node scripts/illustration-contact-sheet.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: validated-bingo-artwork
+          path: artifacts/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

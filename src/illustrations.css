@@ -1,0 +1,11 @@
+/* Keep the scene visible in every state; status stays on the frame and label. */
+.square-art{width:96px;height:auto;aspect-ratio:1;max-width:100%;object-fit:cover;border-radius:6px;filter:none!important}
+.square{justify-content:flex-start;min-height:154px;padding:7px 5px;gap:7px;position:relative}
+.square-label{font-size:12px;line-height:1.2}
+.square.marked{background:#f1dcc0;color:#173f36;box-shadow:inset 0 0 0 3px #91364b}
+.square.in-line{background:#f5d78c;color:#173f36;box-shadow:inset 0 0 0 3px #173f36}
+.square.marked b{position:absolute;right:2px;top:2px;background:#173f36;color:#fff8ea;border:1px solid #fff8ea;border-radius:50%;font-size:12px;line-height:20px;width:22px;height:22px;text-align:center}
+.square:disabled{opacity:1}
+.victory p{color:#513344}
+.square-art-missing{display:grid;place-items:center;min-height:64px;max-width:100%;padding:3px;border:2px dashed #91364b;border-radius:6px;font:10px/1.2 system-ui;color:#732339;background:#fff8ea}
+@media(max-width:600px){.square{min-height:132px;padding:4px 2px;gap:5px}.square-art{width:100%;height:auto;max-width:80px}.square-label{font-size:10px;line-height:1.2}}
