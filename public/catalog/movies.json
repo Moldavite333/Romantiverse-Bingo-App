@@ -185,9 +185,9 @@
         ]
       },
       "facts_status": "title_only_unverified",
-      "verification_status": "unverified",
-      "source_name": "Wikidata (CC0)",
-      "source_url": "https://www.wikidata.org/wiki/Q3548803",
+      "verification_status": "metadata_verified",
+      "source_name": "Anchor Bay 2011 Hallmark premiere announcement",
+      "source_url": "https://www.newswire.com/news/jingle-bells-meet-wedding-bells-in-debut-original-family-film-a-christmas-91419",
       "network": "Hallmark Channel",
       "is_demo": false
     },
@@ -2114,9 +2114,9 @@
         "event": []
       },
       "facts_status": "title_only_unverified",
-      "verification_status": "unverified",
-      "source_name": "Wikidata (CC0)",
-      "source_url": "https://www.wikidata.org/wiki/Q3549131",
+      "verification_status": "metadata_verified",
+      "source_name": "TheTVDB US premiere and network record",
+      "source_url": "https://www.thetvdb.com/movies/the-wishing-well",
       "network": "Hallmark Channel",
       "is_demo": false
     },
