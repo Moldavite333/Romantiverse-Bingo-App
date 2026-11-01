@@ -71,9 +71,9 @@
         ]
       },
       "facts_status": "title_only_unverified",
-      "verification_status": "unverified",
-      "source_name": "Wikidata (CC0)",
-      "source_url": "https://www.wikidata.org/wiki/Q109978514",
+      "verification_status": "metadata_verified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "source_url": "https://www.hallmarkchannel.com/christmas/new-years-eve-marathon-movies-a-christmas-carousel",
       "network": "Hallmark Channel",
       "is_demo": false
     },
@@ -234,8 +234,8 @@
       "title": "A Harvest Wedding",
       "release_year": 2017,
       "season": "Fall",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -243,7 +243,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/fall-into-love/2017-fall-harvest-originals"
     },
     {
       "id": "editorial-a-magical-christmas-village-2022",
@@ -520,8 +522,8 @@
       "title": "Autumn Dreams",
       "release_year": 2015,
       "season": "Fall",
-      "source_name": "Editorial starter",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -532,7 +534,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "machine_inferred_unverified"
+      "facts_status": "machine_inferred_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/fall-harvest/all-new-originals"
     },
     {
       "id": "wikidata-q105606067",
@@ -622,9 +626,9 @@
         ]
       },
       "facts_status": "title_only_unverified",
-      "verification_status": "unverified",
-      "source_name": "Wikidata (CC0)",
-      "source_url": "https://www.wikidata.org/wiki/Q109810288",
+      "verification_status": "metadata_verified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "source_url": "https://www.hallmarkchannel.com/christmas-by-starlight",
       "network": "Hallmark Channel",
       "is_demo": false
     },
@@ -633,8 +637,8 @@
       "title": "Christmas Getaway",
       "release_year": 2017,
       "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -642,7 +646,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/christmas-getaway"
     },
     {
       "id": "editorial-christmas-in-alaska-2025",
@@ -792,9 +798,9 @@
         ]
       },
       "facts_status": "title_only_unverified",
-      "verification_status": "unverified",
-      "source_name": "Wikidata (CC0)",
-      "source_url": "https://www.wikidata.org/wiki/Q104147001",
+      "verification_status": "metadata_verified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "source_url": "https://www.hallmarkchannel.com/home-and-family/wednesday-november-4th-2020",
       "network": "Hallmark Channel",
       "is_demo": false
     },
@@ -949,8 +955,8 @@
       "title": "Falling for Vermont",
       "release_year": 2017,
       "season": "Fall",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -958,15 +964,17 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/falling-for-vermont"
     },
     {
       "id": "catalog-falling-for-you-2018",
       "title": "Falling for You",
       "release_year": 2018,
       "season": "Fall",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -974,7 +982,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/fall-into-love/2018-fall-harvest-originals"
     },
     {
       "id": "wikidata-q126095953",
@@ -1008,9 +1018,9 @@
         ]
       },
       "facts_status": "title_only_unverified",
-      "verification_status": "unverified",
-      "source_name": "Wikidata (CC0)",
-      "source_url": "https://www.wikidata.org/wiki/Q104876273",
+      "verification_status": "metadata_verified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "source_url": "https://www.hallmarkchannel.com/five-star-christmas",
       "network": "Hallmark Channel",
       "is_demo": false
     },
@@ -1037,8 +1047,8 @@
       "title": "Harvest Moon",
       "release_year": 2015,
       "season": "Fall",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -1046,7 +1056,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/fall-harvest/all-new-originals"
     },
     {
       "id": "catalog-haul-out-the-holly-2022",
@@ -1198,8 +1210,8 @@
       "title": "Love on the Sidelines",
       "release_year": 2016,
       "season": "Unspecified",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -1207,7 +1219,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/valentines-day/countdown-to-valentines-day-schedule-2016"
     },
     {
       "id": "wikidata-q99293339",
@@ -1250,8 +1264,8 @@
       "title": "Love, Fall & Order",
       "release_year": 2019,
       "season": "Fall",
-      "source_name": "Editorial starter",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [
@@ -1266,7 +1280,9 @@
           "festival"
         ]
       },
-      "facts_status": "machine_inferred_unverified"
+      "facts_status": "machine_inferred_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/fall-into-love/fall-harvest-2019-movies"
     },
     {
       "id": "wikidata-q115247552",
@@ -1432,9 +1448,9 @@
         ]
       },
       "facts_status": "title_only_unverified",
-      "verification_status": "unverified",
-      "source_name": "Wikidata (CC0)",
-      "source_url": "https://www.wikidata.org/wiki/Q126949140",
+      "verification_status": "metadata_verified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "source_url": "https://www.hallmarkchannel.com/ashley-williams",
       "network": "Hallmark Channel",
       "is_demo": false
     },
@@ -1836,8 +1852,8 @@
       "title": "The Birthday Wish",
       "release_year": 2017,
       "season": "Unspecified",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -1845,7 +1861,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/jessy-schram"
     },
     {
       "id": "editorial-the-christmas-campaign-2025",
@@ -2158,8 +2176,8 @@
       "title": "Under the Autumn Moon",
       "release_year": 2018,
       "season": "Fall",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -2167,7 +2185,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/home-and-family/friday-october-12th-2018"
     },
     {
       "id": "wikidata-q109914253",
@@ -2219,9 +2239,9 @@
         "event": []
       },
       "facts_status": "title_only_unverified",
-      "verification_status": "unverified",
-      "source_name": "Wikidata (CC0)",
-      "source_url": "https://www.wikidata.org/wiki/Q101245049",
+      "verification_status": "metadata_verified",
+      "source_name": "Hallmark Channel official title/year reference",
+      "source_url": "https://www.hallmarkchannel.com/winterfest/new-movies-2020",
       "network": "Hallmark Channel",
       "is_demo": false
     }
