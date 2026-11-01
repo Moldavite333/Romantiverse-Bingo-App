@@ -5,10 +5,15 @@
 // overriding the selected movie identity, plot facts, or editorial priority.
 import {approvedMoviePoster} from './posters.mjs';
 function titleKey(title){
- // Canonicalize accent variants (Café / Cafe) across independently sourced
- // public catalog and HQ-published artwork, while keeping release years distinct.
- return String(title||'').normalize('NFKD').replace(/\p{M}/gu,'').trim().replace(/\s+/g,' ').toLocaleLowerCase('en');
+ // Match the public website's exact-title identity: accents, punctuation
+ // and whitespace variants are the same movie only when release years agree.
+ return String(title||'').normalize('NFKD')
+  .replace(/\p{M}/gu,'')
+  .toLocaleLowerCase('en')
+  .replace(/[^\p{L}\p{N}]+/gu,' ')
+  .trim();
 }
+
 export function mergeMovieListings(groups){
  const result=[];
  const seen=new Map();
@@ -16,6 +21,7 @@ export function mergeMovieListings(groups){
   for(const movie of Array.isArray(group)?group:[]){
    if(!movie||typeof movie.title!=='string'||!movie.title.trim())continue;
    const key=titleKey(movie.title);
+   if(!key)continue;
    const year=Number.isInteger(movie.release_year)?movie.release_year:null;
    const prior=seen.get(key)||[];
    // Keep different known-year remakes; collapse same-year or unknown-year duplicates.
