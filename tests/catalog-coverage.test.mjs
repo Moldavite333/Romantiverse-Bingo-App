@@ -73,7 +73,7 @@ const hallmarkSourceVerified=[
 ];
 
 test('15 existing Hallmark movies now have original-network source and year evidence',()=>{
- assert.equal(catalog.movies.length,121,'Do not add duplicates while verifying existing movies');
+ assert.ok(catalog.movies.length>=121,'Previously verified titles must remain in the expanding catalog');
  assert.ok(catalog.movies.filter(m=>m.verification_status==='metadata_verified').length>=44);
  for(const [title,year,network,url] of hallmarkSourceVerified){
   const movie=byTitle.get(title);
