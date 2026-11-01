@@ -63,6 +63,20 @@ export function movieEvidenceLabel(movie){
 }
 
 
+// Public catalog network and producer fields are searchable only when the
+// listing carries source-verified metadata. Do not index arbitrary HQ notes,
+// guessed distributors, or private production fields.
+const VERIFIED_NETWORKS=new Set(['Hallmark Channel','Hallmark Mystery','Lifetime','CBS']);
+const VERIFIED_STUDIOS=new Set(['MarVista Entertainment','Reel One Entertainment']);
+function verifiedDiscoveryFields(movie){
+ const verified=['metadata_verified','scene_verified'].includes(movie.verification_status)
+  &&typeof movie.source_url==='string'
+  &&/^https:\/\/[^/\s?#]+(?:[/?#]|$)/i.test(movie.source_url);
+ if(!verified)return [];
+ return [VERIFIED_NETWORKS.has(movie.network)?movie.network:'',
+  VERIFIED_STUDIOS.has(movie.production_company)?movie.production_company:''].filter(Boolean);
+}
+
 // Match the way visitors actually search: ignore accents and punctuation,
 // allow words in any order, and include the verified release year.
 // This only filters existing public movie metadata; it never invents movie facts.
@@ -73,6 +87,6 @@ export function matchesMovieQuery(movie,query){
  const terms=normalizeMovieSearchText(query).split(' ').filter(Boolean);
  if(!terms.length)return true;
  if(!movie||typeof movie.title!=='string')return false;
- const text=normalizeMovieSearchText([movie.title,Number.isInteger(movie.release_year)?movie.release_year:'',movie.synopsis||'',...Object.values(movie.story_facts||{}).flat()].join(' '));
+ const text=normalizeMovieSearchText([movie.title,Number.isInteger(movie.release_year)?movie.release_year:'',movie.synopsis||'',...Object.values(movie.story_facts||{}).flat(),...verifiedDiscoveryFields(movie)].join(' '));
  return terms.every(term=>text.includes(term));
 }
