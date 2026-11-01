@@ -53,3 +53,40 @@ test('producer is distinct from original broadcast network',()=>{
   assert.equal(byTitle.get('Peppermint and Postcards').network,undefined);
   assert.equal(byTitle.get('Peppermint and Postcards').production_company,'Reel One Entertainment');
 });
+
+const hallmarkSourceVerified=[
+ ['A Biltmore Christmas',2023,'Hallmark Channel','https://www.hallmarkchannel.com/a-biltmore-christmas'],
+ ['A Christmas Detour',2015,'Hallmark Channel','https://www.hallmarkchannel.com/a-christmas-detour'],
+ ['A Christmas Melody',2015,'Hallmark Channel','https://www.hallmarkchannel.com/a-christmas-melody'],
+ ['A December Bride',2016,'Hallmark Channel','https://www.hallmarkchannel.com/a-december-bride'],
+ ['A Royal Christmas',2014,'Hallmark Channel','https://www.hallmarkchannel.com/a-royal-christmas'],
+ ['All of My Heart',2015,'Hallmark Channel','https://www.hallmarkchannel.com/all-of-my-heart'],
+ ['Autumn at Apple Hill',2024,'Hallmark Channel','https://www.hallmarkchannel.com/autumn-at-apple-hill'],
+ ['Christmas on My Mind',2019,'Hallmark Mystery','https://www.hallmarkmystery.com/christmas-on-my-mind'],
+ ['Christmas Under Wraps',2014,'Hallmark Channel','https://www.hallmarkchannel.com/christmas-under-wraps'],
+ ['Crown for Christmas',2015,'Hallmark Channel','https://www.hallmarkchannel.com/crown-for-christmas'],
+ ['Haul Out the Holly',2022,'Hallmark Channel','https://www.hallmarkchannel.com/haul-out-the-holly'],
+ ['October Kiss',2015,'Hallmark Channel','https://www.hallmarkchannel.com/october-kiss'],
+ ['Pumpkin Pie Wars',2016,'Hallmark Channel','https://www.hallmarkchannel.com/pumpkin-pie-wars'],
+ ['Roadhouse Romance',2021,'Hallmark Channel','https://www.hallmarkchannel.com/roadhouse-romance'],
+ ['Sweet Autumn',2020,'Hallmark Channel','https://www.hallmarkchannel.com/sweet-autumn']
+];
+
+test('15 existing Hallmark movies now have original-network source and year evidence',()=>{
+ assert.equal(catalog.movies.length,121,'Do not add duplicates while verifying existing movies');
+ assert.ok(catalog.movies.filter(m=>m.verification_status==='metadata_verified').length>=44);
+ for(const [title,year,network,url] of hallmarkSourceVerified){
+  const movie=byTitle.get(title);
+  assert.ok(movie,'Missing catalog title '+title);
+  assert.equal(movie.release_year,year,title);
+  assert.equal(movie.network,network,title);
+  assert.equal(movie.source_url,url,title);
+  assert.equal(movie.source_name,network+' official movie page',title);
+  assert.equal(movie.verification_status,'metadata_verified',title);
+  assert.equal(movie.is_demo,false,title);
+  assert.ok(['title_only_unverified','machine_inferred_unverified'].includes(movie.facts_status),title);
+  for(const field of ['synopsis','description','poster_url','poster_rights','production_company']){
+   assert.equal(Object.hasOwn(movie,field),false,title+' must not invent '+field);
+  }
+ }
+});
