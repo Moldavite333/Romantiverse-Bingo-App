@@ -10,7 +10,8 @@ test('the 25 illustrated Bingo moments each use dedicated, deterministic scenes'
  for(const [i,svg] of images.entries()){
   assert.match(svg,/^<svg[^>]+viewBox="0 0 128 128"/);
   assert.match(svg,/<g|<path/);
-  assert.doesNotMatch(svg,/<script|<foreignObject|https?:\\/\\//i);
+  assert.ok(!svg.includes('<script')&&!svg.includes('<foreignObject'));
+  assert.ok(!svg.includes('<image '));
   assert.equal(svg,decodeURIComponent(tropeArtDataUri({label:SCENE_LABELS[i],category:'cheese'}).split(',')[1]));
  }
 });
@@ -22,5 +23,5 @@ test('free center art is branded and distinct from the Christmas wreath fallback
 test('unrecognized tropes keep offline safe legacy fallback',()=>{
  assert.equal(tropeSceneSvg('A brand new trope','cheese'),null);
  const uri=tropeArtDataUri({label:'A brand new trope',category:'cheese'});
- assert.match(uri,/^data:image\\/svg\\+xml/);
+ assert.ok(uri.startsWith('data:image/svg+xml'));
 });
