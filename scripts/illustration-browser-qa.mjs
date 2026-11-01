@@ -30,6 +30,17 @@ try{
   assert.ok(geometry.squares.every(s=>!s.clipped),JSON.stringify(geometry.squares.filter(s=>s.clipped)));
   if(!before){
    assert.equal(new Set(await page.locator('.board img').evaluateAll(imgs=>imgs.map(i=>i.src))).size,25);
+   if(width<=390){
+    await page.locator('.card-art-guide summary').click();
+    assert.equal(await page.locator('.card-art-guide-square').count(),25,'Full-size guide covers every square');
+    const larger=page.locator('.card-art-guide-square').nth(5);
+    await larger.click();
+    assert.equal(await page.locator('.board .square').nth(5).getAttribute('aria-pressed'),'true','Guide marks the real card');
+    await larger.click();
+    assert.equal(await page.locator('.board .square').nth(5).getAttribute('aria-pressed'),'false','Guide can unmark the real card');
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,'Guide must not overflow narrow screens');
+    await page.locator('.card-art-guide summary').click();
+   }
    await page.locator('.board .square').nth(0).click();
    assert.equal(await page.locator('.board .square').nth(0).getAttribute('aria-pressed'),'true');
    await page.locator('.board').screenshot({animations:'disabled',path:prefix+'-selected.png'});

@@ -1,0 +1,15 @@
+/* Readable, optional companion to the compact 5-column card. */
+.card-art-guide{margin:18px 0 24px;padding:0;background:#fff8ea;color:#412835;border:2px solid #c9a6ad;border-radius:12px}
+.card-art-guide>summary{cursor:pointer;padding:15px 18px;font-weight:700;font-size:16px;line-height:1.4}
+.card-art-guide>summary:focus-visible{outline:3px solid #173f36;outline-offset:3px}
+.card-art-guide-help{margin:0 18px 12px;font-size:14px;line-height:1.5}
+.card-art-guide-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;padding:0 14px 16px}
+.card-art-guide-square{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;min-height:222px;padding:10px 8px;background:#fffdf7;color:#412835;border:2px solid #d8b7bd;border-radius:10px;cursor:pointer}
+.card-art-guide-square[aria-pressed="true"]{background:#f5d78c;border-color:#173f36}
+.card-art-guide-square:focus-visible{outline:3px solid #173f36;outline-offset:3px}
+.card-art-guide-square:disabled{cursor:default;opacity:1}
+.card-art-guide-coordinate{align-self:flex-start;font-size:12px;font-weight:700;color:#173f36}
+.card-art-guide-square .square-art{width:min(100%,160px);max-width:160px;height:auto;aspect-ratio:1;object-fit:cover;border-radius:7px}
+.card-art-guide-square .square-art-missing{min-height:100px;width:100%;font-size:12px}
+.card-art-guide-label{font-size:15px;line-height:1.35;font-weight:700;text-align:center;overflow-wrap:anywhere}
+@media(max-width:380px){.card-art-guide-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0 9px 12px}.card-art-guide-square{padding:8px 5px;min-height:200px}.card-art-guide-label{font-size:14px}}
