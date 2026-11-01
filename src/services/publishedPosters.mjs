@@ -6,7 +6,8 @@ const KEY='sb_publishable_3xcqfNu-mJPuDWivmlBXug_3Tw60QoM';
 export function normalizePublishedPosters(rows){
  if(!Array.isArray(rows))throw Error('Invalid public HQ artwork response');
  const out=[];
- for(const row of rows.slice(0,100)){
+ // Keep the public feed bounded, but do not silently discard posters after 100 titles.
+ for(const row of rows.slice(0,3000)){
   if(!row||typeof row.title!=='string')continue;
   const title=row.title.trim().slice(0,250);
   if(!title)continue;

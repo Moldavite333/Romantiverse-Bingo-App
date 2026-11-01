@@ -16,3 +16,10 @@ test('bingo still uses the standard 12 lines',()=>assert.equal(winningLines([0,1
 test('all web cards have 24 distinct visible labels across seasons and seeds',()=>{for(const season of ['Christmas','Fall'])for(let seed=0;seed<101;seed++){const card=buildCard({...movie,season},{seed});assert.equal(new Set(card.map(visibleTropeKey)).size,25)}});
 test('workshop rejects a different ID with the same visible label',()=>{const card=buildCard(movie);assert.throws(()=>replaceSquare(card,1,{id:'different-id',label:'  '+card[0].label.toUpperCase()+'  ',category:'cheese'}),/already on your card/)});
 test('locked duplicate visible labels are rejected',()=>{const card=buildCard(movie,{seed:2});assert.throws(()=>buildCard(movie,{seed:2,locked:{0:{...card[1],id:'different-id'}}}),/Duplicate visible trope/)});
+
+test('visible square identity collapses internal whitespace, including tabs and newlines',()=>{
+ assert.equal(visibleTropeKey({label:' First   meeting\ttonight\n'}),visibleTropeKey({label:'first meeting tonight'}));
+ const card=buildCard(movie,{seed:4});
+ const spaced=card[0].label.replace(/ /g,'   ');
+ assert.throws(()=>replaceSquare(card,1,{id:'other-id',label:'\t'+spaced+'\n',category:'cheese'}),/already on your card/);
+});
