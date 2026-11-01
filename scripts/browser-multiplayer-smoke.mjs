@@ -92,6 +92,19 @@ try{
  await host.page.goto(appUrl,{waitUntil:'domcontentloaded'});
  await host.page.getByRole('button',{name:'Play Together'}).click();
  await host.page.locator('#host-nickname').fill('Nick');
+ // Hosting a shared game must offer the same source-verified discovery as solo play.
+ // Network and studio matches come from the public catalog, never private HQ notes.
+ for(const [term,title] of [
+  ['Hallmark Channel 2023 Biltmore','A Biltmore Christmas'],
+  ['Lifetime Carpenter','A Carpenter Christmas Romance'],
+  ['MarVista Leah','Leah\'s Perfect Gift'],
+  ['Reel One Peppermint','Peppermint and Postcards']
+ ]){
+  await host.page.locator('#host-movie-search').fill(term);
+  await host.page.locator('.room-movie-options button').filter({hasText:title}).first().waitFor();
+  assert.ok(await host.page.locator('.room-movie-options button').filter({hasText:title}).first().isVisible(),
+   'Play Together host search must find '+title+' by verified metadata');
+ }
  await host.page.locator('#host-movie-search').fill('Autumn Dreams');
  await host.page.locator('.room-movie-options button').filter({hasText:'Autumn Dreams'}).first().click();
  assert.match(await host.page.locator('.room-host-panel .room-movie-details').innerText(),/Autumn Dreams[\s\S]*Collection: Fall[\s\S]*Bingo theme: Fall/);

@@ -2,7 +2,7 @@ import React,{useEffect,useMemo,useRef,useState} from 'react';
 import {roomRequest} from './services/rooms.js';
 import {searchCatalog} from './services/catalog.js';
 import {searchPublicMovies} from './services/movieSearch.js';
-import {mergeMovieListings} from './engine/movieListings.mjs';
+import {mergeMovieListings,matchesMovieQuery} from './engine/movieListings.mjs';
 import {approvedMoviePoster} from './engine/posters.mjs';
 import {copyRoomInvite,shareRoomInvite,roomInviteMessage} from './engine/shareRoomInvite.mjs';
 import {normalizeRoomCode,parseRoomInvite,roomInviteUrl} from './engine/roomInvites.mjs';
@@ -36,7 +36,7 @@ const [pendingSquares,setPendingSquares]=useState([]);
 const isHost=Boolean(session&&room?.host_player_id===session.player_id);
 useEffect(()=>{if(card)requestAnimationFrame(()=>document.querySelector('.live-board')?.scrollIntoView({block:'start',behavior:'instant'}))},[session?.code,Boolean(card)]);
 const chosen=selected?mergeMovieListings([[selected],catalog,remoteMovies])[0]:null;
-const choices=useMemo(()=>mergeMovieListings([catalog,remoteMovies]).filter(m=>isLaunchMovie(m)&&(m.title+' '+(m.release_year||'')).toLowerCase().includes(search.trim().toLowerCase())).slice(0,12),[catalog,remoteMovies,search]);
+const choices=useMemo(()=>mergeMovieListings([catalog,remoteMovies]).filter(m=>isLaunchMovie(m)&&matchesMovieQuery(m,search)).slice(0,12),[catalog,remoteMovies,search]);
 function selectMovie(m){if(!isLaunchMovie(m)){setError('Horror is reserved for a future standalone game.');return;}setSelected(m);setTheme(THEMES.includes(m.season)?m.season:'Romance');setSearch(m.title);setError('')}
 useEffect(()=>{
  const term=search.trim();
@@ -109,7 +109,7 @@ const joinForm=<section className="room-join-panel" aria-label="Join a game"><h3
 const hostForm=<section className="room-host-panel" aria-label="Host a game"><h3>Host a Game</h3>
   <p>Pick the movie and Bingo theme here. Everyone joining automatically sees the same movie and collection.</p>
   <label htmlFor="host-nickname">Your nickname</label><input id="host-nickname" maxLength="32" placeholder="Your nickname" value={name} onChange={e=>setName(e.target.value)}/>
-  <label htmlFor="host-movie-search">Choose your movie</label><input id="host-movie-search" placeholder="Search movie catalog…" value={search} onChange={e=>{setSearch(e.target.value);setSelected(null)}}/>
+  <label htmlFor="host-movie-search">Choose your movie by title, network or studio</label><input id="host-movie-search" placeholder="Search movie, network or studio…" value={search} onChange={e=>{setSearch(e.target.value);setSelected(null)}}/>
   {searching&&<p className="fineprint" role="status">Searching more movies…</p>}
   {!selected&&search.trim()&&<div className="room-movie-options" role="group" aria-label="Choose movie">{choices.map(m=><button type="button" key={m.id||m.title+'-'+m.release_year} onClick={()=>selectMovie(m)}><strong>{m.title}</strong><span>{Number.isInteger(m.release_year)?m.release_year+' · ':''}{m.season==='Unspecified'?'Collection unverified':m.season}</span></button>)}
    {!searching&&search.trim().length>=3&&<button type="button" onClick={()=>selectMovie({id:'custom-'+search.trim(),title:search.trim(),season:'Unspecified',kind:'CUSTOM · TITLE UNVERIFIED'})}>Use “{search.trim()}” as an unverified title</button>}
