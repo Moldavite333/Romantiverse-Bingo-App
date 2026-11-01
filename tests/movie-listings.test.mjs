@@ -66,3 +66,22 @@ test('movie discovery matches accents, punctuation, words in any order and relea
  assert.equal(matchesMovieQuery(movie,'!?'),true);
  assert.equal(matchesMovieQuery(null,'cafe'),false);
 });
+
+
+test('accent and punctuation variants collapse into one real movie with exact release year',()=>{
+ const original={id:'static',title:'Cafe-Noel',release_year:2024,is_demo:false,season:'Fall',story_facts:{event:['holiday_party']}};
+ const duplicate={id:'catalog',title:'Café Noël',release_year:2024,is_demo:false,season:'Christmas',notes:'PRIVATE EDITORIAL NOTES'};
+ const result=mergeMovieListings([[original],[duplicate]]);
+ assert.equal(result.length,1,'punctuation and accents must not produce duplicate cards');
+ assert.equal(result[0].id,'static','earlier editorial identity wins');
+ assert.equal(result[0].season,'Fall','later metadata must not overwrite the selected theme');
+ assert.deepEqual(result[0].story_facts,original.story_facts,'story facts are never mixed');
+ assert.equal(result[0].notes,undefined,'later private fields must not be imported');
+ assert.equal(mergeMovieListings([[original],[{...duplicate,release_year:2025}]]).length,2,
+  'different-year releases must remain independent');
+});
+
+test('punctuation-only titles cannot collide with valid movie identities',()=>{
+ assert.deepEqual(mergeMovieListings([[{title:'!!!'}, {title:'Café Noël',release_year:2024}]]),
+  [{title:'Café Noël',release_year:2024}]);
+});
