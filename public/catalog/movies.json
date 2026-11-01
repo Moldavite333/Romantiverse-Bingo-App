@@ -376,8 +376,8 @@
       "title": "A Very Merry Mix-Up",
       "release_year": 2013,
       "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official movie page",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -385,7 +385,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/a-very-merry-mix-up"
     },
     {
       "id": "editorial-a-very-merry-toy-store-2017",
@@ -593,8 +595,8 @@
       "title": "Christmas at the Plaza",
       "release_year": 2019,
       "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official movie page",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -602,7 +604,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/christmas-at-the-plaza"
     },
     {
       "id": "wikidata-q109810288",
@@ -663,8 +667,8 @@
       "title": "Christmas in Evergreen",
       "release_year": 2017,
       "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official movie page",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -672,7 +676,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/christmas-in-evergreen-movies/about-the-movies"
     },
     {
       "id": "wikidata-q105917009",
@@ -1880,8 +1886,8 @@
       "title": "The Christmas House",
       "release_year": 2020,
       "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official movie page",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -1889,15 +1895,17 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/the-christmas-house"
     },
     {
       "id": "catalog-the-christmas-ornament-2013",
       "title": "The Christmas Ornament",
       "release_year": 2013,
       "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official movie page",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -1905,15 +1913,17 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/home-and-family/today-on-home-family-thursday-november-14th-2013"
     },
     {
       "id": "catalog-the-christmas-secret-2014",
       "title": "The Christmas Secret",
       "release_year": 2014,
       "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Mystery official movie page",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -1921,7 +1931,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Mystery",
+      "source_url": "https://www.hallmarkmystery.com/the-christmas-secret"
     },
     {
       "id": "editorial-the-christmas-setup-2020",
@@ -1947,8 +1959,8 @@
       "title": "The Christmas Train",
       "release_year": 2017,
       "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official movie page",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -1956,7 +1968,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/christmas/2017-holiday-movies-preview/"
     },
     {
       "id": "editorial-the-holiday-junkie-2024",
@@ -1997,8 +2011,8 @@
       "title": "The Mistletoe Promise",
       "release_year": 2016,
       "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official movie page",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -2006,15 +2020,17 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/the-mistletoe-promise"
     },
     {
       "id": "catalog-the-most-wonderful-time-of-the-year-2008",
       "title": "The Most Wonderful Time of the Year",
       "release_year": 2008,
       "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official movie page",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -2022,15 +2038,17 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/christmas/25-top-christmas-movies/"
     },
     {
       "id": "hallmark-nine-lives-christmas-2014",
       "title": "The Nine Lives of Christmas",
       "release_year": 2014,
       "season": "Christmas",
-      "source_name": "Editorial starter",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official movie page",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -2040,7 +2058,9 @@
           "christmas"
         ]
       },
-      "facts_status": "machine_inferred_unverified"
+      "facts_status": "machine_inferred_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/hallmark-plus/the-classic-christmas-movie-collection-on-hallmark/"
     },
     {
       "id": "editorial-the-princess-and-the-bodyguard-2022",
@@ -2083,8 +2103,8 @@
       "title": "Three Wise Men and a Baby",
       "release_year": 2022,
       "season": "Christmas",
-      "source_name": "Editorial title listing — independent verification pending",
-      "verification_status": "unverified",
+      "source_name": "Hallmark Channel official movie page",
+      "verification_status": "metadata_verified",
       "is_demo": false,
       "story_facts": {
         "setting": [],
@@ -2092,7 +2112,9 @@
         "conflict": [],
         "event": []
       },
-      "facts_status": "title_only_unverified"
+      "facts_status": "title_only_unverified",
+      "network": "Hallmark Channel",
+      "source_url": "https://www.hallmarkchannel.com/three-wise-men-and-a-baby"
     },
     {
       "id": "wikidata-q104903150",
