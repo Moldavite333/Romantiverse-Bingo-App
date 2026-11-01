@@ -60,3 +60,18 @@ test('published movie IDs remain stable when HQ publication order changes',()=>{
  const ids=items=>Object.fromEntries(items.map(item=>[item.title,item.id]));
  assert.deepEqual(ids(forward),ids(reverse));
 });
+
+test('published HQ posters beyond the first 100 remain available without private fields',()=>{
+ const rows=Array.from({length:121},(_,i)=>({
+  title:'Public Movie '+i,release_year:2026,season:'Christmas',
+  poster_url:art,poster_locked:i===120,
+  workspace_id:'private-'+i,notes:'PRIVATE'
+ }));
+ const posters=normalizePublishedPosters(rows);
+ assert.equal(posters.length,121);
+ assert.equal(posters[120].title,'Public Movie 120');
+ assert.equal(posters[120].poster_locked,true);
+ assert.equal(posters[120].poster_url,art);
+ assert.ok(!('workspace_id' in posters[120]));
+ assert.ok(!('notes' in posters[120]));
+});
