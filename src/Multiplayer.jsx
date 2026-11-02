@@ -109,7 +109,8 @@ const joinForm=<section className="room-join-panel" aria-label="Join a game"><h3
 const hostForm=<section className="room-host-panel" aria-label="Host a game"><h3>Host a Game</h3>
   <p>Pick the movie and Bingo theme here. Everyone joining automatically sees the same movie and collection.</p>
   <label htmlFor="host-nickname">Your nickname</label><input id="host-nickname" maxLength="32" placeholder="Your nickname" value={name} onChange={e=>setName(e.target.value)}/>
-  <label htmlFor="host-movie-search">Choose your movie by title, network or studio</label><input id="host-movie-search" placeholder="Search movie, network or studio…" value={search} onChange={e=>{setSearch(e.target.value);setSelected(null)}}/>
+  <label htmlFor="host-movie-search">Choose your movie by title, network, studio or verified provider listing</label><input id="host-movie-search" placeholder="Search movie, network, studio or listing…" value={search} onChange={e=>{setSearch(e.target.value);setSelected(null)}}/>
+  <p className="fineprint">Provider listings do not guarantee current streaming availability.</p>
   {searching&&<p className="fineprint" role="status">Searching more movies…</p>}
   {!selected&&search.trim()&&<div className="room-movie-options" role="group" aria-label="Choose movie">{choices.map(m=><button type="button" key={m.id||m.title+'-'+m.release_year} onClick={()=>selectMovie(m)}><strong>{m.title}</strong><span>{Number.isInteger(m.release_year)?m.release_year+' · ':''}{m.season==='Unspecified'?'Collection unverified':m.season}</span></button>)}
    {!searching&&search.trim().length>=3&&<button type="button" onClick={()=>selectMovie({id:'custom-'+search.trim(),title:search.trim(),season:'Unspecified',kind:'CUSTOM · TITLE UNVERIFIED'})}>Use “{search.trim()}” as an unverified title</button>}
