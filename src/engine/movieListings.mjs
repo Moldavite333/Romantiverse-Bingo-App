@@ -63,18 +63,24 @@ export function movieEvidenceLabel(movie){
 }
 
 
-// Public catalog network and producer fields are searchable only when the
-// listing carries source-verified metadata. Do not index arbitrary HQ notes,
-// guessed distributors, or private production fields.
+// Public catalog networks, studios and provider listings are searchable only
+// when the record carries source-verified metadata. A provider listing is not
+// evidence of current streaming availability. Never index private HQ notes.
 const VERIFIED_NETWORKS=new Set(['Hallmark Channel','Hallmark Mystery','Lifetime','CBS']);
 const VERIFIED_STUDIOS=new Set(['MarVista Entertainment','Reel One Entertainment']);
+const VERIFIED_LISTINGS=new Map([
+ ['Peacock official movie page','Peacock listing'],
+ ['Prime Video movie and studio listing','Prime Video listing'],
+ ['Apple TV (film metadata)','Apple TV listing']
+]);
 function verifiedDiscoveryFields(movie){
  const verified=['metadata_verified','scene_verified'].includes(movie.verification_status)
   &&typeof movie.source_url==='string'
   &&/^https:\/\/[^/\s?#]+(?:[/?#]|$)/i.test(movie.source_url);
  if(!verified)return [];
  return [VERIFIED_NETWORKS.has(movie.network)?movie.network:'',
-  VERIFIED_STUDIOS.has(movie.production_company)?movie.production_company:''].filter(Boolean);
+  VERIFIED_STUDIOS.has(movie.production_company)?movie.production_company:'',
+  VERIFIED_LISTINGS.get(movie.source_name)||''].filter(Boolean);
 }
 
 // Match the way visitors actually search: ignore accents and punctuation,

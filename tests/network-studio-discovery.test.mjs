@@ -19,6 +19,18 @@ test('Bingo discovery finds source-verified networks and producers',()=>{
  assert.equal(matchesMovieQuery(movie('A Biltmore Christmas'),'Lifetime'),false);
 });
 
+test('verified provider listings are searchable without implying current streaming availability',()=>{
+ assert.equal(matchesMovieQuery(movie('A Christmas Arrangement'),'Peacock 2018'),true);
+ assert.equal(matchesMovieQuery(movie('Peppermint and Postcards'),'Prime Video'),true);
+ assert.equal(matchesMovieQuery(movie('A Christmas Village'),'Apple TV 2018'),true);
+ assert.equal(matchesMovieQuery(movie('A Biltmore Christmas'),'Peacock'),false);
+ const listed=movie('A Christmas Arrangement');
+ assert.equal(matchesMovieQuery({...listed,verification_status:'unverified'},'Peacock'),false);
+ assert.equal(matchesMovieQuery({...listed,source_url:undefined},'Peacock'),false);
+ assert.equal(matchesMovieQuery({...listed,source_name:'Unapproved Provider'},'Unapproved Provider'),false);
+ assert.equal(matchesMovieQuery({...listed,private_notes:'PRIVATE_PROVIDER_NOTES'},'PRIVATE_PROVIDER_NOTES'),false);
+});
+
 test('unverified, unsourced and unapproved studio claims cannot influence discovery',()=>{
  const unverified=movie("A Beautiful Place to Die: A Martha's Vineyard Mystery");
  assert.equal(unverified.verification_status,'unverified');
