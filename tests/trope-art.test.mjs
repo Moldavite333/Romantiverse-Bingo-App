@@ -1,14 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {tropeArtDataUri,ILLUSTRATIONS,illustrationFor} from '../src/engine/tropeArt.mjs';
-test('all approved canonical illustrations resolve deterministically',()=>{
- for(const row of Object.values(ILLUSTRATIONS)){
-  const trope={id:row.id,label:row.label};
-  assert.equal(illustrationFor(trope)?.id,row.id);
-  assert.equal(tropeArtDataUri(trope),'/'+row.src);
-  assert.equal(tropeArtDataUri(trope),tropeArtDataUri(trope));
- }
+import {tropeArtDataUri} from '../src/engine/tropeArt.mjs';
+test('compatibility artwork API returns deterministic dedicated offline paths',()=>{
+ const t={id:'coincidence',label:'A coincidence',category:'cheese'};
+ assert.equal(tropeArtDataUri(t),'/illustrations/coincidence.webp');
+ assert.equal(tropeArtDataUri(t),tropeArtDataUri(t));
+ assert.notEqual(tropeArtDataUri(t),tropeArtDataUri({id:'room-a-surprise-visitor',label:'A surprise visitor'}));
 });
-test('untrusted or unregistered inputs cannot inject image URLs',()=>{
- for(const trope of [{label:'<script>alert(1)</script>'},{id:'unknown',label:'A Christmas wish',image_url:'https://evil.test/x'}])assert.equal(tropeArtDataUri(trope),null);
+test('unregistered art is explicit and labels cannot inject artwork markup',()=>{
+ assert.equal(tropeArtDataUri({id:'unknown',label:'<script>alert(1)</script>'}),null);
+ assert.equal(tropeArtDataUri({id:'coincidence',label:'<script>alert(1)</script>'}),null);
 });

@@ -9,7 +9,7 @@ import aliases from '../src/engine/roomIllustrationAliases.json' with {type:'jso
 import {winningLines} from '../src/engine/bingo.mjs';
 const base='/';
 const root=resolve('dist');
-const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.json':'application/json','.webmanifest':'application/manifest+json'};
+const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.json':'application/json','.webmanifest':'application/manifest+json','.webp':'image/webp','.png':'image/png'};
 const server=createServer(async(req,res)=>{
  try{
   const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
@@ -22,7 +22,7 @@ const server=createServer(async(req,res)=>{
 });
 await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
 const appUrl='http://127.0.0.1:'+server.address().port+base;
-const browser=await chromium.launch({headless:true});
+const browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_EXECUTABLE_PATH?{executablePath:process.env.PLAYWRIGHT_EXECUTABLE_PATH}:{})});
 const code='AB7K2XY',poster='https://image.tmdb.org/t/p/w780/approved-test.jpg';
 const labels=Object.keys(aliases);
 const hostCard=Array.from({length:25},(_,i)=>({id:i===12?'free':'cheese-'+i,label:i===12?'FREE SPACE':labels[i],category:i===12?'free':'cheese'}));

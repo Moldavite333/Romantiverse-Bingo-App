@@ -7,7 +7,7 @@ import {buildCard} from '../src/engine/intelligence.mjs';
 const before=process.argv.includes('--before'),live=process.argv.find(x=>x.startsWith('https://'));
 const root=resolve('dist'),server=createServer(async(req,res)=>{try{const file=resolve(root,'.'+(new URL(req.url,'http://localhost').pathname==='/'?'/index.html':new URL(req.url,'http://localhost').pathname));if(!file.startsWith(root+sep))throw Error('Outside build');res.writeHead(200,{'Content-Type':{'.html':'text/html','.js':'text/javascript','.css':'text/css','.webp':'image/webp','.json':'application/json','.svg':'image/svg+xml'}[extname(file)]||'application/octet-stream'}).end(await readFile(file))}catch{res.writeHead(404).end()}});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
-const origin=live||'http://127.0.0.1:'+server.address().port+'/',browser=await chromium.launch();
+const origin=live||'http://127.0.0.1:'+server.address().port+'/',browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_EXECUTABLE_PATH?{executablePath:process.env.PLAYWRIGHT_EXECUTABLE_PATH}:{})});
 await mkdir('artifacts/artwork',{recursive:true});
 const results=[];
 try{

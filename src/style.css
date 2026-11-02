@@ -70,3 +70,8 @@
  .room-join-panel .room-join input{max-width:none;width:100%}
 }
 
+
+/* Scene art stays fully visible in every observed/winning state. */
+.square-art{width:100px;height:auto;aspect-ratio:1;max-width:100%;object-fit:cover;border-radius:8px;filter:none!important}
+.square-art-missing{display:flex;align-items:center;justify-content:center;min-height:64px;font-size:10px;border:1px dashed currentColor;border-radius:7px;padding:4px}
+@media(max-width:500px){.square-art{width:100%;height:auto;aspect-ratio:1}.square-art-missing{min-height:45px;font-size:8px}}

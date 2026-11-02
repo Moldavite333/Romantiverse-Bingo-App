@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "build": "node scripts/validate-illustration-provenance.mjs && node scripts/validate-illustrations.mjs && vite build",
     "test": "node --test tests/*.test.mjs",
-    "artwork:check": "node scripts/validate-illustrations.mjs",
+    "artwork:check": "node scripts/validate-illustration-provenance.mjs && node scripts/validate-illustrations.mjs",
     "artwork:contact-sheet": "node scripts/illustration-contact-sheet.mjs",
-    "test:artwork-browser": "node scripts/illustration-browser-qa.mjs"
+    "test:artwork-browser": "node scripts/illustration-browser-qa.mjs",
+    "art:validate": "node scripts/validate-illustration-provenance.mjs && node scripts/validate-illustrations.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

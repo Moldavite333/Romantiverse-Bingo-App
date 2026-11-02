@@ -102,7 +102,7 @@
   "Small-town fair": "season-Fall-14",
   "Farm stand": "season-Fall-15",
   "Harvest dance": "season-Fall-16",
-  "Autumn sunset": "season-Fall-17",
+  "Autumn sunset": "room-autumn-sunset",
   "Pumpkin spice": "season-Fall-18",
   "Festival deadline": "season-Fall-19",
   "Scarecrow": "season-Fall-20",
@@ -138,7 +138,7 @@
   "Moving shadow": "season-Horror-22",
   "Probably nothing": "season-Horror-23",
   "Final survivor": "season-Horror-24",
-  "An ominous warning": "room-an-ominous-warning",
-  "A creepy doll": "room-a-creepy-doll",
-  "Abandoned house": "room-abandoned-house"
+  "An ominous warning": "archive-room-an-ominous-warning",
+  "A creepy doll": "archive-room-a-creepy-doll",
+  "Abandoned house": "archive-room-abandoned-house"
 }

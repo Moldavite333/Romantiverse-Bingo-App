@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {chromium} from 'playwright';
 const HQ='https://hq.cheeselouisepod.com',BINGO='https://bingo.cheeselouisepod.com',nonce='12345678-1234-1234-1234-123456789abc';
-const browser=await chromium.launch();
+const browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_EXECUTABLE_PATH?{executablePath:process.env.PLAYWRIGHT_EXECUTABLE_PATH}:{})});
 try{const context=await browser.newContext();
  await context.route(HQ+'/**',route=>route.fulfill({contentType:'text/html',body:`<button id="connect">Connect Bingo</button><script>window.results=[];window.addEventListener('message',e=>{if(e.origin==='${BINGO}'&&e.source===window.linked&&e.data.nonce==='${nonce}')results.push(e.data.result)});document.getElementById('connect').onclick=()=>{window.linked=window.open('${BINGO}/?hqOrigin='+encodeURIComponent('${HQ}')+'&hqNonce=${nonce}&hqMovie=Movie+A&hqYear=2025')}</script>`}));
  await context.route(BINGO+'/**',async route=>{const path=new URL(route.request().url()).pathname;if(path==='/')return route.fulfill({contentType:'text/html',body:'<!doctype html><meta name="viewport" content="width=device-width"><div id="root">Bingo game fixture</div><script type="module" src="/src/hq-results-link.js"></script>'});if(!['/src/hq-results-link.js','/src/engine/hqResults.mjs'].includes(path))return route.fulfill({status:404,body:''});return route.fulfill({contentType:'text/javascript',body:await readFile('.'+path,'utf8')})});

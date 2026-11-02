@@ -1,0 +1,31 @@
+import {createServer}from'node:http';
+import {readFile,mkdir}from'node:fs/promises';
+import {resolve,extname,sep}from'node:path';
+import assert from'node:assert/strict';
+import {chromium}from'playwright';
+const root=resolve('dist'),mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.webp':'image/webp'};
+const server=createServer(async(req,res)=>{try{const p=resolve(root,decodeURIComponent(new URL(req.url,'http://local').pathname).replace(/^\//,'')||'index.html');if(!p.startsWith(root+sep))throw Error('Invalid path');res.writeHead(200,{'Content-Type':mime[extname(p)]||'application/octet-stream'});res.end(await readFile(p));}catch{res.writeHead(404);res.end()}});
+await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
+const origin='http://127.0.0.1:'+server.address().port;
+const browser=await chromium.launch({headless:true,executablePath:process.env.PLAYWRIGHT_EXECUTABLE_PATH});
+try{
+ const context=await browser.newContext({viewport:{width:390,height:844}}),page=await context.newPage();
+ await page.route('https://*.supabase.co/**',r=>r.fulfill({status:200,contentType:'application/json',body:'[]'}));
+ await page.route('https://fonts.googleapis.com/**',r=>r.abort());await page.route('https://fonts.gstatic.com/**',r=>r.abort());
+ await page.goto(origin,{waitUntil:'domcontentloaded'});
+ await page.getByRole('button',{name:'Play This Movie'}).first().click();
+ await page.evaluate(()=>navigator.serviceWorker.ready);
+ await page.waitForFunction(()=>navigator.serviceWorker.controller!==null);
+ const cached=await page.evaluate(async()=>{const keys=(await caches.keys()).filter(key=>key.startsWith('romantiverse-'));if(keys.length!==1)throw Error('Expected one active application cache');const c=await caches.open(keys[0]);return(await c.keys()).map(r=>r.url)});
+ const artCount=cached.filter(p=>p.endsWith('.webp')).length;
+ const expected=JSON.parse(await readFile(resolve(root,'illustrations/manifest.json'),'utf8')).length;
+ assert.equal(artCount,expected,'Every active trope and the branded center must be available offline');
+ assert.ok(!cached.some(p=>/[?#]/.test(p)),'Offline cache must not contain invitation/session parameters');
+ await context.setOffline(true);await page.reload({waitUntil:'domcontentloaded'});
+ await page.waitForFunction(()=>{const a=[...document.querySelectorAll('.board .square-art')];return a.length===25&&a.every(i=>i.complete&&i.naturalWidth===384)});
+ await page.locator('.square').first().click();assert.equal(await page.locator('.square').first().getAttribute('aria-pressed'),'true');
+ if(await page.locator('.toast button').count())await page.locator('.toast button').click();
+ await mkdir('artifacts',{recursive:true});await page.locator('.board').screenshot({path:'artifacts/bingo-offline-390.png',animations:'disabled'});
+ console.log(JSON.stringify({offlineImages:artCount,cardImages:25,offlineReload:true,offlineMark:true,privateCacheEntries:0}));
+ await context.close();
+}finally{await browser.close();await new Promise(ok=>server.close(ok))}

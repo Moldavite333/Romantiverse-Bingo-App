@@ -1,8 +1,8 @@
 // Offline-ready static app shell. Room state and private tokens are never cached.
-const CACHE='romantiverse-v7-illustrations';
+const CACHE='romantiverse-v8-storybook-ui';
 const BASE='/';
 const SHELL=BASE+'index.html';
-const PRECACHE=[BASE+'catalog/movies.json',BASE+'manifest.webmanifest',BASE+'icon.svg'];
+const PRECACHE=[BASE+'catalog/movies.json',BASE+'manifest.webmanifest',BASE+'icon.svg',BASE+'icon-192.png',BASE+'icon-512.png',BASE+'illustrations/manifest.json'];
 
 self.addEventListener('install',event=>{
  event.waitUntil((async()=>{
@@ -13,7 +13,11 @@ self.addEventListener('install',event=>{
   // Vite fingerprints production JS/CSS filenames; discover them from the built HTML.
   const assets=[...html.matchAll(/(?:src|href)="(\/assets\/[^"?#]+)"/g)].map(match=>match[1]);
   await cache.put(SHELL,response);
-  await cache.addAll([...new Set([...PRECACHE,...assets])]);
+  const artResponse=await fetch(BASE+'illustrations/manifest.json');
+  if(!artResponse.ok)throw Error('Missing illustration manifest');
+  const art=await artResponse.json();
+  if(!Array.isArray(art)||!art.every(path=>/^illustrations\/[a-zA-Z0-9-]+\.webp$/.test(path)))throw Error('Invalid illustration manifest');
+  await cache.addAll([...new Set([...PRECACHE,...assets,...art.map(path=>BASE+path)])]);
   await self.skipWaiting();
  })());
 });

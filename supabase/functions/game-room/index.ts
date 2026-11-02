@@ -26,7 +26,7 @@ const card=(season,existingCards=[])=>{
     const key=labelKey(label);
     if(!key||used.has(key))continue;
     used.add(key);
-    labels.push({id:category+'-'+labels.length,label,category});
+    labels.push({id:'room-'+label.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),label,category});
     if(labels.length===12)break;
    }
    if(labels.length!==12)throw Error('Insufficient unique card tropes');
