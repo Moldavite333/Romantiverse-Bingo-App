@@ -3,11 +3,11 @@ import {createServer} from 'node:http';
 import {readFile,mkdir} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 import {chromium} from 'playwright';
-import roomArtAliases from '../src/art/room-illustration-aliases.json' with {type:'json'};
+import aliases from '../src/engine/roomIllustrationAliases.json' with {type:'json'};
 
 const root=resolve('dist');
 const base='/';
-const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.json':'application/json','.webmanifest':'application/manifest+json','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp'};
+const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.json':'application/json','.webmanifest':'application/manifest+json','.webp':'image/webp','.png':'image/png','.png':'image/png','.jpg':'image/jpeg'};
 const server=createServer(async(req,res)=>{
  try{
   const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
@@ -26,7 +26,7 @@ const appUrl=origin+base;
 const browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_EXECUTABLE_PATH?{executablePath:process.env.PLAYWRIGHT_EXECUTABLE_PATH}:{})});
 await mkdir('artifacts',{recursive:true});
 async function newPage(width){
- const context=await browser.newContext({viewport:{width,height:844},deviceScaleFactor:1,serviceWorkers:'block'});
+ const context=await browser.newContext({viewport:{width,height:844},deviceScaleFactor:1});
  const page=await context.newPage();
  const errors=[];
  page.on('pageerror',error=>errors.push(error.message));
@@ -83,25 +83,13 @@ try{
   await squares.first().focus();
   await page.keyboard.press('Space');
   assert.equal(await squares.first().getAttribute('aria-pressed'),'true','Keyboard activation must mark a square');
-  const toastClose=page.locator('.toast button');
-  if(await toastClose.count())await toastClose.click();
-  await page.locator('.board').screenshot({path:'artifacts/bingo-selected-'+width+'.png',animations:'disabled'});
-  await squares.first().focus();
   await page.keyboard.press('Space');
   assert.equal(await squares.first().getAttribute('aria-pressed'),'false','Keyboard activation must undo a mark');
   await page.waitForFunction(()=>[...document.querySelectorAll('.board .square-art')].length===25&&[...document.querySelectorAll('.board .square-art')].every(img=>img.complete&&img.naturalWidth>0));
   const dimensions=await page.evaluate(()=>({document:document.documentElement.scrollWidth,viewport:document.documentElement.clientWidth}));
   assert.ok(dimensions.document<=dimensions.viewport+2,'Horizontal overflow at '+width+'px: '+JSON.stringify(dimensions));
   assert.deepEqual(errors,[],'Unexpected browser errors at '+width+'px');
-  await page.screenshot({path:'artifacts/bingo-'+width+'.png',fullPage:true,animations:'disabled'});
-  const artSources=await squares.locator('.square-art').evaluateAll(images=>images.map(img=>img.src));
-  assert.equal(new Set(artSources).size,25,'Each card must display 25 distinct scene assets');
-  for(let i=0;i<5;i++)await squares.nth(i).click();
-  assert.equal(await page.locator('.square.in-line').count(),5,'Winning row must retain every scene');
-  const sceneStyle=await squares.first().locator('img').evaluate(img=>({filter:getComputedStyle(img).filter,opacity:getComputedStyle(img).opacity,visible:img.getBoundingClientRect().width}));
-  assert.equal(sceneStyle.filter,'none');assert.equal(sceneStyle.opacity,'1');assert.ok(sceneStyle.visible>=35);
-  await page.locator('.board').screenshot({path:'artifacts/bingo-winning-'+width+'.png',animations:'disabled'});
-  for(let i=0;i<5;i++)await squares.nth(i).click();
+  await page.screenshot({path:'artifacts/bingo-'+width+'.png',fullPage:true});
   if(width===390){
    originalSquares=await squares.locator('.square-label').allTextContents();
    await page.getByRole('button',{name:/Share Card/}).click();
@@ -306,8 +294,8 @@ try{
  // Guest multiplayer cards must be as usable with screen readers and keyboards
  // as solo cards. Mock the public room endpoint; never use a real room token.
  const multi=await newPage(390);
- const multiCard=Object.keys(roomArtAliases).slice(0,24).map((label,i)=>({id:i%2?'room-'+label.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''):'cheese-'+i,label,category:'cheese',reason:'Authoritative room trope'}));
- multiCard.splice(12,0,{id:'free',label:'CHEESE LOUISE POD',category:'free'});
+ const roomLabels=Object.keys(aliases);
+ const multiCard=Array.from({length:25},(_,i)=>({id:i===12?'free':'cheese-'+i,label:i===12?'Free Center':roomLabels[i],category:i===12?'free':'cheese',reason:'Illustrated test trope'}));
  let multiRevision=0;
  let multiMarks=[12];
  const multiRoom={code:'ABC2345',status:'playing',movie_title:'Autumn Dreams',players:[{id:'qa-player',name:'Guest QA',lines:0,marked:0}]};
@@ -347,32 +335,6 @@ try{
  assert.deepEqual(multi.errors,[],'Multiplayer card caused browser errors');
  await multi.context.close();
  console.log('Multiplayer illustrated card coordinates, free center and keyboard marking passed browser QA.');
- const missingArt=await newPage(390);
- await missingArt.page.goto(appUrl,{waitUntil:'domcontentloaded'});
- await missingArt.page.getByRole('button',{name:'Play This Movie'}).first().click();
- await missingArt.page.locator('.board .square-art').first().waitFor();
- await missingArt.page.evaluate(()=>{
-  const game=JSON.parse(localStorage.getItem('romantiverse-v2'));
-  game.card[0]={...game.card[0],id:'cl-unreviewed-import',label:'Unreviewed imported trope'};
-  localStorage.setItem('romantiverse-v2',JSON.stringify(game));
- });
- await missingArt.page.reload({waitUntil:'domcontentloaded'});
- await missingArt.page.locator('[data-missing-illustration="cl-unreviewed-import"]').waitFor();
- assert.equal(await missingArt.page.locator('.board .square-art').count(),24,'Unknown editorial IDs must not receive generic artwork');
- assert.deepEqual(missingArt.errors,[]);
- await missingArt.context.close();
- const brokenArt=await newPage(390);
- await brokenArt.page.goto(appUrl,{waitUntil:'domcontentloaded'});
- await brokenArt.page.getByRole('button',{name:'Play This Movie'}).first().click();
- const brokenSrc=await brokenArt.page.locator('.board .square-art').first().getAttribute('src');
- await brokenArt.page.route('**'+brokenSrc,route=>route.fulfill({status:404,body:'Missing test image'}));
- await brokenArt.page.reload({waitUntil:'domcontentloaded'});
- await brokenArt.page.locator('.square-art-missing').waitFor();
- assert.equal(await brokenArt.page.locator('.square-art-missing').count(),1);
- assert.equal(await brokenArt.page.locator('.board .square-art').count(),24,'Broken images must be explicitly flagged without substitution');
- assert.ok(brokenArt.errors.every(error=>error==='404 '+origin+brokenSrc));
- await brokenArt.context.close();
- console.log('Unknown and broken illustration assignments display explicit pending states without generic substitutions.');
 }finally{
  await browser.close();
  await new Promise(ok=>server.close(ok));

@@ -31,3 +31,9 @@ test('network and server errors are distinct and never leak raw transport detail
   await assert.rejects(postRoomAction('https://example.test/game-room',{action:'join'},{fetcher:async()=>({ok:false,json:async()=>({error:'Room is full'})})}),/Room is full/);
   await assert.rejects(postRoomAction('https://example.test/game-room',{action:'state'},{fetcher:async()=>({ok:true,json:async()=>{throw Error('invalid json')}})}),/Could not read the room response/);
 });
+
+test('mobile resume can cancel a suspended read without retrying its request',async()=>{
+ const controller=new AbortController();let calls=0;
+ const request=postRoomAction('https://example.test/game-room',{action:'state'},{signal:controller.signal,fetcher:(_url,{signal})=>new Promise((_resolve,reject)=>{calls++;signal.addEventListener('abort',()=>reject(Error('aborted')),{once:true})})});
+ controller.abort();await assert.rejects(request,error=>error.name==='AbortError');assert.equal(calls,1);
+});

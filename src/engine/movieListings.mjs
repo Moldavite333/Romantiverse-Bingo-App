@@ -63,6 +63,26 @@ export function movieEvidenceLabel(movie){
 }
 
 
+// Public catalog networks, studios and provider listings are searchable only
+// when the record carries source-verified metadata. A provider listing is not
+// evidence of current streaming availability. Never index private HQ notes.
+const VERIFIED_NETWORKS=new Set(['Hallmark Channel','Hallmark Mystery','Lifetime','CBS']);
+const VERIFIED_STUDIOS=new Set(['MarVista Entertainment','Reel One Entertainment']);
+const VERIFIED_LISTINGS=new Map([
+ ['Peacock official movie page','Peacock listing'],
+ ['Prime Video movie and studio listing','Prime Video listing'],
+ ['Apple TV (film metadata)','Apple TV listing']
+]);
+function verifiedDiscoveryFields(movie){
+ const verified=['metadata_verified','scene_verified'].includes(movie.verification_status)
+  &&typeof movie.source_url==='string'
+  &&/^https:\/\/[^/\s?#]+(?:[/?#]|$)/i.test(movie.source_url);
+ if(!verified)return [];
+ return [VERIFIED_NETWORKS.has(movie.network)?movie.network:'',
+  VERIFIED_STUDIOS.has(movie.production_company)?movie.production_company:'',
+  VERIFIED_LISTINGS.get(movie.source_name)||''].filter(Boolean);
+}
+
 // Match the way visitors actually search: ignore accents and punctuation,
 // allow words in any order, and include the verified release year.
 // This only filters existing public movie metadata; it never invents movie facts.
@@ -73,6 +93,6 @@ export function matchesMovieQuery(movie,query){
  const terms=normalizeMovieSearchText(query).split(' ').filter(Boolean);
  if(!terms.length)return true;
  if(!movie||typeof movie.title!=='string')return false;
- const text=normalizeMovieSearchText([movie.title,Number.isInteger(movie.release_year)?movie.release_year:'',movie.synopsis||'',...Object.values(movie.story_facts||{}).flat()].join(' '));
+ const text=normalizeMovieSearchText([movie.title,Number.isInteger(movie.release_year)?movie.release_year:'',movie.synopsis||'',...Object.values(movie.story_facts||{}).flat(),...verifiedDiscoveryFields(movie)].join(' '));
  return terms.every(term=>text.includes(term));
 }

@@ -13,7 +13,7 @@
 .square.marked .square-art{filter:saturate(.85) brightness(1.08)}
 @media(max-width:650px){
  .square{min-height:104px;gap:3px;padding:4px 2px}
- .square-art{width:39px;height:39px;max-width:86%}
+ .square-art{width:48px;height:48px;max-width:86%}
  .square-label{font-size:clamp(8px,2vw,10px);line-height:1.1}
 }
 

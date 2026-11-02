@@ -1,0 +1,806 @@
+{
+  "tool": "built-in image_gen",
+  "transparent_background": false,
+  "prompts": [
+    {
+      "id": "meet-cute",
+      "label": "First meeting",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"First meeting\". SCENE: Two strangers collide at a bookshop doorway, dropped books suspended between surprised faces; close diagonal composition. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "career-vs-love",
+      "label": "Career versus love dilemma",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Career versus love dilemma\". SCENE: A woman holds an open job offer at a train platform while looking back toward a man waiting under a warm station lamp; opposing gazes. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "return-home",
+      "label": "Big-city person returns home",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Big-city person returns home\". SCENE: A traveler steps off a bus carrying a suitcase, looking up at a snowy hometown welcome arch; full figure arrival. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "old-flame",
+      "label": "An old flame reappears",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An old flame reappears\". SCENE: Former sweethearts recognize one another across an old school reunion table; matching aged portraits lie between them. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "save-the-business",
+      "label": "A beloved business must be saved",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A beloved business must be saved\". SCENE: A worried bakery owner stands outside her shuttered shop holding overdue bills while a neighbor offers support; storefront portrait. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "misunderstanding",
+      "label": "A misunderstanding",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A misunderstanding\". SCENE: One partner recoils at seeing an apparently intimate embrace through a cafe window, unaware it is a sibling greeting; layered window view. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "interruption",
+      "label": "An interruption",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An interruption\". SCENE: A child bursts between a couple leaning close on a garden bench, scattering their conversation; lively triangular grouping. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "grand-gesture",
+      "label": "A romantic gesture",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A romantic gesture\". SCENE: A lover unfurls a huge handmade heart banner from a balcony while their beloved looks up astonished; low angle vertical staging. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "wise-relative",
+      "label": "A relative gives unsolicited love advice",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A relative gives unsolicited love advice\". SCENE: A grandmother wags a knowing finger across a kitchen table at an embarrassed adult grandchild; intimate two-person close-up. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "almost-kiss",
+      "label": "The almost-kiss",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"The almost-kiss\". SCENE: Two faces hover a breath apart beside a porch post, eyes closed and noses almost touching, lips clearly separated; tight portrait. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "townspeople",
+      "label": "The entire town gets involved",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"The entire town gets involved\". SCENE: Neighbors form a cheerful human chain carrying supplies toward a town hall, two surprised leads in foreground; sweeping diagonal. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "deadline",
+      "label": "A romantic deadline approaches",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A romantic deadline approaches\". SCENE: A lover anxiously watches the station clock as a departing train separates them from their sweetheart; clock and reaching figure. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "misplaced-priorities",
+      "label": "Someone learns the true meaning of life",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Someone learns the true meaning of life\". SCENE: An executive sets down a ringing work phone to join a family making dinner; open hands and relieved smile, kitchen overhead angle. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "coincidence",
+      "label": "A coincidence",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A coincidence\". SCENE: Two characters accidentally collect the same cafe order at the same moment, both reaching for one cup and recognizing each other; counter view. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "rival",
+      "label": "An inconvenient romantic rival",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An inconvenient romantic rival\". SCENE: Two competing suitors meet stiffly on a front porch, one holding roses, the other a casserole, their intended love interest between them. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "decorating",
+      "label": "Decorating turns into accidental flirting",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Decorating turns into accidental flirting\". SCENE: A person on a stepladder loses balance and lands in a delighted partner's arms while hanging garlands; dynamic diagonal. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "awkward-date",
+      "label": "An awkward date",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An awkward date\". SCENE: Two uncomfortable diners sit far apart at a tiny restaurant table, avoiding eye contact while a waiter hovers with a violinist; awkward wide tableau. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "forced-proximity",
+      "label": "Two people are forced to spend time together",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Two people are forced to spend time together\". SCENE: Two stranded travelers sit at opposite ends of a tiny inn sofa with their luggage wedged between them, glancing sideways; enclosed composition. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "town-event",
+      "label": "A town event saves the day",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A town event saves the day\". SCENE: A town auctioneer triumphantly presents a donation jar to a tearful shopkeeper as neighbors applaud; circular gathering. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "hidden-talent",
+      "label": "Someone reveals a secret talent",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Someone reveals a secret talent\". SCENE: A quiet guest sits at a piano and suddenly plays brilliantly while partygoers turn in astonishment; hands and delighted faces. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "late-realization",
+      "label": "A romantic realization",
+      "prompt": "Original production square story illustration for Romantiverse Bingo trope late-realization. A lone young woman has an unmistakable dawning realization of love: she has suddenly stopped mid-stride on a small-town footbridge, one hand pressed to her heart, eyes widened and a surprised tender smile. She turns her head and torso back toward a man waiting far behind under a lamp. She is the only large foreground figure, waist-up three-quarter profile. The man is small, separated by a generous stretch of bridge. No touching, no embracing, no kissing. Clear visual moment of suddenly understanding one's feelings. Vintage illustrated Christmas card, premium children's storybook gouache, mid-century editorial framing, warm cinematic light and tasteful hand-painted paper texture. Cream cranberry muted coral forest green warm gold palette. Very simple background, large readable expressive human poses; communicates clearly at 64px. One scene, no panels, no text, no symbols, no watermark."
+    },
+    {
+      "id": "last-minute-arrival",
+      "label": "Someone arrives at the last possible moment",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Someone arrives at the last possible moment\". SCENE: A breathless lover runs through closing wedding chapel doors as the waiting beloved turns around; dramatic doorway perspective. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "overheard",
+      "label": "Someone overhears the wrong half of a conversation",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Someone overhears the wrong half of a conversation\". SCENE: A hurt person listens behind a half-open door to two people talking, with a misunderstood gift hidden from the listener; layered three-person scene. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "family-pressure",
+      "label": "Family pressure complicates everything",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Family pressure complicates everything\". SCENE: Parents press wedding plans across a table toward a reluctant adult child whose partner waits outside the window; crowded foreground. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "big-city",
+      "label": "Big-city life loses its appeal",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Big-city life loses its appeal\". SCENE: A weary commuter gazes out of a crowded city train at a postcard of a peaceful hometown, loosening a work tie; window reflection. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "perfect-stranger",
+      "label": "A stranger knows exactly what to say",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A stranger knows exactly what to say\". SCENE: A kindly stranger on a bus-stop bench offers a handkerchief and comforting words to a troubled traveler; quiet side-by-side profile. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "public-confession",
+      "label": "Love is confessed in public",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Love is confessed in public\". SCENE: A person takes a town festival microphone and reaches toward an astonished lover in the audience; stage-to-crowd perspective. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "too-perfect",
+      "label": "The love interest has no apparent flaws",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"The love interest has no apparent flaws\". SCENE: An impossibly charming neighbor simultaneously rescues a kitten, carries groceries for an elder, and smiles at a swooning admirer; playful heroic silhouette. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "small-town-magic",
+      "label": "Small-town magic fixes a real-world problem",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Small-town magic fixes a real-world problem\". SCENE: Neighbors lift a fallen delivery cart together to reopen a blocked town bridge while the leads stare in grateful wonder; community teamwork. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "obvious-ending",
+      "label": "Everyone knows the ending except the leads",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Everyone knows the ending except the leads\". SCENE: Two oblivious leads bicker gently in foreground while a baker and florist exchange knowing smiles behind them; comic layered group. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "family-heirloom",
+      "label": "A sentimental family heirloom matters",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A sentimental family heirloom matters\". SCENE: An adult opens an old keepsake box and lifts a treasured brooch while an elderly relative rests a hand on their shoulder; hands-focused portrait. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "stranded-in-town",
+      "label": "Breaking down / stuck in town",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Breaking down / stuck in town\". SCENE: A traveler stands beside a broken-down car with an open smoking hood as a friendly local approaches from a little town; roadside view. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "family-tragedy",
+      "label": "Family tragedy",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Family tragedy\". SCENE: Two family members comfort each other beside a framed memorial photograph and an empty chair; tender restrained interior. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "objects-alive",
+      "label": "Objects come to life",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Objects come to life\". SCENE: A surprised shopkeeper watches a wooden toy soldier climb out of a display box and bow; magical living object in an actual scene. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "parallel-life",
+      "label": "Time travel / parallel-universe life",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Time travel / parallel-universe life\". SCENE: One protagonist reaches through a glowing antique doorway toward another version of themselves in a different home; two distinct timelines. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "free-food",
+      "label": "Free food",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Free food\". SCENE: A delighted hungry traveler receives a steaming plate from a smiling diner owner who waves away their offered wallet; counter close-up. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-0",
+      "label": "Hot cocoa fixes everything",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Hot cocoa fixes everything\". SCENE: Two upset friends reconcile over steaming cocoa mugs at a frosted cafe window; warming hands and soft smiles. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-1",
+      "label": "A town Christmas tree lighting",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A town Christmas tree lighting\". SCENE: A child and two adults pull a large switch together as a towering town Christmas tree bursts into golden light; upward-looking crowd. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-2",
+      "label": "A snowstorm changes plans",
+      "prompt": "Create one production illustration-story asset for Romantiverse Bingo: a couple struggling through a fierce blizzard on a snowy small-town street, bent forward into wind, one holding the other's arm, scarf whipping horizontally. Square composition, readable at 64–100px: two bold expressive human silhouettes foreground, one warmly glowing shop window behind. Vintage Christmas card meets premium painted children's storybook and mid-century editorial illustration, tasteful gouache grain. Cream, cranberry, muted coral, forest green and warm gold palette, cinematic warm window glow against muted snowy green shadows. Simplified environment, no text, no symbols or icons, no border, no watermark. This scene specifically depicts a disruptive snowstorm, not gentle magical snowfall."
+    },
+    {
+      "id": "season-Christmas-3",
+      "label": "Mistletoe appears at the perfect time",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Mistletoe appears at the perfect time\". SCENE: A playful host holds fresh mistletoe above two surprised guests who blush in a doorway; three expressive faces, no kiss. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-4",
+      "label": "Christmas cookies are plot-critical",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Christmas cookies are plot-critical\". SCENE: A baker discovers a tiny hidden keepsake in a cookie tin and shows it to an astonished partner; kitchen counter close view. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-5",
+      "label": "A festive fundraiser",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A festive fundraiser\". SCENE: A couple work a charity stall collecting coins from generous neighbors under holiday bunting; hands exchanging donations. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-6",
+      "label": "A Christmas market",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A Christmas market\". SCENE: Two shoppers browse a small wooden Christmas market stall laden with handmade toys; warm stall light and snow. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-7",
+      "label": "A Christmas Eve deadline",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A Christmas Eve deadline\". SCENE: A frantic gift-shop worker finishes wrapping one parcel while a tall clock approaches midnight on Christmas Eve; urgent hands. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-8",
+      "label": "A tree-decorating scene",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A tree-decorating scene\". SCENE: Two people hang ornaments together, one lifting a child toward an upper branch; living room Christmas tree, clear reaching poses. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-9",
+      "label": "A magical snowfall",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A magical snowfall\". SCENE: A couple share a quiet tender moment on a bridge, palms raised as the first delicate snowflakes fall; calm open sky, no wind. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-10",
+      "label": "A holiday parade",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A holiday parade\". SCENE: A little brass band marches past a decorated Christmas float on Main Street, joyful waving spectators at the curb. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-11",
+      "label": "A Christmas wish",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A Christmas wish\". SCENE: Someone closes their eyes and clasps their hands beside a glowing Christmas tree, making a private wish; intimate profile. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-12",
+      "label": "A Christmas carol",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A Christmas carol\". SCENE: Three bundled carolers sing from open songbooks outside a warmly lit front door; expressive open mouths. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-13",
+      "label": "An ugly Christmas sweater",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An ugly Christmas sweater\". SCENE: A shy guest proudly shows an outrageously knitted Christmas sweater to two laughing friends at a house party; waist-up figures. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-14",
+      "label": "A last-minute Christmas gift",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A last-minute Christmas gift\". SCENE: A breathless shopper reaches a closing shop door holding a hastily wrapped Christmas present, while the shopkeeper turns the key. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-15",
+      "label": "A cozy fireplace moment",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A cozy fireplace moment\". SCENE: Two people sit close on a rug in front of a crackling fireplace, sharing a blanket and gazing into the flames; low cozy view. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-16",
+      "label": "A holiday baking contest",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A holiday baking contest\". SCENE: Two rival bakers present very different elaborate Christmas desserts to an impressed judge; opposing counters and expressive rivalry. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-17",
+      "label": "A Christmas miracle",
+      "prompt": "Original production square story illustration for Romantiverse Bingo trope season-Christmas-17. An unmistakable extraordinary Christmas miracle in a snowy small town: Santa's real flying sleigh and reindeer sweep low overhead in a trail of luminous gold starlight, miraculously restoring warm light to a darkened toyshop and the street. In the foreground an elderly toyshop owner and a child look upward in astonishment, hands lifted and mouths open. Clear large upward-looking silhouettes, simplified toyshop window at one edge and a prominent airborne sleigh above, no hugging, no party, no ordinary tree-lighting ceremony. Vintage illustrated Christmas card, premium children's storybook gouache, mid-century editorial framing, warm cinematic light and tasteful hand-painted paper texture. Cream cranberry muted coral forest green warm gold palette. Very simple background, large readable expressive human poses; communicates clearly at 64px. One scene, no panels, no text, no symbols, no watermark."
+    },
+    {
+      "id": "season-Christmas-18",
+      "label": "An unexpected sleigh ride",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An unexpected sleigh ride\". SCENE: A surprised passenger is helped into a horse-drawn sleigh by a smiling driver, snowy lane beyond; side view with horse visible. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-19",
+      "label": "A family holiday tradition",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A family holiday tradition\". SCENE: Three generations hang handmade stockings together along a mantel, youngest mimicking eldest; affectionate domestic ritual. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-20",
+      "label": "Christmas lights everywhere",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Christmas lights everywhere\". SCENE: Two laughing people tangled together in strings of glowing Christmas lights while decorating their porch; readable wrapped silhouettes. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-21",
+      "label": "A charming tree farm",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A charming tree farm\". SCENE: A family inspect a fresh evergreen at a snowy tree farm while the farmer holds it upright; rows simplified behind. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-22",
+      "label": "An overdecorated small town",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An overdecorated small town\". SCENE: Two visitors gape at a tiny town street buried under extravagant garlands, giant bows and strings of lights; visitors anchor foreground. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-23",
+      "label": "An emotional holiday reunion",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An emotional holiday reunion\". SCENE: Two adults drop their bags and embrace tightly at a snowy station platform after a long absence; luggage on ground. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-24",
+      "label": "A festive kiss",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A festive kiss\". SCENE: A couple kiss beneath a sprig of mistletoe at a Christmas party; clear kissing profiles, intimate shoulders-up framing. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-25",
+      "label": "Meddling Santas",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Meddling Santas\". SCENE: Two mischievous people dressed as Santa usher an embarrassed couple toward the same park bench; comic four-person arrangement. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-26",
+      "label": "Snowball fights",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Snowball fights\". SCENE: Two laughing adults duck and throw snowballs from opposite sides of a low snowbank; energetic asymmetric action. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Christmas-27",
+      "label": "Snow angels",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Snow angels\". SCENE: Two bundled people lie on their backs sweeping their arms through fresh snow to make snow angels; overhead view. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-0",
+      "label": "Pumpkin patch encounter",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Pumpkin patch encounter\". SCENE: Two strangers reach for the same enormous pumpkin in a patch and laugh, kneeling between broad vines; low view. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-1",
+      "label": "Apple cider conversation",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Apple cider conversation\". SCENE: Two people talk earnestly at an orchard cider stand, cradling steaming mugs, apples stacked beside them; side profile. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-2",
+      "label": "A scenic hayride",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A scenic hayride\". SCENE: A couple ride on hay bales in a wagon pulled along an autumn lane, one pointing at distant hills; broad landscape with large figures. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-3",
+      "label": "Autumn leaves everywhere",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Autumn leaves everywhere\". SCENE: Two walkers kick through a deep pile of autumn leaves as falling leaves swirl above their heads; lively feet-first composition. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-4",
+      "label": "Harvest festival showdown",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Harvest festival showdown\". SCENE: Two rivals face off across a harvest festival game booth while a judge raises a starting flag; confrontational diagonal. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-5",
+      "label": "A flannel-clad love interest",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A flannel-clad love interest\". SCENE: A charming person in a cranberry flannel shirt rolls up a sleeve while helping a neighbor stack firewood; close figure portrait. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-6",
+      "label": "Bonfire heart-to-heart",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Bonfire heart-to-heart\". SCENE: Two friends lean toward one another on log seats beside a small bonfire, sharing a difficult truth; firelit profiles. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-7",
+      "label": "Pie contest rivalry",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Pie contest rivalry\". SCENE: Two competitive bakers hold their pies at chest height, exchanging a challenging sideways glance while a judge prepares a fork. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-8",
+      "label": "Corn maze mishap",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Corn maze mishap\". SCENE: A couple realize they are lost at a fork in a corn maze, one holding an upside-down map, the other peering over stalks. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-9",
+      "label": "Pumpkin carving",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Pumpkin carving\". SCENE: Two friends carve expressive pumpkin faces at a messy kitchen table, one displaying a lopsided finished lantern; hands close-up. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-10",
+      "label": "Family orchard crisis",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Family orchard crisis\". SCENE: An orchard owner kneels beside a damaged young apple tree while a relative surveys fallen fruit with worried expression. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-11",
+      "label": "Apple-picking date",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Apple-picking date\". SCENE: One person steadies a short orchard ladder while the other offers down a freshly picked apple with a flirtatious smile. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-12",
+      "label": "A cozy sweater",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A cozy sweater\". SCENE: A person wraps a soft oversized sweater around a shivering friend on a porch swing; tactile close portrait. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-13",
+      "label": "Fall decorations montage",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Fall decorations montage\". SCENE: Friends pass pumpkins, garlands and a wreath along a porch while one balances on a ladder; energetic decorating sequence in one scene. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-14",
+      "label": "Small-town fall fair",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Small-town fall fair\". SCENE: A couple walk past a little county fair carousel holding a prize toy, cheerful booths simplified behind; strolling foreground. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-15",
+      "label": "A farm stand meet-cute",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A farm stand meet-cute\". SCENE: Two strangers bump hands over a basket of apples at a roadside farm stand, laughing as one apple rolls away; counter composition. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-16",
+      "label": "A harvest dance",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A harvest dance\". SCENE: Two people spin together in a harvest dance on a wooden floor beneath leaf garlands; full twirling silhouettes. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-17",
+      "label": "An autumn sunset kiss",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An autumn sunset kiss\". SCENE: A couple kiss on a hilltop with a broad golden autumn sunset behind, scattered leaves framing their joined silhouette. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-18",
+      "label": "Pumpkin spice is mentioned",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Pumpkin spice is mentioned\". SCENE: A cafe worker enthusiastically offers a spiced drink with cinnamon sticks while a skeptical friend sniffs it; amused faces and hands. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-19",
+      "label": "A festival deadline",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A festival deadline\". SCENE: An anxious organizer races to raise the last festival pennant as a crowd waits behind a closed gate; urgent diagonal action. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-20",
+      "label": "Scarecrow sighting",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Scarecrow sighting\". SCENE: Two walkers stop short beside a friendly straw scarecrow standing among corn, one playfully copying its outstretched arms. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-21",
+      "label": "A barn party",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A barn party\". SCENE: A lively group dance and laugh inside an open red barn under warm lanterns; a fiddler and dancing couple anchor foreground. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-22",
+      "label": "A leaf-peeping trip",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A leaf-peeping trip\". SCENE: Two travelers pause at a lookout railing, one lifting binoculars toward autumn hills, the other spreading a scenic map. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-23",
+      "label": "An unexpected autumn storm",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An unexpected autumn storm\". SCENE: Two people wrestle an inside-out umbrella in a sudden windstorm, leaves and rain whipping across an orchard path. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "season-Fall-24",
+      "label": "A fall tradition",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A fall tradition\". SCENE: Grandparent and child press apples together using a wooden cider press, an adult receives the jug; clear multigeneration ritual. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. No text or lettering."
+    },
+    {
+      "id": "free",
+      "label": "CHEESE LOUISE POD",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"CHEESE LOUISE POD\". SCENE: A charming original cheese wedge mascot wearing a cranberry scarf hosts a podcast at a vintage forest-green microphone on a warm cream stage; cheerful expressive face, mid-century painted brand illustration. No wreath. Include exact readable lettering CHEESE LOUISE POD beneath the mascot, no other text. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. For Fall scenes use seasonal gold leaves rather than Christmas decorations. Focal figures large, very sparse background, unmistakable storytelling at 64–100 pixels. One cohesive scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark. Keep exact brand text requested."
+    },
+    {
+      "id": "season-Horror-0",
+      "label": "Someone ignores a clear warning",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Someone ignores a clear warning\". SCENE: An overconfident traveler steps past a warning barricade into a dark woodland while a friend urgently reaches after them. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-1",
+      "label": "A suspiciously unlocked door",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A suspiciously unlocked door\". SCENE: A wary visitor pushes a cabin door that swings open without a key, glancing back at a companion; doorway view. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-2",
+      "label": "A creepy basement visit",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A creepy basement visit\". SCENE: A person cautiously descends cellar steps holding a candle, peering into dusty shelves below; steep stair perspective. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-3",
+      "label": "Someone splits up",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Someone splits up\". SCENE: Two frightened friends part ways at a forest path fork, looking back at one another; wide diverging silhouettes. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-4",
+      "label": "A flashlight fails",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A flashlight fails\". SCENE: A frightened explorer shakes a dead flashlight while its last weak beam fades in a dark corridor; hands and face close-up. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-5",
+      "label": "A jump scare",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A jump scare\". SCENE: A startled person leaps backward as a figure suddenly emerges from behind a shower curtain; expressive startled silhouette. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-6",
+      "label": "A power outage",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A power outage\". SCENE: A family at dinner stop mid-bite as the lights go dark, one person lighting a candle; contrast of warm faces and dark room. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-7",
+      "label": "A mysterious noise",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A mysterious noise\". SCENE: A wary person presses an ear to an attic hatch as dust drifts down, companion waiting with a lamp; upward gaze. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-8",
+      "label": "A character has no signal",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A character has no signal\". SCENE: A lost hiker holds a phone high above their head on a deserted country road, face tense, empty hills beyond. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-9",
+      "label": "An ominous reflection",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An ominous reflection\". SCENE: A person at a bathroom mirror sees a sinister second face behind their reflection while the real room is empty; mirror framing. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-10",
+      "label": "A car refuses to start",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A car refuses to start\". SCENE: A worried driver twists the ignition inside a stalled car while a companion anxiously watches the dark road through the windshield. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-11",
+      "label": "A false alarm",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A false alarm\". SCENE: A scared couple peering behind a curtain discover an innocent cat knocking over a vase, their faces relaxing in relief. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-12",
+      "label": "A strange symbol",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A strange symbol\". SCENE: An investigator kneels to study an unfamiliar chalk marking on a cellar floor while a friend holds a lantern above. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-13",
+      "label": "A locked room",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A locked room\". SCENE: A person pulls desperately at an ornate locked door while their companion searches a ring of keys; tense close grouping. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-14",
+      "label": "A terrifying phone call",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A terrifying phone call\". SCENE: A frightened person freezes holding a vintage telephone receiver, one hand gripping a chair as curtains stir behind. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-15",
+      "label": "An old diary",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An old diary\". SCENE: Two curious visitors open a dusty handwritten diary at an attic desk, candle illuminating a hidden pressed flower; hands-focused. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-16",
+      "label": "A character runs upstairs",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A character runs upstairs\". SCENE: A frightened character races up a narrow staircase glancing backward, a friend reaching after them from the bottom step. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-17",
+      "label": "A suspicious stranger",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A suspicious stranger\". SCENE: An uneasy traveler notices a silent cloaked stranger watching from the far end of an empty train platform; large foreground face. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-18",
+      "label": "Footsteps with no explanation",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Footsteps with no explanation\". SCENE: Two people stare upward at a visibly empty wooden staircase as dust and loose carpet shift from unexplained footsteps. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-19",
+      "label": "A sudden scream",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A sudden scream\". SCENE: A person drops a mug and screams in a doorway, hands raised, companion turning sharply toward them; bold expressive portrait. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-20",
+      "label": "A door slams",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A door slams\". SCENE: Two startled guests recoil as a heavy door slams between them and a candlelit hall, blowing loose papers across the floor. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-21",
+      "label": "An eerie photograph",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An eerie photograph\". SCENE: A visitor holds an old group photograph beside the same room today, noticing an eerie figure present in the photograph alone. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-22",
+      "label": "A shadow moves",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A shadow moves\". SCENE: A person reading by a lamp looks up as an impossible human shadow stretches across the wall without an owner. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-23",
+      "label": "Someone says it is probably nothing",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Someone says it is probably nothing\". SCENE: A dismissive friend shrugs reassuringly while another points anxiously toward a slightly open attic door; comic tension. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "season-Horror-24",
+      "label": "A final survivor",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A final survivor\". SCENE: A weary solitary survivor emerges from a dark forest into the first warm dawn light, torn scarf held in one hand; hopeful full figure. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Atmospheric storybook suspense, no gore; archived Horror collection."
+    },
+    {
+      "id": "room-someone-changes-their-mind",
+      "label": "Someone changes their mind",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Someone changes their mind\". SCENE: A traveler pauses halfway onto a bus, then steps back down toward a hopeful friend, suitcase swinging; clear turning pose. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-surprise-visitor",
+      "label": "A surprise visitor",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A surprise visitor\". SCENE: A host opens a front door and gasps at an unexpected traveler holding a small bag on the snowy doorstep; view from inside. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-an-emotional-reunion",
+      "label": "An emotional reunion",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An emotional reunion\". SCENE: Two old friends embrace tightly across a garden gate after a long absence, one dropping a hat; springtime flowers, tearful faces. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-secret-is-discovered",
+      "label": "A secret is discovered",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A secret is discovered\". SCENE: Someone opens a hidden desk compartment and uncovers a bundle of love letters while their partner watches in alarm; overhead hands and faces. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-dramatic-exit",
+      "label": "A dramatic exit",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A dramatic exit\". SCENE: An upset guest sweeps out of a dinner party through double doors, coat billowing, remaining diners frozen in surprise. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-surprise-announcement",
+      "label": "A surprise announcement",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A surprise announcement\". SCENE: A person stands at Christmas dinner to make an unexpected announcement; one hand on their heart while a startled family puts down cutlery. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-major-change-of-plans",
+      "label": "A major change of plans",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A major change of plans\". SCENE: A couple abruptly turn their packed suitcases away from a departure gate toward a friend waving new tickets; decisive pointing hands. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-second-chance-at-love",
+      "label": "Second chance at love",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Second chance at love\". SCENE: Former partners meet on an old park bench; one offers back a once-returned ring while the other smiles through tears. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-unexpected-reunion",
+      "label": "Unexpected reunion",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Unexpected reunion\". SCENE: Two adults recognize each other at opposite sides of a crowded train doorway, one hand lifted in startled greeting; not embracing. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-first-dance",
+      "label": "First dance",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"First dance\". SCENE: Two shy people take their first tentative dance steps at a small reception, carefully watching their feet; full figures and wide space. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-shared-meal",
+      "label": "A shared meal",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A shared meal\". SCENE: Two people serve each other from a rustic pot at a little kitchen table, relaxed smiles and mismatched bowls; overhead diagonal. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-surprise-invitation",
+      "label": "A surprise invitation",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A surprise invitation\". SCENE: A surprised person accepts an elegant invitation from a friend who gestures toward a warmly lit party through an open door. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-meaningful-gift",
+      "label": "A meaningful gift",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A meaningful gift\". SCENE: A person presents a carefully repaired childhood music box to a tearful beloved, hands meeting over the open box. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-romantic-confession",
+      "label": "A romantic confession",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A romantic confession\". SCENE: One person nervously offers their open hand and speaks honestly to a listening beloved beside a quiet riverside railing; intimate profiles. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-heartfelt-apology",
+      "label": "A heartfelt apology",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A heartfelt apology\". SCENE: A remorseful person sits on a doorstep holding a broken picture frame, looking up at a hurt partner who cautiously reaches toward them. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-secret-crush",
+      "label": "A secret crush",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A secret crush\". SCENE: A shy cafe patron peeks over an open book at a smiling barista, hiding a small hand-drawn portrait behind the pages. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-chance-encounter",
+      "label": "A chance encounter",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A chance encounter\". SCENE: Two pedestrians unexpectedly recognize each other at a crosswalk, umbrellas touching above them as the crowd walks past. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-an-unexpected-phone-call",
+      "label": "An unexpected phone call",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An unexpected phone call\". SCENE: A person pauses halfway through unpacking boxes as a ringing vintage phone surprises them, hand reaching in disbelief. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-thoughtful-surprise",
+      "label": "A thoughtful surprise",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A thoughtful surprise\". SCENE: A tired person comes home to find their partner has prepared a candlelit picnic on the apartment floor, favorite food waiting. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-missed-connection",
+      "label": "A missed connection",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A missed connection\". SCENE: Two people on opposite sides of a train window reach toward each other just as the train pulls away; poignant separated hands. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-an-emotional-goodbye",
+      "label": "An emotional goodbye",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An emotional goodbye\". SCENE: Two people reluctantly release one another's hands at a ferry gangway, one holding a suitcase, tearful profiles. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-long-awaited-kiss",
+      "label": "A long-awaited kiss",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A long-awaited kiss\". SCENE: Two lovers finally kiss on a railway platform beside dropped travel bags, relief in their closed eyes; romantic close view, no mistletoe. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-change-of-heart",
+      "label": "A change of heart",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A change of heart\". SCENE: A once-disapproving parent gently places their child's hand into the beloved's hand with a warm accepting smile; three hands central. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-difficult-choice",
+      "label": "A difficult choice",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A difficult choice\". SCENE: A troubled protagonist sits between an open suitcase and a family keepsake box, holding one object from each, visibly torn. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-romantic-getaway",
+      "label": "A romantic getaway",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A romantic getaway\". SCENE: A couple arrive at a tiny lakeside cabin carrying an overnight bag and picnic basket, pausing together on the wooden jetty. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-special-celebration",
+      "label": "A special celebration",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A special celebration\". SCENE: Friends gather around a smiling couple cutting a small celebration cake, confetti fluttering and warm lanterns overhead. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-meaningful-photograph",
+      "label": "A meaningful photograph",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A meaningful photograph\". SCENE: Two adults hold a faded childhood photograph beside their present faces, discovering they once stood together in the same scene. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-an-awkward-introduction",
+      "label": "An awkward introduction",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An awkward introduction\". SCENE: A nervous guest offers the wrong hand for a handshake while spilling a drink, the host reaching with surprised amusement. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-an-unexpected-date",
+      "label": "An unexpected date",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An unexpected date\". SCENE: A surprised person in work clothes finds a friend waiting beside a small cafe table set for two, chair pulled out invitingly. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-moment-of-honesty",
+      "label": "A moment of honesty",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A moment of honesty\". SCENE: One person sets aside a theatrical mask on a dressing table and speaks openly to a close friend who listens with gentle attention. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-supportive-friend",
+      "label": "A supportive friend",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A supportive friend\". SCENE: A friend steadies a nervous person's shoulders backstage before they step into a pool of warm stage light; reassuring eye contact. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-chance-to-start-over",
+      "label": "A chance to start over",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A chance to start over\". SCENE: A person opens the shutters of a newly empty little shop while a partner carries in a first potted plant; hopeful fresh morning. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-an-important-letter",
+      "label": "An important letter",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"An important letter\". SCENE: A person sits at a kitchen table reading an opened letter, one hand covering their mouth in surprise, envelope and family photo nearby. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-shared-tradition",
+      "label": "A shared tradition",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A shared tradition\". SCENE: Two adults fold paper boats together on a riverbank and launch them side by side, smiling at a familiar private ritual. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-happy-ending",
+      "label": "A happy ending",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A happy ending\". SCENE: A couple walk hand in hand toward their warmly lit new home, a child and friendly dog running ahead, joyful welcoming doorway. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-festive-party",
+      "label": "A festive party",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A festive party\". SCENE: A lively Christmas gathering with two couples dancing and a host serving a tray under garlands; energetic open room, no stage. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-christmas-ornament",
+      "label": "A Christmas ornament",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A Christmas ornament\". SCENE: Someone discovers a meaningful hand-painted ornament inside an old keepsake box, holding it up to window light with a wistful smile. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-surprise-present",
+      "label": "A surprise present",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A surprise present\". SCENE: A surprised recipient opens a large wrapped Christmas box as an excited child and partner watch, golden paper flying. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-autumn-sunset",
+      "label": "Autumn sunset",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Autumn sunset\". SCENE: Two friends sit on a hillside bench watching an expansive golden autumn sunset, hands resting close but not kissing. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-apple-pie",
+      "label": "Apple pie",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Apple pie\". SCENE: A baker lifts a freshly baked lattice apple pie from an oven while a delighted child leans forward to smell it; warm kitchen profile. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-a-fall-romance",
+      "label": "A fall romance",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"A fall romance\". SCENE: A couple walk hand in hand along an orchard lane, one resting their head on the other's shoulder, gold leaves forming an arch. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "room-crisp-autumn-morning",
+      "label": "Crisp autumn morning",
+      "prompt": "Use case: illustration-story. Asset: one original square production Romantiverse Bingo illustration for trope \"Crisp autumn morning\". SCENE: A person opens a cottage door in slippers and a scarf, breath visible in cool dawn air, a companion offers a warm blanket. ART DIRECTION: vintage illustrated Christmas card and premium children's storybook, mid-century editorial painted gouache, simplified bold silhouettes, expressive human characters, warm cinematic light, tasteful paper grain. Restrained cream, cranberry, muted coral, forest green, warm gold palette. Match the season described; no Christmas decorations in nonholiday scenes. Focal figures large, sparse background, unmistakable storytelling at 64–100 pixels. One scene, no panels, no generic pictograms, no emoji, no stock icons, no watermark, no text. Charming, romantic, cozy and playful."
+    },
+    {
+      "id": "archive-room-an-ominous-warning",
+      "label": "An ominous warning",
+      "prompt": "One original square painted storybook scene for Romantiverse Bingo archived Horror trope \"An ominous warning\". Scene: A frightened caretaker urgently holds back a visitor from entering a foggy graveyard while pointing toward a crumbling gateway.. Vintage mid-century editorial gouache, expressive readable human silhouettes large in frame, very sparse environment, cream cranberry muted coral forest green warm gold palette, warm lantern light against forest green shadows, tasteful paper grain, readable at 64px, no text no icons no watermark no panels no gore."
+    },
+    {
+      "id": "archive-room-a-creepy-doll",
+      "label": "A creepy doll",
+      "prompt": "One original square painted storybook scene for Romantiverse Bingo archived Horror trope \"A creepy doll\". Scene: A visitor recoils as an antique porcelain doll on an attic chair seems to turn its head toward them, candle trembling in their hand.. Vintage mid-century editorial gouache, expressive readable human silhouettes large in frame, very sparse environment, cream cranberry muted coral forest green warm gold palette, warm lantern light against forest green shadows, tasteful paper grain, readable at 64px, no text no icons no watermark no panels no gore."
+    },
+    {
+      "id": "archive-room-abandoned-house",
+      "label": "Abandoned house",
+      "prompt": "One original square painted storybook scene for Romantiverse Bingo archived Horror trope \"Abandoned house\". Scene: Two cautious explorers lift a lantern at the gate of an abandoned house, one stepping toward the porch and the other hesitating.. Vintage mid-century editorial gouache, expressive readable human silhouettes large in frame, very sparse environment, cream cranberry muted coral forest green warm gold palette, warm lantern light against forest green shadows, tasteful paper grain, readable at 64px, no text no icons no watermark no panels no gore."
+    }
+  ]
+}

@@ -1,0 +1,1442 @@
+{
+  "meet-cute": {
+    "id": "meet-cute",
+    "label": "First meeting",
+    "src": "illustrations/meet-cute.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "cd9f18e63adb1d92ad758c94794697232d9b1c9f213582b9220dfe71c955025a"
+  },
+  "career-vs-love": {
+    "id": "career-vs-love",
+    "label": "Career versus love dilemma",
+    "src": "illustrations/career-vs-love.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "463cc4cf9bdde041297697869c00e2d419b6ab3c8dafed50bf77ac2d78a094d8"
+  },
+  "return-home": {
+    "id": "return-home",
+    "label": "Big-city person returns home",
+    "src": "illustrations/return-home.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c152012eb4f0107afc7df6f60394e829d1620a9d936e34463e05136a8de1f7dd"
+  },
+  "old-flame": {
+    "id": "old-flame",
+    "label": "An old flame reappears",
+    "src": "illustrations/old-flame.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c6e3ab10025e02beea74a04cda47b96853f5b36c9e4b29415a8239ae8a4a3526"
+  },
+  "save-the-business": {
+    "id": "save-the-business",
+    "label": "A beloved business must be saved",
+    "src": "illustrations/save-the-business.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "3b38ef1b7d77d519e337ed556c8cd99eeb6b46b8ce3771779c55ff83ee6f8c21"
+  },
+  "misunderstanding": {
+    "id": "misunderstanding",
+    "label": "A misunderstanding",
+    "src": "illustrations/misunderstanding.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "7a4c71f6d113d6f25e2ae64aea81af53a4b905be5e499908ffbb646dc1276ee8"
+  },
+  "interruption": {
+    "id": "interruption",
+    "label": "An interruption",
+    "src": "illustrations/interruption.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "230d443ee454797802ad5e494978eb7a89bd237f4582b994052587f54451fffa"
+  },
+  "grand-gesture": {
+    "id": "grand-gesture",
+    "label": "A romantic gesture",
+    "src": "illustrations/grand-gesture.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "3f3cdfd9c59df5ece8659a9a5b0975979522ffcd6d823d721777832c61174b32"
+  },
+  "wise-relative": {
+    "id": "wise-relative",
+    "label": "A relative gives unsolicited love advice",
+    "src": "illustrations/wise-relative.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "a11ef2a0135ad5f6f8c5f347be9bb1979265945e236fd613eb72ef30a657f1fc"
+  },
+  "almost-kiss": {
+    "id": "almost-kiss",
+    "label": "The almost-kiss",
+    "src": "illustrations/almost-kiss.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "96ddbe0d25805cfedb45548c151676fc5b2df512ee01b992f9343834c8e54dfe"
+  },
+  "townspeople": {
+    "id": "townspeople",
+    "label": "The entire town gets involved",
+    "src": "illustrations/townspeople.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "12edc2d0a59a42d664a52496935d4b56a46e04aacf1995396a77bf25bfdb3fda"
+  },
+  "deadline": {
+    "id": "deadline",
+    "label": "A romantic deadline approaches",
+    "src": "illustrations/deadline.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "71a6e6afe2ef0cb96c1c0bdf161b907409c34ec4184ad600f75e432e4a67f95e"
+  },
+  "misplaced-priorities": {
+    "id": "misplaced-priorities",
+    "label": "Someone learns the true meaning of life",
+    "src": "illustrations/misplaced-priorities.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "7bfcd69e3cee6873369567e94000e62a7deaff0a38f1da8eba4dc5875da5aa84"
+  },
+  "coincidence": {
+    "id": "coincidence",
+    "label": "A coincidence",
+    "src": "illustrations/coincidence.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "4422518b60b1416e0f8631d7381c3f7b260cce9127b543e79512830ec4771043"
+  },
+  "rival": {
+    "id": "rival",
+    "label": "An inconvenient romantic rival",
+    "src": "illustrations/rival.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b198f9e47a0c2b59d75b048ea7d0d5c4db83312f99fe88143d27d199c07bddc1"
+  },
+  "decorating": {
+    "id": "decorating",
+    "label": "Decorating turns into accidental flirting",
+    "src": "illustrations/decorating.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c09ebd3eb241c0c72620acd1e1708550f05fdbbac0a9099cc584516065b69c20"
+  },
+  "awkward-date": {
+    "id": "awkward-date",
+    "label": "An awkward date",
+    "src": "illustrations/awkward-date.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c8df343d164a2a7a124fc2557404f23749fc563de45dc22833f7b0f3497fc35f"
+  },
+  "forced-proximity": {
+    "id": "forced-proximity",
+    "label": "Two people are forced to spend time together",
+    "src": "illustrations/forced-proximity.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "5882c59b161b2842f1b31f4e3a66b0342822fb7cdb6b144eaf4ab42329155319"
+  },
+  "town-event": {
+    "id": "town-event",
+    "label": "A town event saves the day",
+    "src": "illustrations/town-event.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "48ca8f7eac93fa9e4b1f707e1930d0f70e215234e81f3a231bd517e99fabbb4c"
+  },
+  "hidden-talent": {
+    "id": "hidden-talent",
+    "label": "Someone reveals a secret talent",
+    "src": "illustrations/hidden-talent.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "950dee12b280ca06453ab122e29496dc37ca69ad1ab6056db3d10cd2362a9a0d"
+  },
+  "late-realization": {
+    "id": "late-realization",
+    "label": "A romantic realization",
+    "src": "illustrations/late-realization.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "ccbece99b591abf84159064d4b49da3246aa2645a4caf517980831d38cc131ff"
+  },
+  "last-minute-arrival": {
+    "id": "last-minute-arrival",
+    "label": "Someone arrives at the last possible moment",
+    "src": "illustrations/last-minute-arrival.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "3ecf17ca34130aa743f726faf3e09057e69c9f8d0414b489a4c22ff5db7d4cda"
+  },
+  "overheard": {
+    "id": "overheard",
+    "label": "Someone overhears the wrong half of a conversation",
+    "src": "illustrations/overheard.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "69a9b40e658d1900f5c0a62a802bfdd75d01fd464f5d26eb706a9fc05865d8e5"
+  },
+  "family-pressure": {
+    "id": "family-pressure",
+    "label": "Family pressure complicates everything",
+    "src": "illustrations/family-pressure.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "475142a086f07cefc7dd1e84f808d9a811b6eefd87c0fc8b199800b6cbd0e999"
+  },
+  "big-city": {
+    "id": "big-city",
+    "label": "Big-city life loses its appeal",
+    "src": "illustrations/big-city.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "e1156ff4cecece18eae175f39b4cdcdd92ade1925ebb886735109804b4e11d58"
+  },
+  "perfect-stranger": {
+    "id": "perfect-stranger",
+    "label": "A stranger knows exactly what to say",
+    "src": "illustrations/perfect-stranger.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "fc90f135ec68600240eff0b56bb137c8003682d9d343c69792e9bc5850f9efb7"
+  },
+  "public-confession": {
+    "id": "public-confession",
+    "label": "Love is confessed in public",
+    "src": "illustrations/public-confession.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "27e4a54f4b9da0ec0a2b54aa565fe0753b84a39b2307730bd07a9a625989c474"
+  },
+  "too-perfect": {
+    "id": "too-perfect",
+    "label": "The love interest has no apparent flaws",
+    "src": "illustrations/too-perfect.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "6aa59a575c67fb0fff7c69c20c21bc4fbdc3986bed2c03a1df701ae58d590d76"
+  },
+  "small-town-magic": {
+    "id": "small-town-magic",
+    "label": "Small-town magic fixes a real-world problem",
+    "src": "illustrations/small-town-magic.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "afc1f26603429a689c8362e157556d712c5659b277960d2c367cc82bc7eceee2"
+  },
+  "obvious-ending": {
+    "id": "obvious-ending",
+    "label": "Everyone knows the ending except the leads",
+    "src": "illustrations/obvious-ending.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "16669404dafedeba1c3beb6cf856ea4c3e6284a34d5a2ebcd06aa33583c7f271"
+  },
+  "family-heirloom": {
+    "id": "family-heirloom",
+    "label": "A sentimental family heirloom matters",
+    "src": "illustrations/family-heirloom.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "2e30f2a2379e2b6056ce7ced1890711827eb045edb20c0ea4aaa52c25a34d291"
+  },
+  "stranded-in-town": {
+    "id": "stranded-in-town",
+    "label": "Breaking down / stuck in town",
+    "src": "illustrations/stranded-in-town.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "5d137c63f2761d778a0a6d08ac4bc18ba2adf8d913cbada4cd03f33a19b72cfd"
+  },
+  "family-tragedy": {
+    "id": "family-tragedy",
+    "label": "Family tragedy",
+    "src": "illustrations/family-tragedy.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "46f48be239abc8b83b3d2e1e08fe304a840b9f4dbb7b6b1dbb9e61418340aaca"
+  },
+  "objects-alive": {
+    "id": "objects-alive",
+    "label": "Objects come to life",
+    "src": "illustrations/objects-alive.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "45d7e845cf2bf72f763df766bd9f6089769dfe18a274b50d8a698ee006759e81"
+  },
+  "parallel-life": {
+    "id": "parallel-life",
+    "label": "Time travel / parallel-universe life",
+    "src": "illustrations/parallel-life.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "5217e80448e945daa4a2b9f637424b76b79d2807bc291dafaa1a5ffe2e101267"
+  },
+  "free-food": {
+    "id": "free-food",
+    "label": "Free food",
+    "src": "illustrations/free-food.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "55f4b9e6b42fd31a4443a181818e7f61af83d10e7aef00142d0e944f0a772232"
+  },
+  "season-Christmas-0": {
+    "id": "season-Christmas-0",
+    "label": "Hot cocoa fixes everything",
+    "src": "illustrations/season-Christmas-0.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c99a84c73b3a6a0cae4dfff06894c92527cfcdaa35222d2130af7c6e50937466"
+  },
+  "season-Christmas-1": {
+    "id": "season-Christmas-1",
+    "label": "A town Christmas tree lighting",
+    "src": "illustrations/season-Christmas-1.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b7b99610485d7e9dfece32b99543cc7f0130d357e9868573c8711fae065f28c4"
+  },
+  "season-Christmas-2": {
+    "id": "season-Christmas-2",
+    "label": "A snowstorm changes plans",
+    "src": "illustrations/season-Christmas-2.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "d199568f7239a037998e368e85868f69fa600959888279ba65becf57d6b8475f"
+  },
+  "season-Christmas-3": {
+    "id": "season-Christmas-3",
+    "label": "Mistletoe appears at the perfect time",
+    "src": "illustrations/season-Christmas-3.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "9debc4aba84351e660b8ab94b8e35d6cdbccbe0beafd192b652f2cf7b0ec9aaf"
+  },
+  "season-Christmas-4": {
+    "id": "season-Christmas-4",
+    "label": "Christmas cookies are plot-critical",
+    "src": "illustrations/season-Christmas-4.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "85f9ffd7b447c410a14671e9e441e67fd872e7bc3fa4a3f179bac8f84b857028"
+  },
+  "season-Christmas-5": {
+    "id": "season-Christmas-5",
+    "label": "A festive fundraiser",
+    "src": "illustrations/season-Christmas-5.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "87dc37a0bbe4285a7adfa11eede1821ab1a6269d25d8b21c62789b6f2bbae955"
+  },
+  "season-Christmas-6": {
+    "id": "season-Christmas-6",
+    "label": "A Christmas market",
+    "src": "illustrations/season-Christmas-6.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c6bbfeff2e81e6f35ea5a910bf7cb9eaeada60a5339c5d48cd73a88aedd65f42"
+  },
+  "season-Christmas-7": {
+    "id": "season-Christmas-7",
+    "label": "A Christmas Eve deadline",
+    "src": "illustrations/season-Christmas-7.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "502c1406daf97e12f1c76d1473bd2c0843a6a16ef06ee0328611064e54f0c80f"
+  },
+  "season-Christmas-8": {
+    "id": "season-Christmas-8",
+    "label": "A tree-decorating scene",
+    "src": "illustrations/season-Christmas-8.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "4dcfe06a5c1eadef6607ff65d0665d2f60582659986b0d109bc37bbd6b062620"
+  },
+  "season-Christmas-9": {
+    "id": "season-Christmas-9",
+    "label": "A magical snowfall",
+    "src": "illustrations/season-Christmas-9.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "af66ea6e5eee890a65f5103dff327ff50f4f2bb3ea6077bcea53597fa3e516c8"
+  },
+  "season-Christmas-10": {
+    "id": "season-Christmas-10",
+    "label": "A holiday parade",
+    "src": "illustrations/season-Christmas-10.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "5d339bdf31ba0acf5bc842bf988f614e092b44740628a880b04d6d6f3dba4a84"
+  },
+  "season-Christmas-11": {
+    "id": "season-Christmas-11",
+    "label": "A Christmas wish",
+    "src": "illustrations/season-Christmas-11.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "cd1ee6d74af8db2bc124e21c914bdfd7d8dea06ace5a7037f3a4e4f571b8896a"
+  },
+  "season-Christmas-12": {
+    "id": "season-Christmas-12",
+    "label": "A Christmas carol",
+    "src": "illustrations/season-Christmas-12.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "ba176da3ab0da2ca96d3593db5150e766b0cf40556f2f16e23f38835d42c61a4"
+  },
+  "season-Christmas-13": {
+    "id": "season-Christmas-13",
+    "label": "An ugly Christmas sweater",
+    "src": "illustrations/season-Christmas-13.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "08536adb340aa8281f0aaf270a7c071d0d93040f92ccb2a3f8db677b499add32"
+  },
+  "season-Christmas-14": {
+    "id": "season-Christmas-14",
+    "label": "A last-minute Christmas gift",
+    "src": "illustrations/season-Christmas-14.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "9523f0ec92aa11bd5a97451e629f8b82e96d216acbe28a0008b0f7427e84739a"
+  },
+  "season-Christmas-15": {
+    "id": "season-Christmas-15",
+    "label": "A cozy fireplace moment",
+    "src": "illustrations/season-Christmas-15.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "d16d038b14edd9ba4f821c754e90cfe2291bbab3580fa548199c60d97359003c"
+  },
+  "season-Christmas-16": {
+    "id": "season-Christmas-16",
+    "label": "A holiday baking contest",
+    "src": "illustrations/season-Christmas-16.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "f71adaa668c8d70cb1a06518b3661f331e461c9e5748b93c62ac04a0f10eb83b"
+  },
+  "season-Christmas-17": {
+    "id": "season-Christmas-17",
+    "label": "A Christmas miracle",
+    "src": "illustrations/season-Christmas-17.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "64f366e5e58ea6de90eb69afb7111fae9c2c13aafcc3f06f27dac1b734d7e273"
+  },
+  "season-Christmas-18": {
+    "id": "season-Christmas-18",
+    "label": "An unexpected sleigh ride",
+    "src": "illustrations/season-Christmas-18.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "d1d6f859d082c103e93ddd47f3677f17a1daa65190ded7e4f1a9abbb973d222f"
+  },
+  "season-Christmas-19": {
+    "id": "season-Christmas-19",
+    "label": "A family holiday tradition",
+    "src": "illustrations/season-Christmas-19.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "0b10cdb6fabf16e33b53c6b310c4d96443a7fb551d6be889febdbf16e5ab0262"
+  },
+  "season-Christmas-20": {
+    "id": "season-Christmas-20",
+    "label": "Christmas lights everywhere",
+    "src": "illustrations/season-Christmas-20.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c20db48a35663b9fef6844c5a5d95ab46d83282fc0c1684496ce80de8320a728"
+  },
+  "season-Christmas-21": {
+    "id": "season-Christmas-21",
+    "label": "A charming tree farm",
+    "src": "illustrations/season-Christmas-21.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "891b65a0c7f18496739c6107f26897abef8478e71605c0c06c450d07adfd384a"
+  },
+  "season-Christmas-22": {
+    "id": "season-Christmas-22",
+    "label": "An overdecorated small town",
+    "src": "illustrations/season-Christmas-22.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c395d8807343f665219623ef408cb743fb9ed1b8a85131be529c3930ba8b06cd"
+  },
+  "season-Christmas-23": {
+    "id": "season-Christmas-23",
+    "label": "An emotional holiday reunion",
+    "src": "illustrations/season-Christmas-23.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "4a7ae896bcd0db55e7d8cf6c78ee8190a23bbfe47f4ad1b2bfe93de672efcc78"
+  },
+  "season-Christmas-24": {
+    "id": "season-Christmas-24",
+    "label": "A festive kiss",
+    "src": "illustrations/season-Christmas-24.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "ea936692b88a0b221096822377042a335192710bd4cf492f676e4e3435298a43"
+  },
+  "season-Christmas-25": {
+    "id": "season-Christmas-25",
+    "label": "Meddling Santas",
+    "src": "illustrations/season-Christmas-25.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "4512b0d8c0d233465bfb91c232075ab6c8fb91b4e193218d71c0e6346255ff60"
+  },
+  "season-Christmas-26": {
+    "id": "season-Christmas-26",
+    "label": "Snowball fights",
+    "src": "illustrations/season-Christmas-26.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "4739e0e79f26a5ba7b08562d6e6d42b34b56e8f484e1bad5c049b1c4a680de12"
+  },
+  "season-Christmas-27": {
+    "id": "season-Christmas-27",
+    "label": "Snow angels",
+    "src": "illustrations/season-Christmas-27.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "4dd77e4dc94a5f58862412c2845448add032c3899de685d5754b30731c3ef663"
+  },
+  "season-Fall-0": {
+    "id": "season-Fall-0",
+    "label": "Pumpkin patch encounter",
+    "src": "illustrations/season-Fall-0.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "1fec8e5c929b2107bd8ef2e6d81edc1d4349a691922c6fb2d9f19f78788ae914"
+  },
+  "season-Fall-1": {
+    "id": "season-Fall-1",
+    "label": "Apple cider conversation",
+    "src": "illustrations/season-Fall-1.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "03a2bf65368180231aacca73caf35003ad4a44451a91c834e172ca8678950f83"
+  },
+  "season-Fall-2": {
+    "id": "season-Fall-2",
+    "label": "A scenic hayride",
+    "src": "illustrations/season-Fall-2.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b2d35f36e5f4aadc88a15677eae6d548df2d6a3c7224ffcb93125e43d08b7772"
+  },
+  "season-Fall-3": {
+    "id": "season-Fall-3",
+    "label": "Autumn leaves everywhere",
+    "src": "illustrations/season-Fall-3.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "dccf88b7c6a221b7d664d954da30b45bf7841103d1358ab634a20391494e653d"
+  },
+  "season-Fall-4": {
+    "id": "season-Fall-4",
+    "label": "Harvest festival showdown",
+    "src": "illustrations/season-Fall-4.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "98df3a43b3f02daefed2fb88a71efba4c786e52d551580c29f4a179daed29d00"
+  },
+  "season-Fall-5": {
+    "id": "season-Fall-5",
+    "label": "A flannel-clad love interest",
+    "src": "illustrations/season-Fall-5.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "27637bf7aa1d23630b09d76c6e4045798b2c74850b249b53082540f023380191"
+  },
+  "season-Fall-6": {
+    "id": "season-Fall-6",
+    "label": "Bonfire heart-to-heart",
+    "src": "illustrations/season-Fall-6.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "83bef3945c289de82cdd0aa505e3ad8f371abb5ac97992e0998acd27067f98aa"
+  },
+  "season-Fall-7": {
+    "id": "season-Fall-7",
+    "label": "Pie contest rivalry",
+    "src": "illustrations/season-Fall-7.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "1fbbacebaf4ce7af5884f15c41407db0f1cf292e9a600373d0b42aa71995aba4"
+  },
+  "season-Fall-8": {
+    "id": "season-Fall-8",
+    "label": "Corn maze mishap",
+    "src": "illustrations/season-Fall-8.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "829c3d547f0640d67a21a5ce61042f52295c0b9aac8cff14e7808db753122cb8"
+  },
+  "season-Fall-9": {
+    "id": "season-Fall-9",
+    "label": "Pumpkin carving",
+    "src": "illustrations/season-Fall-9.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "810298b9b1bd044b1fa080fc89a3834320cc84a8885cd6b61c4a996a0acefa6e"
+  },
+  "season-Fall-10": {
+    "id": "season-Fall-10",
+    "label": "Family orchard crisis",
+    "src": "illustrations/season-Fall-10.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "a26e0cf9e1e33462410c5988f5ae6606a90861a313e50d7e9300f6a1cd0ca7b7"
+  },
+  "season-Fall-11": {
+    "id": "season-Fall-11",
+    "label": "Apple-picking date",
+    "src": "illustrations/season-Fall-11.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "2faf24aae5bf4cd03ed44d890ea04b1415330d9d20ac915594f3830a6502469f"
+  },
+  "season-Fall-12": {
+    "id": "season-Fall-12",
+    "label": "A cozy sweater",
+    "src": "illustrations/season-Fall-12.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "7f2d33a0210f9c2016b61e9f6a29be503a8e6ec23972a960c5dbdfbcba4bfc17"
+  },
+  "season-Fall-13": {
+    "id": "season-Fall-13",
+    "label": "Fall decorations montage",
+    "src": "illustrations/season-Fall-13.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "558296d797b67a67113ad57fd3948e3e9e49a1ff8f6dcd18c0ec18bc3d0e2115"
+  },
+  "season-Fall-14": {
+    "id": "season-Fall-14",
+    "label": "Small-town fall fair",
+    "src": "illustrations/season-Fall-14.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "6b49d91c110e3ab09db96e5e50f8b674affb627fd997d3643558b9c1fc4cd01e"
+  },
+  "season-Fall-15": {
+    "id": "season-Fall-15",
+    "label": "A farm stand meet-cute",
+    "src": "illustrations/season-Fall-15.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "cca64f8a8876be8c6b258f3d084f3a8e502f7f31c0af60920f7b10ac357950e0"
+  },
+  "season-Fall-16": {
+    "id": "season-Fall-16",
+    "label": "A harvest dance",
+    "src": "illustrations/season-Fall-16.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "6c6348487838dcf389c68a45529238f316ba6c93b8fdbbf4e098de79138c8753"
+  },
+  "season-Fall-17": {
+    "id": "season-Fall-17",
+    "label": "An autumn sunset kiss",
+    "src": "illustrations/season-Fall-17.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "0d59f6ce1c06e13d0fae004ecd74cc8b0e93a1e41844c009e19551f16b276197"
+  },
+  "season-Fall-18": {
+    "id": "season-Fall-18",
+    "label": "Pumpkin spice is mentioned",
+    "src": "illustrations/season-Fall-18.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "42486109a1ec9cc1778c62b98960540ac25a80aa7e53d72070d5a9879ea4e724"
+  },
+  "season-Fall-19": {
+    "id": "season-Fall-19",
+    "label": "A festival deadline",
+    "src": "illustrations/season-Fall-19.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "68a3a17c92e41cabcbd8b73b7e02741aa57d9cf108a9ea2b2deeaf00d9cc27de"
+  },
+  "season-Fall-20": {
+    "id": "season-Fall-20",
+    "label": "Scarecrow sighting",
+    "src": "illustrations/season-Fall-20.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b6acf8e9eca8d8c8632c34e46247609c51e4f3488233e441a34139e3b8207888"
+  },
+  "season-Fall-21": {
+    "id": "season-Fall-21",
+    "label": "A barn party",
+    "src": "illustrations/season-Fall-21.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "918855570cf119fa2bcd2f7b6193b52eb63c2d6846d3b6585a8802297a33bfc1"
+  },
+  "season-Fall-22": {
+    "id": "season-Fall-22",
+    "label": "A leaf-peeping trip",
+    "src": "illustrations/season-Fall-22.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "fcadcc96249527b7cdf65fb610fac8569f87e214708a8e5d725dfc049c1f1ab0"
+  },
+  "season-Fall-23": {
+    "id": "season-Fall-23",
+    "label": "An unexpected autumn storm",
+    "src": "illustrations/season-Fall-23.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "fe45515a2537801c66ca812cdbed55cf4d7351c5cb72427c28c5828030b9432d"
+  },
+  "season-Fall-24": {
+    "id": "season-Fall-24",
+    "label": "A fall tradition",
+    "src": "illustrations/season-Fall-24.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "0ac52334b3d6593163225fe1f8a8a141c0ac0ca6f847faa26070629bae5e8b3b"
+  },
+  "season-Horror-0": {
+    "id": "season-Horror-0",
+    "label": "Someone ignores a clear warning",
+    "src": "illustrations/season-Horror-0.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "01b87cef539505c1b0d7233c5c3049733804974e59d2d2cdb0c10826bb38b90c"
+  },
+  "season-Horror-1": {
+    "id": "season-Horror-1",
+    "label": "A suspiciously unlocked door",
+    "src": "illustrations/season-Horror-1.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "17846e6fe7c19b44a78baae06b98ff30eed79df669a5e21f474bfca43045f980"
+  },
+  "season-Horror-2": {
+    "id": "season-Horror-2",
+    "label": "A creepy basement visit",
+    "src": "illustrations/season-Horror-2.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "f770e5e3b1c71cd047278b4b9987cfe6fcfb02cda0f22498d212f8da01369ab9"
+  },
+  "season-Horror-3": {
+    "id": "season-Horror-3",
+    "label": "Someone splits up",
+    "src": "illustrations/season-Horror-3.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "1de8e44e70bf3a7d7b3e3df2f3d5616e6949aa601ffd7a58b90f1facf340bed9"
+  },
+  "season-Horror-4": {
+    "id": "season-Horror-4",
+    "label": "A flashlight fails",
+    "src": "illustrations/season-Horror-4.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "160830044bc433a4f75d6c4cd9ad8f0a37ec2a6179858dd7832b301622a7f29b"
+  },
+  "season-Horror-5": {
+    "id": "season-Horror-5",
+    "label": "A jump scare",
+    "src": "illustrations/season-Horror-5.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "09f3fd7722e6597281bde004e43c04e4d44dfdfde268636313f5cfe77c373c3e"
+  },
+  "season-Horror-6": {
+    "id": "season-Horror-6",
+    "label": "A power outage",
+    "src": "illustrations/season-Horror-6.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "e7a21076ec675b792167291199efb31a06a28395b85ce072f3374b2b1f5039ac"
+  },
+  "season-Horror-7": {
+    "id": "season-Horror-7",
+    "label": "A mysterious noise",
+    "src": "illustrations/season-Horror-7.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "7fd8218204316c07fc57eb70b7664b7284e338291716bd7fcad443af6ba7421f"
+  },
+  "season-Horror-8": {
+    "id": "season-Horror-8",
+    "label": "A character has no signal",
+    "src": "illustrations/season-Horror-8.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "5b7a8808b38238d7b921b5fb5bcbca259378acdd0ae3953e403caf34c7caaaf2"
+  },
+  "season-Horror-9": {
+    "id": "season-Horror-9",
+    "label": "An ominous reflection",
+    "src": "illustrations/season-Horror-9.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "fc30055b260ebfc101fd1433fafd3ad5163590aa7428e559cbd41f5c6aed0c61"
+  },
+  "season-Horror-10": {
+    "id": "season-Horror-10",
+    "label": "A car refuses to start",
+    "src": "illustrations/season-Horror-10.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "4f97e83bbbfd0b15f50eed63ef3625ff6176e0de96e40ea480d10f843d613b41"
+  },
+  "season-Horror-11": {
+    "id": "season-Horror-11",
+    "label": "A false alarm",
+    "src": "illustrations/season-Horror-11.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b82be820d5b1ca0cd482e378bd851a331c39f64dcb7333af6d8d6d95549d7fb3"
+  },
+  "season-Horror-12": {
+    "id": "season-Horror-12",
+    "label": "A strange symbol",
+    "src": "illustrations/season-Horror-12.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "62f02405af8df94e9ab04eebe12edc42b22d1caf1191d4e2374a3577e4691c89"
+  },
+  "season-Horror-13": {
+    "id": "season-Horror-13",
+    "label": "A locked room",
+    "src": "illustrations/season-Horror-13.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "a3ecec7c8762433565d0305101ef3809ebe84b7176163cd0432e2e3b182b4eb8"
+  },
+  "season-Horror-14": {
+    "id": "season-Horror-14",
+    "label": "A terrifying phone call",
+    "src": "illustrations/season-Horror-14.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "f93756ff30e8bf3131cec3c9faad55a523c247535ea7338085702ba3dc7493a5"
+  },
+  "season-Horror-15": {
+    "id": "season-Horror-15",
+    "label": "An old diary",
+    "src": "illustrations/season-Horror-15.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "9fb86ac33d1b9e8c1481fb85ce316dc419e4e8fe720ecf617be58617dfd2304a"
+  },
+  "season-Horror-16": {
+    "id": "season-Horror-16",
+    "label": "A character runs upstairs",
+    "src": "illustrations/season-Horror-16.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "72bb760ffe69c04882219e8073641677428b615f441f35ddead2f46ac9e85444"
+  },
+  "season-Horror-17": {
+    "id": "season-Horror-17",
+    "label": "A suspicious stranger",
+    "src": "illustrations/season-Horror-17.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c480b6b9d0217a03d8b56e2237f77a0e719aabf05891d71b86f9d1dd9610d8e2"
+  },
+  "season-Horror-18": {
+    "id": "season-Horror-18",
+    "label": "Footsteps with no explanation",
+    "src": "illustrations/season-Horror-18.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "9c53c7ba93920abba9a8a652e3072e3a199d812d51c4ba81d90ed9caaba27da6"
+  },
+  "season-Horror-19": {
+    "id": "season-Horror-19",
+    "label": "A sudden scream",
+    "src": "illustrations/season-Horror-19.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "7fc936ad043b9e77c269b44a08de7d1a9638531fb3d7bef78b5f7b9ebc9f37fe"
+  },
+  "season-Horror-20": {
+    "id": "season-Horror-20",
+    "label": "A door slams",
+    "src": "illustrations/season-Horror-20.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "857e8bf7f63a0e7adacdd482a44b0c773e5d7638f0acba0b9cf53f16abf83aae"
+  },
+  "season-Horror-21": {
+    "id": "season-Horror-21",
+    "label": "An eerie photograph",
+    "src": "illustrations/season-Horror-21.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "f764ef1924820bd3f90f71c5dd05f4d4a239c620584189cbeafe0c87eacafaec"
+  },
+  "season-Horror-22": {
+    "id": "season-Horror-22",
+    "label": "A shadow moves",
+    "src": "illustrations/season-Horror-22.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "be06764e4e8f93f156cc858ddaf7dc54e60f4b1c338c64cd3a37617816e8813e"
+  },
+  "season-Horror-23": {
+    "id": "season-Horror-23",
+    "label": "Someone says it is probably nothing",
+    "src": "illustrations/season-Horror-23.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "63589771a3387f33213dccc37f5bb9d3884bf8a1e8450980938ba80cbf45356f"
+  },
+  "season-Horror-24": {
+    "id": "season-Horror-24",
+    "label": "A final survivor",
+    "src": "illustrations/season-Horror-24.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c46a8b0c9f7ff1e001c99d809912d5d0abed9dcabb47ca3744fe382b5b5cc655"
+  },
+  "free": {
+    "id": "free",
+    "label": "CHEESE LOUISE POD",
+    "src": "illustrations/free.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "4de862886738f719860b287bfea59a1c10923aaff5ae090aff52d85bf2944d27"
+  },
+  "room-someone-changes-their-mind": {
+    "id": "room-someone-changes-their-mind",
+    "label": "Someone changes their mind",
+    "src": "illustrations/room-someone-changes-their-mind.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b5566b695b6134e4e34ce9544eb8b1f5cb401254d147ce7a06bfa0ab736e2fc8"
+  },
+  "room-a-surprise-visitor": {
+    "id": "room-a-surprise-visitor",
+    "label": "A surprise visitor",
+    "src": "illustrations/room-a-surprise-visitor.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "fc00d59635c49d304e2bbeac0c9db5d934d6e00c4ee111f810e290d46068dda3"
+  },
+  "room-an-emotional-reunion": {
+    "id": "room-an-emotional-reunion",
+    "label": "An emotional reunion",
+    "src": "illustrations/room-an-emotional-reunion.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "eefbe632c34e1d687f8847d56271ab271c17d133956c38602c7807e7a96655b6"
+  },
+  "room-a-secret-is-discovered": {
+    "id": "room-a-secret-is-discovered",
+    "label": "A secret is discovered",
+    "src": "illustrations/room-a-secret-is-discovered.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "70bca1f0c9a90bb22ce9d433b35e15c15440e80476919efb02d43a16cb41f2c4"
+  },
+  "room-a-dramatic-exit": {
+    "id": "room-a-dramatic-exit",
+    "label": "A dramatic exit",
+    "src": "illustrations/room-a-dramatic-exit.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "e05d2d5516ce135f515d0fcaec522aed74cca83faf73f1fa06b08b891ef7e0ac"
+  },
+  "room-a-surprise-announcement": {
+    "id": "room-a-surprise-announcement",
+    "label": "A surprise announcement",
+    "src": "illustrations/room-a-surprise-announcement.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "f85ede50243058101bc1f1770fe9d84f697677a43f053c1cecdc244381b3171b"
+  },
+  "room-a-major-change-of-plans": {
+    "id": "room-a-major-change-of-plans",
+    "label": "A major change of plans",
+    "src": "illustrations/room-a-major-change-of-plans.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "96e4c7970efc20026f71f41d217cdebbd5cc0af5c1da99fd12168f1c4f58d646"
+  },
+  "room-second-chance-at-love": {
+    "id": "room-second-chance-at-love",
+    "label": "Second chance at love",
+    "src": "illustrations/room-second-chance-at-love.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "a6907e4ad523cd45748b350f6b1d53983e323b93ca7741986dcc165d94338212"
+  },
+  "room-unexpected-reunion": {
+    "id": "room-unexpected-reunion",
+    "label": "Unexpected reunion",
+    "src": "illustrations/room-unexpected-reunion.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "bc52506e1da6c53f4d8ee7e9fd1b0a3c9821917cbcf41500765ab102e30d8126"
+  },
+  "room-first-dance": {
+    "id": "room-first-dance",
+    "label": "First dance",
+    "src": "illustrations/room-first-dance.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "522dd8155dcbef911a8055f28a7c4a2f08b2dc03b43fee94f196a48c6c5c0219"
+  },
+  "room-a-shared-meal": {
+    "id": "room-a-shared-meal",
+    "label": "A shared meal",
+    "src": "illustrations/room-a-shared-meal.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "09c6a3eba3f14d2e3fcde067c836403ddd0d70838e8d1118ebf8d2821aa9acd2"
+  },
+  "room-a-surprise-invitation": {
+    "id": "room-a-surprise-invitation",
+    "label": "A surprise invitation",
+    "src": "illustrations/room-a-surprise-invitation.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "e64bf2684398885ff0c50f9d469aacf788410b7fba350954972f5886cf5244d0"
+  },
+  "room-a-meaningful-gift": {
+    "id": "room-a-meaningful-gift",
+    "label": "A meaningful gift",
+    "src": "illustrations/room-a-meaningful-gift.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "ec528a6a4d81cb5cefaa41265c4ab6cdf6cc6657a90232e588f1209905a8d437"
+  },
+  "room-a-romantic-confession": {
+    "id": "room-a-romantic-confession",
+    "label": "A romantic confession",
+    "src": "illustrations/room-a-romantic-confession.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "059c19a00bc260a64076de7c3d6b25e2d83e5f68464d5278369ae6c6ca75d5f1"
+  },
+  "room-a-heartfelt-apology": {
+    "id": "room-a-heartfelt-apology",
+    "label": "A heartfelt apology",
+    "src": "illustrations/room-a-heartfelt-apology.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "6954a2b683daae9f5f3f0aaf76c8541c8b83b304b74ddaa9f0116c5d5bb3ce38"
+  },
+  "room-a-secret-crush": {
+    "id": "room-a-secret-crush",
+    "label": "A secret crush",
+    "src": "illustrations/room-a-secret-crush.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "5b52dd76d77847dad179443346d53d9f51b13aacacb138f87319786f7a639df6"
+  },
+  "room-a-chance-encounter": {
+    "id": "room-a-chance-encounter",
+    "label": "A chance encounter",
+    "src": "illustrations/room-a-chance-encounter.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c300489212089f1c6c2ec984fa1f654bfdc07decd9d1d1917a6fc5a95451f879"
+  },
+  "room-an-unexpected-phone-call": {
+    "id": "room-an-unexpected-phone-call",
+    "label": "An unexpected phone call",
+    "src": "illustrations/room-an-unexpected-phone-call.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "8dc901dacaf5b4644d77c8c7cfa15ed73bc1ec894fa9a0b1778d0431f9ddc876"
+  },
+  "room-a-thoughtful-surprise": {
+    "id": "room-a-thoughtful-surprise",
+    "label": "A thoughtful surprise",
+    "src": "illustrations/room-a-thoughtful-surprise.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "5eefe5104ede5c994848d66f5119c27d9583d9e9a87f530093a76e40b359d055"
+  },
+  "room-a-missed-connection": {
+    "id": "room-a-missed-connection",
+    "label": "A missed connection",
+    "src": "illustrations/room-a-missed-connection.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "511849ac555de51e666f18199fceca736eff153f4f16acd728b19d8bc4c882ae"
+  },
+  "room-an-emotional-goodbye": {
+    "id": "room-an-emotional-goodbye",
+    "label": "An emotional goodbye",
+    "src": "illustrations/room-an-emotional-goodbye.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "2ba593a162cdb433c1a2b4ab19d4aa7966d82622f84cfb9be50d8a357fe1f5f4"
+  },
+  "room-a-long-awaited-kiss": {
+    "id": "room-a-long-awaited-kiss",
+    "label": "A long-awaited kiss",
+    "src": "illustrations/room-a-long-awaited-kiss.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "d3bf090a3de8a2fed83671a671734a792b5018fd49a314e8d62e64cdcc6b8179"
+  },
+  "room-a-change-of-heart": {
+    "id": "room-a-change-of-heart",
+    "label": "A change of heart",
+    "src": "illustrations/room-a-change-of-heart.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "21e7f52f85730b7edfab25918acf530c1db5040bba9eb74e245cc70b5d1353bf"
+  },
+  "room-a-difficult-choice": {
+    "id": "room-a-difficult-choice",
+    "label": "A difficult choice",
+    "src": "illustrations/room-a-difficult-choice.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "f8ec913f037a915e0e50a9a33fa3a03b9db60fa255b20c7e128b1b43fbbb131d"
+  },
+  "room-a-romantic-getaway": {
+    "id": "room-a-romantic-getaway",
+    "label": "A romantic getaway",
+    "src": "illustrations/room-a-romantic-getaway.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "9dc293c9f8b65f29bba64d15172a1a85aea22714d4a079065ccebb1c13e566f8"
+  },
+  "room-a-special-celebration": {
+    "id": "room-a-special-celebration",
+    "label": "A special celebration",
+    "src": "illustrations/room-a-special-celebration.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "750aea4fb6ee80628095cb260fd32b0b65093f268cf542be66fa5bcd911536a1"
+  },
+  "room-a-meaningful-photograph": {
+    "id": "room-a-meaningful-photograph",
+    "label": "A meaningful photograph",
+    "src": "illustrations/room-a-meaningful-photograph.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "9459dbb68c5e319c149f1aa669e41327d1cdda2ace56544562cd973ce988d3af"
+  },
+  "room-an-awkward-introduction": {
+    "id": "room-an-awkward-introduction",
+    "label": "An awkward introduction",
+    "src": "illustrations/room-an-awkward-introduction.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "4b268dce08f9aea18156fd01f9cedb18ba1a9daf0e4c9579218bc8a695a3cad2"
+  },
+  "room-an-unexpected-date": {
+    "id": "room-an-unexpected-date",
+    "label": "An unexpected date",
+    "src": "illustrations/room-an-unexpected-date.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "3b4c6db303b69e43540c8948331674d3dbe7282cabe995494613934a96735f7f"
+  },
+  "room-a-moment-of-honesty": {
+    "id": "room-a-moment-of-honesty",
+    "label": "A moment of honesty",
+    "src": "illustrations/room-a-moment-of-honesty.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "59d0ef57568164353c96bfb1fc79c32552a1e3cd56ca6b399508f73398486606"
+  },
+  "room-a-supportive-friend": {
+    "id": "room-a-supportive-friend",
+    "label": "A supportive friend",
+    "src": "illustrations/room-a-supportive-friend.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "4833255eaaa8cd378f2ae2b99681492e165d94a1a62791e8bebb84c9350f3798"
+  },
+  "room-a-chance-to-start-over": {
+    "id": "room-a-chance-to-start-over",
+    "label": "A chance to start over",
+    "src": "illustrations/room-a-chance-to-start-over.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b045d34c54cc965ed1cb78a15a25541a8b74bf067187380cb5c2b9033bc88599"
+  },
+  "room-an-important-letter": {
+    "id": "room-an-important-letter",
+    "label": "An important letter",
+    "src": "illustrations/room-an-important-letter.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "55c0d359633315d5fd918c31b6f9e5db5436a109b9c52695cc8bf86509a25ab4"
+  },
+  "room-a-shared-tradition": {
+    "id": "room-a-shared-tradition",
+    "label": "A shared tradition",
+    "src": "illustrations/room-a-shared-tradition.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "22a75cb6cac412c5e2f22606399d3f5eb9cf99b6ad60f707c656d57608a84d04"
+  },
+  "room-a-happy-ending": {
+    "id": "room-a-happy-ending",
+    "label": "A happy ending",
+    "src": "illustrations/room-a-happy-ending.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "ddf8c40f557cc86fe12aea047eb73de215f38f69a3fe86437e76128592296b94"
+  },
+  "room-a-festive-party": {
+    "id": "room-a-festive-party",
+    "label": "A festive party",
+    "src": "illustrations/room-a-festive-party.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "af7589cf970c5ebbbe766c8391b4729ec1a064f2259c1a4f202c702c27c3d344"
+  },
+  "room-a-christmas-ornament": {
+    "id": "room-a-christmas-ornament",
+    "label": "A Christmas ornament",
+    "src": "illustrations/room-a-christmas-ornament.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "f8334c357002f2c56517a30a1868ea6187e54ff46841b79a5ba8326316e01251"
+  },
+  "room-a-surprise-present": {
+    "id": "room-a-surprise-present",
+    "label": "A surprise present",
+    "src": "illustrations/room-a-surprise-present.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "3b87f7f44916fa70d5da3c0775fd1ceba6db4c5b31b74d1e6aff23302e9e0bc1"
+  },
+  "room-autumn-sunset": {
+    "id": "room-autumn-sunset",
+    "label": "Autumn sunset",
+    "src": "illustrations/room-autumn-sunset.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "980444854e33016d536951573bcb11b3f12aab54712e7da4c6b3e7e2f06d4381"
+  },
+  "room-apple-pie": {
+    "id": "room-apple-pie",
+    "label": "Apple pie",
+    "src": "illustrations/room-apple-pie.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c6ff60ea3939cfe20e8ee6c66713980e76150c99b1c08b74714eafa1eab16618"
+  },
+  "room-a-fall-romance": {
+    "id": "room-a-fall-romance",
+    "label": "A fall romance",
+    "src": "illustrations/room-a-fall-romance.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "20a2be1b9f909087c9916501fc504a8f709e368b58126d967256224b8ff13ec2"
+  },
+  "room-crisp-autumn-morning": {
+    "id": "room-crisp-autumn-morning",
+    "label": "Crisp autumn morning",
+    "src": "illustrations/room-crisp-autumn-morning.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "22d60829d7396e1c3664da899ed67299dd317613951eb249ff06c14d49a2fee8"
+  },
+  "archive-room-an-ominous-warning": {
+    "id": "archive-room-an-ominous-warning",
+    "label": "An ominous warning",
+    "src": "illustrations/archive-room-an-ominous-warning.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b88dd299c0b70624cd3c43510e6656e1fb8a7798aa4f3ef9faa89a5def65cae8"
+  },
+  "archive-room-a-creepy-doll": {
+    "id": "archive-room-a-creepy-doll",
+    "label": "A creepy doll",
+    "src": "illustrations/archive-room-a-creepy-doll.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "e36f529f9585709579058c48ca796bacf93958628a44cee3e815bf71b925cf12"
+  },
+  "archive-room-abandoned-house": {
+    "id": "archive-room-abandoned-house",
+    "label": "Abandoned house",
+    "src": "illustrations/archive-room-abandoned-house.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "64f597dc554a2ec04a3b90b24b1431bea64ef5736089dec1716637109baab0f7"
+  }
+}

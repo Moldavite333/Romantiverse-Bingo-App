@@ -1,3 +1,2 @@
-// Compatibility entrypoint: dedicated local scene asset, never a category fallback.
-import {requireIllustration} from './illustrationRegistry.mjs';
-export function tropeArtDataUri(trope){return requireIllustration(trope).src;}
+// Compatibility export for public web renderers; no legacy icon fallback.
+export {tropeArtDataUri,illustrationFor,ILLUSTRATIONS} from './illustrations.mjs';

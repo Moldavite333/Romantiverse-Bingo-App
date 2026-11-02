@@ -12,8 +12,8 @@ test('all bundled active IDs and labels have individually briefed unique assignm
  assert.equal(paths.size,90);
 });
 test('lookup uses IDs, supports deployment subpaths, and never infers art from labels',()=>{
- assert.equal(resolveIllustration({id:'coincidence',label:'arbitrary display label'},{base:'/bingo/'}).src,'/bingo/illustrations/coincidence.webp');
- const missing=[];assert.equal(resolveIllustration({id:'cl-external',label:'A Christmas wish'},{onMissing:e=>missing.push(e)}),null);
+ assert.equal(resolveIllustration({id:'coincidence',label:'  A coincidence  '},{base:'/bingo/'}).src,'/bingo/illustrations/coincidence.webp');
+ const missing=[];assert.equal(resolveIllustration({id:'cl-external',label:'Unreviewed editorial trait'},{onMissing:e=>missing.push(e)}),null);
  assert.equal(missing[0].reason,'unregistered');assert.throws(()=>requireIllustration({id:'missing'}),/Missing dedicated illustration/);
  assert.ok(resolveIllustration({id:'season-Horror-0'}));
 });

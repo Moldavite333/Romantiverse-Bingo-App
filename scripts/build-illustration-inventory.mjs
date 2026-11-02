@@ -36,4 +36,12 @@ for(const e of entries){
 }
 writeFileSync('src/art/illustrations.json',JSON.stringify(entries,null,2)+'\n');
 writeFileSync('src/art/room-illustration-aliases.json',JSON.stringify(aliases,null,2)+'\n');
+// Preserve the public registry API used by contact sheets and the larger-art guide.
+const compatible=Object.fromEntries(entries.map(e=>[e.id,{id:e.id,label:e.label,src:e.asset,status:e.reviewed?'ready':'pending',width:384,height:384,assetSha256:e.assetSha256}]));
+writeFileSync('src/engine/illustrationRegistry.json',JSON.stringify(compatible,null,2)+'\n');
+writeFileSync('src/engine/roomIllustrationAliases.json',JSON.stringify(aliases,null,2)+'\n');
+mkdirSync('docs/artwork',{recursive:true});
+const promptPath='docs/illustrations/generation-prompts.json';
+const prompts=existsSync(promptPath)?JSON.parse(readFileSync(promptPath,'utf8')).prompts:[];
+writeFileSync('docs/artwork/scene-briefs.json',JSON.stringify(entries.map(e=>({id:e.id,label:e.label,brief:e.scene,prompt:prompts.find(p=>p.id===e.id)?.prompt||e.scene})),null,2)+'\n');
 console.log(`${entries.filter(t=>t.active&&t.id!=='free').length} active tropes; ${entries.filter(t=>!t.active).length} archived; dedicated branded center.`);

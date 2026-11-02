@@ -57,3 +57,15 @@ test('service worker does not intercept requests outside app scope',async()=>{
  const result=await h.dispatch('fetch',new Request(ORIGIN+'/another-app/private.json'));
  assert.equal(result,undefined);
 });
+
+test('viewed public scene illustrations remain available offline without caching query parameters',async()=>{
+ const h=harness();await h.dispatch('install');
+ const request=new BrowserRequest(ORIGIN+'/illustrations/meet-cute.webp');
+ const online=await h.dispatch('fetch',request);
+ assert.equal(await online.text(),'asset /illustrations/meet-cute.webp');
+ await h.dispatch('fetch',new BrowserRequest(ORIGIN+'/illustrations/meet-cute.webp?room=ABC1234'));
+ assert.ok(![...h.stores.values()][0].has(ORIGIN+'/illustrations/meet-cute.webp?room=ABC1234'));
+ h.setOnline(false);
+ const offline=await h.dispatch('fetch',request);
+ assert.equal(await offline.text(),'asset /illustrations/meet-cute.webp');
+});
