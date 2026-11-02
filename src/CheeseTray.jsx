@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import {loadCheeseTray,submitCheeseTray} from './services/cheeseTray.js';
+import StoryArtwork from './StoryArtwork.jsx';
 const NICK='cheese-tray-nickname-v1',DEVICE='cheese-tray-device-v1';
 function device(){let id=localStorage.getItem(DEVICE);if(!id){id=crypto.randomUUID();localStorage.setItem(DEVICE,id)}return id}
 export default function CheeseTray({game,submit=false}){
@@ -14,7 +15,7 @@ export default function CheeseTray({game,submit=false}){
  }catch(e){setError(e.message)}finally{setBusy(false)}}
  const lineCount=game?.marked?(()=>{const m=new Set(game.marked);if(game.free)m.add(12);let n=0;for(let r=0;r<5;r++)if(Array.from({length:5},(_,c)=>r*5+c).every(i=>m.has(i)))n++;for(let c=0;c<5;c++)if(Array.from({length:5},(_,r)=>r*5+c).every(i=>m.has(i)))n++;if([0,6,12,18,24].every(i=>m.has(i)))n++;if([4,8,12,16,20].every(i=>m.has(i)))n++;return n})():0;
  return <section className="panel cheese-tray" aria-label="Community leaderboard">
-  <div className="eyebrow">CHEESE LOUISE COMMUNITY</div><h2>🏆 The Cheese Tray</h2>
+  <div className="eyebrow">CHEESE LOUISE COMMUNITY</div><div className="tray-title"><StoryArtwork id="free" className="tray-brand"/><h2>The Cheese Tray</h2></div>
   <p>Only completed Bingo lines score: 100 points per line, up to 1,200 for a blackout. One best result per player per movie, with no weekly reset. Replay to improve your score. No account needed.</p>
   {submit&&game?.completed&&lineCount>0&&<div className="tray-submit"><h3>Join the fan leaderboard</h3><p>Choose a public nickname. By submitting, you agree that we may display your nickname and mention it on the Cheese Louise podcast.</p><form onSubmit={enter}><input aria-label="Public player nickname" placeholder="Your public nickname" value={nickname} maxLength={24} onChange={e=>setNickname(e.target.value)} required pattern="[A-Za-z0-9][A-Za-z0-9 _.-]{1,23}"/><button className="primary" disabled={busy||sent}>{sent?'Score submitted':busy?'Submitting…':`Submit ${lineCount*100} points`}</button></form></div>}
   <p className="fineprint">All-time standings · one best score per movie</p>

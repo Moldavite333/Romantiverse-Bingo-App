@@ -1,8 +1,8 @@
 // Offline-ready static app shell. Room state and private tokens are never cached.
-const CACHE='romantiverse-v7-scene-art';
+const CACHE='romantiverse-v8-storybook-ui';
 const BASE='/';
 const SHELL=BASE+'index.html';
-const PRECACHE=[BASE+'catalog/movies.json',BASE+'manifest.webmanifest',BASE+'icon.svg',BASE+'illustrations/manifest.json'];
+const PRECACHE=[BASE+'catalog/movies.json',BASE+'manifest.webmanifest',BASE+'icon.svg',BASE+'icon-192.png',BASE+'icon-512.png',BASE+'illustrations/manifest.json'];
 
 self.addEventListener('install',event=>{
  event.waitUntil((async()=>{

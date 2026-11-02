@@ -7,6 +7,7 @@ import {approvedMoviePoster} from './engine/posters.mjs';
 import {copyRoomInvite,shareRoomInvite,roomInviteMessage} from './engine/shareRoomInvite.mjs';
 import {normalizeRoomCode,parseRoomInvite,roomInviteUrl} from './engine/roomInvites.mjs';
 import TropeIllustration from './TropeIllustration.jsx';
+import StoryArtwork from './StoryArtwork.jsx';
 import {nextPlayerSnapshot} from './engine/roomState.mjs';
 import {winningLines} from './engine/bingo.mjs';
 import {LAUNCH_THEMES,isLaunchMovie} from './engine/launchCollections.mjs';
@@ -19,7 +20,7 @@ function MovieDetails({movie,theme,heading='TONIGHT’S MOVIE'}){
  const poster=approvedMoviePoster(movie);
  const collection=movie.movie_collection||movie.season||'Unspecified';
  return <div className="room-movie-details" aria-label="Selected multiplayer movie">
-  {poster?<img className="room-movie-poster" src={poster.url} alt={title+' movie poster'} referrerPolicy="no-referrer" decoding="async" onError={e=>{e.currentTarget.hidden=true}}/>:<div className="room-movie-placeholder" aria-hidden="true">🎬</div>}
+  {poster?<img className="room-movie-poster" src={poster.url} alt={title+' movie poster'} referrerPolicy="no-referrer" decoding="async" onError={e=>{e.currentTarget.hidden=true}}/>:<div className="room-movie-placeholder" aria-hidden="true"><StoryArtwork id="free"/></div>}
   <div className="room-movie-copy"><small>{heading}</small><strong>{title}</strong>{Number.isInteger(movie.release_year)&&<span>{movie.release_year}</span>}
    <span>Collection: {collection==='Unspecified'?'Unverified':collection}</span><span>Bingo theme: {theme||'Romance'}</span>
   </div></div>;
@@ -108,12 +109,12 @@ const hostForm=<section className="room-host-panel" aria-label="Host a game"><h3
   <label htmlFor="host-mode">Game mode</label><select id="host-mode" value={hostMode} onChange={e=>setHostMode(e.target.value)}><option value="classic">Classic Bingo</option><option value="chase">Cheese Chase</option><option value="blackout">Blackout</option><option value="marathon">Movie Marathon</option></select>
   <button className="primary room-create-button" disabled={!name.trim()||!chosen?.title||busy} onClick={()=>call('create',{name:name.trim(),movie_title:chosen.title,movie_collection:chosen.season||'Unspecified',poster_url:approvedMoviePoster(chosen)?.url||null,release_year:Number.isInteger(chosen.release_year)?chosen.release_year:null,season:theme,mode:hostMode})}>Create Room</button>
  </section>;
-return <section className="panel multiplayer"><div className="eyebrow">LIVE MOVIE NIGHT</div><h2>Play Together</h2>
-<p>No accounts or passwords. The host chooses the movie and Bingo theme; guests enter a nickname and receive their own randomized cards.</p>
+return <section className={'panel multiplayer'+(session?' has-session':'')}><div className="eyebrow">LIVE MOVIE NIGHT</div><h2>Play Together</h2>
+<p className="multiplayer-intro">No accounts or passwords. The host chooses the movie and Bingo theme; guests enter a nickname and receive their own randomized cards.</p>
 {session?<>
  {incomingRoomCode&&incomingRoomCode!==session.code&&<p role="status" className="room-error">This device is still in room {session.code}. <button type="button" onClick={leave}>Switch to invited room {incomingRoomCode}</button></p>}
  <MovieDetails movie={room} theme={room?.season} heading="YOUR SHARED MOVIE"/>
- <div className="room-header"><div><small>YOUR ROOM CODE</small><strong>{session.code}</strong></div><button onClick={leave}>Leave This Device</button></div>
+ <div className={'live-game-layout '+(room?.status==='playing'?'is-playing':'')}><aside className="room-console"><div className="room-header"><div><small>YOUR ROOM CODE</small><strong>{session.code}</strong></div><button onClick={leave}>Leave This Device</button></div>
  {inviteLink&&<div className="room-invite"><label htmlFor="room-invite-url">Invite friends with this unique room link</label>
   <input ref={inviteInput} id="room-invite-url" aria-label="Room invitation link" readOnly value={inviteLink} onFocus={e=>e.target.select()} onClick={e=>e.currentTarget.select()}/>
   <div className="room-invite-controls"><button className="primary" type="button" onClick={copyInviteLink}>Copy Invite Link</button><button type="button" onClick={shareInviteLink}>Share Invite</button><button type="button" onClick={()=>{setManualInvite(true);setNotice("Use the selectable invitation text below if Samsung blocks copying.");}}>Copy Manually</button></div>
@@ -123,11 +124,12 @@ return <section className="panel multiplayer"><div className="eyebrow">LIVE MOVI
  <p><strong>{room?.movie_title||'Loading movie…'}</strong> · {room?.status||'connecting'}</p>
  <div className="player-list" aria-label="Players in room">{room?.players?.map(p=><div key={p.id}><strong>{p.name}{p.id===session.player_id?' (you)':''}</strong><span>{p.lines} lines · {p.marked} marked</span></div>)}</div>
  {room?.status==='lobby'&&<><p>Wait until everyone has joined before starting the movie.</p><button className="primary" disabled={busy} onClick={()=>call('start')}>Start Movie (host only)</button></>}
- {card&&<><div className={"board live-board"+(celebrate?" winner":"")} role="group" aria-label="Multiplayer Bingo card" aria-busy={pending}>{'BINGO'.split('').map((l,i)=><div className="letter" key={'letter-'+i}>{l}</div>)}{card.map((t,i)=>{const marked=i===12||marks.includes(i);return <button key={i} className={'square '+(marked?'marked ':'')+(winningIndices.has(i)?'in-line':'')} aria-label={'BINGO'[i%5]+(Math.floor(i/5)+1)+': '+(i===12?'CHEESE LOUISE POD':t.label)+(i===12?' (free center square)':'')} aria-pressed={marked} aria-disabled={pending||room?.status!=='playing'||i===12} disabled={room?.status!=='playing'||i===12} onClick={()=>mark(i)} title={t.reason||t.label}><TropeIllustration trope={t}/><span className="square-label">{i===12?'CHEESE LOUISE POD':t.label}</span>{marked&&<b aria-hidden="true">✦</b>}</button>})}</div><p className="fineprint" aria-live="polite">{myLines} completed lines. Marks are saved on the server and restored after reconnection.</p>{celebrate&&<div className="victory" role="status"><h3>{room?.mode==='blackout'?'Blackout!':'BINGO!'}</h3><p>{myLines} completed {myLines===1?'line':'lines'} on your card.</p></div>}</>}
+ </aside><div className="live-game-table">
+ {card&&<><div className={"board live-board"+(celebrate?" winner":"")} role="group" aria-label="Multiplayer Bingo card" aria-busy={pending}>{'BINGO'.split('').map((l,i)=><div className="letter" key={'letter-'+i}>{l}</div>)}{card.map((t,i)=>{const marked=i===12||marks.includes(i);return <button key={i} className={'square '+(i===12?'is-free ':'')+(marked?'marked ':'')+(winningIndices.has(i)?'in-line':'')} aria-label={'BINGO'[i%5]+(Math.floor(i/5)+1)+': '+(i===12?'CHEESE LOUISE POD':t.label)+(i===12?' (free center square)':'')} aria-pressed={marked} aria-disabled={pending||room?.status!=='playing'||i===12} disabled={room?.status!=='playing'||i===12} onClick={()=>mark(i)} title={t.reason||t.label}><TropeIllustration trope={t}/><span className="square-label">{i===12?'CHEESE LOUISE POD':t.label}</span>{marked&&<b aria-hidden="true">✓</b>}</button>})}</div><p className="fineprint" aria-live="polite">{myLines} completed lines. Marks are saved on the server and restored after reconnection.</p>{celebrate&&<div className="victory" role="status"><h3>{room?.mode==='blackout'?'Blackout!':'BINGO!'}</h3><p>{myLines} completed {myLines===1?'line':'lines'} on your card.</p></div>}</>}
  {room?.status==='playing'&&<button disabled={busy} onClick={()=>call('finish')}>Finish Movie (host only)</button>}
  {room?.status==='finished'&&<p>Movie night complete. Results are preserved until the room expires.</p>}
-</>:<>
+</div></div></>:<div className="room-forms">
  {incomingRoomCode?<>{joinForm}{hostForm}</>:<>{hostForm}{joinForm}</>}
-</>}
+</div>}
 {error&&<p role="alert" className="room-error">{error}</p>}{notice&&<p role="status" className="room-notice">{notice}</p>}
 <p className="fineprint">Free multiplayer early access · Up to 12 players · Room expires after 12 hours · No chat or automatic scene verification.</p></section>}
