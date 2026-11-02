@@ -33,4 +33,4 @@ Workshop now shows the actual assigned illustrations, including thumbnail sugges
 - Screens with real posters used only the game's existing public poster projection and approved image hosts. Deterministic regression runs also exercised absent and broken posters.
 - Screenshots are real browser captures. Testing used Chrome with mobile/touch-sized windows, not a physical Android device.
 
-Publication remains pending explicit authorization after the previous automatic approval review rejected the GitHub push. These changes are local and reviewable; no remote branch, PR or deployment was created.
+The release pipeline runs the regression, image-content and browser checks before publication. After deployment, it verifies the public HTML, scripts, styles, catalog and every active illustration against the checked build, then exercises a real two-player room.
