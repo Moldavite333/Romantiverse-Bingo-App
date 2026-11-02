@@ -1,3 +1,4 @@
+import './hq-results-link.js';
 import React,{useEffect,useMemo,useState} from 'react';
 import{createRoot}from'react-dom/client';
 import{score,toggle,winningLines}from './engine/bingo.mjs';
@@ -180,3 +181,4 @@ createRoot(document.getElementById('root')).render(<App/>);
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js',{updateViaCache:'none'}).catch(()=>{}));}
 
 import './illustrations.css';
+
