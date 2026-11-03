@@ -104,3 +104,109 @@ footer{border-top:1px solid var(--rom-rule);margin-top:36px;padding:26px 0 28px;
 .square.saving{border-style:dashed}
 .app>section[aria-label="Saved games"]{padding:20px 24px;margin-bottom:22px}
 .app>section[aria-label="Saved games"] h2{font-size:25px}
+
+
+/*
+ * Card-first play layout (2026-11-03)
+ * Playing the game should prioritize the 5x5 card, not the companion sidebar.
+ * Keep all controls and explanations available below it; no game logic changes.
+ */
+.view-play.main-content{max-width:1160px}
+.view-play .game-layout,
+.live-game-layout.is-playing{
+  grid-template-columns:minmax(0,1fr);
+  gap:16px;
+}
+.view-play .game-table,
+.live-game-layout.is-playing .live-game-table{
+  width:100%;
+  max-width:920px;
+  margin-inline:auto;
+  min-width:0;
+}
+.live-game-layout.is-playing .live-game-table{
+  grid-column:1;
+  grid-row:1;
+}
+.live-game-layout.is-playing .room-console{
+  grid-column:1;
+  grid-row:2;
+  min-width:0;
+}
+.view-play .game-companion{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  align-items:start;
+  gap:14px;
+}
+.view-play .game-companion .night-note{grid-row:auto}
+.view-play .game-companion .intelligence-panel,
+.view-play .game-companion>.fineprint,
+.view-play .game-companion>.room-invite,
+.view-play .game-companion>.victory{grid-column:1/-1}
+.view-play .game-companion .play-actions{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px;
+}
+.view-play .game-companion .play-actions button:last-child{grid-column:auto}
+
+/* Reduce non-playing chrome while preserving navigation and movie identity. */
+.view-play>.masthead{padding:12px 0}
+.view-play .masthead-note{display:none}
+.view-play .brand-portrait{width:44px;height:44px}
+.view-play .masthead h1{font-size:clamp(23px,3vw,31px);margin:3px 0}
+.view-play>.nav{padding:6px 0;margin-bottom:9px}
+.view-play .play-heading{padding:4px 0 8px;margin-bottom:8px}
+.view-play .play-heading h2{font-size:clamp(23px,3vw,33px);margin:3px 0}
+.view-play .play-heading p{display:none}
+.view-play .game-table{padding:clamp(5px,1vw,12px)}
+.view-play .score-strip{margin-bottom:5px}
+
+@media(max-width:700px){
+  .view-play .game-companion{grid-template-columns:1fr}
+  .view-play .game-companion .intelligence-panel,
+  .view-play .game-companion>.fineprint,
+  .view-play .game-companion>.room-invite,
+  .view-play .game-companion>.victory{grid-column:1}
+  .view-play .game-companion .play-actions{order:-1}
+}
+@media(max-width:480px){
+  /* Every unnecessary pixel of padding costs the five-column board space. */
+  .view-play.app{padding-inline:5px}
+  .view-play>.nav{
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    overscroll-behavior-inline:contain;
+    gap:5px;
+    margin-bottom:7px;
+  }
+  .view-play>.nav button{
+    flex:0 0 auto;
+    min-height:40px;
+    padding:8px 10px;
+  }
+  .view-play .game-table{padding:4px}
+  .view-play .board{gap:2px;padding:3px}
+  .view-play .table-heading{margin-bottom:5px}
+  .view-play .table-heading>span+span{display:none}
+  .view-play .score-strip{min-height:30px;padding:5px 0}
+  .view-play .square{
+    min-height:91px;
+    padding:3px 1px;
+    gap:3px;
+  }
+  .view-play .square-art{width:clamp(30px,62%,66px);max-width:100%}
+  .view-play .square-label{
+    min-height:0;
+    font-size:clamp(8px,2.15vw,10px);
+    line-height:1.12;
+    padding-inline:0;
+  }
+  .live-game-layout.is-playing .game-table{padding:4px}
+  .live-game-layout.is-playing .board{gap:2px;padding:3px}
+  .live-game-layout.is-playing .square{min-height:91px;padding:3px 1px;gap:3px}
+  .live-game-layout.is-playing .square-art{width:clamp(30px,62%,66px);max-width:100%}
+  .live-game-layout.is-playing .square-label{min-height:0;font-size:clamp(8px,2.15vw,10px);line-height:1.12}
+}

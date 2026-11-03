@@ -48,9 +48,21 @@ try{
   await page.waitForFunction(()=>{const images=[...document.querySelectorAll('.board .square-art')];return images.length===25&&images.every(i=>i.complete&&i.naturalWidth===384)});
   await check('game',true);
   const squareContrast=await contrast('.square:not(.marked)');
-  const layout=await page.locator('.game-layout').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);
-  if(width>=1100)assert.equal(layout,2,'Desktop uses a companion column');
-  if(width<900)assert.equal(layout,1,'Mobile stacks card and companion');
+  // The card is the primary play surface at every viewport; secondary controls belong below.
+  const playGeometry=await page.locator('.game-layout').evaluate(el=>{
+   const board=el.querySelector('.board').getBoundingClientRect();
+   const companion=el.querySelector('.game-companion').getBoundingClientRect();
+   return {columns:getComputedStyle(el).gridTemplateColumns.trim().split(/\\s+/).length,
+    boardWidth:board.width,boardBottom:board.bottom,companionTop:companion.top,
+    boardLeft:board.left,boardRight:board.right};
+  });
+  assert.equal(playGeometry.columns,1,'Playing card owns the primary full-width row');
+  assert.ok(playGeometry.companionTop>=playGeometry.boardBottom-2,
+   'Companion controls appear below the board');
+  assert.ok(playGeometry.boardWidth>=Math.min(width-42,700),
+   `Card must stay readable at ${width}px: ${JSON.stringify(playGeometry)}`);
+  assert.ok(playGeometry.boardLeft>=0&&playGeometry.boardRight<=width+2,
+   'Full Bingo card fits horizontally without clipping');
   await page.locator('.board .square').first().click();
   await page.locator('.game-table').screenshot({path:`${out}/selected-${width}.png`,animations:'disabled'});
   const markedContrast=await contrast('.square.marked:not(.is-free)');
