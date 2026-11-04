@@ -1,0 +1,13 @@
+.board-screen-toggle{margin-left:auto;white-space:nowrap}
+@media(max-width:899px){.board-screen-toggle{display:none}}
+.board-screen .board-screen-toggle{display:block}
+/* A dedicated laptop view: full screen area, with pictures beside labels. */
+.view-play .game-table.board-screen{position:fixed;inset:0;z-index:1000;width:100%;height:100dvh;max-width:none;margin:0;padding:10px;display:flex;flex-direction:column;gap:4px;border:0;border-radius:0;overflow:hidden;background:var(--rom-cream)}
+.view-play .board-screen .table-heading{margin:0;min-height:40px;flex:none}
+.view-play .board-screen .table-heading>span+span,.view-play .board-screen .card-caption,.view-play .board-screen .card-art-guide{display:none}
+.view-play .board-screen .score-strip{min-height:24px;padding:2px 0;margin:0;flex:none}
+.view-play .board-screen .board{flex:1;min-height:0;grid-template-rows:26px repeat(5,minmax(0,1fr));gap:4px;padding:5px}
+.view-play .board-screen .letter{font-size:22px;padding:0;line-height:26px}
+.view-play .board-screen .board .square{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);min-height:0;padding:3px;gap:5px}
+.view-play .board-screen .board .square-art{width:100%;height:100%;min-height:0;object-fit:contain;aspect-ratio:auto}
+.view-play .board-screen .board .square-label{font-size:clamp(10px,1.05vw,16px);min-height:0;padding:2px;overflow-wrap:normal}

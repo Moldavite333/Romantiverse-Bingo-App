@@ -1,3 +1,4 @@
+import {displayLabel} from './engine/displayLabel.mjs';
 import React from 'react';
 import TropeIllustration from './TropeIllustration.jsx';
 import './card-art-guide.css';
@@ -13,7 +14,7 @@ export default function CardArtGuide({card,marked=[],free=true,onMark,disabled=f
    {card.map((trope,index)=>{
     const isFree=free&&index===12;
     const isMarked=isFree||marked.includes(index);
-    const label=isFree?'CHEESE LOUISE POD':trope.label;
+    const label=isFree?'CHEESE LOUISE POD':displayLabel(trope.label);
     const coordinate='BINGO'[index%5]+(Math.floor(index/5)+1);
     return <button key={index} type="button"
      className="card-art-guide-square"

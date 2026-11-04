@@ -12,11 +12,11 @@ const server=createServer(async(req,res)=>{try{
  const data=await readFile(path);res.writeHead(200,{'Content-Type':mime[extname(path)]||'application/octet-stream'});res.end(data);
 }catch{res.writeHead(404);res.end()}});
 await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
-const origin='http://127.0.0.1:'+server.address().port;
+const origin=process.argv.find(x=>x.startsWith('https://'))?.replace(/\/$/,'')||'http://127.0.0.1:'+server.address().port;
 const browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_EXECUTABLE_PATH?{executablePath:process.env.PLAYWRIGHT_EXECUTABLE_PATH}:{})});
 await mkdir(out,{recursive:true});const results=[];
 try{
- for(const [width,height] of [[320,844],[390,844],[900,1000],[1440,1000],[1920,1080]]){
+ for(const [width,height] of [[320,844],[390,844],[900,1000],[1280,720],[1366,768],[1440,1000],[1920,1080]]){
   const context=await browser.newContext({viewport:{width,height},serviceWorkers:'block',reducedMotion:'reduce'}),page=await context.newPage(),errors=[];
   page.on('pageerror',error=>errors.push(error.message));
   page.on('response',r=>{if(r.url().startsWith(origin)&&r.status()>=400)errors.push(r.status()+' '+r.url())});
@@ -54,6 +54,24 @@ try{
   assert.ok(placement.below,'Supporting panels sit below the card');
   assert.ok(placement.artFraction>.75,'Artwork fills the square rather than leaving wide blank margins');
   if(width<900)assert.equal(layout,1,'Mobile stacks card and companion');
+  if(width>=900){
+   const prior=await page.locator('.board .square').evaluateAll(xs=>xs.map(x=>x.getAttribute('aria-pressed')));
+   await page.getByRole('button',{name:'Full-screen board',exact:true}).click();
+   await page.locator('.board-screen').waitFor();
+   const fit=await page.locator('.board-screen .square').evaluateAll(xs=>xs.every(x=>{const r=x.getBoundingClientRect(),label=x.querySelector('.square-label');return r.top>=0&&r.bottom<=innerHeight&&r.left>=0&&r.right<=innerWidth&&label.scrollHeight<=label.clientHeight+1}));
+   assert.ok(fit,'All 25 tiles and labels fit the laptop screen');
+   await page.screenshot({path:out+'/full-screen-'+width+'.png',animations:'disabled'});
+   await page.locator('.board .square').first().click();
+   assert.equal(await page.locator('.board .square').first().getAttribute('aria-pressed'),'true');
+   await page.locator('.board .square').first().click();
+   await page.getByRole('button',{name:'Exit full-screen board',exact:true}).click();
+   await page.waitForFunction(()=>!document.querySelector('.board-screen'));
+   assert.deepEqual(await page.locator('.board .square').evaluateAll(xs=>xs.map(x=>x.getAttribute('aria-pressed'))),prior);
+   if(width===1280)await page.evaluate(()=>{document.querySelector('.game-table').requestFullscreen=()=>Promise.reject(new Error('Fullscreen unavailable'))});
+   await page.getByRole('button',{name:'Full-screen board',exact:true}).click();
+   await page.locator('.board-screen').waitFor();await page.keyboard.press('Escape');
+   await page.waitForFunction(()=>!document.querySelector('.board-screen'));
+  }else assert.equal(await page.getByRole('button',{name:'Full-screen board',exact:true}).isVisible(),false,'Mobile layout remains unchanged');
   await page.locator('.board .square').first().click();
   await page.locator('.game-table').screenshot({path:`${out}/selected-${width}.png`,animations:'disabled'});
   const markedContrast=await contrast('.square.marked:not(.is-free)');
