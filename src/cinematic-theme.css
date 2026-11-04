@@ -104,3 +104,27 @@ footer{border-top:1px solid var(--rom-rule);margin-top:36px;padding:26px 0 28px;
 .square.saving{border-style:dashed}
 .app>section[aria-label="Saved games"]{padding:20px 24px;margin-bottom:22px}
 .app>section[aria-label="Saved games"] h2{font-size:25px}
+
+/* Give the card the full play area; supporting controls follow the board. */
+.app:has(.view-play){max-width:1600px}
+.view-play.main-content{max-width:none}
+.view-play .game-layout{grid-template-columns:minmax(0,1fr);gap:18px}
+.view-play .game-table{padding:10px}
+.view-play .board .square{min-height:0;padding:4px;gap:5px}
+.view-play .board .square-art{width:100%;max-width:100%;height:auto;aspect-ratio:1}
+.view-play .board .square-label{flex:1;min-height:3em;font-size:clamp(9px,1.05vw,15px);line-height:1.2;overflow-wrap:normal;hyphens:none}
+@media(min-width:900px){
+ .view-play .game-companion{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+ .view-play .game-companion .night-note{grid-column:1;grid-row:2/5;padding:18px}
+ .view-play .game-companion .night-note h3{font-size:24px;margin:10px 0 14px}
+ .view-play .game-companion .play-actions{grid-column:1/-1;grid-row:1;grid-template-columns:repeat(3,minmax(0,1fr))}
+ .view-play .game-companion .play-actions button:last-child{grid-column:auto}
+ .view-play .game-companion .intelligence-panel{grid-column:2/-1;order:0}
+ .view-play .game-companion>.room-invite,.view-play .game-companion>.victory,.view-play .game-companion>.fineprint{grid-column:2/-1}
+}
+@media(max-width:600px){
+ .view-play .game-table{padding:5px}
+ .view-play .board{padding:3px;gap:3px}
+ .view-play .board .square{padding:2px;gap:3px}
+ .view-play .board .square-label{font-size:9px;min-height:3.6em;overflow-wrap:anywhere}
+}

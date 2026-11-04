@@ -49,7 +49,10 @@ try{
   await check('game',true);
   const squareContrast=await contrast('.square:not(.marked)');
   const layout=await page.locator('.game-layout').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);
-  if(width>=1100)assert.equal(layout,2,'Desktop uses a companion column');
+  assert.equal(layout,1,'The card has the full play area at every width');
+  const placement=await page.evaluate(()=>{const a=document.querySelector('.game-table').getBoundingClientRect(),b=document.querySelector('.game-companion').getBoundingClientRect(),im=document.querySelector('.board .square-art').getBoundingClientRect(),sq=document.querySelector('.board .square').getBoundingClientRect();return {below:b.top>=a.bottom,artFraction:im.width/sq.width}});
+  assert.ok(placement.below,'Supporting panels sit below the card');
+  assert.ok(placement.artFraction>.75,'Artwork fills the square rather than leaving wide blank margins');
   if(width<900)assert.equal(layout,1,'Mobile stacks card and companion');
   await page.locator('.board .square').first().click();
   await page.locator('.game-table').screenshot({path:`${out}/selected-${width}.png`,animations:'disabled'});
