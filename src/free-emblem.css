@@ -1,0 +1,8 @@
+/* Scope to branded artwork, leaving the protected center and scoring untouched. */
+.board .square:has([data-illustration-id="free"]){background:#fff8ea;color:#91364b;border:2px solid #be8b32}
+.board .square:has([data-illustration-id="free"]).marked{background:#fff8ea;box-shadow:inset 0 0 0 1px #173f36}
+.board .square:has([data-illustration-id="free"]).in-line{background:#f5d78c;box-shadow:inset 0 0 0 3px #173f36}
+.board [data-illustration-id="free"]{object-fit:contain;filter:none!important}
+.board .square:has([data-illustration-id="free"]) .square-label{font-size:0;min-height:20px}
+.board .square:has([data-illustration-id="free"]) .square-label>*{display:none}
+.board .square:has([data-illustration-id="free"]) .square-label::after{content:'FREE';font:800 10px/1.25 system-ui;letter-spacing:1px;color:#91364b}

@@ -11,7 +11,7 @@ const origin=live||'http://127.0.0.1:'+server.address().port+'/',browser=await c
 await mkdir('artifacts/artwork',{recursive:true});
 const results=[];
 try{
- for(const theme of ['Christmas','Fall'])for(const width of [320,390,1440]){
+ for(const theme of ['Christmas','Fall'])for(const width of [320,360,390,430,1440]){
   const page=await browser.newPage({viewport:{width,height:1000},serviceWorkers:'block'}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.route('https://*.supabase.co/**',r=>r.fulfill({json:[]}));
@@ -51,6 +51,15 @@ try{
    await page.screenshot({animations:'disabled',path:prefix+'-page.png',fullPage:true});
    await page.reload();await page.locator('.board .in-line').first().waitFor();
    assert.equal(await page.locator('.board .in-line').count(),5,'Autosave survives reload');
+   const center=page.locator('.board .square').nth(12);
+   assert.equal(await center.isDisabled(),true,'Free center remains protected');
+   assert.equal(await center.getAttribute('aria-pressed'),'true');
+   assert.match(await center.getAttribute('aria-label'),/free center square/);
+   for(const i of [1,2,3,4])await page.locator('.board .square').nth(i).click();
+   for(const i of [6,18,24])await page.locator('.board .square').nth(i).click();
+   assert.equal(await page.locator('.board .in-line').count(),5,'Diagonal includes the free center');
+   assert.ok(await center.evaluate(e=>e.classList.contains('in-line')));
+   await page.locator('.board').screenshot({animations:'disabled',path:prefix+'-center-winner.png'});
   }
   results.push({theme,width,...geometry});await page.close();
  }

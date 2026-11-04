@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import './free-emblem.css';
 import {resolveIllustration} from './engine/illustrationRegistry.mjs';
 
 const reported=new Set();
