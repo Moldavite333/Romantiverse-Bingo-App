@@ -30,6 +30,7 @@ jobs:
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: node scripts/browser-smoke.mjs
+      - run: node scripts/home-navigation-smoke.mjs
       - run: node scripts/browser-multiplayer-smoke.mjs
       - run: node scripts/browser-offline-smoke.mjs
       - run: node scripts/browser-design-smoke.mjs
