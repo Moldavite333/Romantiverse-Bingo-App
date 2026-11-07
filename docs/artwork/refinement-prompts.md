@@ -1,0 +1,31 @@
+# Accepted image-edit prompt set — November 7, 2026
+
+All five scene edits used the built-in `image_gen` tool with their previous illustration as the edit target. No API/CLI fallback, SVG replacements, programmatic recolors, sharpening filters or texture overlays were used as creative refinement. Sources were copied into `artifacts/refinement/sources/`; canonical 384px WebP files and their source/output SHA-256 values are recorded in the registry. The source-map JSON files point to those retained local sources.
+
+## First meeting — Stage 1
+
+Edit target: Romantiverse Bingo first-meeting illustration. Stage 1 structural correction only. Preserve the warm hand-painted mid-century gouache/pencil storybook style, cream cranberry forest-green coral gold palette, bookshop doorway, autumn setting, surprised eye contact and distinct two-character encounter. Correct the central entangled hands: give each character two anatomically plausible arms and hands, naturally gripping their own books with believable fingers, wrists and contact shadows. Make the dropped books physically coherent and doorway perspective believable. Preserve successful faces, clothing, brushwork and composition. No lettering, borders, logos or new characters.
+
+## A shared tradition — Stage 1
+
+Edit target: shared-tradition Romantiverse Bingo illustration. Correct anatomy and physical interaction only: exactly two arms per adult. Woman crouching on left should use her two hands to gently release one paper boat into water. Man behind/right uses one arm around her shoulders, and his other arm releases his own boat on right. Remove the ambiguous extra central arm/hand. Every visible arm must trace naturally to its own shoulder. Make the boats sit naturally on the reflective water. Preserve affectionate faces, riverside town bridge, sunset, composition, costumes, warm hand-painted gouache/watercolor/pencil illustration, restrained cream cranberry forest green coral warm gold palette. No new characters, text or borders.
+
+## An unexpected sleigh ride — Stage 1
+
+Edit target: unexpected sleigh ride, Romantiverse Bingo. Correct structural realism of horse and sleigh without changing story or artistic hand. A believable horse pulls the red sleigh via visible wooden shafts correctly attached beside its body and a coherent leather harness. Show anatomically correct legs and hooves contacting packed snow with contact shadows. Couple remains seated securely inside sleigh, charming eye contact and naturally held gloved hands; driver holds sensible reins if visible. Preserve cozy winter village, golden sunset, snowy trees, red sleigh, costumes, framing and beautiful warm mid-century painted gouache/watercolor/pencil storybook style. Cream cranberry forest green coral warm gold palette. No text, borders or additional people.
+
+The first result was rejected because a third hand remained on the woman's shoulder. The following correction was applied to that result before acceptance:
+
+Correct only the extra dark gloved hand resting on the woman's LEFT shoulder at the left edge near her hair and scarf. REMOVE that shoulder hand completely and restore the red coat/scarf underneath. The man has exactly TWO arms and TWO hands: one visible hand holding reins on the right, and his other visible hand holding the woman's hand in her lap. No arm or hand behind her neck or on either shoulder. Preserve all other details exactly: same beautiful hand-painted gouache/pencil texture, expressive faces, snowy village, horse with four legs, leather harness, wooden shafts, red sleigh, golden light, square composition. No text.
+
+## A supportive friend — Stage 2
+
+Stage 2 character acting and storytelling edit of A supportive friend for Romantiverse Bingo. Preserve these two characters, original costume colors, warm painted texture, backstage doorway framing. Make platonic encouragement before a performance immediately readable: the woman is visibly nervous, slightly hunched shoulders, knitted brows and tentative grateful smile, holding a few unlettered script pages against her chest. The male friend stands beside her with a gentle reassuring smile, ONE hand resting lightly on her shoulder and the other open hand indicating the stage beyond. They are not about to kiss; use companionable staging with a comfortable gap. Make the theater setting recognizable with a burgundy stage curtain, a lone microphone stand in the warm spotlight and faint audience silhouettes beyond. Clear foreground characters and soft restrained backdrop. Keep two arms/two hands per person, believable fingers, tender sincere expression and eye contact. Beautiful same-series mid-century gouache/watercolor/pencil storybook craft, cream cranberry forest green muted coral warm gold palette, no lettering or borders.
+
+## Meddling Santas — Stage 3
+
+Stage 3 illustration craft/seasonal-lighting refinement of Meddling Santas, Romantiverse Bingo. Keep exactly the same four characters, the embarrassed young couple being playfully ushered toward the same park bench by two mischievous older people in Santa costumes, their expressive comic acting and existing composition. Replace orange fallen leaves and autumn foliage with a convincing winter Christmas park: pale snowy path, bare branches with delicate snow, forest-green evergreens, a few warm town windows and lamps beyond. Beautiful restrained golden late-afternoon light on faces against quiet cool winter shadows, cranberry and coral costumes, cream snow with subtle lavender-grey reflected shadows, gentle natural tonal range. Preserve the same mid-century hand-painted gouache/watercolor storybook artistic hand, delicate pencil contours, soft brushwork, tactile knit and wool textures and fine paper grain; do not add digital noise or harsh sharpening. Hands must rest naturally on shoulders and bench, exactly two arms per character, anatomically believable seated legs. Keep the primary four figures large and clear for a 64px Bingo thumbnail, simplify backdrop, no text or borders.
+
+## Stage 4
+
+All active scenes were retained after consistency/readability review. No additional raster edit or automatic sharpening pass was applied. The production correction supplies presentation-only short labels and 70/30 mobile artwork/label regions in solo and multiplayer boards.

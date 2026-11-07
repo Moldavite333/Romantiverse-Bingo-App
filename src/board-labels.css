@@ -1,0 +1,9 @@
+.board-label-short{display:none}
+@media(max-width:600px){
+ .view-play .board .square,.live-board .square{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,7fr) minmax(0,3fr);aspect-ratio:7/10;min-height:0;padding:1px;gap:0;align-items:stretch;justify-items:stretch}
+ .view-play .board .square-art,.live-board .square-art{display:block;width:100%;max-width:100%;height:100%;min-height:0;aspect-ratio:auto;object-fit:contain}
+ .view-play .board .square-label,.live-board .square-label{min-height:0;min-width:0;padding:0 1px;font-size:clamp(8px,1.95vw,10px);line-height:1.12;overflow-wrap:normal;hyphens:none;align-self:stretch}
+ .board-label-full{display:none}
+ .board-label-short{display:block}
+ .board .square:has([data-illustration-id="free"]) .square-label{min-height:0}
+}
