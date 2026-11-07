@@ -81,6 +81,8 @@ try{
   const winContrast=await contrast('.square.in-line');
   const unobscured=await page.locator('.square.in-line .square-art').first().evaluate(im=>({filter:getComputedStyle(im).filter,opacity:getComputedStyle(im).opacity}));
   assert.deepEqual(unobscured,{filter:'none',opacity:'1'});
+  assert.equal(await page.getByRole('dialog',{name:'Happily Ever After!',exact:true}).isVisible(),true,'Win celebration appears over the board');
+  await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
   await page.getByRole('button',{name:'Workshop',exact:true}).click();
   await page.locator('.workshop-tile').first().click();assert.equal(await page.locator('.workshop-tile').first().getAttribute('aria-pressed'),'true');
   await check('workshop',true);assert.equal(await page.locator('.workshop-grid .square-art').count(),25);

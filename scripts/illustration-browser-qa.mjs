@@ -51,6 +51,8 @@ try{
    await page.screenshot({animations:'disabled',path:prefix+'-page.png',fullPage:true});
    await page.reload();await page.locator('.board .in-line').first().waitFor();
    assert.equal(await page.locator('.board .in-line').count(),5,'Autosave survives reload');
+   assert.equal(await page.getByRole('dialog',{name:'Happily Ever After!',exact:true}).isVisible(),true,'Restored win has an accessible celebration');
+   await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
    const center=page.locator('.board .square').nth(12);
    assert.equal(await center.isDisabled(),true,'Free center remains protected');
    assert.equal(await center.getAttribute('aria-pressed'),'true');
