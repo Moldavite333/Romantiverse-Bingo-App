@@ -49,16 +49,15 @@
   },
   {
     "cue": "win",
-    "file": "win-grand.ogg",
-    "creator": "fvcalderan",
-    "sourcePack": "https://opengameart.org/content/classic-fanfare-lick",
-    "originalFile": "fanfare.ogg",
+    "file": "win-jackpot.wav",
+    "creator": "Romantiverse Bingo project",
+    "sourcePack": "scripts/generate-jackpot.mjs",
+    "originalFile": "win-jackpot.wav",
     "license": "CC0-1.0",
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "sha256": "160682a8f5a50380fa875809cd628c1f892e419a194803de4ae11f7babcbc8e0",
-    "bytes": 50059,
-    "modifications": "Renamed only; original OGG bytes preserved.",
-    "sourceFileUrl": "https://opengameart.org/sites/default/files/fanfare_3.ogg"
+    "sha256": "50d7c758ea75bad80131a6eba537a231aea2656c9371f8fc30a30406ddad1783",
+    "bytes": 458684,
+    "modifications": "Original deterministic electronic composition; no third-party samples. Reproduce with node scripts/generate-jackpot.mjs."
   },
   {
     "cue": "blackout",

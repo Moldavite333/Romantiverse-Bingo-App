@@ -1,0 +1,6 @@
+Romantiverse Bingo electronic jackpot cue
+Original composition and synthesis: Romantiverse Bingo project.
+Source recipe: scripts/generate-jackpot.mjs
+No third-party recordings, samples or melodies used.
+Dedicated to the public domain under CC0 1.0 Universal.
+https://creativecommons.org/publicdomain/zero/1.0/

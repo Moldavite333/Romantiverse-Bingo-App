@@ -1,6 +1,6 @@
 # Romantiverse Bingo sound effects
 
-Creators: **Kenney Vleugels / Kenney.nl** (five recordings) and **fvcalderan** (Bingo fanfare). All six recordings are released under **CC0 1.0 Universal**. They may be used, modified and distributed in personal and commercial projects. Attribution is not mandatory; we preserve credit and license provenance anyway.
+Creators: **Kenney Vleugels / Kenney.nl** (five recordings) and **Romantiverse Bingo project** (original electronic jackpot cue). All six audio assets are released under **CC0 1.0 Universal**. They may be used, modified and distributed in personal and commercial projects. Attribution is not mandatory; we preserve credit and license provenance anyway.
 
 | App event | Original file | Source |
 | --- | --- | --- |
@@ -8,10 +8,10 @@ Creators: **Kenney Vleugels / Kenney.nl** (five recordings) and **fvcalderan** (
 | Undo | `card-slide-1.ogg` | [Casino Audio](https://kenney.nl/assets/casino-audio) |
 | Card reveal | `card-shuffle.ogg` | [Casino Audio](https://kenney.nl/assets/casino-audio) |
 | One square away | `confirmation_002.ogg` | [Interface Sounds](https://kenney.nl/assets/interface-sounds) |
-| Bingo | `fanfare.ogg` → `win-grand.ogg` | [Classic fanfare lick — fvcalderan](https://opengameart.org/content/classic-fanfare-lick) |
+| Bingo | `win-jackpot.wav` | Original electronic jackpot; source: `scripts/generate-jackpot.mjs` |
 | Blackout | `jingles_PIZZI10.ogg` | [Music Jingles](https://kenney.nl/assets/music-jingles) |
 
-Files were renamed only; original OGG bytes were preserved. Per-file SHA-256 values are in `provenance.json`. Kenney's original pack licenses are preserved as `LICENSE-casino.txt`, `LICENSE-interface.txt` and `LICENSE-jingles.txt`; the fanfare source/license record is `LICENSE-fanfare.txt`.
+The five Kenney files were renamed only; original OGG bytes were preserved. The jackpot is a reproducible original 5.2-second electronic composition: rising arpeggios, bright anticipatory accents and a sustained major-sixth win chord. It contains no brass, coins or third-party samples. Per-file SHA-256 values are in `provenance.json`. Kenney's original pack licenses are preserved as `LICENSE-casino.txt`, `LICENSE-interface.txt` and `LICENSE-jingles.txt`; the original jackpot dedication is `LICENSE-jackpot.txt`.
 
 License: https://creativecommons.org/publicdomain/zero/1.0/
 

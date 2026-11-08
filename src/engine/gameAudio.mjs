@@ -26,7 +26,7 @@ export function createGameAudio(host=globalThis){
    if(!context){const Context=host.AudioContext||host.webkitAudioContext;context=new Context();master=context.createGain();master.gain.value=.1;master.connect(context.destination);}
    if(context.state!=='running')await context.resume();
    if(!warming&&host.fetch&&context.decodeAudioData)warming=Promise.allSettled(Object.keys(CUES).map(async cue=>{
-    const response=await host.fetch('/audio/'+(cue==='win'?'win-grand':cue)+'.ogg',{signal:host.AbortSignal?.timeout(4000)});
+    const response=await host.fetch('/audio/'+(cue==='win'?'win-jackpot.wav':cue+'.ogg'),{signal:host.AbortSignal?.timeout(4000)});
     if(!response.ok)throw Error('Audio unavailable');
     const buffer=await context.decodeAudioData(await response.arrayBuffer());samples.set(cue,buffer);
    }));
@@ -42,10 +42,10 @@ export function createGameAudio(host=globalThis){
    if(cue==='win'||cue==='blackout')hush();
    while(voices.size>=8){const oldest=voices.values().next().value;try{oldest.stop()}catch{}voices.delete(oldest)}
    if(samples.has(cue)){
-    const voice=context.createBufferSource(),fanfareGain=cue==='win'?context.createGain():null;voice.buffer=samples.get(cue);
-    if(fanfareGain){fanfareGain.gain.value=1.5;voice.connect(fanfareGain);fanfareGain.connect(master)}else voice.connect(master);
+    const voice=context.createBufferSource(),jackpotGain=cue==='win'?context.createGain():null;voice.buffer=samples.get(cue);
+    if(jackpotGain){jackpotGain.gain.value=1.2;voice.connect(jackpotGain);jackpotGain.connect(master)}else voice.connect(master);
     voices.add(voice);
-    voice.onended=()=>{voices.delete(voice);voice.disconnect();fanfareGain?.disconnect()};voice.start();return true;
+    voice.onended=()=>{voices.delete(voice);voice.disconnect();jackpotGain?.disconnect()};voice.start();return true;
    }
    const now=context.currentTime;
    for(const [frequency,delay,duration] of CUES[cue]){

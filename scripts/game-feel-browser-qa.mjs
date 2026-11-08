@@ -43,7 +43,7 @@ try{
   await page.locator('.board .square').nth(4).click();
   await page.getByRole('dialog',{name:'Happily Ever After!',exact:true}).waitFor();
   await page.waitForFunction(n=>window.audioNotes>n,notesBeforeWin);
-  assert.ok(await page.evaluate(()=>window.lastSampleDuration>2.5),'Bingo must play the grand fanfare, not the old brief cue');
+  assert.ok(await page.evaluate(()=>Math.abs(window.lastSampleDuration-5.2)<.02),'Bingo must play the electronic jackpot cue');
   await page.locator('.win-prize-burst').evaluate(e=>{for(const a of e.getAnimations({subtree:true})){a.pause();a.currentTime=350}});
   await page.screenshot({path:`${out}/${width}-star-burst.png`,animations:'allow'});
   await page.screenshot({path:`${out}/${width}-celebration.png`,animations:'disabled'});
@@ -64,7 +64,7 @@ try{
   assert.equal(await page.locator('.board .square').nth(12).isDisabled(),true);assert.deepEqual(errors,[]);
   results.push({width,audioOptIn:true,noAutoplay:true,revealPreservesCard:true,reducedMotion:true,winCue:true,mute:true});await page.close();
  }
- const fallback=await browser.newPage();await fallback.route('https://*.supabase.co/**',r=>r.fulfill({json:[]}));await fallback.route('**/audio/*.ogg',r=>r.fulfill({status:404}));
+ const fallback=await browser.newPage();await fallback.route('https://*.supabase.co/**',r=>r.fulfill({json:[]}));await fallback.route('**/audio/*',r=>r.fulfill({status:404}));
  await fallback.addInitScript(game=>{window.fallbackNotes=0;const create=AudioContext.prototype.createOscillator;AudioContext.prototype.createOscillator=function(){const n=create.call(this),start=n.start.bind(n);n.start=(...a)=>{window.fallbackNotes++;return start(...a)};return n};localStorage.setItem('romantiverse-v2',JSON.stringify(game));sessionStorage.setItem('romantiverse-last-tab','play')},{movie,card,free:true,mode:'classic',marked:[12]});
  await fallback.goto(origin);await fallback.getByRole('button',{name:'Sound off',exact:true}).click();await fallback.waitForFunction(()=>window.fallbackNotes>=2);await fallback.close();
  const page=await browser.newPage();await page.route('https://*.supabase.co/**',r=>r.fulfill({json:[]}));
