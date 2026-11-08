@@ -12,7 +12,7 @@
 .board.game-feel-board.reel-reveal .square:nth-child(5n+3){animation-delay:.18s}
 .board.game-feel-board.reel-reveal .square:nth-child(5n+4){animation-delay:.27s}
 .board.game-feel-board.reel-reveal .square:nth-child(5n){animation-delay:.36s}
-.board.game-feel-board .square.marked:not(:disabled){animation:storybook-stamp .2s ease-out}
+.board.game-feel-board:not(.reel-reveal) .square.marked:not(:disabled){animation:storybook-stamp .2s ease-out}
 .board.game-feel-board .square.in-line{outline:1px solid #c49b52;outline-offset:-4px}
 .win-celebration[open] .win-celebration-ornament{animation:storybook-prize .7s ease-out}
 @keyframes storybook-reel{from{transform:translateY(-16px) scale(.97);opacity:.2}70%{transform:translateY(3px);opacity:1}to{transform:none;opacity:1}}

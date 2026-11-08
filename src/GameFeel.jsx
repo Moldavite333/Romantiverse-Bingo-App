@@ -16,11 +16,10 @@ export default function GameFeel({cardKey,marked,free=true,mode='classic',active
  }
  useEffect(()=>{
   const table=anchor.current?.closest('.game-table,.live-game-table'),board=table?.querySelector('.board');
-  board?.classList.add('game-feel-board');
   const gesture=e=>{if(e.target.closest('.square,.card-art-guide-square'))gameAudio.unlock()};
   const hidden=()=>{if(document.hidden)gameAudio.hush()};
   table?.addEventListener('click',gesture,true);document.addEventListener('visibilitychange',hidden);
-  return()=>{clearTimeout(timer.current);board?.classList.remove('game-feel-board','reel-reveal');table?.removeEventListener('click',gesture,true);document.removeEventListener('visibilitychange',hidden);gameAudio.hush()};
+  return()=>{clearTimeout(timer.current);board?.classList.remove('reel-reveal');table?.removeEventListener('click',gesture,true);document.removeEventListener('visibilitychange',hidden);gameAudio.hush()};
  },[]);
  useEffect(()=>{
   const old=previous.current;previous.current={key:cardKey,marked:[...marked]};

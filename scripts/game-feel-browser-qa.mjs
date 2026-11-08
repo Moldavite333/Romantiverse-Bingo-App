@@ -31,6 +31,7 @@ try{
   const stored=()=>page.evaluate(()=>{const g=JSON.parse(localStorage.getItem('romantiverse-v2'));return {card:g.card,marked:g.marked}});
   const before=await stored();
   await page.getByRole('button',{name:'Replay reveal',exact:true}).click();
+  await page.waitForFunction(()=>document.querySelector('.board').getAnimations({subtree:true}).filter(a=>a.animationName==='storybook-reel').length===25,null,{timeout:3000});
   assert.deepEqual(await stored(),before,'Reel animation must not reroll or mark the card');
   assert.equal(await page.evaluate(()=>window.audioCreated),0,'Muted reveal cannot start audio');
   await page.getByRole('button',{name:'Sound off',exact:true}).click();
@@ -48,6 +49,24 @@ try{
   await page.screenshot({path:`${out}/${width}-star-burst.png`,animations:'allow'});
   await page.screenshot({path:`${out}/${width}-celebration.png`,animations:'disabled'});
   await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
+  if(width===1440){
+   await page.getByRole('button',{name:'Full-screen board',exact:true}).click();
+   await page.waitForFunction(()=>document.fullscreenElement?.classList.contains('game-table'));
+   const saved=await stored();
+   for(let replay=0;replay<2;replay++){
+    const samples=await page.evaluate(()=>window.audioSamples);
+    await page.getByRole('button',{name:'Replay reveal',exact:true}).click();
+    await page.waitForFunction(()=>document.querySelector('.board').getAnimations({subtree:true}).filter(a=>a.animationName==='storybook-reel').length===25,null,{timeout:3000});
+    await page.waitForFunction(n=>window.audioSamples>n,samples);
+    assert.deepEqual(await stored(),saved,'Fullscreen replay preserves the winning card and marks');
+    if(replay===1){
+     await page.locator('.board').evaluate(e=>{for(const a of e.getAnimations({subtree:true})){a.pause();a.currentTime=180}});
+     await page.screenshot({path:`${out}/1440-fullscreen-replay.png`,animations:'allow'});
+    }
+   }
+   await page.getByRole('button',{name:'Exit full-screen board',exact:true}).click();
+   await page.waitForFunction(()=>!document.fullscreenElement);
+  }
   await page.locator('.game-table').screenshot({path:`${out}/${width}-winning.png`,animations:'disabled'});
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
   await page.reload();await page.locator('.game-feel').waitFor();
@@ -62,7 +81,7 @@ try{
   await page.getByRole('button',{name:'Replay reveal',exact:true}).click();
   assert.equal(await page.locator('.board .square').nth(0).evaluate(e=>getComputedStyle(e).animationName),'none');
   assert.equal(await page.locator('.board .square').nth(12).isDisabled(),true);assert.deepEqual(errors,[]);
-  results.push({width,audioOptIn:true,noAutoplay:true,revealPreservesCard:true,reducedMotion:true,winCue:true,mute:true});await page.close();
+  results.push({width,audioOptIn:true,noAutoplay:true,revealPreservesCard:true,reducedMotion:true,winCue:true,mute:true,...(width===1440?{fullscreenWinningReplayTwice:true}:{})});await page.close();
  }
  const fallback=await browser.newPage();await fallback.route('https://*.supabase.co/**',r=>r.fulfill({json:[]}));await fallback.route('**/audio/*',r=>r.fulfill({status:404}));
  await fallback.addInitScript(game=>{window.fallbackNotes=0;const create=AudioContext.prototype.createOscillator;AudioContext.prototype.createOscillator=function(){const n=create.call(this),start=n.start.bind(n);n.start=(...a)=>{window.fallbackNotes++;return start(...a)};return n};localStorage.setItem('romantiverse-v2',JSON.stringify(game));sessionStorage.setItem('romantiverse-last-tab','play')},{movie,card,free:true,mode:'classic',marked:[12]});
