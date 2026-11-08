@@ -3,6 +3,7 @@ const CACHE='romantiverse-v8-storybook-ui';
 const BASE='/';
 const SHELL=BASE+'index.html';
 const PRECACHE=[BASE+'catalog/movies.json',BASE+'manifest.webmanifest',BASE+'icon.svg',BASE+'icon-192.png',BASE+'icon-512.png',BASE+'illustrations/manifest.json'];
+PRECACHE.push(...['mark','undo','deal','near','win','blackout'].map(cue=>BASE+'audio/'+cue+'.ogg'));
 
 self.addEventListener('install',event=>{
  event.waitUntil((async()=>{
@@ -35,7 +36,7 @@ self.addEventListener('fetch',event=>{
  if(req.method!=='GET')return;
  const url=new URL(req.url);
  // Only intercept the public app shell and its assets, never unrelated same-origin paths.
- if(url.origin!==self.location.origin||!(url.pathname===BASE||url.pathname===SHELL||url.pathname.startsWith(BASE+'assets/')||url.pathname.startsWith(BASE+'illustrations/')||PRECACHE.includes(url.pathname)))return;
+ if(url.origin!==self.location.origin||!(url.pathname===BASE||url.pathname===SHELL||url.pathname.startsWith(BASE+'assets/')||url.pathname.startsWith(BASE+'illustrations/')||url.pathname.startsWith(BASE+'audio/')||PRECACHE.includes(url.pathname)))return;
  if(req.mode==='navigate'){
   // A direct invitation may include ?room=CODE. Cache only canonical public HTML,
   // never a URL containing invitation or session parameters.

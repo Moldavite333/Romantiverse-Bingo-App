@@ -1,0 +1,23 @@
+.game-feel{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 0;border-block:1px solid #c49b5266;margin-bottom:8px;color:#193f35}
+.game-feel-progress{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font:700 11px/1.4 system-ui}
+.game-feel-lights{color:#a57729;letter-spacing:2px;white-space:nowrap}
+.game-feel-controls{display:flex;gap:6px;flex-wrap:wrap}
+.game-feel-controls button{min-height:36px;padding:7px 10px;font-size:11px;border:1px solid #c49b52;background:#fffaf0;color:#193f35;border-radius:20px}
+.game-feel-controls .sound-toggle[aria-pressed=true]{background:#193f35;color:#fffaf0}
+.game-feel small{flex-basis:100%;font-size:11px}
+.game-feel .one-away{color:#873b4b}
+.board.game-feel-board{box-shadow:0 0 0 1px #c49b52}
+.board.game-feel-board.reel-reveal .square{animation:storybook-reel .5s cubic-bezier(.2,.7,.3,1) both}
+.board.game-feel-board.reel-reveal .square:nth-child(5n+2){animation-delay:.09s}
+.board.game-feel-board.reel-reveal .square:nth-child(5n+3){animation-delay:.18s}
+.board.game-feel-board.reel-reveal .square:nth-child(5n+4){animation-delay:.27s}
+.board.game-feel-board.reel-reveal .square:nth-child(5n){animation-delay:.36s}
+.board.game-feel-board .square.marked:not(:disabled){animation:storybook-stamp .2s ease-out}
+.board.game-feel-board .square.in-line{outline:1px solid #c49b52;outline-offset:-4px}
+.win-celebration[open] .win-celebration-ornament{animation:storybook-prize .7s ease-out}
+@keyframes storybook-reel{from{transform:translateY(-16px) scale(.97);opacity:.2}70%{transform:translateY(3px);opacity:1}to{transform:none;opacity:1}}
+@keyframes storybook-stamp{50%{transform:scale(.94)}to{transform:none}}
+@keyframes storybook-prize{from{transform:scale(.5) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+@media(max-width:480px){.game-feel{gap:6px}.game-feel-progress{font-size:10px}.game-feel-controls button{font-size:10px;padding:6px 9px}.game-feel-lights{display:none}}
+@media(prefers-reduced-motion:reduce){.board.game-feel-board .square,.win-celebration[open] .win-celebration-ornament{animation:none!important}}
+.board-screen .game-feel{padding:3px 0;margin:0;flex:none}.board-screen .game-feel-lights{display:none}

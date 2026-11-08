@@ -1,0 +1,75 @@
+import assert from 'node:assert/strict';
+import {createServer} from 'node:http';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import {resolve,extname,sep} from 'node:path';
+import {chromium} from 'playwright';
+import {buildCard} from '../src/engine/intelligence.mjs';
+const root=resolve('dist'),out='artifacts/game-feel';
+const server=createServer(async(req,res)=>{try{
+ const path=resolve(root,'.'+(new URL(req.url,'http://local').pathname==='/'?'/index.html':new URL(req.url,'http://local').pathname));
+ if(!path.startsWith(root+sep))throw Error('Outside build');
+ res.writeHead(200,{'Content-Type':{'.html':'text/html','.js':'text/javascript','.css':'text/css','.webp':'image/webp','.json':'application/json'}[extname(path)]||'application/octet-stream'}).end(await readFile(path));
+}catch{res.writeHead(404).end()}});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const origin=process.argv.find(x=>x.startsWith('https://'))||`http://127.0.0.1:${server.address().port}/`;
+const browser=await chromium.launch({headless:true});await mkdir(out,{recursive:true});
+const movie={id:'game-feel-review',title:'A Little Movie-Night Magic',season:'Christmas'},card=buildCard(movie,{seed:2701,free:true});
+const results=[];
+try{
+ for(const width of [320,360,390,430,1440]){
+  const page=await browser.newPage({viewport:{width,height:1000},serviceWorkers:'block'}),errors=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.route('https://*.supabase.co/**',r=>r.fulfill({json:[]}));
+  await page.route('https://fonts.googleapis.com/**',r=>r.abort());await page.route('https://fonts.gstatic.com/**',r=>r.abort());
+  await page.addInitScript(game=>{
+   const Native=window.AudioContext;window.audioCreated=0;window.audioNotes=0;window.audioSamples=0;window.audioDecoded=0;
+   if(Native)window.AudioContext=class extends Native{constructor(...args){super(...args);window.audioCreated++}createOscillator(){const node=super.createOscillator(),start=node.start.bind(node);node.start=(...args)=>{window.audioNotes++;return start(...args)};return node}decodeAudioData(...args){return super.decodeAudioData(...args).then(buffer=>{window.audioDecoded++;return buffer})}createBufferSource(){const node=super.createBufferSource(),start=node.start.bind(node);node.start=(...args)=>{window.audioNotes++;window.audioSamples++;return start(...args)};return node}};
+   if(!localStorage.getItem('romantiverse-v2'))localStorage.setItem('romantiverse-v2',JSON.stringify(game));sessionStorage.setItem('romantiverse-last-tab','play');
+  },{movie,card,free:true,mode:'classic',marked:[12],completed:false,startedAt:'2026-11-07T12:00:00Z'});
+  await page.goto(origin);await page.locator('.game-feel').waitFor();
+  assert.equal(await page.evaluate(()=>window.audioCreated),0,'Restoration cannot start audio');
+  const stored=()=>page.evaluate(()=>{const g=JSON.parse(localStorage.getItem('romantiverse-v2'));return {card:g.card,marked:g.marked}});
+  const before=await stored();
+  await page.getByRole('button',{name:'Replay reveal',exact:true}).click();
+  assert.deepEqual(await stored(),before,'Reel animation must not reroll or mark the card');
+  assert.equal(await page.evaluate(()=>window.audioCreated),0,'Muted reveal cannot start audio');
+  await page.getByRole('button',{name:'Sound off',exact:true}).click();
+  await page.getByRole('button',{name:'Sound on',exact:true}).waitFor();
+  await page.waitForFunction(()=>window.audioSamples>=1);
+  assert.equal(await page.evaluate(()=>window.audioDecoded),6,'All licensed sound files must decode');
+  for(const i of [0,1,2,3])await page.locator('.board .square').nth(i).click();
+  await page.getByText('One square from Bingo!',{exact:true}).waitFor();
+  const notesBeforeWin=await page.evaluate(()=>window.audioNotes);
+  await page.locator('.board .square').nth(4).click();
+  await page.getByRole('dialog',{name:'Happily Ever After!',exact:true}).waitFor();
+  await page.waitForFunction(n=>window.audioNotes>n,notesBeforeWin);
+  await page.locator('.win-prize-burst').evaluate(e=>{for(const a of e.getAnimations({subtree:true})){a.pause();a.currentTime=350}});
+  await page.screenshot({path:`${out}/${width}-star-burst.png`,animations:'allow'});
+  await page.screenshot({path:`${out}/${width}-celebration.png`,animations:'disabled'});
+  await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
+  await page.locator('.game-table').screenshot({path:`${out}/${width}-winning.png`,animations:'disabled'});
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
+  await page.reload();await page.locator('.game-feel').waitFor();
+  assert.equal(await page.getByRole('button',{name:'Sound on',exact:true}).getAttribute('aria-pressed'),'true','Sound choice survives reload');
+  assert.equal(await page.evaluate(()=>window.audioCreated),0,'Enabled preference cannot autoplay on reload');
+  await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
+  await page.getByRole('button',{name:'Sound on',exact:true}).click();
+  const notes=await page.evaluate(()=>window.audioNotes);
+  await page.locator('.board .square').nth(0).click();
+  assert.equal(await page.evaluate(()=>window.audioNotes),notes,'Muted mark stays silent');
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.getByRole('button',{name:'Replay reveal',exact:true}).click();
+  assert.equal(await page.locator('.board .square').nth(0).evaluate(e=>getComputedStyle(e).animationName),'none');
+  assert.equal(await page.locator('.board .square').nth(12).isDisabled(),true);assert.deepEqual(errors,[]);
+  results.push({width,audioOptIn:true,noAutoplay:true,revealPreservesCard:true,reducedMotion:true,winCue:true,mute:true});await page.close();
+ }
+ const fallback=await browser.newPage();await fallback.route('https://*.supabase.co/**',r=>r.fulfill({json:[]}));await fallback.route('**/audio/*.ogg',r=>r.fulfill({status:404}));
+ await fallback.addInitScript(game=>{window.fallbackNotes=0;const create=AudioContext.prototype.createOscillator;AudioContext.prototype.createOscillator=function(){const n=create.call(this),start=n.start.bind(n);n.start=(...a)=>{window.fallbackNotes++;return start(...a)};return n};localStorage.setItem('romantiverse-v2',JSON.stringify(game));sessionStorage.setItem('romantiverse-last-tab','play')},{movie,card,free:true,mode:'classic',marked:[12]});
+ await fallback.goto(origin);await fallback.getByRole('button',{name:'Sound off',exact:true}).click();await fallback.waitForFunction(()=>window.fallbackNotes>=2);await fallback.close();
+ const page=await browser.newPage();await page.route('https://*.supabase.co/**',r=>r.fulfill({json:[]}));
+ await page.addInitScript(game=>{window.AudioContext=undefined;window.webkitAudioContext=undefined;localStorage.setItem('romantiverse-v2',JSON.stringify(game));sessionStorage.setItem('romantiverse-last-tab','play')},{movie,card,free:true,mode:'classic',marked:[12]});
+ await page.goto(origin);assert.equal(await page.getByRole('button',{name:'Sound unavailable',exact:true}).isDisabled(),true);
+ await page.locator('.board .square').nth(0).click();assert.equal(await page.locator('.board .square').nth(0).getAttribute('aria-pressed'),'true');await page.close();
+ await writeFile(`${out}/report.json`,JSON.stringify({origin,results,unsupportedAudioStillPlayable:true,unavailableRecordingsFallback:true},null,2)+'\n');
+ console.log('Game feel: five viewports passed opt-in real Web Audio, no autoplay, confirmed win cues, mute/persistence, reduced motion, unchanged cards and unavailable-audio fallback.');
+}finally{await browser.close();await new Promise(r=>server.close(r))}

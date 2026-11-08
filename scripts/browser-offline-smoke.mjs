@@ -20,12 +20,15 @@ try{
  const artCount=cached.filter(p=>p.endsWith('.webp')).length;
  const expected=JSON.parse(await readFile(resolve(root,'illustrations/manifest.json'),'utf8')).length;
  assert.equal(artCount,expected,'Every active trope and the branded center must be available offline');
+ assert.equal(cached.filter(p=>p.endsWith('.ogg')).length,6,'All sound recordings must be available offline');
  assert.ok(!cached.some(p=>/[?#]/.test(p)),'Offline cache must not contain invitation/session parameters');
  await context.setOffline(true);await page.reload({waitUntil:'domcontentloaded'});
  await page.waitForFunction(()=>{const a=[...document.querySelectorAll('.board .square-art')];return a.length===25&&a.every(i=>i.complete&&i.naturalWidth===384)});
+ const offlineSounds=await page.evaluate(async()=>{const audio=new AudioContext();try{return await Promise.all(['mark','undo','deal','near','win','blackout'].map(async cue=>{const r=await fetch('/audio/'+cue+'.ogg');if(!r.ok)throw Error('Missing offline sound');return (await audio.decodeAudioData(await r.arrayBuffer())).duration}))}finally{await audio.close()}});
+ assert.ok(offlineSounds.length===6&&offlineSounds.every(duration=>duration>0),'Offline recordings must decode');
  await page.locator('.square').first().click();assert.equal(await page.locator('.square').first().getAttribute('aria-pressed'),'true');
  if(await page.locator('.toast button').count())await page.locator('.toast button').click();
  await mkdir('artifacts',{recursive:true});await page.locator('.board').screenshot({path:'artifacts/bingo-offline-390.png',animations:'disabled'});
- console.log(JSON.stringify({offlineImages:artCount,cardImages:25,offlineReload:true,offlineMark:true,privateCacheEntries:0}));
+ console.log(JSON.stringify({offlineImages:artCount,offlineSounds:offlineSounds.length,cardImages:25,offlineReload:true,offlineMark:true,privateCacheEntries:0}));
  await context.close();
 }finally{await browser.close();await new Promise(ok=>server.close(ok))}

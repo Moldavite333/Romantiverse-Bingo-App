@@ -1,0 +1,74 @@
+[
+  {
+    "cue": "mark",
+    "file": "mark.ogg",
+    "creator": "Kenney Vleugels",
+    "sourcePack": "https://kenney.nl/assets/casino-audio",
+    "originalFile": "chip-lay-1.ogg",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "4b2111252ccb64eed67f171e061053849cfbb29873536c03948646f244a3905c",
+    "bytes": 5720,
+    "modifications": "Renamed only; original OGG bytes preserved."
+  },
+  {
+    "cue": "undo",
+    "file": "undo.ogg",
+    "creator": "Kenney Vleugels",
+    "sourcePack": "https://kenney.nl/assets/casino-audio",
+    "originalFile": "card-slide-1.ogg",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "006cf9822d15d7063f8899e56041f41646df30adb6fbd8b974ee5d5420012690",
+    "bytes": 8833,
+    "modifications": "Renamed only; original OGG bytes preserved."
+  },
+  {
+    "cue": "deal",
+    "file": "deal.ogg",
+    "creator": "Kenney Vleugels",
+    "sourcePack": "https://kenney.nl/assets/casino-audio",
+    "originalFile": "card-shuffle.ogg",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "96c84883a30845ede723a4cf2e8369e9837e7dd4e0d4eb0212b0a7ed21b0f544",
+    "bytes": 30002,
+    "modifications": "Renamed only; original OGG bytes preserved."
+  },
+  {
+    "cue": "near",
+    "file": "near.ogg",
+    "creator": "Kenney Vleugels",
+    "sourcePack": "https://kenney.nl/assets/interface-sounds",
+    "originalFile": "confirmation_002.ogg",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "33b17a9a9a2397c62b285c52c33a907fdffb476909c99e42dde603f6a7a8b12c",
+    "bytes": 14169,
+    "modifications": "Renamed only; original OGG bytes preserved."
+  },
+  {
+    "cue": "win",
+    "file": "win.ogg",
+    "creator": "Kenney Vleugels",
+    "sourcePack": "https://kenney.nl/assets/music-jingles",
+    "originalFile": "jingles_PIZZI09.ogg",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "582b561bcfc53c90ef3fef8549829d3be8e01dcd9a0312363d8ed9ca83ed2565",
+    "bytes": 10872,
+    "modifications": "Renamed only; original OGG bytes preserved."
+  },
+  {
+    "cue": "blackout",
+    "file": "blackout.ogg",
+    "creator": "Kenney Vleugels",
+    "sourcePack": "https://kenney.nl/assets/music-jingles",
+    "originalFile": "jingles_PIZZI10.ogg",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "sha256": "baf50beffc4cc2dbb92c9d596a22732a8b5249c7648b681c0df6d0af6c561478",
+    "bytes": 14004,
+    "modifications": "Renamed only; original OGG bytes preserved."
+  }
+]

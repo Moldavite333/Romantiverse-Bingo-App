@@ -9,6 +9,7 @@ export default function WinCelebration({won,blackout,lines,onDismiss}){
   if(!won&&node.open)node.close();
  },[won]);
  return <dialog ref={dialog} className="win-celebration" aria-labelledby={title} onCancel={onDismiss} onKeyDown={e=>e.stopPropagation()}>
+  <div className="win-prize-burst" aria-hidden="true">{Array.from({length:12},(_,i)=><i key={i} style={{'--piece':i}}>✦</i>)}</div>
   <div className="win-celebration-ornament" aria-hidden="true">✦ ✧ ✦</div>
   <p className="win-celebration-kicker">{blackout?'EVERY SQUARE. A PERFECT ENDING.':'BINGO! YOUR HAPPY ENDING.'}</p>
   <h2 id={title}>{blackout?'A Perfectly Cheesy Blackout!':'Happily Ever After!'}</h2>
