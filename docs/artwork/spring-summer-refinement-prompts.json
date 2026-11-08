@@ -1,0 +1,118 @@
+{
+  "date": "2026-11-08",
+  "generator": "built-in image_gen",
+  "invocations": 11,
+  "acceptedEdits": 8,
+  "distinctScenes": 7,
+  "rejectedDrafts": 3,
+  "accepted": [
+    {
+      "id": "season-Spring-20",
+      "stage": 1,
+      "asset": "public/illustrations/season-Spring-20.webp",
+      "source": "artifacts/spring-summer-refinement/sources/stage-1/season-Spring-20.png",
+      "sourceSha256": "deaf5a5e2493883b4d43db7d0851546c5af041e8db51bd7d9db617b94ee299e5",
+      "promptTrail": [
+        "Edit target: the supplied romantic storybook cherry-tree planting scene. Correct the woman's anatomy decisively: NO arm or forearm emerging from her stomach, chest, blouse or waist. Repose her so BOTH complete arm paths can be followed clearly from the two shoulder sockets, through visible sleeves and upper arms, to normal elbows and forearms. She stands at the LEFT, holding a small EMPTY terracotta nursery pot at hip height with BOTH hands; her upper arms descend naturally along her left and right outside torso edges, elbows visibly bent away from her body, forearms meeting only at the pot. Neither hand touches the shovel. The elderly man stands to the RIGHT holding the shovel alone: one natural hand on its D handle, other arm relaxed at his side. Give both people exactly two arms and two hands, five normal fingers per hand. Keep their original gentle affectionate faces, eye contact, ages, cherry tree on the right, cottage, clothing palette, soil mound, beautiful warm hand-painted mid-century gouache/watercolor/pencil craft and square framing. Clearly separated silhouettes, coherent straight shovel shaft and blade grounded in the soil. One scene, no text, no collage, no added people."
+      ]
+    },
+    {
+      "id": "season-Spring-16",
+      "stage": 1,
+      "asset": "public/illustrations/season-Spring-16.webp",
+      "source": "artifacts/spring-summer-refinement/sources/stage-1/season-Spring-16.png",
+      "sourceSha256": "8b6b27502d35bb93f2a2e59a3dee99eb2811fb4fa4bc09dd6bf8b5efef539ca0",
+      "promptTrail": [
+        "Edit target: the supplied spring puddle-splash illustration. CRITICAL ANATOMY FIX: the woman currently has THREE arms. Remove the extra arm that extends horizontally out of the left edge of the image. She must have EXACTLY TWO ARMS attached to normal shoulder sockets: one arm holds the umbrella handle at chest height, with a clearly traceable upper arm descending from the appropriate shoulder into a natural elbow and forearm; the other arm descends from the opposite shoulder and its hand gathers the side of her skirt. No arm emerges from her stomach, chest, blouse, armpit or waist. Preserve two hands total for the woman, ordinary five-finger hands, and exactly two arms/two hands for the man. Keep their identities, expressions of surprised laughter, the umbrella, the puddle splash at her planted front shoe, coherent legs/feet, spring blossoms and garden lane, warm lighting, paper texture and beautiful hand-painted mid-century gouache/watercolor/pencil storybook craft. Avoid adding limbs, people, props, text or lettering. This is a surgical structural cleanup; preserve everything else."
+      ]
+    },
+    {
+      "id": "season-Spring-13",
+      "stage": 2,
+      "asset": "public/illustrations/season-Spring-13.webp",
+      "source": "artifacts/spring-summer-refinement/sources/stage-2/season-Spring-13.png",
+      "sourceSha256": "ab5750e27d32f349daf2f218cf273fd354343062d6c53afac1c5b0ef0b1a9b01",
+      "promptTrail": [
+        "Edit target: the supplied Romantiverse Bingo season-Spring-13 scene. Stage 2 refinement: emotional expression and trope-specific storytelling. Clarify the BLOSSOM FESTIVAL DEADLINE. Reorient the gold pocket watch so its open round cream DIAL with two clearly dark clock hands faces the viewer at a slight angle, not just an ornamental back or lid. Make the watch a little larger and clearly connected to a short chain. Preserve the woman's already focused worried expression, clipboard, original anatomically attached arms and natural watch grip, and the male helper decorating the unfinished stage. At 64px it must read as checking time, not holding a spoon or mirror. No lettering or readable numerals. Keep the beautiful unified warm hand-painted mid-century gouache/watercolor/pencil romantic storybook craft, visible paper grain, coherent perspective, large expressive faces, cream/coral/forest-green/honey-gold palette, appropriate spring or summer setting, cinematic light and square composition. No snow, Christmas decor, generic icons, collage, watermark or branding. Preserve anatomy quality; do not introduce arms emerging from torsos.",
+        "Edit the supplied illustration with ONE precise cleanup: completely remove the large calendar pictogram, red circle and red rays on the stage backdrop. Replace that entire banner area with the original plain softly draped cream stage cloth and a few natural blossom garlands. Keep the newly clear pocket-watch dial, watch hand grip, focused woman and clipboard, helper's face and hands, ladder, stage architecture, lighting, palette, texture and every other part unchanged. No calendars, symbols, logos, typography or lettering anywhere. Preserve beautiful warm hand-painted gouache/watercolor/pencil storybook craft."
+      ]
+    },
+    {
+      "id": "season-Spring-17",
+      "stage": 2,
+      "asset": "public/illustrations/season-Spring-17.webp",
+      "source": "artifacts/spring-summer-refinement/sources/stage-2/season-Spring-17.png",
+      "sourceSha256": "db0ec41f8691be4ca3e22d114c571bf137ef70b9b196b08a2fa39dbefaa376da",
+      "promptTrail": [
+        "Edit target: the supplied Romantiverse Bingo season-Spring-17 scene. Stage 2 refinement: emotional expression and trope-specific storytelling. Make the FLOWER-ARRANGING CONTEST unmistakable. Preserve the two adult romantic rivals, their faces and playful competitive glances, two clearly separate flower arrangements, spring blooms and market tent. Add a modest older woman judge behind the table between them, holding one simple coral award rosette with no lettering at chest height while assessing the two arrangements. Each contender works only on their own arrangement. Show believable shoulder-to-elbow arm paths and simple separated hands; no interwoven grips. Keep the mood warmly competitive and sincere rather than generic posing. Keep the beautiful unified warm hand-painted mid-century gouache/watercolor/pencil romantic storybook craft, visible paper grain, coherent perspective, large expressive faces, cream/coral/forest-green/honey-gold palette, appropriate spring or summer setting, cinematic light and square composition. No snow, Christmas decor, generic icons, collage, watermark or branding. Preserve anatomy quality; do not introduce arms emerging from torsos.",
+        "Edit the supplied flower-arranging contest illustration with ONE precise cleanup: completely remove the framed written 'Flower-Arranging Contest' sign and its frame from the front center of the table. Continue the ordinary cream tablecloth naturally across that area with just one loose tulip and a pair of garden scissors placed flat on it. Preserve the two separate flower arrangements, the older judge and her plain coral award rosette, all three faces, competitive glances, coherent attached arms, believable hands, spring background, palette, lighting, painted gouache/watercolor/pencil texture and square composition. No readable text or lettering anywhere, no replacement icon or blank sign. Let the people, flowers and award tell the story."
+      ]
+    },
+    {
+      "id": "season-Summer-19",
+      "stage": 2,
+      "asset": "public/illustrations/season-Summer-19.webp",
+      "source": "artifacts/spring-summer-refinement/sources/stage-2/season-Summer-19.png",
+      "sourceSha256": "b9839d4a0207f0e55a0984e4481477328334f1cda0cbcc6ff3698c9b1f5e620d",
+      "promptTrail": [
+        "Edit target: the supplied Romantiverse Bingo season-Summer-19 scene. Stage 2 refinement: emotional expression and trope-specific storytelling. Clarify the MISSED FERRY story. Preserve the same two adult travelers, their clothes, luggage and harbor. Move the departing white-and-blue ferry considerably closer/larger in the middle background so its hull, passenger cabin and receding wake are clearly readable at 64px, with an unmistakable open gap of water separating it from their pier. The man gives an embarrassed rueful smile; the woman looks toward the departing ferry with amused resignation, one natural hand palm-up. Keep exactly two arms per person, shoulder/elbow/forearm connections visible. No text or signs. Keep the beautiful unified warm hand-painted mid-century gouache/watercolor/pencil romantic storybook craft, visible paper grain, coherent perspective, large expressive faces, cream/coral/forest-green/honey-gold palette, appropriate spring or summer setting, cinematic light and square composition. No snow, Christmas decor, generic icons, collage, watermark or branding. Preserve anatomy quality; do not introduce arms emerging from torsos."
+      ]
+    },
+    {
+      "id": "season-Summer-20",
+      "stage": 2,
+      "asset": "public/illustrations/season-Summer-20.webp",
+      "source": "artifacts/spring-summer-refinement/sources/stage-2/season-Summer-20.png",
+      "sourceSha256": "7e5f6fc8ea3aa90ac95e39cc699441b1394456b7d1f4f6c86dac0f8019dbb39b",
+      "promptTrail": [
+        "Edit target: the supplied Romantiverse Bingo season-Summer-20 scene. Stage 2 refinement: emotional expression and trope-specific storytelling. Make the FARMERS MARKET COOKING CHALLENGE clear, rather than two people simply smelling ingredients. Preserve the adult couple's identities, aprons, playful competitive expressions, older female market vendor in the middle background, striped awning and summer harbor palette. Foreground: two distinct small finished tomato-and-basil salad bowls, each on its own wooden board. Each contender presents their own bowl with one hand and rests the other hand visibly on their own side of the counter. The older vendor acts as judge, tasting a sample with one ordinary spoon and reacting thoughtfully; her other hand holds no object and rests at her side. Keep the three people's hands well separated, normal fingers and visible believable arm attachment. No chopping knives or difficult overlapping gestures. Produce baskets remain subordinate. No lettering. Keep the beautiful unified warm hand-painted mid-century gouache/watercolor/pencil romantic storybook craft, visible paper grain, coherent perspective, large expressive faces, cream/coral/forest-green/honey-gold palette, appropriate spring or summer setting, cinematic light and square composition. No snow, Christmas decor, generic icons, collage, watermark or branding. Preserve anatomy quality; do not introduce arms emerging from torsos."
+      ]
+    },
+    {
+      "id": "season-Spring-16",
+      "stage": 3,
+      "asset": "public/illustrations/season-Spring-16.webp",
+      "source": "artifacts/spring-summer-refinement/sources/stage-3/season-Spring-16.png",
+      "sourceSha256": "039a7d492927da6516d83ba0cfa1d2f2c3c89430b27bc7f4e7de2600d4501fa0",
+      "promptTrail": [
+        "Edit target: the supplied corrected TWO-ARM spring puddle-splash illustration. Stage 3: refine painted atmosphere, material texture and cinematic lighting. Preserve the corrected anatomy exactly: woman has one arm holding the umbrella and one hand gathering her skirt, absolutely no third arm. Keep both people's identities, genuinely surprised laughing expressions, coherent feet, single umbrella, and exact splash action. Repaint the weather/light to feel like a real gentle spring shower rather than all-over yellow sunshine: cooler blue-gray reflected sky in the wet pavement and puddle, soft fresh-green atmospheric depth behind the couple, soft diffuse spring light, and restrained warm peach-gold illumination on their faces. Preserve cream umbrella, coral cardigan, floral skirt, spring blossoms, handsome cohesive storybook palette. Improve visible gouache layering, translucent watercolor in the wet ground, delicate pencil edge accents and quiet paper grain; no plastic skin, harsh outlines, digital sharpening or uniform sepia wash. The splash must read crisply against a slightly quieter darker puddle at small size. This should remain a beautiful warm mid-century hand-painted romantic illustration in the SAME series, not a different art style. No new props, symbols, letters or extra limbs. One square scene."
+      ]
+    },
+    {
+      "id": "season-Summer-22",
+      "stage": 4,
+      "asset": "public/illustrations/season-Summer-22.webp",
+      "source": "artifacts/spring-summer-refinement/sources/stage-4/season-Summer-22.png",
+      "sourceSha256": "67b014292681d54eed1eaf91f6d2c85c70d9378202f6ba021064a003f92f653b",
+      "promptTrail": [
+        "Edit target: the supplied summer cafe-colleagues illustration. Stage 4 production-size readability cleanup ONLY. Preserve the same two adults, shy affectionate eye contact, facial identities, normal shoulder/arm anatomy, aprons, hands, cafe setting, chair, cutlery, tableware, summer harbor, warm gouache/watercolor/pencil texture, palette and framing. Make the romantic flower offer legible at 64px: replace the tiny scattered single mixed-flower stem in the man's offering hand with a modest PALM-SIZED posy of three cleanly silhouetted white daisies with warm yellow centers and a few forest-green leaves, their stems clearly held together in his existing natural grip. The flowers sit in the open blue-water gap between the faces at chest height, not covering either face. Keep correct physical flower size, hand and fingers; no giant bouquet. Quiet the competing tabletop vase flowers slightly so the offered posy is the focal prop. Add no lettering, calendar, icons or signage; no new limbs or changes to poses. Keep this a beautiful original hand-painted romantic storybook scene, not a graphic symbol."
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "id": "season-Spring-20",
+      "stage": 1,
+      "source": "artifacts/spring-summer-refinement/rejected/stage-1-season-Spring-20.png",
+      "sourceSha256": "b02263c1227b0ab2f09e4059aa274b437c6349f96fe58fe564fa20f5c5ad86c9",
+      "reason": "Rejected after user highlighted a forearm emerging from the woman's torso; superseded by a two-hand nursery-pot pose.",
+      "prompt": "Edit target: the supplied Spring memorial-tree illustration. Refine ONLY the hand/forearm contact and shovel geometry. Make the three overlapping shovel hands easy to distinguish and physically believable: the woman's right hand grips the left side of the wooden D handle, the elderly man's right hand grips the straight shaft a little below the D handle; their grips do not overlap. The man's other hand rests naturally at his side, and the woman's other hand rests at her own waist. All visible hands have normal fingers and connect to the correct forearms. Keep exactly two people, the same faces, affectionate eye contact, ages, clothing, body proportions, cherry tree, planted soil mound, cottage, square composition, warm cinematic light, gouache/watercolor/pencil texture and palette. The shovel shaft must be straight, its blade seated plausibly in the soil. Preserve the scene's beautiful warm romantic storybook world; no text, logos or added props. This is a targeted anatomy/contact cleanup, not a new scene."
+    },
+    {
+      "id": "season-Spring-13",
+      "stage": 2,
+      "source": "artifacts/spring-summer-refinement/rejected/stage-2-season-Spring-13.png",
+      "sourceSha256": "7d3bec0c4c622879ca939e34d63afde3626ec51d3c169b18e1c85df05b7d5940",
+      "reason": "Rejected for an unwanted calendar pictogram in the backdrop.",
+      "prompt": "Edit target: the supplied Romantiverse Bingo season-Spring-13 scene. Stage 2 refinement: emotional expression and trope-specific storytelling. Clarify the BLOSSOM FESTIVAL DEADLINE. Reorient the gold pocket watch so its open round cream DIAL with two clearly dark clock hands faces the viewer at a slight angle, not just an ornamental back or lid. Make the watch a little larger and clearly connected to a short chain. Preserve the woman's already focused worried expression, clipboard, original anatomically attached arms and natural watch grip, and the male helper decorating the unfinished stage. At 64px it must read as checking time, not holding a spoon or mirror. No lettering or readable numerals. Keep the beautiful unified warm hand-painted mid-century gouache/watercolor/pencil romantic storybook craft, visible paper grain, coherent perspective, large expressive faces, cream/coral/forest-green/honey-gold palette, appropriate spring or summer setting, cinematic light and square composition. No snow, Christmas decor, generic icons, collage, watermark or branding. Preserve anatomy quality; do not introduce arms emerging from torsos."
+    },
+    {
+      "id": "season-Spring-17",
+      "stage": 2,
+      "source": "artifacts/spring-summer-refinement/rejected/stage-2-season-Spring-17.png",
+      "sourceSha256": "da928cf8eba42269ee953360ad333298ef0f17c55e056a6ca9005f03709b4c75",
+      "reason": "Rejected for an unwanted written contest sign.",
+      "prompt": "Edit target: the supplied Romantiverse Bingo season-Spring-17 scene. Stage 2 refinement: emotional expression and trope-specific storytelling. Make the FLOWER-ARRANGING CONTEST unmistakable. Preserve the two adult romantic rivals, their faces and playful competitive glances, two clearly separate flower arrangements, spring blooms and market tent. Add a modest older woman judge behind the table between them, holding one simple coral award rosette with no lettering at chest height while assessing the two arrangements. Each contender works only on their own arrangement. Show believable shoulder-to-elbow arm paths and simple separated hands; no interwoven grips. Keep the mood warmly competitive and sincere rather than generic posing. Keep the beautiful unified warm hand-painted mid-century gouache/watercolor/pencil romantic storybook craft, visible paper grain, coherent perspective, large expressive faces, cream/coral/forest-green/honey-gold palette, appropriate spring or summer setting, cinematic light and square composition. No snow, Christmas decor, generic icons, collage, watermark or branding. Preserve anatomy quality; do not introduce arms emerging from torsos."
+    }
+  ]
+}

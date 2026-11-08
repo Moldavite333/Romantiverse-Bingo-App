@@ -4,7 +4,8 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 import {chromium} from 'playwright';
 const entries=JSON.parse(await readFile('src/art/illustrations.json','utf8'));
-const active=entries.filter(e=>e.active&&e.id!=='free'),root=resolve('dist'),out='artifacts/refinement/boards';
+const active=entries.filter(e=>e.active&&e.id!=='free'),root=resolve('dist'),out=process.argv.find(arg=>arg.startsWith('--out='))?.slice('--out='.length)||'artifacts/refinement/boards';
+const allMarked=process.argv.includes('--all-marked');
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.webp':'image/webp','.json':'application/json'};
 const server=createServer(async(req,res)=>{try{
  const path=resolve(root,'.'+(new URL(req.url,'http://local').pathname==='/'?'/index.html':new URL(req.url,'http://local').pathname));
@@ -55,10 +56,16 @@ try{
    await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
    await page.locator('.board').screenshot({animations:'disabled',path:prefix+'-winning.png'});
    assert.equal(await page.locator('.board .square').nth(12).isDisabled(),true);
-   results.push({width,batch:offset/24+1,geometry});await context.close();
+   if(allMarked){
+    for(let i=0;i<25;i++)if(await page.locator('.board .square').nth(i).getAttribute('aria-pressed')!=='true')await page.locator('.board .square').nth(i).click();
+    assert.equal(await page.locator('.board .square.marked').count(),25);
+    assert.ok(await page.locator('.board .square-art').evaluateAll(images=>images.every(e=>e.complete&&e.naturalWidth===384&&getComputedStyle(e).filter==='none')));
+    await page.locator('.board').screenshot({animations:'disabled',path:prefix+'-all-marked.png'});
+   }
+   results.push({width,batch:offset/24+1,geometry,allMarked});await context.close();
   }
   assert.equal(covered.size,active.length+1,`${width}: incomplete asset coverage`);
   console.log(`${width}: all ${active.length} active tropes + center; unselected, selected and winning passed`);
  }
- await writeFile(`${out}/report.json`,JSON.stringify({origin,activeTropes:active.length,missing:0,viewports:5,boards:results.length,statesPerBoard:3,results},null,2)+'\n');
+ await writeFile(`${out}/report.json`,JSON.stringify({origin,activeTropes:active.length,missing:0,viewports:5,boards:results.length,statesPerBoard:allMarked?4:3,results},null,2)+'\n');
 }finally{await browser.close();await new Promise(r=>server.close(r))}

@@ -1,5 +1,5 @@
 // Offline-ready static app shell. Room state and private tokens are never cached.
-const CACHE='romantiverse-v9-all-seasons';
+const CACHE='romantiverse-v10-seasonal-refinement';
 const BASE='/';
 const SHELL=BASE+'index.html';
 const PRECACHE=[BASE+'catalog/movies.json',BASE+'manifest.webmanifest',BASE+'icon.svg',BASE+'icon-192.png',BASE+'icon-512.png',BASE+'illustrations/manifest.json'];
