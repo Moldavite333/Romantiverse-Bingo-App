@@ -14,7 +14,7 @@ import StoryArtwork from './StoryArtwork.jsx';
 import CardArtGuide from './CardArtGuide.jsx';
 import {nextPlayerSnapshot,nextRoomState} from './engine/roomState.mjs';
 import {winningLines,LINES} from './engine/bingo.mjs';
-import {LAUNCH_THEMES,isLaunchMovie} from './engine/launchCollections.mjs';
+import {LAUNCH_THEMES,themeLabel,isLaunchMovie} from './engine/launchCollections.mjs';
 import {readActiveRoom,roomCredentials,rememberRoom,forgetRoom} from './engine/roomMemory.mjs';
 import {startRoomPolling} from './services/roomPolling.mjs';
 import {createRoomMarkQueue} from './services/roomMarkQueue.mjs';
@@ -27,7 +27,7 @@ function MovieDetails({movie,theme,heading='TONIGHT’S MOVIE'}){
  return <div className="room-movie-details" aria-label="Selected multiplayer movie">
   {poster?<img className="room-movie-poster" src={poster.url} alt={title+' movie poster'} referrerPolicy="no-referrer" decoding="async" onError={e=>{e.currentTarget.hidden=true}}/>:<div className="room-movie-placeholder" aria-hidden="true"><StoryArtwork id="free"/></div>}
   <div className="room-movie-copy"><small>{heading}</small><strong>{title}</strong>{Number.isInteger(movie.release_year)&&<span>{movie.release_year}</span>}
-   <span>Collection: {collection==='Unspecified'?'Unverified':collection}</span><span>Bingo theme: {theme||'Romance'}</span>
+   <span>Collection: {collection==='Unspecified'?'Unverified':themeLabel(collection)}</span><span>Bingo theme: {themeLabel(theme||'Romance')}</span>
   </div></div>;
 }
 export default function Multiplayer({catalog=[],mode='classic'}){
@@ -120,7 +120,7 @@ const hostForm=<section className="room-host-panel" aria-label="Host a game"><h3
    {!searching&&search.trim().length>=3&&<button type="button" onClick={()=>selectMovie({id:'custom-'+search.trim(),title:search.trim(),season:'Unspecified',kind:'CUSTOM · TITLE UNVERIFIED'})}>Use “{search.trim()}” as an unverified title</button>}
   </div>}
   {chosen&&<><MovieDetails movie={chosen} theme={theme} heading="SELECTED MOVIE"/><button type="button" onClick={()=>{setSelected(null);setSearch('')}}>Change Movie</button></>}
-  <label htmlFor="host-theme">Bingo card theme</label><select id="host-theme" value={theme} onChange={e=>setTheme(e.target.value)}>{THEMES.map(t=><option key={t}>{t}</option>)}</select>
+  <label htmlFor="host-theme">Bingo card theme</label><select id="host-theme" value={theme} onChange={e=>setTheme(e.target.value)}>{THEMES.map(t=><option key={t} value={t}>{themeLabel(t)}</option>)}</select>
   <p className="fineprint">The Bingo theme does not change the movie's actual catalog collection. Unverified titles remain labeled unverified.</p>
   <label htmlFor="host-mode">Game mode</label><select id="host-mode" value={hostMode} onChange={e=>setHostMode(e.target.value)}><option value="classic">Classic Bingo</option><option value="chase">Cheese Chase</option><option value="blackout">Blackout</option><option value="marathon">Movie Marathon</option></select>
   <button className="primary room-create-button" disabled={!name.trim()||!chosen?.title||busy} onClick={()=>call('create',{name:name.trim(),movie_title:chosen.title,movie_collection:chosen.season||'Unspecified',poster_url:approvedMoviePoster(chosen)?.url||null,release_year:Number.isInteger(chosen.release_year)?chosen.release_year:null,season:theme,mode:hostMode})}>Create Room</button>

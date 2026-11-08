@@ -12,7 +12,7 @@ export function normalizePublishedPosters(rows){
   const title=row.title.trim().slice(0,250);
   if(!title)continue;
   const release_year=Number.isInteger(row.release_year)&&row.release_year>=1900&&row.release_year<=2200?row.release_year:null;
-  const season=['Christmas','Fall'].includes(row.season)?row.season:'Unspecified';
+  const season=['Christmas','Fall','Spring','Summer','Romance'].includes(row.season)?row.season:'Unspecified';
   const poster_url=approvedMoviePoster({poster_url:row.poster_url})?.url||null;
   out.push({
    id:'hq-published-'+(release_year||'unknown')+'-'+title.toLowerCase().replace(/[^a-z0-9]+/g,'-'),

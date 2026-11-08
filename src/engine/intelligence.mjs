@@ -1,3 +1,5 @@
+import newSeasons from '../art/new-seasons.json' with {type:'json'};
+import evergreen from '../art/evergreen-tropes.json' with {type:'json'};
 import {factKeywords} from './storyFacts.mjs';
 // Explainable, deterministic trope analysis. No network/AI model claims.
 export const CHEESE=[
@@ -39,6 +41,7 @@ export const CHEESE=[
 {id:'free-food',label:'Free food',signals:['free food','complimentary meal','on the house','free dinner'],weight:0.58},
 ];
 export const SEASONAL={
+...Object.fromEntries(Object.entries(newSeasons).map(([theme,rows])=>[theme,rows.map(([label])=>label)])),
 Christmas:['Hot cocoa fixes everything','A town Christmas tree lighting','A snowstorm changes plans','Mistletoe appears at the perfect time','Christmas cookies are plot-critical','A festive fundraiser','A Christmas market','A Christmas Eve deadline','A tree-decorating scene','A magical snowfall','A holiday parade','A Christmas wish','A Christmas carol','An ugly Christmas sweater','A last-minute Christmas gift','A cozy fireplace moment','A holiday baking contest','A Christmas miracle','An unexpected sleigh ride','A family holiday tradition','Christmas lights everywhere','A charming tree farm','An overdecorated small town','An emotional holiday reunion','A festive kiss','Meddling Santas','Snowball fights','Snow angels'],
 Fall:['Pumpkin patch encounter','Apple cider conversation','A scenic hayride','Autumn leaves everywhere','Harvest festival showdown','A flannel-clad love interest','Bonfire heart-to-heart','Pie contest rivalry','Corn maze mishap','Pumpkin carving','Family orchard crisis','Apple-picking date','A cozy sweater','Fall decorations montage','Small-town fall fair','A farm stand meet-cute','A harvest dance','An autumn sunset kiss','Pumpkin spice is mentioned','A festival deadline','Scarecrow sighting','A barn party','A leaf-peeping trip','An unexpected autumn storm','A fall tradition'],
 Horror:['Someone ignores a clear warning','A suspiciously unlocked door','A creepy basement visit','Someone splits up','A flashlight fails','A jump scare','A power outage','A mysterious noise','A character has no signal','An ominous reflection','A car refuses to start','A false alarm','A strange symbol','A locked room','A terrifying phone call','An old diary','A character runs upstairs','A suspicious stranger','Footsteps with no explanation','A sudden scream','A door slams','An eerie photograph','A shadow moves','Someone says it is probably nothing','A final survivor']
@@ -70,20 +73,22 @@ const FACT_TROPE_HINTS={
 const stop=new Set(['the','and','with','for','from','into','their','this','that','her','his','she','him','they','while','during','about','under','over','after','before','through','back']);
 const contexts={
 Christmas:['christmas','holiday','snow','winter','mistletoe','santa','reindeer','carol','tree','cocoa','gift','december','north pole'],
+Spring:['spring','blossom','easter','daffodil'],
+Summer:['summer','beach','seaside','vacation'],
 Fall:['fall','autumn','harvest','pumpkin','apple','orchard','cider','leaves','festival','farm','october'],
 Horror:['horror','haunted','ghost','killer','murder','monster','dark','scream','haunting','curse','nightmare']
 };
-export function inferSeason(movie){if(contexts[movie?.season])return movie.season;const text=norm([movie?.title,movie?.synopsis,movie?.description].join(' '));let best='Christmas',score=0;for(const [season,terms] of Object.entries(contexts)){const n=terms.filter(t=>(' '+text+' ').includes(' '+t+' ')).length;if(n>score){best=season;score=n}}return best}
+export function inferSeason(movie){if(movie?.season==='Romance'||movie?.season==='No Season')return 'Romance';if(contexts[movie?.season])return movie.season;const text=norm([movie?.title,movie?.synopsis,movie?.description].join(' '));let best='Romance',score=0;for(const [season,terms] of Object.entries(contexts)){const n=terms.filter(t=>(' '+text+' ').includes(' '+t+' ')).length;if(n>score){best=season;score=n}}return best}
 export function analyzeMovie(movie){
  const title=String(movie?.title||'').slice(0,250),synopsis=String(movie?.synopsis||movie?.description||'').slice(0,6000),season=inferSeason(movie);
  const text=norm(title+' '+synopsis+' '+factKeywords(movie?.story_facts).join(' ')), wordset=tokens(text);
- const cheese=CHEESE.map(t=>{
+ const cheese=(['Spring','Summer','Romance'].includes(season)?evergreen:CHEESE).map(t=>{
  const signals=[...t.signals,...(aliases[t.id]||[]),...(FACT_TROPE_HINTS[t.id]||[])];
  const hits=signals.filter(s=>{const term=norm(s);return term.includes(' ')?(' '+text+' ').includes(' '+term+' '):wordset.has(term)});
  const confidence=Math.min(.94,Math.max(.25,t.weight+(hits.length?Math.min(.16,.06*hits.length):-.22)));
  return {...t,category:'cheese',confidence,reason:hits.length?'Story fact/title clues: '+hits.slice(0,4).join(', '):'Genre prediction only — no supporting plot clue',evidence:hits.length?'synopsis':'prediction',observable_trigger:t.label,verified:false};
  }).sort((a,b)=>b.confidence-a.confidence||a.id.localeCompare(b.id));
- const seasonal=(SEASONAL[season]||SEASONAL.Christmas).map((label,i)=>{
+ const seasonal=(SEASONAL[season]||[]).map((label,i)=>{
  const meaningful=norm(label).split(' ').filter(w=>w.length>3&&!stop.has(w));
  const hits=meaningful.filter(w=>wordset.has(w));
  return {id:'season-'+season+'-'+i,label,category:'seasonal',confidence:Math.min(.86,.53+hits.length*.09),reason:hits.length?'Story fact/title topic overlap: '+hits.join(', '):'Seasonal convention — not confirmed',evidence:'prediction',verified:false,observable_trigger:label};
@@ -93,7 +98,7 @@ export function analyzeMovie(movie){
 export function seededRandom(seed){let s=seed>>>0;return ()=>{s=(s+0x6d2b79f5)>>>0;let t=Math.imul(s^(s>>>15),1|s);t^=t+Math.imul(t^(t>>>7),61|t);return ((t^(t>>>14))>>>0)/4294967296}}
 export function shuffle(items,rng){const out=[...items];for(let i=out.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[out[i],out[j]]=[out[j],out[i]]}return out}
 export const visibleTropeKey = trope => String(trope?.label || '').normalize('NFKC').trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-US');
-export function buildCard(movie,{seed=1,free=true,cheeseRatio=.5,difficulty='balanced',locked={}}={}){if(!Number.isSafeInteger(seed)||seed<0)throw Error('Invalid card seed');if(!Number.isFinite(cheeseRatio)||cheeseRatio<0||cheeseRatio>1)throw Error('Invalid trope ratio');const {cheese,seasonal}=analyzeMovie(movie);const rng=seededRandom(seed);const count=free?24:25;const nCheese=Math.round(count*cheeseRatio);const target=difficulty==='easy'?[.72,1]:difficulty==='hard'?[0,.7]:[0,1];const usedLabels=new Set();const choose=(arr,n)=>{const eligible=arr.filter(t=>t.confidence>=target[0]&&t.confidence<=target[1]);const preferred=eligible.length>=n?eligible:arr;const ranked=shuffle(preferred,rng).sort((a,b)=>difficulty==='hard'?a.confidence-b.confidence:b.confidence-a.confidence);const picked=[];for(const trope of ranked){const key=visibleTropeKey(trope);if(!key||usedLabels.has(key))continue;usedLabels.add(key);picked.push(trope);if(picked.length===n)break}return picked};let selected=[...choose(cheese,nCheese),...choose(seasonal,count-nCheese)];if(selected.length!==count)throw Error('Not enough distinct tropes');selected=shuffle(selected,rng);
+export function buildCard(movie,{seed=1,free=true,cheeseRatio=.5,difficulty='balanced',locked={}}={}){if(!Number.isSafeInteger(seed)||seed<0)throw Error('Invalid card seed');if(!Number.isFinite(cheeseRatio)||cheeseRatio<0||cheeseRatio>1)throw Error('Invalid trope ratio');const {cheese,seasonal}=analyzeMovie(movie);const rng=seededRandom(seed);const count=free?24:25;const nCheese=seasonal.length?Math.round(count*cheeseRatio):count;const target=difficulty==='easy'?[.72,1]:difficulty==='hard'?[0,.7]:[0,1];const usedLabels=new Set();const choose=(arr,n)=>{if(n===0)return [];const eligible=arr.filter(t=>t.confidence>=target[0]&&t.confidence<=target[1]);const preferred=eligible.length>=n?eligible:arr;const ranked=shuffle(preferred,rng).sort((a,b)=>difficulty==='hard'?a.confidence-b.confidence:b.confidence-a.confidence);const picked=[];for(const trope of ranked){const key=visibleTropeKey(trope);if(!key||usedLabels.has(key))continue;usedLabels.add(key);picked.push(trope);if(picked.length===n)break}return picked};let selected=[...choose(cheese,nCheese),...choose(seasonal,count-nCheese)];if(selected.length!==count)throw Error('Not enough distinct tropes');selected=shuffle(selected,rng);
 // Spread categories across rows rather than letting all rare/similar squares cluster.
 const cheeseItems=selected.filter(t=>t.category==='cheese');
 const seasonalItems=selected.filter(t=>t.category==='seasonal');

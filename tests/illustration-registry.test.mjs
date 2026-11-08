@@ -6,10 +6,10 @@ import roomAliases from '../src/art/room-illustration-aliases.json' with {type:'
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 test('all bundled active IDs and labels have individually briefed unique assignments',()=>{
- const required=[...CHEESE,...['Christmas','Fall'].flatMap(s=>SEASONAL[s].map((label,i)=>({id:`season-${s}-${i}`,label}))),{id:'free',label:'CHEESE LOUISE POD'}];
+ const required=[...CHEESE,...['Christmas','Fall','Spring','Summer'].flatMap(s=>SEASONAL[s].map((label,i)=>({id:`season-${s}-${i}`,label}))),{id:'free',label:'CHEESE LOUISE POD'}];
  const paths=new Set();
  for(const t of required){const e=illustrationRegistry[t.id];assert.equal(e.label,t.label);assert.ok(e.scene);assert.ok(e.asset);assert.ok(!paths.has(e.asset),t.id);paths.add(e.asset);}
- assert.equal(paths.size,90);
+ assert.equal(paths.size,140);
 });
 test('lookup uses IDs, supports deployment subpaths, and never infers art from labels',()=>{
  assert.equal(resolveIllustration({id:'coincidence',label:'  A coincidence  '},{base:'/bingo/'}).src,'/bingo/illustrations/coincidence.webp');

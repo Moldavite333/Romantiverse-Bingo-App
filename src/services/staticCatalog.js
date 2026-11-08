@@ -1,6 +1,6 @@
 // Static-first catalog: no login, Supabase, API subscription, or runtime billing.
 const BASE=import.meta.env?.BASE_URL||'/';
-const SEASONS=new Set(['Christmas','Fall','Horror','Unspecified']);
+const SEASONS=new Set(['Christmas','Fall','Spring','Summer','Romance','Horror','Unspecified']);
 const FACT_KEYS=['setting','relationship','conflict','event'];
 function normalizeMovie(m){
  if(!m||typeof m!=='object'||Array.isArray(m)||typeof m.title!=='string')return null;

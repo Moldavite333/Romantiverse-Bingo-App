@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {LAUNCH_THEMES,LAUNCH_SEASONAL_THEMES,isLaunchMovie} from '../src/engine/launchCollections.mjs';
 
-test('launch themes are romance, Christmas and fall only', () => {
-  assert.deepEqual([...LAUNCH_THEMES], ['Romance', 'Christmas', 'Fall']);
-  assert.deepEqual([...LAUNCH_SEASONAL_THEMES], ['Christmas', 'Fall']);
+test('public themes cover all seasons and evergreen romance', () => {
+  assert.deepEqual([...LAUNCH_THEMES], ['Romance', 'Spring', 'Summer', 'Fall', 'Christmas']);
+  assert.deepEqual([...LAUNCH_SEASONAL_THEMES], ['Spring', 'Summer', 'Fall', 'Christmas']);
   assert.equal(LAUNCH_THEMES.includes('Horror'), false);
 });
 

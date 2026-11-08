@@ -10,7 +10,7 @@ export function validateCheesePackage(input){
  const allowed=new Set(traits.map(t=>t.id));
  const movies=input.movies.map(m=>({
   id:safeText(m.id,120),title:safeText(m.title,250),release_year:Number(m.release_year)||null,
-  season:['Christmas','Fall','Horror'].includes(m.season)?m.season:'Christmas',
+  season:['Christmas','Fall','Spring','Summer','Romance','Horror','Unspecified'].includes(m.season)?m.season:'Unspecified',
   story_facts:validateStoryFacts(m.story_facts),
   cheese_trait_ids:[...new Set(Array.isArray(m.cheese_trait_ids)?m.cheese_trait_ids.filter(id=>allowed.has(id)):[])],
   is_demo:false,source_name:'Cheese Louise approved export'

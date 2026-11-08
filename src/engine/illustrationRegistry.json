@@ -1105,7 +1105,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "a6907e4ad523cd45748b350f6b1d53983e323b93ca7741986dcc165d94338212"
+    "assetSha256": "6dd66bbed4ef8a7291466d6e9e6be7ee1332dd9f3b0e03309f86337e8ec6963d"
   },
   "room-unexpected-reunion": {
     "id": "room-unexpected-reunion",
@@ -1114,7 +1114,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "bc52506e1da6c53f4d8ee7e9fd1b0a3c9821917cbcf41500765ab102e30d8126"
+    "assetSha256": "49d6af989d734a268f0c90b95edb62ee7a38533132714b96c22e26937bf667b3"
   },
   "room-first-dance": {
     "id": "room-first-dance",
@@ -1150,7 +1150,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "ec528a6a4d81cb5cefaa41265c4ab6cdf6cc6657a90232e588f1209905a8d437"
+    "assetSha256": "72faa116bf7617fa5462d1e8c7f36a9ac469fe92222db4070a2b360bbfa574e0"
   },
   "room-a-romantic-confession": {
     "id": "room-a-romantic-confession",
@@ -1159,7 +1159,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "059c19a00bc260a64076de7c3d6b25e2d83e5f68464d5278369ae6c6ca75d5f1"
+    "assetSha256": "de3ec8110cee23812c79767cc160cf11422498934549924d3dfe873899f7dfbe"
   },
   "room-a-heartfelt-apology": {
     "id": "room-a-heartfelt-apology",
@@ -1168,7 +1168,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "6954a2b683daae9f5f3f0aaf76c8541c8b83b304b74ddaa9f0116c5d5bb3ce38"
+    "assetSha256": "136f2591975aaf7921c5e2807081c7020235bb73d2e9dabed202b4bfd983ea19"
   },
   "room-a-secret-crush": {
     "id": "room-a-secret-crush",
@@ -1177,7 +1177,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "5b52dd76d77847dad179443346d53d9f51b13aacacb138f87319786f7a639df6"
+    "assetSha256": "f0ce2f043abf5dfbd41a648a9eac1424bba5879da24fba66c76f08aae17e9172"
   },
   "room-a-chance-encounter": {
     "id": "room-a-chance-encounter",
@@ -1186,7 +1186,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "c300489212089f1c6c2ec984fa1f654bfdc07decd9d1d1917a6fc5a95451f879"
+    "assetSha256": "85ba096aa168135070bc73aa0737597575edbf3b223edb3527ea71ed9cd3b16f"
   },
   "room-an-unexpected-phone-call": {
     "id": "room-an-unexpected-phone-call",
@@ -1195,7 +1195,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "8dc901dacaf5b4644d77c8c7cfa15ed73bc1ec894fa9a0b1778d0431f9ddc876"
+    "assetSha256": "1b447d056a1d4fbdeab9aa2fddf8408725b081be19d46a66d24a33533a615f74"
   },
   "room-a-thoughtful-surprise": {
     "id": "room-a-thoughtful-surprise",
@@ -1213,7 +1213,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "511849ac555de51e666f18199fceca736eff153f4f16acd728b19d8bc4c882ae"
+    "assetSha256": "0800c660634b08c7f0b201dc83a6271c06f8ee0a1a995eb414adc1c8ef565abd"
   },
   "room-an-emotional-goodbye": {
     "id": "room-an-emotional-goodbye",
@@ -1222,7 +1222,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "2ba593a162cdb433c1a2b4ab19d4aa7966d82622f84cfb9be50d8a357fe1f5f4"
+    "assetSha256": "390b7e54a9567b9785fc90bb6d2d921f0e1bd4ecb9d535b0f64bb8bcdf81161b"
   },
   "room-a-long-awaited-kiss": {
     "id": "room-a-long-awaited-kiss",
@@ -1231,7 +1231,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "d3bf090a3de8a2fed83671a671734a792b5018fd49a314e8d62e64cdcc6b8179"
+    "assetSha256": "446191aa4775d5687c1dce84b873db80c15ace222d5926cd361b6408a06cc329"
   },
   "room-a-change-of-heart": {
     "id": "room-a-change-of-heart",
@@ -1276,7 +1276,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "9459dbb68c5e319c149f1aa669e41327d1cdda2ace56544562cd973ce988d3af"
+    "assetSha256": "840cfc336eb7e532f286d8250944e0a78484f379e454c4ac61b1707669426b5c"
   },
   "room-an-awkward-introduction": {
     "id": "room-an-awkward-introduction",
@@ -1285,7 +1285,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "4b268dce08f9aea18156fd01f9cedb18ba1a9daf0e4c9579218bc8a695a3cad2"
+    "assetSha256": "22f6bc6a5aaed1f0a0612d6cddae798c3baf364ff8bd2d4330149667d6b59c6b"
   },
   "room-an-unexpected-date": {
     "id": "room-an-unexpected-date",
@@ -1294,7 +1294,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "3b4c6db303b69e43540c8948331674d3dbe7282cabe995494613934a96735f7f"
+    "assetSha256": "b81b2a782eb9dfa7d651e6cb144828990b720291f6ee766a81f655271413451a"
   },
   "room-a-moment-of-honesty": {
     "id": "room-a-moment-of-honesty",
@@ -1321,7 +1321,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "b045d34c54cc965ed1cb78a15a25541a8b74bf067187380cb5c2b9033bc88599"
+    "assetSha256": "f2b21ebdb65fd3861143655c0b8726bf052f649780fa3dc84117c3e5b2dc564d"
   },
   "room-an-important-letter": {
     "id": "room-an-important-letter",
@@ -1330,7 +1330,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "55c0d359633315d5fd918c31b6f9e5db5436a109b9c52695cc8bf86509a25ab4"
+    "assetSha256": "14d01de2c79c251579527dc8d5c0fdbacdaa545e4f70c1fcb335fae9d37f2ea1"
   },
   "room-a-shared-tradition": {
     "id": "room-a-shared-tradition",
@@ -1339,7 +1339,7 @@
     "status": "ready",
     "width": 384,
     "height": 384,
-    "assetSha256": "266b9e17ae9575b861cd435cc273f3295645ff69b886937bab5914a742943d55"
+    "assetSha256": "58634c13f184cce471df9f88a4e2c665cc6a0b2bc6fff58aa88f55ab3d994a15"
   },
   "room-a-happy-ending": {
     "id": "room-a-happy-ending",
@@ -1439,5 +1439,455 @@
     "width": 384,
     "height": 384,
     "assetSha256": "64f597dc554a2ec04a3b90b24b1431bea64ef5736089dec1716637109baab0f7"
+  },
+  "season-Spring-0": {
+    "id": "season-Spring-0",
+    "label": "A spring shower brings two people under one umbrella",
+    "src": "illustrations/season-Spring-0.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "dd3dc050ffb514edd815cf9bc87cb2d473fd0d70069cedb96f540bdb3f1d98fa"
+  },
+  "season-Spring-1": {
+    "id": "season-Spring-1",
+    "label": "A cherry-blossom walk",
+    "src": "illustrations/season-Spring-1.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "ba43b605dc94d38b552f439b361b9cbdbf0eb7a7d1a5842b80467ddd8f652191"
+  },
+  "season-Spring-2": {
+    "id": "season-Spring-2",
+    "label": "A flower-shop mix-up",
+    "src": "illustrations/season-Spring-2.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "303d7227c76f6aeac8eec90123465c9e4fe3367e228edbc686deaf23c72d112d"
+  },
+  "season-Spring-5": {
+    "id": "season-Spring-5",
+    "label": "An Easter egg hunt brings everyone together",
+    "src": "illustrations/season-Spring-5.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "1d791550d8566d89b6e64d8dc8ac8f74c440159fc5313537a69982c1fff94b45"
+  },
+  "season-Spring-3": {
+    "id": "season-Spring-3",
+    "label": "A spring festival needs saving",
+    "src": "illustrations/season-Spring-3.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "13b2ccd64ca55bc9bbb50f3bf1824ae11144d94d8acf6cf214c164380e38ccf0"
+  },
+  "season-Spring-6": {
+    "id": "season-Spring-6",
+    "label": "A first picnic of spring",
+    "src": "illustrations/season-Spring-6.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "0d69faec1cf4b17ab92eb4cb0054550ce5dca72bb6e094f061819338120bd139"
+  },
+  "season-Spring-8": {
+    "id": "season-Spring-8",
+    "label": "A rescued duckling changes the day",
+    "src": "illustrations/season-Spring-8.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "6c83c85fc0543ad2ef9aa6198aeafb37f0c37667294968c94a11d7de36b1c20f"
+  },
+  "season-Spring-4": {
+    "id": "season-Spring-4",
+    "label": "Planting a garden together",
+    "src": "illustrations/season-Spring-4.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "939135f0725330bb3e8e70332c0ab4514560dce2e72205f725ba8ed292596d2a"
+  },
+  "season-Spring-7": {
+    "id": "season-Spring-7",
+    "label": "A spring wedding invitation",
+    "src": "illustrations/season-Spring-7.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "8d97a78915367b9fda1e07b5004cc1cc028f88b5b3c71ad45096cf075fda28f4"
+  },
+  "season-Spring-9": {
+    "id": "season-Spring-9",
+    "label": "A bicycle ride turns into a date",
+    "src": "illustrations/season-Spring-9.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "f749c68d99f76f0062b8b227bc7281c1532aa6747fcb2802eb55c5655840f677"
+  },
+  "season-Spring-13": {
+    "id": "season-Spring-13",
+    "label": "A blossom festival deadline",
+    "src": "illustrations/season-Spring-13.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b73c75a6e6678d4e4f8daad02ccdd58f71582ccd18f344ce0305a6a020472e9c"
+  },
+  "season-Spring-10": {
+    "id": "season-Spring-10",
+    "label": "The community garden brings rivals together",
+    "src": "illustrations/season-Spring-10.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "e109ed86b631a87601dffa5b7076d9c96104e49060c417e750771b96087cf8ef"
+  },
+  "season-Spring-14": {
+    "id": "season-Spring-14",
+    "label": "A bouquet says what words cannot",
+    "src": "illustrations/season-Spring-14.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "ef9089b187a5b6192f15e11dc8527526f645a1c3e4f62919776bc32a2eace853"
+  },
+  "season-Spring-11": {
+    "id": "season-Spring-11",
+    "label": "A rain-soaked arrival",
+    "src": "illustrations/season-Spring-11.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "34886cce2808e83d7a1376ab2d73c567728b27e6f563a7b1db5f600ae63f8186"
+  },
+  "season-Spring-15": {
+    "id": "season-Spring-15",
+    "label": "A kite gets tangled",
+    "src": "illustrations/season-Spring-15.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "d7ca99af6def402d4d3591e200f25b4142045bd7b4fa1de0f4188f91c15f6659"
+  },
+  "season-Spring-12": {
+    "id": "season-Spring-12",
+    "label": "A spring-cleaning discovery",
+    "src": "illustrations/season-Spring-12.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "6fe475d3da6ab228531ffc36059f404b28f6057998d45b92e96ce28c8ed15788"
+  },
+  "season-Spring-16": {
+    "id": "season-Spring-16",
+    "label": "A puddle splash breaks the tension",
+    "src": "illustrations/season-Spring-16.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "a0901463b411a659f2ce38e8a3cc02c71e8e48da01aba84e4c7af14e99dd4203"
+  },
+  "season-Spring-20": {
+    "id": "season-Spring-20",
+    "label": "A cherry tree is planted in someone's honor",
+    "src": "illustrations/season-Spring-20.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "6b9b8e8e078a0a13238a83db285a15df08b0fc2e7d94e71a1efd020fe1b4850b"
+  },
+  "season-Spring-17": {
+    "id": "season-Spring-17",
+    "label": "A flower-arranging contest",
+    "src": "illustrations/season-Spring-17.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "72542be2884fa6d39ef21eef28f6169f587f5d329ae07c8ae52c79633e96b7c8"
+  },
+  "season-Spring-18": {
+    "id": "season-Spring-18",
+    "label": "A fresh start in a new home",
+    "src": "illustrations/season-Spring-18.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "742dc549faad538fa34053a06f106703c2d8c04362c0efbc00750e571c5cf4bb"
+  },
+  "season-Spring-21": {
+    "id": "season-Spring-21",
+    "label": "A garden party changes the mood",
+    "src": "illustrations/season-Spring-21.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "00a0c67cc85c5f57965e3eecce227e88730a3812239da9142d2037ff3c8be5e3"
+  },
+  "season-Spring-23": {
+    "id": "season-Spring-23",
+    "label": "A handwritten note arrives with flowers",
+    "src": "illustrations/season-Spring-23.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "478f31d93cf6ac9c965863778e13c8293349fc9beec1abbca922a510431de015"
+  },
+  "season-Spring-19": {
+    "id": "season-Spring-19",
+    "label": "A spring farmers market encounter",
+    "src": "illustrations/season-Spring-19.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b5b377034c4e2ab81065a476fd51f28646a67f97850c9eb3719d85f8507c079e"
+  },
+  "season-Spring-22": {
+    "id": "season-Spring-22",
+    "label": "A spring storm cancels the plans",
+    "src": "illustrations/season-Spring-22.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c97e80e2b3f35565b9739edbfbf7e2c9cdca2d2a8abd44b83e9dd2f2de93919f"
+  },
+  "season-Summer-0": {
+    "id": "season-Summer-0",
+    "label": "A beach-day meet-cute",
+    "src": "illustrations/season-Summer-0.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "58e083a48cdb4ae5ad2150bc16e706d1bf75bb1385eb2ded09e02f36d87044fd"
+  },
+  "season-Spring-24": {
+    "id": "season-Spring-24",
+    "label": "A kiss beneath the blossoms",
+    "src": "illustrations/season-Spring-24.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b06ea1fbff4cc231f650024f19b624f7ddd0dee4902bba91805b66f3094db539"
+  },
+  "season-Summer-3": {
+    "id": "season-Summer-3",
+    "label": "A lakeside heart-to-heart",
+    "src": "illustrations/season-Summer-3.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "f49948dee662276ea81c4b0f0264ca87cc8184bcc0bfdd7b5fd7c3cad712166a"
+  },
+  "season-Summer-1": {
+    "id": "season-Summer-1",
+    "label": "An ice-cream mishap",
+    "src": "illustrations/season-Summer-1.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c3e07006d273303f7ab3d0bb4212c96d2ad45d7002eaad6e99c6a82beea33a5f"
+  },
+  "season-Summer-4": {
+    "id": "season-Summer-4",
+    "label": "A picnic is interrupted",
+    "src": "illustrations/season-Summer-4.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c9265a6cecee2fe75b4bbdda9266c8d158f6eee957c6526cb3354929d6313100"
+  },
+  "season-Summer-2": {
+    "id": "season-Summer-2",
+    "label": "A summer festival brings the town together",
+    "src": "illustrations/season-Summer-2.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "008005f346aeeb93b50c4887c56d7a1e5a0a0a831fb3e1c1f586cda90c386479"
+  },
+  "season-Summer-7": {
+    "id": "season-Summer-7",
+    "label": "A road-trip detour",
+    "src": "illustrations/season-Summer-7.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "14d9a1895423f984f6488d54682355a82507d8e0e6c142441351b8761ed79e11"
+  },
+  "season-Summer-5": {
+    "id": "season-Summer-5",
+    "label": "A boat outing goes off course",
+    "src": "illustrations/season-Summer-5.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b74c990227562e69c2b34a89173430cee2bdeaf0c55cd7b82788ed56af87feaa"
+  },
+  "season-Summer-9": {
+    "id": "season-Summer-9",
+    "label": "A sandcastle competition",
+    "src": "illustrations/season-Summer-9.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b23d71edead6b8a618645d01f4c732be6bbedba81ba26df3e47c66ff9d51ad46"
+  },
+  "season-Summer-8": {
+    "id": "season-Summer-8",
+    "label": "A seaside business needs saving",
+    "src": "illustrations/season-Summer-8.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "1890743ad9238acbc222e2a5a4663025447e4bd92e2117080567635d6fc0e2ec"
+  },
+  "season-Summer-6": {
+    "id": "season-Summer-6",
+    "label": "A summer wedding brings an old flame back",
+    "src": "illustrations/season-Summer-6.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "7f59093b396ca51d39244c067e1b15f45ccfb7faec70fae7ce783c7f4329fb79"
+  },
+  "season-Summer-11": {
+    "id": "season-Summer-11",
+    "label": "A summer storm forces everyone indoors",
+    "src": "illustrations/season-Summer-11.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "630853e3a2f57619fa1fae0811c563b8d5eac4f91c25cbc90ad93f308bcf38f0"
+  },
+  "season-Summer-10": {
+    "id": "season-Summer-10",
+    "label": "An outdoor concert sparks romance",
+    "src": "illustrations/season-Summer-10.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "413b2cb33c54e4ab60d8f38e563ca9f70fc9ea2b9ee1d7543cfb2223c0c1e091"
+  },
+  "season-Summer-12": {
+    "id": "season-Summer-12",
+    "label": "A berry-picking date",
+    "src": "illustrations/season-Summer-12.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "06f1f4073e5da274d2a9f12916997b4c3815f8bac26096bd089eb0e0847bf246"
+  },
+  "season-Summer-16": {
+    "id": "season-Summer-16",
+    "label": "A lifeguard comes to the rescue",
+    "src": "illustrations/season-Summer-16.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "0507ff44a898cb3f5520172be98c495895e6412ce6d4ef2cf75a894a481d219c"
+  },
+  "season-Summer-13": {
+    "id": "season-Summer-13",
+    "label": "A campfire confession",
+    "src": "illustrations/season-Summer-13.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "a15d234f5359378fd51fd89944638b5d706644fe682a0033b086a5681de0063c"
+  },
+  "season-Summer-17": {
+    "id": "season-Summer-17",
+    "label": "A summer camp reunion",
+    "src": "illustrations/season-Summer-17.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "79283291e94d8cd22e2e4a2c47b2045adbcc7c0432d80a7a4f301b690ef7197d"
+  },
+  "season-Summer-14": {
+    "id": "season-Summer-14",
+    "label": "A barbecue gets unexpectedly competitive",
+    "src": "illustrations/season-Summer-14.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "c5b866c7ccac4d7e1cf1a9749ada4c331c021e79ccfc9e13d2b7380e2e5433a8"
+  },
+  "season-Summer-19": {
+    "id": "season-Summer-19",
+    "label": "A missed ferry changes the plans",
+    "src": "illustrations/season-Summer-19.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "b23b86d0b3dd910b71b52b19019be92a496b14a54c938d9b497575b7d9807cab"
+  },
+  "season-Summer-18": {
+    "id": "season-Summer-18",
+    "label": "A boardwalk game becomes a date",
+    "src": "illustrations/season-Summer-18.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "5d9cddc11535b3f4d7a53e15a495b3135084719ac7105f8403e3784a13be70e7"
+  },
+  "season-Summer-15": {
+    "id": "season-Summer-15",
+    "label": "A sunset walk on the pier",
+    "src": "illustrations/season-Summer-15.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "bbac9156a3fc0cc98757632434f926bb44d00fe351049e0b33b1ca58ef12623b"
+  },
+  "season-Summer-20": {
+    "id": "season-Summer-20",
+    "label": "A farmers market cooking challenge",
+    "src": "illustrations/season-Summer-20.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "eda02581542fb0e9e10e18829d07a4500b18215633f10f1d3b170f3c716a008e"
+  },
+  "season-Summer-21": {
+    "id": "season-Summer-21",
+    "label": "Fireworks create the perfect moment",
+    "src": "illustrations/season-Summer-21.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "2ff7d83a8c46034d96541e5819484899965fd73a1801353cf6f29aa18d32daf6"
+  },
+  "season-Summer-22": {
+    "id": "season-Summer-22",
+    "label": "A summer job becomes something more",
+    "src": "illustrations/season-Summer-22.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "1bc64079ba3843d9432b4c8416713abc51bbebd0e6f5d65be2b99ed536d42830"
+  },
+  "season-Summer-23": {
+    "id": "season-Summer-23",
+    "label": "The last day of vacation approaches",
+    "src": "illustrations/season-Summer-23.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "d36ab58e98a5e07851a312700a87bf5c7ec1d6a7c1a91f45091535bfa8713f0a"
+  },
+  "season-Summer-24": {
+    "id": "season-Summer-24",
+    "label": "A kiss at the water's edge",
+    "src": "illustrations/season-Summer-24.webp",
+    "status": "ready",
+    "width": 384,
+    "height": 384,
+    "assetSha256": "f287eacc7c949c8539b6daaeeef9c389e7ed5683ca43c223a7c7b69b4dc4814e"
   }
 }

@@ -57,8 +57,8 @@ try{
    assert.equal(await page.locator('.board .square').nth(12).isDisabled(),true);
    results.push({width,batch:offset/24+1,geometry});await context.close();
   }
-  assert.equal(covered.size,132,`${width}: incomplete asset coverage`);
-  console.log(`${width}: all 131 active tropes + center; six boards; unselected, selected and winning passed`);
+  assert.equal(covered.size,active.length+1,`${width}: incomplete asset coverage`);
+  console.log(`${width}: all ${active.length} active tropes + center; unselected, selected and winning passed`);
  }
- await writeFile(`${out}/report.json`,JSON.stringify({origin,activeTropes:131,missing:0,viewports:5,boards:results.length,statesPerBoard:3,results},null,2)+'\n');
+ await writeFile(`${out}/report.json`,JSON.stringify({origin,activeTropes:active.length,missing:0,viewports:5,boards:results.length,statesPerBoard:3,results},null,2)+'\n');
 }finally{await browser.close();await new Promise(r=>server.close(r))}

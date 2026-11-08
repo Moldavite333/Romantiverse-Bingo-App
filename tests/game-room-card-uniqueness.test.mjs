@@ -17,14 +17,14 @@ const key = value => String(value).normalize('NFKC').trim().replace(/\s+/g, ' ')
 
 test('live room cards have 24 unique visible labels in all launch themes', () => {
   const deal = loadCard();
-  for (const theme of ['Romance', 'Christmas', 'Fall']) {
+  for (const theme of ['Romance', 'Christmas', 'Fall', 'Spring', 'Summer']) {
     for (let n = 0; n < 101; n++) {
       const card = deal(theme);
       assert.equal(card.length, 25);
       assert.equal(card[12].category, 'free');
       assert.equal(card[12].label, 'CHEESE LOUISE POD', 'free center must carry podcast branding');
-      assert.equal(card.filter(t => t.category === 'cheese').length, 12);
-      assert.equal(card.filter(t => t.category === 'seasonal').length, 12);
+      assert.equal(card.filter(t => t.category === 'cheese').length, theme==='Romance'?24:12);
+      assert.equal(card.filter(t => t.category === 'seasonal').length, theme==='Romance'?0:12);
       assert.equal(new Set(card.map(t => key(t.label))).size, 25, theme + ' deal ' + n);
     }
   }
@@ -32,8 +32,8 @@ test('live room cards have 24 unique visible labels in all launch themes', () =>
 
 test('room cards reject same visible label across base and seasonal pools', () => {
   const duplicated = source.replace(
-    "'Second chance at love','Unexpected reunion'",
-    "' First   meeting ','Unexpected reunion'"
+    '"Second chance at love","Unexpected reunion"',
+    '" Unexpected   reunion ","Unexpected reunion"'
   );
   assert.notEqual(duplicated, source);
   const card = loadCard(duplicated)('Romance');

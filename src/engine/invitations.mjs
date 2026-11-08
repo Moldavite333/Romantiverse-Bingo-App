@@ -1,5 +1,5 @@
 // Share only public movie identity and game settings. Never share marks, private notes, or another player's squares.
-const SEASONS=new Set(['Christmas','Fall','Horror']);
+const SEASONS=new Set(['Christmas','Fall','Horror','Romance','Spring','Summer']);
 const MODES=new Set(['classic','chase','blackout','marathon']);
 const DIFFICULTIES=new Set(['easy','balanced','hard']);
 const clampRatio=n=>Number.isFinite(n)?Math.max(0,Math.min(100,n)):50;
@@ -20,11 +20,11 @@ function normalize(payload){
  // Public search titles can have an unknown season. Preserve that fact while
  // sharing the player's chosen card theme as a separate, non-evidence field.
  if(!title||title.length>250||(!SEASONS.has(movieSeason)&&movieSeason!=='Unspecified'))return null;
- const cardTheme=movieSeason==='Unspecified'?payload.cardTheme:movieSeason;
+ const cardTheme=payload.cardTheme|| (movieSeason==='Unspecified'?undefined:movieSeason);
  if(!SEASONS.has(cardTheme))return null;
  const year=payload.movie.release_year;
  const publicYear=Number.isInteger(year)&&year>=1900&&year<=2100?{release_year:year}:{};
- return {movie:{title,season:movieSeason,...publicYear},...(movieSeason==='Unspecified'?{cardTheme}:{}),free:Boolean(payload.free),mode:MODES.has(payload.mode)?payload.mode:'classic',difficulty:DIFFICULTIES.has(payload.difficulty)?payload.difficulty:'balanced',ratio:clampRatio(payload.ratio)};
+ return {movie:{title,season:movieSeason,...publicYear},...((movieSeason==='Unspecified'||cardTheme!==movieSeason)?{cardTheme}:{}),free:Boolean(payload.free),mode:MODES.has(payload.mode)?payload.mode:'classic',difficulty:DIFFICULTIES.has(payload.difficulty)?payload.difficulty:'balanced',ratio:clampRatio(payload.ratio)};
 }
 function freshInvitationId(){
  // Each share must produce a distinct invitation URL without exposing a player's card or progress.

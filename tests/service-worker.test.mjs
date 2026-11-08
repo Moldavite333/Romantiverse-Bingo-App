@@ -21,7 +21,7 @@ function harness(){
    const store=stores.get(name);
    return {
     put:async(req,response)=>store.set(new URL(typeof req==='string'?req:req.url,ORIGIN).href,response.clone()),
-    addAll:async paths=>{for(const path of paths){const response=await fakeFetch(new BrowserRequest(path));if(!response.ok)throw Error('Precache failed: '+path);store.set(new URL(path,ORIGIN).href,response.clone())}}
+    addAll:async paths=>{for(const path of paths){const response=await fakeFetch(new BrowserRequest(path));if(!response.ok)throw Error('Precache failed: '+path);store.set(new URL(typeof path==='string'?path:path.url,ORIGIN).href,response.clone())}}
    };
   },
   keys:async()=>[...stores.keys()],

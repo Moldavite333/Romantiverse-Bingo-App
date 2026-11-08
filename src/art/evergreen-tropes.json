@@ -1,0 +1,250 @@
+[
+  {
+    "id": "room-second-chance-at-love",
+    "label": "Second chance at love",
+    "signals": [
+      "second",
+      "chance"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-unexpected-reunion",
+    "label": "Unexpected reunion",
+    "signals": [
+      "unexpected",
+      "reunion"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-first-dance",
+    "label": "First dance",
+    "signals": [
+      "first",
+      "dance"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-shared-meal",
+    "label": "A shared meal",
+    "signals": [
+      "shared"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-surprise-invitation",
+    "label": "A surprise invitation",
+    "signals": [
+      "surprise",
+      "invitation"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-meaningful-gift",
+    "label": "A meaningful gift",
+    "signals": [
+      "meaningful"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-romantic-confession",
+    "label": "A romantic confession",
+    "signals": [
+      "romantic",
+      "confession"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-heartfelt-apology",
+    "label": "A heartfelt apology",
+    "signals": [
+      "heartfelt",
+      "apology"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-secret-crush",
+    "label": "A secret crush",
+    "signals": [
+      "secret",
+      "crush"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-chance-encounter",
+    "label": "A chance encounter",
+    "signals": [
+      "chance",
+      "encounter"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-an-unexpected-phone-call",
+    "label": "An unexpected phone call",
+    "signals": [
+      "unexpected",
+      "phone"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-thoughtful-surprise",
+    "label": "A thoughtful surprise",
+    "signals": [
+      "thoughtful",
+      "surprise"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-missed-connection",
+    "label": "A missed connection",
+    "signals": [
+      "missed",
+      "connection"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-an-emotional-goodbye",
+    "label": "An emotional goodbye",
+    "signals": [
+      "emotional",
+      "goodbye"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-long-awaited-kiss",
+    "label": "A long-awaited kiss",
+    "signals": [
+      "awaited"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-change-of-heart",
+    "label": "A change of heart",
+    "signals": [
+      "change",
+      "heart"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-difficult-choice",
+    "label": "A difficult choice",
+    "signals": [
+      "difficult",
+      "choice"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-romantic-getaway",
+    "label": "A romantic getaway",
+    "signals": [
+      "romantic",
+      "getaway"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-special-celebration",
+    "label": "A special celebration",
+    "signals": [
+      "special",
+      "celebration"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-meaningful-photograph",
+    "label": "A meaningful photograph",
+    "signals": [
+      "meaningful",
+      "photograph"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-an-awkward-introduction",
+    "label": "An awkward introduction",
+    "signals": [
+      "awkward",
+      "introduction"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-an-unexpected-date",
+    "label": "An unexpected date",
+    "signals": [
+      "unexpected"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-moment-of-honesty",
+    "label": "A moment of honesty",
+    "signals": [
+      "moment",
+      "honesty"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-supportive-friend",
+    "label": "A supportive friend",
+    "signals": [
+      "supportive",
+      "friend"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-chance-to-start-over",
+    "label": "A chance to start over",
+    "signals": [
+      "chance",
+      "start"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-an-important-letter",
+    "label": "An important letter",
+    "signals": [
+      "important",
+      "letter"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-shared-tradition",
+    "label": "A shared tradition",
+    "signals": [
+      "shared",
+      "tradition"
+    ],
+    "weight": 0.7
+  },
+  {
+    "id": "room-a-happy-ending",
+    "label": "A happy ending",
+    "signals": [
+      "happy",
+      "ending"
+    ],
+    "weight": 0.7
+  }
+]

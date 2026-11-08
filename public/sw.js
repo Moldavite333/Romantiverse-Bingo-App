@@ -1,5 +1,5 @@
 // Offline-ready static app shell. Room state and private tokens are never cached.
-const CACHE='romantiverse-v8-storybook-ui';
+const CACHE='romantiverse-v9-all-seasons';
 const BASE='/';
 const SHELL=BASE+'index.html';
 const PRECACHE=[BASE+'catalog/movies.json',BASE+'manifest.webmanifest',BASE+'icon.svg',BASE+'icon-192.png',BASE+'icon-512.png',BASE+'illustrations/manifest.json'];
@@ -18,7 +18,7 @@ self.addEventListener('install',event=>{
   if(!artResponse.ok)throw Error('Missing illustration manifest');
   const art=await artResponse.json();
   if(!Array.isArray(art)||!art.every(path=>/^illustrations\/[a-zA-Z0-9-]+\.webp$/.test(path)))throw Error('Invalid illustration manifest');
-  await cache.addAll([...new Set([...PRECACHE,...assets,...art.map(path=>BASE+path)])]);
+  await cache.addAll([...new Set([...PRECACHE,...assets,...art.map(path=>BASE+path)])].map(path=>new Request(path,{cache:'reload'})));
   await self.skipWaiting();
  })());
 });

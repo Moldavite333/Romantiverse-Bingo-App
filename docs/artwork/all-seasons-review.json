@@ -1,0 +1,489 @@
+{
+  "date": "2026-11-08",
+  "generator": "built-in image_gen",
+  "newSpringScenes": 25,
+  "newSummerScenes": 25,
+  "neutralReplacements": 17,
+  "neutralRetained": 11,
+  "allNewAndReplacedVisuallyReviewed": 67,
+  "contactSheets": 6,
+  "activeTropes": 181,
+  "missing": 0,
+  "checks": [
+    "Every scene and label inspected in six contact sheets",
+    "No snow, Christmas ornaments or autumn leaves in neutral replacement scenes",
+    "Expressive faces, anatomy, physical interaction, coherent settings and painted craft reviewed",
+    "Existing approved all-season free-space emblem retained"
+  ],
+  "assets": [
+    {
+      "id": "season-Spring-0",
+      "label": "A spring shower brings two people under one umbrella",
+      "source": "artifacts/seasons/sources/season-Spring-0.png",
+      "asset": "public/illustrations/season-Spring-0.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-1",
+      "label": "A cherry-blossom walk",
+      "source": "artifacts/seasons/sources/season-Spring-1.png",
+      "asset": "public/illustrations/season-Spring-1.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-2",
+      "label": "A flower-shop mix-up",
+      "source": "artifacts/seasons/sources/season-Spring-2.png",
+      "asset": "public/illustrations/season-Spring-2.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-5",
+      "label": "An Easter egg hunt brings everyone together",
+      "source": "artifacts/seasons/sources/season-Spring-5.png",
+      "asset": "public/illustrations/season-Spring-5.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-3",
+      "label": "A spring festival needs saving",
+      "source": "artifacts/seasons/sources/season-Spring-3.png",
+      "asset": "public/illustrations/season-Spring-3.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-6",
+      "label": "A first picnic of spring",
+      "source": "artifacts/seasons/sources/season-Spring-6.png",
+      "asset": "public/illustrations/season-Spring-6.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-8",
+      "label": "A rescued duckling changes the day",
+      "source": "artifacts/seasons/sources/season-Spring-8.png",
+      "asset": "public/illustrations/season-Spring-8.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-4",
+      "label": "Planting a garden together",
+      "source": "artifacts/seasons/sources/season-Spring-4.png",
+      "asset": "public/illustrations/season-Spring-4.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-7",
+      "label": "A spring wedding invitation",
+      "source": "artifacts/seasons/sources/season-Spring-7.png",
+      "asset": "public/illustrations/season-Spring-7.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-9",
+      "label": "A bicycle ride turns into a date",
+      "source": "artifacts/seasons/sources/season-Spring-9.png",
+      "asset": "public/illustrations/season-Spring-9.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-13",
+      "label": "A blossom festival deadline",
+      "source": "artifacts/seasons/sources/season-Spring-13.png",
+      "asset": "public/illustrations/season-Spring-13.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-10",
+      "label": "The community garden brings rivals together",
+      "source": "artifacts/seasons/sources/season-Spring-10.png",
+      "asset": "public/illustrations/season-Spring-10.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-14",
+      "label": "A bouquet says what words cannot",
+      "source": "artifacts/seasons/sources/season-Spring-14.png",
+      "asset": "public/illustrations/season-Spring-14.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-11",
+      "label": "A rain-soaked arrival",
+      "source": "artifacts/seasons/sources/season-Spring-11.png",
+      "asset": "public/illustrations/season-Spring-11.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-15",
+      "label": "A kite gets tangled",
+      "source": "artifacts/seasons/sources/season-Spring-15.png",
+      "asset": "public/illustrations/season-Spring-15.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-12",
+      "label": "A spring-cleaning discovery",
+      "source": "artifacts/seasons/sources/season-Spring-12.png",
+      "asset": "public/illustrations/season-Spring-12.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-16",
+      "label": "A puddle splash breaks the tension",
+      "source": "artifacts/seasons/sources/season-Spring-16.png",
+      "asset": "public/illustrations/season-Spring-16.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-20",
+      "label": "A cherry tree is planted in someone's honor",
+      "source": "artifacts/seasons/sources/season-Spring-20.png",
+      "asset": "public/illustrations/season-Spring-20.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-17",
+      "label": "A flower-arranging contest",
+      "source": "artifacts/seasons/sources/season-Spring-17.png",
+      "asset": "public/illustrations/season-Spring-17.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-18",
+      "label": "A fresh start in a new home",
+      "source": "artifacts/seasons/sources/season-Spring-18.png",
+      "asset": "public/illustrations/season-Spring-18.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-21",
+      "label": "A garden party changes the mood",
+      "source": "artifacts/seasons/sources/season-Spring-21.png",
+      "asset": "public/illustrations/season-Spring-21.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-23",
+      "label": "A handwritten note arrives with flowers",
+      "source": "artifacts/seasons/sources/season-Spring-23.png",
+      "asset": "public/illustrations/season-Spring-23.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-19",
+      "label": "A spring farmers market encounter",
+      "source": "artifacts/seasons/sources/season-Spring-19.png",
+      "asset": "public/illustrations/season-Spring-19.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-22",
+      "label": "A spring storm cancels the plans",
+      "source": "artifacts/seasons/sources/season-Spring-22.png",
+      "asset": "public/illustrations/season-Spring-22.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-0",
+      "label": "A beach-day meet-cute",
+      "source": "artifacts/seasons/sources/season-Summer-0.png",
+      "asset": "public/illustrations/season-Summer-0.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Spring-24",
+      "label": "A kiss beneath the blossoms",
+      "source": "artifacts/seasons/sources/season-Spring-24.png",
+      "asset": "public/illustrations/season-Spring-24.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-3",
+      "label": "A lakeside heart-to-heart",
+      "source": "artifacts/seasons/sources/season-Summer-3.png",
+      "asset": "public/illustrations/season-Summer-3.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-1",
+      "label": "An ice-cream mishap",
+      "source": "artifacts/seasons/sources/season-Summer-1.png",
+      "asset": "public/illustrations/season-Summer-1.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-4",
+      "label": "A picnic is interrupted",
+      "source": "artifacts/seasons/sources/season-Summer-4.png",
+      "asset": "public/illustrations/season-Summer-4.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-2",
+      "label": "A summer festival brings the town together",
+      "source": "artifacts/seasons/sources/season-Summer-2.png",
+      "asset": "public/illustrations/season-Summer-2.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-7",
+      "label": "A road-trip detour",
+      "source": "artifacts/seasons/sources/season-Summer-7.png",
+      "asset": "public/illustrations/season-Summer-7.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-5",
+      "label": "A boat outing goes off course",
+      "source": "artifacts/seasons/sources/season-Summer-5.png",
+      "asset": "public/illustrations/season-Summer-5.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-9",
+      "label": "A sandcastle competition",
+      "source": "artifacts/seasons/sources/season-Summer-9.png",
+      "asset": "public/illustrations/season-Summer-9.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-8",
+      "label": "A seaside business needs saving",
+      "source": "artifacts/seasons/sources/season-Summer-8.png",
+      "asset": "public/illustrations/season-Summer-8.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-6",
+      "label": "A summer wedding brings an old flame back",
+      "source": "artifacts/seasons/sources/season-Summer-6.png",
+      "asset": "public/illustrations/season-Summer-6.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-11",
+      "label": "A summer storm forces everyone indoors",
+      "source": "artifacts/seasons/sources/season-Summer-11.png",
+      "asset": "public/illustrations/season-Summer-11.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-10",
+      "label": "An outdoor concert sparks romance",
+      "source": "artifacts/seasons/sources/season-Summer-10.png",
+      "asset": "public/illustrations/season-Summer-10.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-12",
+      "label": "A berry-picking date",
+      "source": "artifacts/seasons/sources/season-Summer-12.png",
+      "asset": "public/illustrations/season-Summer-12.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-16",
+      "label": "A lifeguard comes to the rescue",
+      "source": "artifacts/seasons/sources/season-Summer-16.png",
+      "asset": "public/illustrations/season-Summer-16.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-13",
+      "label": "A campfire confession",
+      "source": "artifacts/seasons/sources/season-Summer-13.png",
+      "asset": "public/illustrations/season-Summer-13.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-17",
+      "label": "A summer camp reunion",
+      "source": "artifacts/seasons/sources/season-Summer-17.png",
+      "asset": "public/illustrations/season-Summer-17.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-14",
+      "label": "A barbecue gets unexpectedly competitive",
+      "source": "artifacts/seasons/sources/season-Summer-14.png",
+      "asset": "public/illustrations/season-Summer-14.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-19",
+      "label": "A missed ferry changes the plans",
+      "source": "artifacts/seasons/sources/season-Summer-19.png",
+      "asset": "public/illustrations/season-Summer-19.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-18",
+      "label": "A boardwalk game becomes a date",
+      "source": "artifacts/seasons/sources/season-Summer-18.png",
+      "asset": "public/illustrations/season-Summer-18.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-15",
+      "label": "A sunset walk on the pier",
+      "source": "artifacts/seasons/sources/season-Summer-15.png",
+      "asset": "public/illustrations/season-Summer-15.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-20",
+      "label": "A farmers market cooking challenge",
+      "source": "artifacts/seasons/sources/season-Summer-20.png",
+      "asset": "public/illustrations/season-Summer-20.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-21",
+      "label": "Fireworks create the perfect moment",
+      "source": "artifacts/seasons/sources/season-Summer-21.png",
+      "asset": "public/illustrations/season-Summer-21.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-22",
+      "label": "A summer job becomes something more",
+      "source": "artifacts/seasons/sources/season-Summer-22.png",
+      "asset": "public/illustrations/season-Summer-22.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-23",
+      "label": "The last day of vacation approaches",
+      "source": "artifacts/seasons/sources/season-Summer-23.png",
+      "asset": "public/illustrations/season-Summer-23.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "season-Summer-24",
+      "label": "A kiss at the water's edge",
+      "source": "artifacts/seasons/sources/season-Summer-24.png",
+      "asset": "public/illustrations/season-Summer-24.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-second-chance-at-love",
+      "label": "Second chance at love",
+      "source": "artifacts/seasons/sources/room-second-chance-at-love.png",
+      "asset": "public/illustrations/room-second-chance-at-love.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-unexpected-reunion",
+      "label": "Unexpected reunion",
+      "source": "artifacts/seasons/sources/room-unexpected-reunion.png",
+      "asset": "public/illustrations/room-unexpected-reunion.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-a-heartfelt-apology",
+      "label": "A heartfelt apology",
+      "source": "artifacts/seasons/sources/room-a-heartfelt-apology.png",
+      "asset": "public/illustrations/room-a-heartfelt-apology.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-a-meaningful-gift",
+      "label": "A meaningful gift",
+      "source": "artifacts/seasons/sources/room-a-meaningful-gift.png",
+      "asset": "public/illustrations/room-a-meaningful-gift.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-a-secret-crush",
+      "label": "A secret crush",
+      "source": "artifacts/seasons/sources/room-a-secret-crush.png",
+      "asset": "public/illustrations/room-a-secret-crush.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-a-romantic-confession",
+      "label": "A romantic confession",
+      "source": "artifacts/seasons/sources/room-a-romantic-confession.png",
+      "asset": "public/illustrations/room-a-romantic-confession.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-a-chance-encounter",
+      "label": "A chance encounter",
+      "source": "artifacts/seasons/sources/room-a-chance-encounter.png",
+      "asset": "public/illustrations/room-a-chance-encounter.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-an-unexpected-phone-call",
+      "label": "An unexpected phone call",
+      "source": "artifacts/seasons/sources/room-an-unexpected-phone-call.png",
+      "asset": "public/illustrations/room-an-unexpected-phone-call.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-a-missed-connection",
+      "label": "A missed connection",
+      "source": "artifacts/seasons/sources/room-a-missed-connection.png",
+      "asset": "public/illustrations/room-a-missed-connection.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-an-emotional-goodbye",
+      "label": "An emotional goodbye",
+      "source": "artifacts/seasons/sources/room-an-emotional-goodbye.png",
+      "asset": "public/illustrations/room-an-emotional-goodbye.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-an-unexpected-date",
+      "label": "An unexpected date",
+      "source": "artifacts/seasons/sources/room-an-unexpected-date.png",
+      "asset": "public/illustrations/room-an-unexpected-date.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-a-long-awaited-kiss",
+      "label": "A long-awaited kiss",
+      "source": "artifacts/seasons/sources/room-a-long-awaited-kiss.png",
+      "asset": "public/illustrations/room-a-long-awaited-kiss.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-a-chance-to-start-over",
+      "label": "A chance to start over",
+      "source": "artifacts/seasons/sources/room-a-chance-to-start-over.png",
+      "asset": "public/illustrations/room-a-chance-to-start-over.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-a-meaningful-photograph",
+      "label": "A meaningful photograph",
+      "source": "artifacts/seasons/sources/room-a-meaningful-photograph.png",
+      "asset": "public/illustrations/room-a-meaningful-photograph.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-an-important-letter",
+      "label": "An important letter",
+      "source": "artifacts/seasons/sources/room-an-important-letter.png",
+      "asset": "public/illustrations/room-an-important-letter.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-an-awkward-introduction",
+      "label": "An awkward introduction",
+      "source": "artifacts/seasons/sources/room-an-awkward-introduction.png",
+      "asset": "public/illustrations/room-an-awkward-introduction.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    },
+    {
+      "id": "room-a-shared-tradition",
+      "label": "A shared tradition",
+      "source": "artifacts/seasons/sources/room-a-shared-tradition.png",
+      "asset": "public/illustrations/room-a-shared-tradition.webp",
+      "promptStoredIn": "docs/artwork/scene-briefs.json"
+    }
+  ]
+}

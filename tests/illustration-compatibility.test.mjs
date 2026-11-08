@@ -4,9 +4,9 @@ import {ILLUSTRATIONS,illustrationFor,tropeArtDataUri} from '../src/engine/trope
 import {auditIllustrations,canonicalTropes,differenceHash,hashDistance} from '../scripts/validate-illustrations.mjs';
 test('every canonical trope and branded center has a dedicated valid illustration',async()=>{
  const report=await auditIllustrations();
- assert.equal(report.canonicalTropes,159);
+ assert.equal(report.canonicalTropes,209);
  assert.deepEqual(report.errors,[]);
- assert.equal(report.ready,160);
+ assert.equal(report.ready,210);
  for(const trope of canonicalTropes())assert.equal(illustrationFor(trope)?.id,trope.id);
 });
 test('unknown IDs, stale associations and arbitrary image URLs never invoke a category fallback',()=>{

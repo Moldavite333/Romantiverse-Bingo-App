@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-01",
+  "updated_at": "2026-11-08",
   "source": "Editorial title listings; release years, distributors and seasons require independent verification. No inferred scene evidence.",
   "movies": [
     {
@@ -1856,6 +1856,63 @@
       "source_url": "https://www.hallmarkchannel.com/new-year-new-movies/new-year-new-movies-2021",
       "network": "Hallmark Channel",
       "is_demo": false
+    },
+    {
+      "title": "Spring Breakthrough",
+      "release_year": 2023,
+      "season": "Spring",
+      "source_url": "https://www.hallmarkchannel.com/mahogany-movies",
+      "source_name": "Hallmark official Mahogany film listing and original airdate",
+      "id": "catalog-spring-breakthrough-2023",
+      "network": "Hallmark Channel",
+      "is_demo": false,
+      "verification_status": "metadata_verified",
+      "facts_status": "title_only_unverified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "season_evidence": "Named seasonal title or official seasonal collection; Bingo scenes remain predictions."
+    },
+    {
+      "title": "Summer in the Vineyard",
+      "release_year": 2017,
+      "season": "Summer",
+      "source_url": "https://www.hallmarkchannel.com/summer-nights/new-movies-2017",
+      "source_name": "Hallmark official Summer Nights 2017 movie listing",
+      "id": "catalog-summer-in-the-vineyard-2017",
+      "network": "Hallmark Channel",
+      "is_demo": false,
+      "verification_status": "metadata_verified",
+      "facts_status": "title_only_unverified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "season_evidence": "Named seasonal title or official seasonal collection; Bingo scenes remain predictions."
+    },
+    {
+      "title": "Summer Villa",
+      "release_year": 2016,
+      "season": "Summer",
+      "source_url": "https://www.hallmarkplus.com/details/VIDEO/item/MVMZ3910/summer-villa",
+      "source_name": "Hallmark+ official movie listing",
+      "id": "catalog-summer-villa-2016",
+      "network": "Hallmark Channel",
+      "is_demo": false,
+      "verification_status": "metadata_verified",
+      "facts_status": "title_only_unverified",
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "season_evidence": "Named seasonal title or official seasonal collection; Bingo scenes remain predictions."
     },
     {
       "id": "catalog-sweet-autumn-2020",
