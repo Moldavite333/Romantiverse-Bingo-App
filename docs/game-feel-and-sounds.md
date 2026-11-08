@@ -10,9 +10,12 @@ Sound starts off, has a visible toggle and remembers the device's choice. Restor
 | --- | --- | --- |
 | [Kenney Casino Audio](https://kenney.nl/assets/casino-audio) | Chip placement, card slide, shuffle | CC0 |
 | [Kenney Interface Sounds](https://kenney.nl/assets/interface-sounds) | Confirmation / one-square-away cue | CC0 |
-| [Kenney Music Jingles](https://kenney.nl/assets/music-jingles) | Pizzicato Bingo and blackout stingers | CC0 |
+| [Kenney Music Jingles](https://kenney.nl/assets/music-jingles) | Pizzicato blackout stinger | CC0 |
+| [Classic fanfare lick — fvcalderan](https://opengameart.org/content/classic-fanfare-lick) | Grand brass/trumpet Bingo fanfare | CC0 |
 
-All six original recordings total **83,600 bytes**. They were downloaded through the author's official download service, checked against the included licenses and renamed without recompression. Exact names, source links and SHA-256 values are in `public/audio/provenance.json`. Original licenses and credit are included in `public/audio/`. CC0 permits commercial use, modification and redistribution without mandatory attribution: https://creativecommons.org/publicdomain/zero/1.0/
+The six recordings total **122,787 bytes**. They were downloaded from their creators' sources, checked against their license designations and renamed without recompression. Exact names, source links and SHA-256 values are in `public/audio/provenance.json`. Licenses and source credit are included in `public/audio/`. CC0 permits commercial use, modification and redistribution without mandatory attribution: https://creativecommons.org/publicdomain/zero/1.0/
+
+The Bingo clip was upgraded from a 0.588-second pizzicato cue to a 2.942-second brass/trumpet fanfare. Its playback gain is 1.5 before the existing 0.1 master level; decoded peak headroom remains below clipping. A new `win-grand.ogg` URL avoids reusing the old cached clip. The other five sound files and their playback levels are unchanged.
 
 Additional researched options:
 

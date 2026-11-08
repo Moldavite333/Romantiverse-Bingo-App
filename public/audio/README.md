@@ -1,6 +1,6 @@
 # Romantiverse Bingo sound effects
 
-Creator: **Kenney Vleugels / Kenney.nl**. All six recordings are released under **CC0 1.0 Universal**. They may be used, modified and distributed in personal and commercial projects. Attribution is not mandatory; we preserve credit and license provenance anyway.
+Creators: **Kenney Vleugels / Kenney.nl** (five recordings) and **fvcalderan** (Bingo fanfare). All six recordings are released under **CC0 1.0 Universal**. They may be used, modified and distributed in personal and commercial projects. Attribution is not mandatory; we preserve credit and license provenance anyway.
 
 | App event | Original file | Source |
 | --- | --- | --- |
@@ -8,10 +8,10 @@ Creator: **Kenney Vleugels / Kenney.nl**. All six recordings are released under 
 | Undo | `card-slide-1.ogg` | [Casino Audio](https://kenney.nl/assets/casino-audio) |
 | Card reveal | `card-shuffle.ogg` | [Casino Audio](https://kenney.nl/assets/casino-audio) |
 | One square away | `confirmation_002.ogg` | [Interface Sounds](https://kenney.nl/assets/interface-sounds) |
-| Bingo | `jingles_PIZZI09.ogg` | [Music Jingles](https://kenney.nl/assets/music-jingles) |
+| Bingo | `fanfare.ogg` → `win-grand.ogg` | [Classic fanfare lick — fvcalderan](https://opengameart.org/content/classic-fanfare-lick) |
 | Blackout | `jingles_PIZZI10.ogg` | [Music Jingles](https://kenney.nl/assets/music-jingles) |
 
-Files were renamed only; original OGG bytes were preserved. Per-file SHA-256 values are in `provenance.json`. The original pack licenses are preserved as `LICENSE-casino.txt`, `LICENSE-interface.txt` and `LICENSE-jingles.txt`.
+Files were renamed only; original OGG bytes were preserved. Per-file SHA-256 values are in `provenance.json`. Kenney's original pack licenses are preserved as `LICENSE-casino.txt`, `LICENSE-interface.txt` and `LICENSE-jingles.txt`; the fanfare source/license record is `LICENSE-fanfare.txt`.
 
 License: https://creativecommons.org/publicdomain/zero/1.0/
 

@@ -23,7 +23,7 @@ try{
   await page.route('https://fonts.googleapis.com/**',r=>r.abort());await page.route('https://fonts.gstatic.com/**',r=>r.abort());
   await page.addInitScript(game=>{
    const Native=window.AudioContext;window.audioCreated=0;window.audioNotes=0;window.audioSamples=0;window.audioDecoded=0;
-   if(Native)window.AudioContext=class extends Native{constructor(...args){super(...args);window.audioCreated++}createOscillator(){const node=super.createOscillator(),start=node.start.bind(node);node.start=(...args)=>{window.audioNotes++;return start(...args)};return node}decodeAudioData(...args){return super.decodeAudioData(...args).then(buffer=>{window.audioDecoded++;return buffer})}createBufferSource(){const node=super.createBufferSource(),start=node.start.bind(node);node.start=(...args)=>{window.audioNotes++;window.audioSamples++;return start(...args)};return node}};
+   if(Native)window.AudioContext=class extends Native{constructor(...args){super(...args);window.audioCreated++}createOscillator(){const node=super.createOscillator(),start=node.start.bind(node);node.start=(...args)=>{window.audioNotes++;return start(...args)};return node}decodeAudioData(...args){return super.decodeAudioData(...args).then(buffer=>{window.audioDecoded++;return buffer})}createBufferSource(){const node=super.createBufferSource(),start=node.start.bind(node);node.start=(...args)=>{window.audioNotes++;window.audioSamples++;window.lastSampleDuration=node.buffer?.duration||0;return start(...args)};return node}};
    if(!localStorage.getItem('romantiverse-v2'))localStorage.setItem('romantiverse-v2',JSON.stringify(game));sessionStorage.setItem('romantiverse-last-tab','play');
   },{movie,card,free:true,mode:'classic',marked:[12],completed:false,startedAt:'2026-11-07T12:00:00Z'});
   await page.goto(origin);await page.locator('.game-feel').waitFor();
@@ -43,6 +43,7 @@ try{
   await page.locator('.board .square').nth(4).click();
   await page.getByRole('dialog',{name:'Happily Ever After!',exact:true}).waitFor();
   await page.waitForFunction(n=>window.audioNotes>n,notesBeforeWin);
+  assert.ok(await page.evaluate(()=>window.lastSampleDuration>2.5),'Bingo must play the grand fanfare, not the old brief cue');
   await page.locator('.win-prize-burst').evaluate(e=>{for(const a of e.getAnimations({subtree:true})){a.pause();a.currentTime=350}});
   await page.screenshot({path:`${out}/${width}-star-burst.png`,animations:'allow'});
   await page.screenshot({path:`${out}/${width}-celebration.png`,animations:'disabled'});
