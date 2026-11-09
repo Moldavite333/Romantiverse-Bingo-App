@@ -1,0 +1,54 @@
+{
+  "mode": "built-in image_gen",
+  "acceptedEdits": 8,
+  "edits": [
+    {
+      "id": "room-a-meaningful-gift",
+      "prompt": "Use case: identity-preserve illustration cleanup. Edit target: the supplied image only. Make a careful professional cleanup and detailing pass, preserving the exact scene, people, identities, poses, composition, clothing, props, season and warm romantic storybook world. Refine the tiny ballerina and music-box hinge/lid edges, the two faces and fingers supporting the box. Retain her happy tears and his gentle smile. Reduce coarse sandpaper speckling and mottled paint noise on skin and focal objects. Replace pixel-like jagged daubs with graceful confident brush contours, clean pencil accents, softly blended gouache skin planes and precise eye/lip/hand details. Retain genuine watercolor/gouache paper character in quieter backgrounds and clothing; do not turn this into photography, glossy digital airbrush, vector art or plastic skin. Natural anatomy: exactly two arms per person with traceable shoulders/elbows and ordinary hands; do not invent limbs or fingers. Preserve emotional warmth, existing lighting and palette. No new objects, no lettering, no border, square composition. A cleaner more finely painted edition of this SAME illustration, not a new scene.",
+      "pass": 2,
+      "source": "artifacts/detail-cleanup/sources/room-a-meaningful-gift.png"
+    },
+    {
+      "id": "season-Summer-13",
+      "prompt": "Use case: identity-preserve illustration cleanup. Edit target: the supplied image only. Make a careful professional cleanup and detailing pass, preserving the exact scene, people, identities, poses, composition, clothing, props, season and warm romantic storybook world. Refine the two expressive faces, his open conversational hand, her chin-resting hand and knee contours, and a few clean flame shapes. Keep the night sky, stars, sea, blanket and fire. Reduce coarse sandpaper speckling and mottled paint noise on skin and focal objects. Replace pixel-like jagged daubs with graceful confident brush contours, clean pencil accents, softly blended gouache skin planes and precise eye/lip/hand details. Retain genuine watercolor/gouache paper character in quieter backgrounds and clothing; do not turn this into photography, glossy digital airbrush, vector art or plastic skin. Natural anatomy: exactly two arms per person with traceable shoulders/elbows and ordinary hands; do not invent limbs or fingers. Preserve emotional warmth, existing lighting and palette. No new objects, no lettering, no border, square composition. A cleaner more finely painted edition of this SAME illustration, not a new scene.",
+      "pass": 2,
+      "source": "artifacts/detail-cleanup/sources/season-Summer-13.png"
+    },
+    {
+      "id": "season-Christmas-2",
+      "prompt": "Use case: identity-preserve illustration cleanup. Edit target: supplied painting. Produce a cleaner finely detailed edition of this exact romantic storybook illustration. The snowstorm must still be strong and directional, but remove the scratchy blanket of tiny white marks over their faces, central sleeves and gloves. Use fewer coherent wind-swept snow strokes in foreground/background. Clarify her concerned face, his protective expression, their separate connected arms, coat edges and ordinary mitten shapes. Keep the sheltered warm shop window and all composition. Preserve identities, number of people, ages, faces, clothing, poses, props, setting, framing and emotional story. Reduce coarse mottled grain and pixel-like jagged brush fragments on focal areas. Refine eye/lip/hand contours with confident pencil accents and warm softly modeled gouache paint. Keep subtle paper texture and mid-century gouache/watercolor character, not photorealism, glossy airbrush or flat vector. Every person has exactly two anatomically connected arms; preserve hands and anatomy, no invented limbs or extra fingers. No text, no new objects, square composition.",
+      "pass": 2,
+      "source": "artifacts/detail-cleanup/sources/season-Christmas-2.png"
+    },
+    {
+      "id": "season-Fall-6",
+      "prompt": "Use case: identity-preserve illustration cleanup. Edit target: supplied painting. Produce a cleaner finely detailed edition of this exact romantic storybook illustration. Clarify their quiet concerned expressions, clasped hands and chin-resting hand. Separate dark green jacket from blue forest using subtle reflected light without brightening night into day. Give the fire a handful of graceful legible flames and the logs coherent edges; quiet the crunchy ground speckles while keeping real autumn leaves. Preserve identities, number of people, ages, faces, clothing, poses, props, setting, framing and emotional story. Reduce coarse mottled grain and pixel-like jagged brush fragments on focal areas. Refine eye/lip/hand contours with confident pencil accents and warm softly modeled gouache paint. Keep subtle paper texture and mid-century gouache/watercolor character, not photorealism, glossy airbrush or flat vector. Every person has exactly two anatomically connected arms; preserve hands and anatomy, no invented limbs or extra fingers. No text, no new objects, square composition.",
+      "pass": 2,
+      "source": "artifacts/detail-cleanup/sources/season-Fall-6.png"
+    },
+    {
+      "id": "season-Christmas-17",
+      "prompt": "Use case: identity-preserve illustration cleanup. Edit target: supplied image. Make a professional cleanup and fine detailing pass on this SAME scene. Keep Santa's flying sleigh, reindeer, delighted old toy maker and child, toyshop and snowy street. The golden magic trail is currently very dense glitter: organize it into a graceful luminous arc with fewer crisp sparks and more quiet blue negative space so sleigh/reindeer silhouettes read immediately. Clarify their delighted faces, hands and mittens, reindeer legs/harnesses, and straight toyshop frames. Preserve character identities, positions, poses, palette, warm lighting and square composition. Replace coarse pixel-like daubs and gritty focal-area speckling with deliberate mid-century gouache/watercolor brush shapes, subtle paper texture and delicate pencil details. Keep the hand-painted romantic storybook craft; no photographic realism, glossy digital surfaces, halos or oversharpening. Maintain believable anatomy and connected limbs; no extra arms, hands or fingers. No new objects, no text or border.",
+      "pass": 2,
+      "source": "artifacts/detail-cleanup/sources/season-Christmas-17.png"
+    },
+    {
+      "id": "season-Fall-3",
+      "prompt": "Use case: identity-preserve illustration cleanup. Edit target: supplied image. Make a professional cleanup and fine detailing pass on this SAME scene. Keep the joyous couple kicking through autumn leaves holding hands, dramatic low angle and boot soles, their exact expressions and clothing. Clean up the excessive crunchy orange leaf confetti so individual foreground leaves have deliberate elegant shapes and quieter spaces between clusters, without losing abundant autumn foliage. Refine their eyes, smiles, joined hands, scarf contours, boots and fabric folds. Preserve character identities, positions, poses, palette, warm lighting and square composition. Replace coarse pixel-like daubs and gritty focal-area speckling with deliberate mid-century gouache/watercolor brush shapes, subtle paper texture and delicate pencil details. Keep the hand-painted romantic storybook craft; no photographic realism, glossy digital surfaces, halos or oversharpening. Maintain believable anatomy and connected limbs; no extra arms, hands or fingers. No new objects, no text or border.",
+      "pass": 2,
+      "source": "artifacts/detail-cleanup/sources/season-Fall-3.png"
+    },
+    {
+      "id": "season-Spring-0",
+      "prompt": "Use case: identity-preserve illustration cleanup. Edit target: supplied painting. Produce a carefully cleaned and finely detailed edition of this exact scene. Preserve the couple sharing ONE dark-green umbrella, affectionate sideways smiles, freckles, red floral scarf, salmon raincoat, brown coat, blossoms and bookshop. Refine eyes, lips, natural hand gripping the umbrella, elegant umbrella ribs and raindrops; calm the coarse gritty face/coat speckles into softer painted planes. Keep the other arms naturally tucked/occluded exactly as the original, never invent an extra arm. Preserve all identities, clothing, framing, poses, season-neutral or seasonal setting as shown, palette and emotional story. Use confident fine pencil contours and warm mid-century gouache/watercolor with gentle paper texture. Reduce pixel-like jagged daubs, scratchy skin grain and muddled focal details; keep expressive painterly craft and naturally soft backgrounds. No photorealism, glossy airbrush, plastic skin, halos or oversharpening. No new props or people, no extra hands, no lettering, square composition.",
+      "pass": 2,
+      "source": "artifacts/detail-cleanup/sources/season-Spring-0.png"
+    },
+    {
+      "id": "room-a-missed-connection",
+      "prompt": "Use case: identity-preserve illustration cleanup. Edit target: supplied painting. Produce a carefully cleaned and finely detailed edition of this exact scene. Preserve the man on the platform reaching toward the woman in the moving train window, their regretful urgent faces and almost-touching hands with visible space. Refine distinct ordinary fingers and the gap between the hands, facial features, the train-window frame and perspective stripes. Reduce dense dusty mottling on faces and hands, retain directional motion impression along lower train. Each figure exactly two shoulder-connected arms; woman's other hand rests on window sill. Preserve all identities, clothing, framing, poses, season-neutral or seasonal setting as shown, palette and emotional story. Use confident fine pencil contours and warm mid-century gouache/watercolor with gentle paper texture. Reduce pixel-like jagged daubs, scratchy skin grain and muddled focal details; keep expressive painterly craft and naturally soft backgrounds. No photorealism, glossy airbrush, plastic skin, halos or oversharpening. No new props or people, no extra hands, no lettering, square composition.",
+      "pass": 2,
+      "source": "artifacts/detail-cleanup/sources/room-a-missed-connection.png"
+    }
+  ]
+}

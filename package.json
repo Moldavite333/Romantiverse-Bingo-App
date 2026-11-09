@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "node scripts/validate-illustration-provenance.mjs && node scripts/validate-illustrations.mjs && vite build",
+    "build": "node scripts/validate-illustration-provenance.mjs && node scripts/validate-illustrations.mjs && node scripts/validate-detail-exports.mjs && vite build",
     "test": "node --test tests/*.test.mjs",
     "artwork:check": "node scripts/validate-illustration-provenance.mjs && node scripts/validate-illustrations.mjs",
     "artwork:contact-sheet": "node scripts/illustration-contact-sheet.mjs",

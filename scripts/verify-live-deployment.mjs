@@ -25,6 +25,12 @@ export async function verifyLiveDeployment(siteUrl,{distDir='dist',fetcher=fetch
  if(art){
   if(!Array.isArray(art)||!art.every(path=>/^illustrations\/[a-zA-Z0-9-]+\.webp$/.test(path)))throw Error('Invalid built illustration manifest');
   paths.push(base+'illustrations/manifest.json',...art.map(path=>base+path));
+  // Optional high-density exports remain paired with canonical active images.
+  for(const path of art){
+   if(path==='illustrations/free.webp')continue;
+   const detail=path.replace('illustrations/','illustrations/detail/');
+   try{await readFile(join(distDir,detail));paths.push(base+detail)}catch(error){if(error.code!=='ENOENT')throw error}
+  }
  }
  const expected=new Map();
  for(const path of paths){

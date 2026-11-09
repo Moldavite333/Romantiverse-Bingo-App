@@ -15,7 +15,8 @@ export function resolveIllustration(trope,{base='/',onMissing=()=>{}}={}){
  const entry=illustrationRegistry[id];
  if(!entry?.asset){onMissing({id:trope?.id,label:trope?.label,reason:entry?'unfinished':'unregistered'});return null;}
  if(entry.id!=='free'&&!mapped&&trope?.label!==undefined&&key(trope.label)!==key(entry.label)){onMissing({id:trope.id,label:trope.label,reason:'incorrect-association'});return null;}
- return {id:entry.id,src:base.replace(/\/?$/,'/')+entry.asset,label:entry.label};
+ const prefix=base.replace(/\/?$/,'/');
+ return {id:entry.id,src:prefix+entry.asset,label:entry.label,...(entry.detailAsset?{detailSrc:prefix+entry.detailAsset}:{})};
 }
 export function requireIllustration(trope,options){
  const art=resolveIllustration(trope,options);

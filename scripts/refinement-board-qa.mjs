@@ -6,6 +6,7 @@ import {chromium} from 'playwright';
 const entries=JSON.parse(await readFile('src/art/illustrations.json','utf8'));
 const active=entries.filter(e=>e.active&&e.id!=='free'),root=resolve('dist'),out=process.argv.find(arg=>arg.startsWith('--out='))?.slice('--out='.length)||'artifacts/refinement/boards';
 const allMarked=process.argv.includes('--all-marked');
+const dpr=Number(process.argv.find(a=>a.startsWith('--dpr='))?.split('=')[1]||1);
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.webp':'image/webp','.json':'application/json'};
 const server=createServer(async(req,res)=>{try{
  const path=resolve(root,'.'+(new URL(req.url,'http://local').pathname==='/'?'/index.html':new URL(req.url,'http://local').pathname));
@@ -25,13 +26,15 @@ try{
    for(const e of active)if(batch.length<24&&!batch.some(t=>t.id===e.id))batch.push(e);
    const card=batch.map(e=>({id:e.id,label:e.label,category:'cheese'}));
    card.splice(12,0,{id:'free',label:'CHEESE LOUISE POD',category:'free'});
-   const context=await browser.newContext({viewport:{width,height:1000},serviceWorkers:'block',reducedMotion:'reduce'}),page=await context.newPage(),errors=[];
+   const context=await browser.newContext({viewport:{width,height:1000},deviceScaleFactor:dpr,serviceWorkers:'block',reducedMotion:'reduce'}),page=await context.newPage(),errors=[];
    page.on('pageerror',e=>errors.push(e.message));
    await page.route('https://*.supabase.co/**',r=>r.fulfill({json:[]}));
    await page.route('https://fonts.googleapis.com/**',r=>r.abort());await page.route('https://fonts.gstatic.com/**',r=>r.abort());
    await page.addInitScript(game=>{localStorage.setItem('romantiverse-v2',JSON.stringify(game));sessionStorage.setItem('romantiverse-last-tab','play')},{movie:{id:'refinement-inventory',title:'Illustration inventory',season:'Christmas'},card,free:true,mode:'classic',marked:[12],completed:false,startedAt:'2026-11-07T12:00:00Z'});
    await page.goto(origin,{waitUntil:'domcontentloaded'});
    await page.waitForFunction(()=>document.querySelectorAll('.board .square-art').length===25&&[...document.querySelectorAll('.board .square-art')].every(i=>i.complete&&i.naturalWidth));
+   await page.locator('.board .square-art').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
+   if(dpr>=2)assert.ok(await page.locator('.board .square-art').evaluateAll(images=>images.every(i=>i.dataset.illustrationId==='free'||i.currentSrc.includes('/illustrations/detail/'))),'High-density display must select the original-source detail exports');
    const prefix=`${out}/${width}-batch-${offset/24+1}`;
    await page.locator('.board').screenshot({animations:'disabled',path:prefix+'-unselected.png'});
    const geometry=await page.locator('.board .square').evaluateAll(squares=>squares.map(s=>{
@@ -67,5 +70,5 @@ try{
   assert.equal(covered.size,active.length+1,`${width}: incomplete asset coverage`);
   console.log(`${width}: all ${active.length} active tropes + center; unselected, selected and winning passed`);
  }
- await writeFile(`${out}/report.json`,JSON.stringify({origin,activeTropes:active.length,missing:0,viewports:5,boards:results.length,statesPerBoard:allMarked?4:3,results},null,2)+'\n');
+ await writeFile(`${out}/report.json`,JSON.stringify({origin,dpr,activeTropes:active.length,missing:0,viewports:5,boards:results.length,statesPerBoard:allMarked?4:3,results},null,2)+'\n');
 }finally{await browser.close();await new Promise(r=>server.close(r))}
