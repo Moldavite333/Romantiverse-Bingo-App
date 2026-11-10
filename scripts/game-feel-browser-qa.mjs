@@ -96,4 +96,3 @@ try{
  await writeFile(`${out}/report.json`,JSON.stringify({origin,results,unsupportedAudioStillPlayable:true,unavailableRecordingsFallback:true},null,2)+'\n');
  console.log('Game feel: five viewports passed opt-in real Web Audio, no autoplay, confirmed win cues, mute/persistence, reduced motion, unchanged cards and unavailable-audio fallback.');
 }finally{await browser.close();await new Promise(r=>server.close(r))}
-

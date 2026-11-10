@@ -71,7 +71,7 @@ try{
    await page.getByRole('button',{name:'Full-screen board',exact:true}).click();
    await page.locator('.board-screen').waitFor();await page.keyboard.press('Escape');
    await page.waitForFunction(()=>!document.querySelector('.board-screen'));
-  }else assert.equal(await page.getByRole('button',{name:'Full-screen board',exact:true}).isVisible(),false,'Mobile layout remains unchanged');
+  }else assert.equal(await page.getByRole('button',{name:'Full-screen board',exact:true}).isVisible(),true,'Mobile fullscreen control is available');
   await page.locator('.board .square').first().click();
   await page.locator('.game-table').screenshot({path:`${out}/selected-${width}.png`,animations:'disabled'});
   const markedContrast=await contrast('.square.marked:not(.is-free)');
