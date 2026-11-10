@@ -1,0 +1,30 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+import sharp from 'sharp';
+const root='artifacts/inclusive-cast',rows=[];
+for(let n=1;n<=10;n++)rows.push(...JSON.parse(await readFile(`${root}/wave-${n}.json`)));
+assert.equal(rows.length,57);assert.equal(new Set(rows.map(e=>e.id)).size,57);
+const entries=JSON.parse(await readFile('src/art/illustrations.json'));
+const registry=JSON.parse(await readFile('src/engine/illustrationRegistry.json'));
+const briefs=JSON.parse(await readFile('docs/artwork/scene-briefs.json'));
+const sha=b=>createHash('sha256').update(b).digest('hex'),results=[];
+for(const row of rows){
+ assert.equal(row.status,'visually-reviewed',row.id);
+ const e=entries.find(e=>e.id===row.id);assert.ok(e?.active&&e.id!=='free');assert.equal(e.label,row.label);
+ const bytes=await readFile(row.source),meta=await sharp(bytes).metadata();assert.equal(meta.width,meta.height);assert.ok(meta.width>=768);
+ let quality=90,small;
+ do{small=await sharp(bytes).resize(384,384).webp({quality,effort:6}).toBuffer();if(small.length<=80000)break;quality--}while(quality>=84);assert.ok(small.length<=80000);
+ let detailQuality=88,detail;
+ do{detail=await sharp(bytes).resize(768,768).webp({quality:detailQuality,effort:6}).toBuffer();if(detail.length<=260000)break;detailQuality--}while(detailQuality>=80);assert.ok(detail.length<=260000);
+ await writeFile('public/'+e.asset,small);await writeFile('public/'+e.detailAsset,detail);
+ Object.assign(e,{sourceSha256:sha(bytes),assetSha256:sha(small),detailSha256:sha(detail),reviewed:true,generated:true});
+ Object.assign(registry[e.id],{assetSha256:e.assetSha256,status:'ready'});
+ const b=briefs.find(b=>b.id===e.id);b.refinements??=[];b.refinements.push({stage:'inclusive-cast',castingDirection:row.casting,prompt:row.prompt,source:row.source,sourceSha256:e.sourceSha256});
+ results.push({...row,sourceSha256:e.sourceSha256,asset:e.asset,assetSha256:e.assetSha256,detailAsset:e.detailAsset,detailSha256:e.detailSha256,standardBytes:small.length,detailBytes:detail.length,quality,detailQuality});
+}
+await writeFile('src/art/illustrations.json',JSON.stringify(entries,null,2)+'\n');
+await writeFile('src/engine/illustrationRegistry.json',JSON.stringify(registry,null,2)+'\n');
+await writeFile('docs/artwork/scene-briefs.json',JSON.stringify(briefs,null,2)+'\n');
+await writeFile('docs/artwork/inclusive-cast-prompts.json',JSON.stringify({generator:'built-in image_gen',baseline:'34b1607ef3c349975096de4fb05a3b1271851ef0',acceptedEdits:57,mixedCasting:true,retainedInclusive:['season-Christmas-0','season-Christmas-12','season-Fall-9','season-Spring-1'],rows:results},null,2)+'\n');
+console.log(`Imported ${results.length} individually reviewed casting edits, each with 384px and 768px exports.`);

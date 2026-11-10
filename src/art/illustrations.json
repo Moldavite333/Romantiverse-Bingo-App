@@ -6,11 +6,11 @@
     "asset": "illustrations/meet-cute.webp",
     "scene": "Two strangers collide at a bookshop doorway, dropped books suspended between surprised faces; close diagonal composition.",
     "reviewed": true,
-    "sourceSha256": "0e2b3b28c714283350e77eb079d6aae1ea95fddcf82515e3c43f02cca9846b46",
-    "assetSha256": "9814ca477bc582446e3071e5f1c1d6f6b639eca335246f85308b9081f43fa7c1",
+    "sourceSha256": "472b6bf19068273103c285660909424c795a0784b80814e5d92934d768a476f0",
+    "assetSha256": "1cf16b82b1de94aec106da77a344db0dda118d137de57bf35c09b75f19ba1afd",
     "generated": true,
     "detailAsset": "illustrations/detail/meet-cute.webp",
-    "detailSha256": "7f601e0de86d61408dcc31a455122999c3cf09bafdcd7c410a11ba3e3389dbc2"
+    "detailSha256": "51084e18e14c6545d3f503a1216acd76d51e10747d060e2931332b33d7778468"
   },
   {
     "id": "career-vs-love",
@@ -45,11 +45,11 @@
     "asset": "illustrations/old-flame.webp",
     "scene": "Former sweethearts recognize one another across an old school reunion table; matching aged portraits lie between them.",
     "reviewed": true,
-    "sourceSha256": "765732ffc59172ef27ec4cdf852e4a56d246ad4fcdd98c4876b32f816147d3c7",
-    "assetSha256": "b6c15f1cd768276c17229d4f69e679c7381df09038482c392f74ff3d958bd36b",
+    "sourceSha256": "5b5ab04bbbef548f9ef47dc2f21d489f68fac264336944f6dba27b0ca0580cd2",
+    "assetSha256": "e7fbd21a95770d3340d90e8010526c1356bdc57908bcb45425933a3b01a44470",
     "generated": true,
     "detailAsset": "illustrations/detail/old-flame.webp",
-    "detailSha256": "e84e7a8ee453f9c2a9bbd16b85b9fa82c347f8cc04c696a849fcc9fdf71a27f9"
+    "detailSha256": "cf5c7ce1c55dc3f39d1133c83c5a855d7371520b37ca79420564c52a47f65bb0"
   },
   {
     "id": "save-the-business",
@@ -71,11 +71,11 @@
     "asset": "illustrations/misunderstanding.webp",
     "scene": "One partner recoils at seeing an apparently intimate embrace through a cafe window, unaware it is a sibling greeting; layered window view.",
     "reviewed": true,
-    "sourceSha256": "dd182f0ba0dacb099e53160dafbb1e4f13c897fd6c79a783ba12a93f0955a806",
-    "assetSha256": "6c252d901598739b4e47a7da2c94f7ecbec5e66613c6be81cf08f8b71091d6ac",
+    "sourceSha256": "6b3ea6561e5359edf2031ddf703f897b230823707924584e6e44e91e8e58a40a",
+    "assetSha256": "8d6c06053b21049432fdc08830162736bfbced371de5d8443d9da4a5a2277622",
     "generated": true,
     "detailAsset": "illustrations/detail/misunderstanding.webp",
-    "detailSha256": "4c0b6b066ceb5f0fa22a007d1a5e9acb015b1b3bd9b52553b243704263fbfa08"
+    "detailSha256": "5de067d549b3b9a3efeba82b53093e61c327a3a4b5d35d395178f61b58087f4b"
   },
   {
     "id": "interruption",
@@ -110,11 +110,11 @@
     "asset": "illustrations/wise-relative.webp",
     "scene": "A grandmother wags a knowing finger across a kitchen table at an embarrassed adult grandchild; intimate two-person close-up.",
     "reviewed": true,
-    "sourceSha256": "a58b169950c4ee02828fdeb8bde866dbad84ae7e724e0eb05440089c42ba79fb",
-    "assetSha256": "6af4718c53be05f7d6c5973f8de0c588860bca8dd4cf641365891457263c78a0",
+    "sourceSha256": "c679cdb93614458d4ce703ace8ab9d75380b248e8ea67f4f1377a9f74780aefa",
+    "assetSha256": "98fd86d4d22c4bdbd6a10b7f673c7a53a151643c7cc1243654bafe3f6d71cbd4",
     "generated": true,
     "detailAsset": "illustrations/detail/wise-relative.webp",
-    "detailSha256": "c056739f28be2c07c04af6b2a0c826fd8c18bdf9129c531a4fb548750ef447c1"
+    "detailSha256": "d69d3b249a42b0accfaea7c6f19e63904321e0595cbb8c6b6c4cabca94b0d599"
   },
   {
     "id": "almost-kiss",
@@ -162,11 +162,11 @@
     "asset": "illustrations/misplaced-priorities.webp",
     "scene": "An executive sets down a ringing work phone to join a family making dinner; open hands and relieved smile, kitchen overhead angle.",
     "reviewed": true,
-    "sourceSha256": "8e559fb6ebb756fe7b9afca0113351deea4ed12755e447cf1c6bce579e31e477",
-    "assetSha256": "1b4abf0369374898c9c03bf2bcf5e6b0e5d5fa5cdb0a6435922658f3754b5f63",
+    "sourceSha256": "5e29d976a033f287d9f149516400963ef4ed9f79deaf178404bb16f3eb9e596c",
+    "assetSha256": "8bf136b8569605f76ff4630e3687e0d913cffb3c955f845383f4419b3c20685c",
     "generated": true,
     "detailAsset": "illustrations/detail/misplaced-priorities.webp",
-    "detailSha256": "6521a46d5803793ee831130d8d728a04bf2293387dde2dbb362ef8f5f33ba6c9"
+    "detailSha256": "afe2b0a726470253031f323e785e6d31d71a23bb859045c54ecf5e9e12a17f9b"
   },
   {
     "id": "coincidence",
@@ -188,11 +188,11 @@
     "asset": "illustrations/rival.webp",
     "scene": "Two competing suitors meet stiffly on a front porch, one holding roses, the other a casserole, their intended love interest between them.",
     "reviewed": true,
-    "sourceSha256": "6a795aeb63bf70541a21158e7ccfde992bb0fbb62c1c7b35ebf96bdcd5f6035e",
-    "assetSha256": "ee1210945ef5d788900d12f22fd56e4f6cdfd922c121e76698b0ce81eb12932e",
+    "sourceSha256": "3d9755010ccb6ab25b24c77a0760f1bf94792a94ecc55779675fb3b195326dd5",
+    "assetSha256": "4561c472afa44c9a7042e88d573c02df464f392d41f94c741e472720b9ddd124",
     "generated": true,
     "detailAsset": "illustrations/detail/rival.webp",
-    "detailSha256": "e6ccc1459c171eab72c9f6ab40ceb75c4446f6a976a21cd656d3b39a2ae7f09b"
+    "detailSha256": "aa60a38b33f0a0fe730fa97fc01e4c73c755d426fb60849b3d8304088a56cb74"
   },
   {
     "id": "decorating",
@@ -227,11 +227,11 @@
     "asset": "illustrations/forced-proximity.webp",
     "scene": "Two stranded travelers sit at opposite ends of a tiny inn sofa with their luggage wedged between them, glancing sideways; enclosed composition.",
     "reviewed": true,
-    "sourceSha256": "3454424f891e3bd7c26c1e736a02d687d2fab4507860e8f6b020aa2506117d77",
-    "assetSha256": "973b19266a090e80db5c4797fe1b632bf25e23ebcea211297b530e69c0a35539",
+    "sourceSha256": "ac1c737a34a23de735dfa60cafda047ed9165ee887fa7d4dee178fdda36a4482",
+    "assetSha256": "2ac08567c89ac8343a2c523975628a3024517bee1a62162dc1f2ec76d2d2af1a",
     "generated": true,
     "detailAsset": "illustrations/detail/forced-proximity.webp",
-    "detailSha256": "d5544e147c4806bbec08fe9f3de2c79e3282ac6999b0c85246b628a876a1eeb0"
+    "detailSha256": "0e67302c4a5cb9e628af24a632c500af30d8ea416823781d9c6449d0a811dfd2"
   },
   {
     "id": "town-event",
@@ -253,11 +253,11 @@
     "asset": "illustrations/hidden-talent.webp",
     "scene": "A quiet guest sits at a piano and suddenly plays brilliantly while partygoers turn in astonishment; hands and delighted faces.",
     "reviewed": true,
-    "sourceSha256": "ce4cd1e8514d70051ea235a084b70faf5057fa8197c6dbf149869dcc758dfb58",
-    "assetSha256": "5f416a4d4892124b863f3b5cd8ca4aa70f5954b5a9eac472388b97a11ffbdb76",
+    "sourceSha256": "73b0b2936113715cda6e46a1488cf1707242a27418220e2e82e0cbe86f8b0e62",
+    "assetSha256": "77304d3b84eada2772a388fffd432014974274c386cc0e2f0d639b860e48d047",
     "generated": true,
     "detailAsset": "illustrations/detail/hidden-talent.webp",
-    "detailSha256": "b5e5e113b48b5b1aacc57cb4d8e0440b31d617e24e70f025ac312568dfa3f7c8"
+    "detailSha256": "66df26bed0f17faf59f06eefe4844e9e4ecfbe992bc48a204075abfef20404c7"
   },
   {
     "id": "late-realization",
@@ -279,11 +279,11 @@
     "asset": "illustrations/last-minute-arrival.webp",
     "scene": "A breathless lover runs through closing wedding chapel doors as the waiting beloved turns around; dramatic doorway perspective.",
     "reviewed": true,
-    "sourceSha256": "5e6515ae9ec589d1d3fa9eb34e91a76ba6083714b4a8e9f6c1ee889a6181815e",
-    "assetSha256": "a710ab78f212fb7e1b53cf52220cd60237bb045d7d8f26b5d2a405d057ea6bdf",
+    "sourceSha256": "cf2b7e0c53d67bd75aa7e49f266e01cf1d47f9c841f6be9c3c9fff88da271e3f",
+    "assetSha256": "344708e081ccd45a018fae807aabdfee2087332dedabf9d43db5288284879dde",
     "generated": true,
     "detailAsset": "illustrations/detail/last-minute-arrival.webp",
-    "detailSha256": "3ba7599d489ee1acb4dff68cf0496c723d34e9d98124b260847fca108799f7e5"
+    "detailSha256": "451930c5deb1b9f73cfcbe60b8c06710859c6d476f49f099524852bf6feecec8"
   },
   {
     "id": "overheard",
@@ -318,11 +318,11 @@
     "asset": "illustrations/big-city.webp",
     "scene": "A weary commuter gazes out of a crowded city train at a postcard of a peaceful hometown, loosening a work tie; window reflection.",
     "reviewed": true,
-    "sourceSha256": "235d852d86d574ce55bdd1f3dc8e34ef6e3c47d334e7f0dccf6f77b9ab4fd154",
-    "assetSha256": "a97222934a26164238e24b984bb86c82f741976fb8488bdb71ccf6963d0bfaa2",
+    "sourceSha256": "ff493929063ddc30986419078ff7374a5bc456b07b2873123b119da309e4af26",
+    "assetSha256": "b75f6d3fe2f0da02c839f00d6f88c06b51618537556a62a9ebf00f9c04b98a8f",
     "generated": true,
     "detailAsset": "illustrations/detail/big-city.webp",
-    "detailSha256": "13f5bbf799bfd51861dac3b6a547f1a4d376e811ef2603d68e4a28afd6280d77"
+    "detailSha256": "630cd30236c84232005a1bff986be56f11bb9b04d26de7f30b711206bfa6cf91"
   },
   {
     "id": "perfect-stranger",
@@ -383,11 +383,11 @@
     "asset": "illustrations/obvious-ending.webp",
     "scene": "Two oblivious leads bicker gently in foreground while a baker and florist exchange knowing smiles behind them; comic layered group.",
     "reviewed": true,
-    "sourceSha256": "e2a2230019d7f7e235f6d6eda3c5bc6c5f390afd7be31235bcf5d9dfb0643728",
-    "assetSha256": "910d4088cf18d393cf2d614dc5371667f8512c5d21706cabeada8bf7d03f92a8",
+    "sourceSha256": "ef901106a03be75dce427d381ddf34a55ad0554744446ab1daa66f6e16d104e6",
+    "assetSha256": "ae05d61864eaf4b9a3c4f4b9d358b703e13c5b7bfc193f387e3f429641a96571",
     "generated": true,
     "detailAsset": "illustrations/detail/obvious-ending.webp",
-    "detailSha256": "3a4665c41138ca2ff9346426ed2c5089cfc8c774ee875264f2fbefcb41cb0a2f"
+    "detailSha256": "55d4da5007da0af491ba9fc1197511da412c76204ce60ff06357bf1b58cf42ab"
   },
   {
     "id": "family-heirloom",
@@ -409,11 +409,11 @@
     "asset": "illustrations/stranded-in-town.webp",
     "scene": "A traveler stands beside a broken-down car with an open smoking hood as a friendly local approaches from a little town; roadside view.",
     "reviewed": true,
-    "sourceSha256": "7ad004565ad563132d1fa671a5dc450f22bb329757a2baac65ae41d4451402e1",
-    "assetSha256": "ff1e472c5dbd53063a636ef0d98a9a7896e7a8c0d2e10e6ef469a9ee65e294c1",
+    "sourceSha256": "818cf0de35aa4391bbc401246a978d7afed9e6796d2bc3a91529eeea98cc1500",
+    "assetSha256": "e6e26df66cec20462077c6e7680df18edadd9e2b9608ae2b70910bb6fd60d374",
     "generated": true,
     "detailAsset": "illustrations/detail/stranded-in-town.webp",
-    "detailSha256": "27eec8f973685c99355b5e04248bed213023091315ebe1fe7f7ca2125532c055"
+    "detailSha256": "96ef260d89b3d1b361d2ada83cbf85a3691e0a8b423f8520999b47534e48557c"
   },
   {
     "id": "family-tragedy",
@@ -487,11 +487,11 @@
     "asset": "illustrations/season-Christmas-1.webp",
     "scene": "A child and two adults pull a large switch together as a towering town Christmas tree bursts into golden light; upward-looking crowd.",
     "reviewed": true,
-    "sourceSha256": "7bbc37d1c43235d0da4f3e0c7d6969ef4eae8784bbcb6415dbf5c457056b154d",
-    "assetSha256": "8d4309391d976d3288adf0edf428dff638f70343268b94e6ffb752940d1a394f",
+    "sourceSha256": "2005827ff047a591cccef29063a97518af97565d98ea7daa62295fc272c43169",
+    "assetSha256": "90809bca3b91865d9c294328ccf5a2cbba094d26feb31f5db2af24d346ab292d",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Christmas-1.webp",
-    "detailSha256": "3a70d926355e216776a7ba86eb38c2d55cd0e2985828bbd928bc6b3bcaae292e"
+    "detailSha256": "756ea6d970f860bb3dc9b26dad65e4b1e92d506c9b560aea10a30e95efff89f6"
   },
   {
     "id": "season-Christmas-2",
@@ -526,11 +526,11 @@
     "asset": "illustrations/season-Christmas-4.webp",
     "scene": "A baker discovers a tiny hidden keepsake in a cookie tin and shows it to an astonished partner; kitchen counter close view.",
     "reviewed": true,
-    "sourceSha256": "a756d7870e995961f91d2fcae4a0afefcdc8671cbe8fe995be669a794057022b",
-    "assetSha256": "392f196a68b76ea374d49bdaf117291d27e2e28670f93838588305ee12014074",
+    "sourceSha256": "0fc0b1636fe26ba868383e96b68fe27d32ed1c8eba6d929e83f2f19e412e2c96",
+    "assetSha256": "e3708129db4939aba32e3cf66484b08c25b387c26e2dee8650c52ad3132071ef",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Christmas-4.webp",
-    "detailSha256": "fb70d57501928e34cd8ea73c9961ad77d458e8bc50f41426bebc78178995c077"
+    "detailSha256": "bace35f22eaff65243964d855c1fef826e32b014721a472c04a485e328dd92df"
   },
   {
     "id": "season-Christmas-5",
@@ -565,11 +565,11 @@
     "asset": "illustrations/season-Christmas-7.webp",
     "scene": "A frantic gift-shop worker finishes wrapping one parcel while a tall clock approaches midnight on Christmas Eve; urgent hands.",
     "reviewed": true,
-    "sourceSha256": "6c93a04c6b1ceb378daa900f098b90b1477e84f79ad933fda087c1de83f75ce0",
-    "assetSha256": "cbb62eb9435a137450c1d93f1506d2d4e6ff78a6e9e978b3690d9a4246470eb6",
+    "sourceSha256": "9f646b36bac174613a07d6feaebd49b7a4d1a0e269a7dbaed6b73e0ba0c574fa",
+    "assetSha256": "7af03ccc4660ce028d63ed717d8fabecaec19807eb6d7224e12887050e73c210",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Christmas-7.webp",
-    "detailSha256": "c56ff06cbdf4088dee780d53cca6877499225fb4062c07e64132b8cfaba3de26"
+    "detailSha256": "10a1a2b9d7697d525f77fef78334ad8cc8506ab6481e72caf3da5e9cd7ed4ae2"
   },
   {
     "id": "season-Christmas-8",
@@ -578,11 +578,11 @@
     "asset": "illustrations/season-Christmas-8.webp",
     "scene": "Two people hang ornaments together, one lifting a child toward an upper branch; living room Christmas tree, clear reaching poses.",
     "reviewed": true,
-    "sourceSha256": "2461c9fc2378b68bbe4f55e9ced10baf7846019cb3c6163b949bbd3139c8f5ed",
-    "assetSha256": "682e5a15fb7f872ca1414c32bca44f142ae6e29861d6321a8db2ae5ba316351e",
+    "sourceSha256": "31eff3c3732df8639f7e8573f07305695a15cde56623f4f2316d8d01b8ceb6a7",
+    "assetSha256": "0bb95b519c4457d63bfe3c1c6e81f462c49d16e0fdc8e40de43e5eb925609a30",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Christmas-8.webp",
-    "detailSha256": "503e1709f39e52f599b88fe295ab277ee7a2c603e702e2a9dd5273a8ed9b0fb0"
+    "detailSha256": "8be29b2f47dc5d03e1df657e6d4c985fadc7ac7cce2f44182537bc8cbda961e3"
   },
   {
     "id": "season-Christmas-9",
@@ -643,11 +643,11 @@
     "asset": "illustrations/season-Christmas-13.webp",
     "scene": "A shy guest proudly shows an outrageously knitted Christmas sweater to two laughing friends at a house party; waist-up figures.",
     "reviewed": true,
-    "sourceSha256": "afd98cf0fef4c2466ec28a5167ea0fc1b6d61c5b76861db161dc32cb439627ec",
-    "assetSha256": "0e74a98edb63ad16678126c6de326d218f75d412b1ac407e9d6e33ce03aa9eca",
+    "sourceSha256": "59e6e547d88e474ab4d9a1bfe6d2331335daa3fc8bd9e7d31990eeb1249aaa51",
+    "assetSha256": "32b6f694c7ea2c7f1c2a2bac4cf608f799bdd95d25d787ae4686615cca3d3b58",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Christmas-13.webp",
-    "detailSha256": "34ab88efeefb46364f4e501e795e0bc44690c488546d8b66f94a1e6c412d485a"
+    "detailSha256": "e1bf0aefe35e749e376ce5afa976a94b90b9fa17e7e061268e58d89a6e757b46"
   },
   {
     "id": "season-Christmas-14",
@@ -682,11 +682,11 @@
     "asset": "illustrations/season-Christmas-16.webp",
     "scene": "Two rival bakers present very different elaborate Christmas desserts to an impressed judge; opposing counters and expressive rivalry.",
     "reviewed": true,
-    "sourceSha256": "fe2b3b03ed79ec7b4b5912c5b51b0a93d0963c732a7f3fe79129aaf60f669d8d",
-    "assetSha256": "4ff3f4fff6481cd4909a8779ce19f10bcfbb3eaeb65e56386ac9ef874726def5",
+    "sourceSha256": "09da381350acc2c516285e8731bc61c9eda7820036f004f13ae19257d03fb460",
+    "assetSha256": "97bdedf125cd6f4e43f0033894b0e512227813e3ae6201974bef7c765ed8d010",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Christmas-16.webp",
-    "detailSha256": "867805eaccb3f799f6891f44653a445cf8cfbb2ce502e3d6838ddb40492f1db7"
+    "detailSha256": "26577c8a627d5e3db1830f7f6d0585f99e274604135744aba9d3caac0ced06fd"
   },
   {
     "id": "season-Christmas-17",
@@ -747,11 +747,11 @@
     "asset": "illustrations/season-Christmas-21.webp",
     "scene": "A family inspect a fresh evergreen at a snowy tree farm while the farmer holds it upright; rows simplified behind.",
     "reviewed": true,
-    "sourceSha256": "01c2d9812c62c1487ea1a527d2466d4eba817780e32a8490cd87206a35ad0910",
-    "assetSha256": "adf8c9ae9784c261fbbfda114371b1de43ebbddeb62bcdd770650f2f74b27757",
+    "sourceSha256": "32dd8610ca81fe248b3b2ca31188c5c1fa8aac5cac380020cb82bdd89ab0f300",
+    "assetSha256": "8cc98909132e60665b41108b5b466804bb8ce25deb5168c930e5a9a193de53a4",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Christmas-21.webp",
-    "detailSha256": "8f3523443cd6948a6a8b04191a562e1fcc44ffde37fcb553c2251f26f78e09e0"
+    "detailSha256": "a01221afbaaa5d8207e0859c62a761a0242102aace70c121f981dc075ecd158f"
   },
   {
     "id": "season-Christmas-22",
@@ -786,11 +786,11 @@
     "asset": "illustrations/season-Christmas-24.webp",
     "scene": "A couple kiss beneath a sprig of mistletoe at a Christmas party; clear kissing profiles, intimate shoulders-up framing.",
     "reviewed": true,
-    "sourceSha256": "bc3571faf482bfc91457fd47edfd68810bb9ebfe1f45fe6082487ba1c291ef05",
-    "assetSha256": "64347b0c7388ace13ae4d75c9b6b62b6c452559196d1f6875c0c77800cc6874a",
+    "sourceSha256": "9b24df53942c1ca261d8f096440371b33d1338f3f80d276aa0608a50dacafabd",
+    "assetSha256": "bc58e435dae170a4a97a96a57a30d7ca499696b5ddf4b56cdeae5204c2a2e207",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Christmas-24.webp",
-    "detailSha256": "dc256a8c836fff97244e434e20b5864a6e014e9c74575e7f505585e8b88ec015"
+    "detailSha256": "c0e315704f955c48a9472c042724215fa3a7e245ecf98b10f92c59704b158833"
   },
   {
     "id": "season-Christmas-25",
@@ -838,11 +838,11 @@
     "asset": "illustrations/season-Fall-0.webp",
     "scene": "Two strangers reach for the same enormous pumpkin in a patch and laugh, kneeling between broad vines; low view.",
     "reviewed": true,
-    "sourceSha256": "010defa38b9b3081ad03beaec44c7c1280523f0a6a937fcfc0a70267d0f7ebbb",
-    "assetSha256": "a4ea6b8968dc37b09f74328ec97828a6eb45851b456d89c2d5ab74f340391439",
+    "sourceSha256": "7355601f579652bd4f495310d24a719be4145a22ff3690801891def558e8237b",
+    "assetSha256": "147308c2cf3c5a4b7644944a23ed352659f65c589279e0d8a3c1483a73e28d96",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Fall-0.webp",
-    "detailSha256": "d582bffc75da105ca70a8a34b0f517255e5f02138999b5bade5d8671961cd981"
+    "detailSha256": "2d3ac98f85a6d24ba0c53262216a53418afa9aa9c4c769feaef8d990007ab8d6"
   },
   {
     "id": "season-Fall-1",
@@ -851,11 +851,11 @@
     "asset": "illustrations/season-Fall-1.webp",
     "scene": "Two people talk earnestly at an orchard cider stand, cradling steaming mugs, apples stacked beside them; side profile.",
     "reviewed": true,
-    "sourceSha256": "48f2e1a8cdeb4ac25dbbac17f4a4cdfe9b351ce498db600719b6d7b77f8584a6",
-    "assetSha256": "89c2866780a6238fff0ed6c331b03a62326710adc32192aee447cf9a9cd27267",
+    "sourceSha256": "c6a98338bf314b33c1080b13a18e2f8cd795a3d3346f2afad33cc0536cdc1371",
+    "assetSha256": "c429ba0eb9832c96f76d2da01ea90b7d0e633bd8a7a8ba8ef593915ee2eafb5e",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Fall-1.webp",
-    "detailSha256": "8174ee4303cec01e01b8f1a1d5cb765098048384e2a1c52b0d25aa76a505cd92"
+    "detailSha256": "c863f3c6f6ad7eac8144391925dc0fadb4f259b3baaa5d6946c4d08f04e11a20"
   },
   {
     "id": "season-Fall-2",
@@ -903,11 +903,11 @@
     "asset": "illustrations/season-Fall-5.webp",
     "scene": "A charming person in a cranberry flannel shirt rolls up a sleeve while helping a neighbor stack firewood; close figure portrait.",
     "reviewed": true,
-    "sourceSha256": "e9bf0efce5aabf8ed6396bade454bcd40f6950a1e93efaddd0c872218c6e9e7f",
-    "assetSha256": "a929b9b4c1fc78700b413a291c3869a2de77ffbb967d7aa226e79ecca6164524",
+    "sourceSha256": "587e45c1edbe0b0a16946a680f3a452e18656ccf6cf7994b25cc0225d680e67e",
+    "assetSha256": "733fd195187a32a2c0048afd81d6416cac08d5c9b6aa0881f198ae0168f426d2",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Fall-5.webp",
-    "detailSha256": "1b407da7c9038deab2565b594864da2a8451dc6a6d82b206373076e79a77a7b8"
+    "detailSha256": "b85c259995606637d47b8dfac35b684b0bcfa9e097ac39f396b667fb00823e3f"
   },
   {
     "id": "season-Fall-6",
@@ -929,11 +929,11 @@
     "asset": "illustrations/season-Fall-7.webp",
     "scene": "Two competitive bakers hold their pies at chest height, exchanging a challenging sideways glance while a judge prepares a fork.",
     "reviewed": true,
-    "sourceSha256": "a38f381944a731acb311d3d2d6c00c220d4a6c805fef20cd7358b31776744d25",
-    "assetSha256": "22e54884b83a7558947802bd0ffd4c76f446f0690ab3c1a90cc4d0ce6b82acc3",
+    "sourceSha256": "d782c11dfb46ad012dc9da4c6433f6e860a88721fa23a57fcea6205c69a13c6e",
+    "assetSha256": "62aefb8fa8c986b1175a24c42bcf04e8fe9c42b2b37aeb4d569f2b2f925bbad1",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Fall-7.webp",
-    "detailSha256": "76c7e78420f44df7c5fabf4bc81e211e8462cf835c1d983c469b940cd1b4ded1"
+    "detailSha256": "2a36d234fb5870bef0e3a3541e54ee6f5c0e7e1c77586d5b7a8ceccd3d170d0b"
   },
   {
     "id": "season-Fall-8",
@@ -981,11 +981,11 @@
     "asset": "illustrations/season-Fall-11.webp",
     "scene": "One person steadies a short orchard ladder while the other offers down a freshly picked apple with a flirtatious smile.",
     "reviewed": true,
-    "sourceSha256": "4f5929c8199f20b7b225f4bab063247385fc4cb79302fdfbc141031531265a46",
-    "assetSha256": "0c27f84f7e4c9592e3f62f7b656e75629673429bbc878baed5250fc10cab13b2",
+    "sourceSha256": "8a3a57bb49e58db27943043e5dac5931e46064f4326aaf5501c3a6a77076d551",
+    "assetSha256": "aa4f56fb8e66d0de49d6990e6964f69868d5e000989b1ec26ee3108df56ed050",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Fall-11.webp",
-    "detailSha256": "9a65604d2d74b7731a612ddcf83607006c9949f6d032a1f7d158b7b6e374f9e8"
+    "detailSha256": "55267d0e6b4ecb1100ad0a8f260fd8070f72b001e2cce3528e1f8b7274f1d093"
   },
   {
     "id": "season-Fall-12",
@@ -1046,11 +1046,11 @@
     "asset": "illustrations/season-Fall-16.webp",
     "scene": "Two people spin together in a harvest dance on a wooden floor beneath leaf garlands; full twirling silhouettes.",
     "reviewed": true,
-    "sourceSha256": "77c8d4d91632614623720273c7e0daa283ab2113ad3123b8ed457270d50afecd",
-    "assetSha256": "7d0da76635e2e592e045e9bc2b135dd441a4d9305121bae35b4eaf5c3716da97",
+    "sourceSha256": "e5896cb94fedf5df3d5e8f5ec4f8590dd3f49ad4922ca394d7192adb6d36b668",
+    "assetSha256": "f99522cdef7bcd1b18fea6abdfa93882a9c3af677465e67d42ea975d7b94f41d",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Fall-16.webp",
-    "detailSha256": "8587db0efaa5f56866af2f0f9a402acfe09b75c3b26a4060fcbff2482260d7ec"
+    "detailSha256": "d06fec69f375a0c46cceff5d677798851dac632b0395abc852ff7c28fdd18f18"
   },
   {
     "id": "season-Fall-17",
@@ -1150,11 +1150,11 @@
     "asset": "illustrations/season-Fall-24.webp",
     "scene": "Grandparent and child press apples together using a wooden cider press, an adult receives the jug; clear multigeneration ritual.",
     "reviewed": true,
-    "sourceSha256": "0f8a364cc7fcf7a10d088fdca988c85b8679f573306b831e863df14564826604",
-    "assetSha256": "85c264850595cffcd3a19b8b85226f86daea28f291379ed5454ed94a4d200bc2",
+    "sourceSha256": "81c3ed59a07bc8d769eb81762ef306fa36725b0e9823b987e8d4c601ed9b77e0",
+    "assetSha256": "928beec1040bfd30b47060734e3f46222f60e3eccf1d8a4e59bde6fcc07e1f76",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Fall-24.webp",
-    "detailSha256": "5faf4d37781252f4f702fba42e9097a2bd0b224275095208ae13647e1cdbccf5"
+    "detailSha256": "2da0c0e24bc8ab37b91b7a16313d582b05d84742a8fff27b5ef515ab4e5a5a69"
   },
   {
     "id": "season-Horror-0",
@@ -1475,11 +1475,11 @@
     "asset": "illustrations/room-an-emotional-reunion.webp",
     "scene": "Two old friends embrace tightly across a garden gate after a long absence, one dropping a hat; springtime flowers, tearful faces.",
     "reviewed": true,
-    "sourceSha256": "d1615acc6b947621c0ba981c499c812812743a2168529bfc2a840905d868d2cc",
-    "assetSha256": "22fd4e9ca8ac869a531dbce294e0eccec479d138e9592f98c5b0c9b50123b1e6",
+    "sourceSha256": "3b16df010b987eb63c1afb91f2b13b9815e5e7f4a5ec928322bd4f4e0ecb60a9",
+    "assetSha256": "7d95f3351c0a94b30fed6b56b623842978571e732fcd319c332594bf50bd86c5",
     "generated": true,
     "detailAsset": "illustrations/detail/room-an-emotional-reunion.webp",
-    "detailSha256": "cf657a76c6169143a41e423138baf285d86192f970566aed4d963c8b5d15a79e"
+    "detailSha256": "2d9715122678c332df32c6c5daad7ef0ba002bbee2bec020999bc6679c92061a"
   },
   {
     "id": "room-a-secret-is-discovered",
@@ -1488,11 +1488,11 @@
     "asset": "illustrations/room-a-secret-is-discovered.webp",
     "scene": "Someone opens a hidden desk compartment and uncovers a bundle of love letters while their partner watches in alarm; overhead hands and faces.",
     "reviewed": true,
-    "sourceSha256": "786b927a188d5ded7ce5a66aa7b9b872abaa51098cd7032593b907a81970fd79",
-    "assetSha256": "a6cf4324639be4842d6471cc96b1be349454970ab04cc8445a1b7592f5857d39",
+    "sourceSha256": "d1c4513c3a5e28440c58ea7e08d7f4d848b59b23ec4f46ea9e502ec3f5086de1",
+    "assetSha256": "5d5571a24c558aff6ac5fb1cd4d2e33a37ff8d24d22c1985a488dc14c07062b4",
     "generated": true,
     "detailAsset": "illustrations/detail/room-a-secret-is-discovered.webp",
-    "detailSha256": "9704d001eaa1d4aa226e580143448be65fa35b2b2aa7b0d2eba5b8da6d28873e"
+    "detailSha256": "be6cc5ee1eca8daafba8d61c227e7508634710aea414dab03b4f43eded3ed941"
   },
   {
     "id": "room-a-dramatic-exit",
@@ -1540,11 +1540,11 @@
     "asset": "illustrations/room-second-chance-at-love.webp",
     "scene": "Former partners meet on an old park bench; one offers back a once-returned ring while the other smiles through tears.",
     "reviewed": true,
-    "sourceSha256": "6caf3e22b8ad0aec18769aab194216e2099ea1f178a5e0c2644ad5c39381bc99",
-    "assetSha256": "c0ca7d16dfc9402b390cd442b30d7fba8b8696cd158c0b1aa5113a0383ab5490",
+    "sourceSha256": "8e3f295e1489c2e583fd92bd9a800dcba2b07fc93e1cb4f475a22925b362a6b3",
+    "assetSha256": "41378f5feeed4d3cbd188c52411887c25fc81206f2b2ea5ade06bfc7fe3ead57",
     "generated": true,
     "detailAsset": "illustrations/detail/room-second-chance-at-love.webp",
-    "detailSha256": "53bf1f5d04ca1eff5737da8919c71e2f1e833a86b9e57d28cf2615dfd696842b"
+    "detailSha256": "e324423e168311a1cf1bb44e45a43e321e40475b40a00d4863587daaabd5cdbe"
   },
   {
     "id": "room-unexpected-reunion",
@@ -1566,11 +1566,11 @@
     "asset": "illustrations/room-first-dance.webp",
     "scene": "Two shy people take their first tentative dance steps at a small reception, carefully watching their feet; full figures and wide space.",
     "reviewed": true,
-    "sourceSha256": "a2535d678c30c96fe2c32d4cc10cb6d948f80d77b954904c4c180891ecf8cb91",
-    "assetSha256": "0df8285f2ec88fadadd3a817f76dcb76acbc20af604428e023506afc7cbd9756",
+    "sourceSha256": "fa6f290d83d3d2fbe4394731b30b3e9bf3e08ab1bcc6160f3ebb9ee921c09b56",
+    "assetSha256": "e4abfb692bd8161b535388d606d7cac23d8813e7edef6b79c11a7055146a51ad",
     "generated": true,
     "detailAsset": "illustrations/detail/room-first-dance.webp",
-    "detailSha256": "8a9b6955b7069b84761acf8bcebe24dbd496fbfae65bfb05fc4b7ed28378c2cb"
+    "detailSha256": "4dd32c67f418a4f9906dfbb7394924a52bd7b369424ffc068378ca8208ef4935"
   },
   {
     "id": "room-a-shared-meal",
@@ -1579,11 +1579,11 @@
     "asset": "illustrations/room-a-shared-meal.webp",
     "scene": "Two people serve each other from a rustic pot at a little kitchen table, relaxed smiles and mismatched bowls; overhead diagonal.",
     "reviewed": true,
-    "sourceSha256": "4b26a0e68afc78f08148fb2ae88271d2c48577948fc0697b4585f3704464255b",
-    "assetSha256": "db4be8431b463d8bf9addf99853dd93503e932cb1f9aa068a4cbbe6b04cd8adb",
+    "sourceSha256": "a8a118b31321e880ea353624475cd94f83fa37bb7cc96aa2fcd6cf54d193eb34",
+    "assetSha256": "c0ce072337f9961bf9224de8aa6a2a4f8e3ebbc3072f8323f0a93b85eb4f4ed5",
     "generated": true,
     "detailAsset": "illustrations/detail/room-a-shared-meal.webp",
-    "detailSha256": "3185d6986936f241bc46dc99e64f1e21f2ca13e86b23eb3e56cc2e7d286eb87b"
+    "detailSha256": "3cd0559a6b1cca800ebfa55eea591e0d21530042dd4d3269ab418ec0e3f3b07d"
   },
   {
     "id": "room-a-surprise-invitation",
@@ -1592,11 +1592,11 @@
     "asset": "illustrations/room-a-surprise-invitation.webp",
     "scene": "A surprised person accepts an elegant invitation from a friend who gestures toward a warmly lit party through an open door.",
     "reviewed": true,
-    "sourceSha256": "4bb1e8c5e2aa7b5092eee2be751257cd88aeab5036f2ff124a5b7fca07743b7c",
-    "assetSha256": "a64ed4799925e3b92abe0f23c69a0139eb83ff0c8ad7c17320c1318a5f6f60fb",
+    "sourceSha256": "989692b68aab3863949d264b6297145d0efab99f28cee2f59badd6ea4e8deaf4",
+    "assetSha256": "3550c43d8b7b0d4410590f68aba4d38dbf148dd06f5773244801795d4df947c9",
     "generated": true,
     "detailAsset": "illustrations/detail/room-a-surprise-invitation.webp",
-    "detailSha256": "0f25886063a8cb615401a0fce8312e29750dab9066e2589132249c8767a61113"
+    "detailSha256": "cfb985f9b5f0b7d802289ecf79891ef752fc958794d2089a6f417f0601b68373"
   },
   {
     "id": "room-a-meaningful-gift",
@@ -1618,11 +1618,11 @@
     "asset": "illustrations/room-a-romantic-confession.webp",
     "scene": "One person nervously offers their open hand and speaks honestly to a listening beloved beside a quiet riverside railing; intimate profiles.",
     "reviewed": true,
-    "sourceSha256": "7c6dca2a2c7fc59c8fef822a2f7a4f64cda75e52a088e7b16f7904cbcd016927",
-    "assetSha256": "51f59416f61cf09ad0be4856106bbd15feeb5317bc856d4a131c84c3879b9f63",
+    "sourceSha256": "a6ccbb905162cdc64c1df74d7ffffd61f4e396ce8dfc7a58227af5a2fe971284",
+    "assetSha256": "b7fd5982383c76a4f8827df7129db73883f03006e2b8a2a82ea9fc5fa9315cf6",
     "generated": true,
     "detailAsset": "illustrations/detail/room-a-romantic-confession.webp",
-    "detailSha256": "86d913b6311ebddb74374c86aa11ed5318cf71899febe2f5595ccd1385a43d6d"
+    "detailSha256": "1031b13ef5e7ed5dbe319f3805935258f7ea4809833f4d62ebe8e53d8c81234e"
   },
   {
     "id": "room-a-heartfelt-apology",
@@ -1631,11 +1631,11 @@
     "asset": "illustrations/room-a-heartfelt-apology.webp",
     "scene": "A remorseful person sits on a doorstep holding a broken picture frame, looking up at a hurt partner who cautiously reaches toward them.",
     "reviewed": true,
-    "sourceSha256": "237a14537172f21006c0e3301d2838b61e9e431ca75e713e66897971caa9ca93",
-    "assetSha256": "7d2ff508f1ccbe7c7e6c6e0486cfebfe10bea8b6b15307926f76267d035e2609",
+    "sourceSha256": "52247489a04ff554e45077e4adc4d13b8932ab2aaf020da64dd111f59907fd7d",
+    "assetSha256": "cb96a0115a45d4c412b2d480d9ee9ca06e73224a693d7408a98f6e664a7f560b",
     "generated": true,
     "detailAsset": "illustrations/detail/room-a-heartfelt-apology.webp",
-    "detailSha256": "b3ceb189c530db1679395baba37660af06a98677d98c904ace147b01f7e9b3f5"
+    "detailSha256": "f54abbc60f9c83482351efa65bd53c1397987b1b4df6d46479d2a1404a392352"
   },
   {
     "id": "room-a-secret-crush",
@@ -1644,11 +1644,11 @@
     "asset": "illustrations/room-a-secret-crush.webp",
     "scene": "A shy cafe patron peeks over an open book at a smiling barista, hiding a small hand-drawn portrait behind the pages.",
     "reviewed": true,
-    "sourceSha256": "3bed9cc5ef3b3b884daf1cc9c3543fd7d5c902483780eb02b8c9a88f045279df",
-    "assetSha256": "a032e0db3aeeb3296e6c11f4d2e1689d67fd45b74533e7bcd035518f9a892a42",
+    "sourceSha256": "c9661ce57236bbe319241f953c35b835885f8805829bacf02eb05f1295342113",
+    "assetSha256": "90b6a8bec6a865fdfcf6f5e16e9794397ee9398a8bb31611cb15e2a7a48a5dc5",
     "generated": true,
     "detailAsset": "illustrations/detail/room-a-secret-crush.webp",
-    "detailSha256": "577a8e04086a75fa87e33db49ba0da571fadcc42975feb1065659073546fe4c8"
+    "detailSha256": "e4cbb7a6a745926708a5468580197d929cef5fe82e1c17d1665eba448230e60b"
   },
   {
     "id": "room-a-chance-encounter",
@@ -1670,11 +1670,11 @@
     "asset": "illustrations/room-an-unexpected-phone-call.webp",
     "scene": "A person pauses halfway through unpacking boxes as a ringing vintage phone surprises them, hand reaching in disbelief.",
     "reviewed": true,
-    "sourceSha256": "b8e35e1d2d01455716fedf65172453c754e8bb9a2c8a85d906e538399428fff3",
-    "assetSha256": "390319ffbbe23acee44df3adfd3bfa14abe26a686bb6bd4acc6726db223564ce",
+    "sourceSha256": "41bf4594b4da3bf49c0075fc8be4a9d57d1929d899ab592066e14b46f7a4757a",
+    "assetSha256": "869bc8d5f75b7027904aacc0347995a681b776cf6ed679a3b392ec0d029db07e",
     "generated": true,
     "detailAsset": "illustrations/detail/room-an-unexpected-phone-call.webp",
-    "detailSha256": "3baee332bae9bfec928dd92bb4483797762bbb8105b2430b8da41f689a4919c1"
+    "detailSha256": "5d5b386b3b5165deca0fefc99d93558ec792e8e16fe7d53c4dceb11f1f14f4cd"
   },
   {
     "id": "room-a-thoughtful-surprise",
@@ -1722,11 +1722,11 @@
     "asset": "illustrations/room-a-long-awaited-kiss.webp",
     "scene": "Two lovers finally kiss on a railway platform beside dropped travel bags, relief in their closed eyes; romantic close view, no mistletoe.",
     "reviewed": true,
-    "sourceSha256": "21df89b5cf5148e9d0110124326ad968683e081b8b85c0baec124a08ca220957",
-    "assetSha256": "6862de868dbf99b568206985c0d2ff76bf55210cecab7ef7220d3a3b6d73fe3d",
+    "sourceSha256": "3b4bf21a6d587c48f2a663965b26ba0c52b468183ff8c9fc4833dcf318bfa499",
+    "assetSha256": "09fa8133a7fc968f833bf968d1e7b522938ed172f197f9e866981904827ebd2d",
     "generated": true,
     "detailAsset": "illustrations/detail/room-a-long-awaited-kiss.webp",
-    "detailSha256": "9b54fb4b3a59557c1f5db3de343d8a6e7085df0ac630c9cf27aebb2fc5282aa5"
+    "detailSha256": "4765dbcae462e9c494b04c11838d5a4e4a8dc6acf5f76ed0740579ac243355fc"
   },
   {
     "id": "room-a-change-of-heart",
@@ -1787,11 +1787,11 @@
     "asset": "illustrations/room-a-meaningful-photograph.webp",
     "scene": "Two adults hold a faded childhood photograph beside their present faces, discovering they once stood together in the same scene.",
     "reviewed": true,
-    "sourceSha256": "73003402400c5ba3497fd28406a2d2964cd48a2194c9f04491ee417b985a875e",
-    "assetSha256": "54e8b293e953090e09839385d8119b1e5ec9bef7e73a50ee3397a565db44205b",
+    "sourceSha256": "55f9fd1d2ace2e4471e21b84a34d5015143368b104ff03512d43cb949c4fbabb",
+    "assetSha256": "8672665658eaa0173e8ac6079fdba1196705ba5847517df3a2b1b91ed13d894b",
     "generated": true,
     "detailAsset": "illustrations/detail/room-a-meaningful-photograph.webp",
-    "detailSha256": "f7d84b501b647d2ab632d6c90c7ffacdc2ef5241ff3da53d39dfdfa3e1f38ea5"
+    "detailSha256": "7af610c74b0bb805debfe9d2d30e535f9e0c36fb9c89c7116270a9cf2b29adcf"
   },
   {
     "id": "room-an-awkward-introduction",
@@ -1852,11 +1852,11 @@
     "asset": "illustrations/room-a-chance-to-start-over.webp",
     "scene": "A person opens the shutters of a newly empty little shop while a partner carries in a first potted plant; hopeful fresh morning.",
     "reviewed": true,
-    "sourceSha256": "026a9ac8373e4cb520e2723b6fc6efc0df49e5b95cd096554d7e737774d2763a",
-    "assetSha256": "021eff56ccab7a3ab02eb8518a3481dd7aa04036f86a9b6b2a5998e96dc492e1",
+    "sourceSha256": "86f3eae20b0fdb9e4b1432a3dd7056e4a76a90a9295d736ef795e80fc58f5ea0",
+    "assetSha256": "ffe9d82f51e05cc62f001884bfafcdd44c491b773afb5df6e5f3cd4aaebae880",
     "generated": true,
     "detailAsset": "illustrations/detail/room-a-chance-to-start-over.webp",
-    "detailSha256": "3aeb569296cff32ed21059bd7fb57e7a44f4a893506b5b5ee244fedb2df51114"
+    "detailSha256": "62abb16140011a5cb1502b2f50e94917f4ff33c9eca662bdbb1187ce02685edc"
   },
   {
     "id": "room-an-important-letter",
@@ -1878,11 +1878,11 @@
     "asset": "illustrations/room-a-shared-tradition.webp",
     "scene": "Two adults fold paper boats together on a riverbank and launch them side by side, smiling at a familiar private ritual.",
     "reviewed": true,
-    "sourceSha256": "c01f243161e04c30874930ddc2518826da1bd8022b34b21f1ec9659e1beb1ec5",
-    "assetSha256": "916ecda2713c65e8a6bf92ac174c13ee57c03dffe9c0d152919af9bf85282fc7",
+    "sourceSha256": "5b11e6cad0d054f2b2d6c74280b3b9c6a6030279b5a8a4996e10acb61ed4c5f8",
+    "assetSha256": "2e1bf42c0a05c33f9d01bd005f0f5350a2cd867975bbf50630aa6914db4b2856",
     "generated": true,
     "detailAsset": "illustrations/detail/room-a-shared-tradition.webp",
-    "detailSha256": "8a7ac5f3566c7ca3b295fef522bc14d522e28dae1fdc05386a656a657abb4bef"
+    "detailSha256": "dea372a4b5638bc4c5b92abf783508339df8cf00192d6ad0d2a5e2472126cb1f"
   },
   {
     "id": "room-a-happy-ending",
@@ -2054,11 +2054,11 @@
     "asset": "illustrations/season-Spring-2.webp",
     "scene": "A surprised florist in a sunny flower shop holds two different bouquets as an embarrassed customer points to the wrong delivery card; cheerful tulips, amused faces.",
     "reviewed": true,
-    "sourceSha256": "0cd1de7dd0482531cc3412d54c0a64e96e24ce8306f670731283602308299e9a",
-    "assetSha256": "237f4c3f0dac76385a4e78111c76dd2320e561c71e901fc1277c86ef6c014257",
+    "sourceSha256": "7a2e1e92e173f424b29cdf1e7b632f88994c1766cb2a11d01811de8b2793d3ca",
+    "assetSha256": "faf042089ce8e85a3fa8df6fa2eeb1a31b5abe126e4242bdb5857ac580e04b67",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Spring-2.webp",
-    "detailSha256": "d69cfdf5613869357d5675f0933fefcc840ebb115d969e6cde17b901357738e9"
+    "detailSha256": "76b3b7c3f11c5f8874e611b051b3a3e39065bb9b6ead7da439334ab226e6f766"
   },
   {
     "id": "season-Spring-5",
@@ -2119,11 +2119,11 @@
     "asset": "illustrations/season-Spring-4.webp",
     "scene": "A woman and a man kneel beside a small garden bed planting young flowers, one gently guiding the other's gardening-gloved hands around a seedling; warm soft spring sun.",
     "reviewed": true,
-    "sourceSha256": "9a5ffeb1be3e04b473a86c1d6ef0b3c3254600250ea2de0c8ce31a4b6768e1b0",
-    "assetSha256": "d6ddbf544b9e482ed5cea7c6faf4a2defb216be9781b34de78c43a431815cfa6",
+    "sourceSha256": "cdc3278d703950ccd4e6f5087332538c5119180a8f85daf3f2f289316a42dce3",
+    "assetSha256": "675ff9f9ade8ff7a023651eba0345f171e4d4d24d92340b06ef95bb106000d33",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Spring-4.webp",
-    "detailSha256": "894e764825091647f81e3c0d6b7b8fbda0baa246111029e199593cbb8d69fd51"
+    "detailSha256": "4c5ebee9da1828583bb0509d2c50c859df664080f006279cb8ec60a353d483d8"
   },
   {
     "id": "season-Spring-7",
@@ -2132,11 +2132,11 @@
     "asset": "illustrations/season-Spring-7.webp",
     "scene": "A surprised woman opens a floral wedding invitation at a bright kitchen table while her friend points excitedly at a spring bouquet; no readable lettering.",
     "reviewed": true,
-    "sourceSha256": "861be764ce3780ca4f28cc5261413fd67ac101084fabf178683e800f61cfce09",
-    "assetSha256": "88b9b634ee3491ae7d538539e816a2ae3a4ac5c00bbafc722436935beb8241ea",
+    "sourceSha256": "2898563ad057a386f6b309aa147a587d177c53fcdef8bf75f5d08f6595a4d4d0",
+    "assetSha256": "616a8e40b21fceee1aa570f28d06077b0e14f1125da602f74b9a3d6285ed8d4f",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Spring-7.webp",
-    "detailSha256": "eb11ad330f2ac865e1a7433e87370158f2d211d912204709af9dfd3277a6d546"
+    "detailSha256": "8c92d476155d4379905108cbbbfcc23b62c9d4ba05b73486dddd9cf674bb95ad"
   },
   {
     "id": "season-Spring-9",
@@ -2171,11 +2171,11 @@
     "asset": "illustrations/season-Spring-10.webp",
     "scene": "Two friendly rivals kneel on opposite sides of a community garden bed and reach for the same little watering can; mock-serious faces softening into smiles.",
     "reviewed": true,
-    "sourceSha256": "86eba02f61bd5eb571c5487294f25a0822f471d7d3006bece6b3b5d20f2b9466",
-    "assetSha256": "4bb3caa979db19ef48571ed2b5811c621eebe90fa930127ec807bca17dd13a32",
+    "sourceSha256": "4c13ce81e9663b8a59ab605320da437967cb0f75f7e7fff78cc105b954ef4356",
+    "assetSha256": "147d6dfb1aacb93cfce3776d3c756d398726217587fa52037e7a0a6a7ef6cdee",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Spring-10.webp",
-    "detailSha256": "dd6bd4b5c380e5b1930599d5190f78f40d7ee2a0d821e1399391390537dbdb95"
+    "detailSha256": "19dd766768deb2563f6201d1b8da3cdf49449205c6d219adddd369e5d94c8671"
   },
   {
     "id": "season-Spring-14",
@@ -2184,11 +2184,11 @@
     "asset": "illustrations/season-Spring-14.webp",
     "scene": "A shy man offers a small hand-tied tulip bouquet to a surprised woman on a garden path; expressive hands and close faces, delicate fresh green background.",
     "reviewed": true,
-    "sourceSha256": "fa3b86ed4cb5ca09837df5c80989dfcd8c8cc3184458190159fdf9c31b32bc47",
-    "assetSha256": "54a736f81ee70e373b7df770890759e6d9a3ccef0cbb00300e0a01df31eeea41",
+    "sourceSha256": "7b2b5f9983f32dae1b731a2411b7843bcc9c3d4302b7aa93bafad8097094168a",
+    "assetSha256": "fa0a819b7480d0e1df6b3ea6b09b9404a951a4be87580cf6299ac01f30a65a92",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Spring-14.webp",
-    "detailSha256": "8a265a09543c9e0cd447d20503100b1658ff3e3bfe08772ed0fbebc4845220d3"
+    "detailSha256": "9af34240acf97a708290568844b6f629851a1f081348e2d54dc5259d6780e5ac"
   },
   {
     "id": "season-Spring-11",
@@ -2275,11 +2275,11 @@
     "asset": "illustrations/season-Spring-18.webp",
     "scene": "A couple carry a potted daffodil and a small moving box through the open door of a little home, delighted hopeful faces; blossoming tree beside the porch.",
     "reviewed": true,
-    "sourceSha256": "a4b0bf5875817723af3c246a884ccc0d42c31e574a7ef27c11b1d7fc6b74cbfe",
-    "assetSha256": "eabea3a5fea0f8080608cb40a4c4615676e6dc162039c0f53a9db4a3c8d667fb",
+    "sourceSha256": "5995433b8fb5ef7b57614b9444a68be75be385f6cbfa11677e9ca8cd9dfb5d5f",
+    "assetSha256": "a6d8c04a96b02b1478a77fc6d1b43b6bcb0bbb589e316129a89a23a6c35ec0e2",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Spring-18.webp",
-    "detailSha256": "0e494a463f62c10bb5bf5d338e6e4b8ed5b4ca3248102084cab794f8b66663d6"
+    "detailSha256": "365192f1af3461efa56b6ad119d89082f91ce973f7321cae97a857f4a1c26329"
   },
   {
     "id": "season-Spring-21",
@@ -2340,11 +2340,11 @@
     "asset": "illustrations/season-Summer-0.webp",
     "scene": "Two adults in modest summer clothing collide gently while collecting a windblown beach towel, laughing in surprise; sandy shore, ocean and one striped parasol.",
     "reviewed": true,
-    "sourceSha256": "17bd45257ca7fbcefded1ad5d3780017219c773cafb70efff21bc1b21a6d33f2",
-    "assetSha256": "00707c0b003fad6bb68c1c53488988f42e4bf0c42556642233fbcb18acf13db5",
+    "sourceSha256": "c544725435d51a3b38fc9ad5b70c7e05d296428680a9310e9b178f9d9713e7de",
+    "assetSha256": "632864ba82bca1d780de562e42e76822332eb17580073525b003f71a5a0690ca",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Summer-0.webp",
-    "detailSha256": "3725be008eb159eef25fdc4b56c68ef6b53710f4bdd9008b3bde994fee29d555"
+    "detailSha256": "15606d207785a2db6af97f472db81bbdd1d4679dd74ba954bc4783573ccb10b7"
   },
   {
     "id": "season-Spring-24",
@@ -2353,11 +2353,11 @@
     "asset": "illustrations/season-Spring-24.webp",
     "scene": "Two adult lovers share a gentle kiss beneath low cherry blossoms, one hand resting naturally on a shoulder; close romantic composition, petals and soft warm spring light.",
     "reviewed": true,
-    "sourceSha256": "02b78bc4269086ff4c85e08773181d0419c18c23e3eb341cbaee36dc5a7db538",
-    "assetSha256": "dfd0a8cdc48509e784c7908926b590b315a88b6bc40a45374699955f90c4955f",
+    "sourceSha256": "f3daba4808addd4080125d60209b2384b9eb7f547d542398e023316d9c7000d2",
+    "assetSha256": "3ef6edc19ba7aa85da169bb57816cbb5a0472269fddb328c954a6b322fb645f0",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Spring-24.webp",
-    "detailSha256": "0d7adc153ed3de5f1420aa8c39cd1657fa5b090fba050d237525c6652c9cd7eb"
+    "detailSha256": "92589a2bdc58d0ae95b1ab3f304f96cb84bf984180065d5bf17ff6377682e921"
   },
   {
     "id": "season-Summer-3",
@@ -2366,11 +2366,11 @@
     "asset": "illustrations/season-Summer-3.webp",
     "scene": "Two adults sit on the edge of a wooden jetty with their shoes beside them, talking quietly over a sunlit summer lake; intimate side view and relaxed bare feet.",
     "reviewed": true,
-    "sourceSha256": "249a376e77a33d161511f0132a450fda00579a45b13dcefca505beecba4b7860",
-    "assetSha256": "fc769470686d5174370430aff7bf8dbec242985697b2aa52f93414d11d9501f9",
+    "sourceSha256": "f06a3678941149969d9f420ee369531628f3568122011be945a135e57b1b4e0c",
+    "assetSha256": "d7643a7347d3a7b9763d357807c5d3bfdd87d54d32986b780ab5ee736885a27d",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Summer-3.webp",
-    "detailSha256": "9d28c1a64e4dca60e2f11e5111ff8da2b5b049a3b4f92752f5b3f7568e8b81a4"
+    "detailSha256": "f0ba3fcef8891e76f28ce17a9f7e83ecf693f8d188d51ece2fcf58e09bbf07b2"
   },
   {
     "id": "season-Summer-1",
@@ -2405,11 +2405,11 @@
     "asset": "illustrations/season-Summer-2.webp",
     "scene": "Two adult organizers stand proudly at a lively summer street festival as neighbors string lanterns and set tables behind them; warm evening, green trees, no autumn decor.",
     "reviewed": true,
-    "sourceSha256": "d53997e75b67c4a77f3a8fb92ca64d2df08d7a62e6f7e5db9809ddbf24b6f9be",
-    "assetSha256": "3b4f46fa4919b1cfd39c032aad032b1a1ad401c12894d2d17cfb5de5fd14ee27",
+    "sourceSha256": "7aefb3e6ad81b7b526141a6ab3e1b5c515e81a7697c5bd66dca09d8ed85d29d2",
+    "assetSha256": "d3c6f13ddc736a7c022dd6dcbb538354ed393a2ee579efb36b8f27eb47513e23",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Summer-2.webp",
-    "detailSha256": "395265e47bf9af6ccb3a05feb1e2b2958ca5fa968d8a06801e6d4b8e639f0f97"
+    "detailSha256": "d5d957f5f026978bca9b3e7d1302e4c0910d441995a6fad700687c01d9fafb9b"
   },
   {
     "id": "season-Summer-7",
@@ -2444,11 +2444,11 @@
     "asset": "illustrations/season-Summer-9.webp",
     "scene": "Two playful adult rivals kneel on either side of an elaborate sandcastle at a sunny beach, one holds a little bucket and the other a shovel; cheerful expressive faces.",
     "reviewed": true,
-    "sourceSha256": "b01b96e6ab01445e96f5d4736f7a33056bfa19ae24f252edf9dc612571cd7e70",
-    "assetSha256": "b8c3acc7611dfd6015daf50b9c14b7d63fb9bf2fc0bc5866bb8d9f5cf8dcaf1f",
+    "sourceSha256": "e2e766f5858e7e742039e6d7d62afe29f305d9305d8b54135fe762bc8637590c",
+    "assetSha256": "cf4ea66463a38a0d6cf34346de7c2b5550c735ae650599190ac95142730105bb",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Summer-9.webp",
-    "detailSha256": "a09a16108077afb5e76eee9e404c42408007d5d5459c32023116d51386935f14"
+    "detailSha256": "597adf36caebd8898e9d8b7f2516b083cb7e61666747f5e3bc29b4c30ad53eea"
   },
   {
     "id": "season-Summer-8",
@@ -2470,11 +2470,11 @@
     "asset": "illustrations/season-Summer-6.webp",
     "scene": "Two adults recognize each other in surprise at an outdoor summer wedding reception, one holding a small floral place card; green garden, peach flowers, guests blurred behind.",
     "reviewed": true,
-    "sourceSha256": "a03fb777a3c8437466771b2a3e0360c839543f6bf3125d8170e26fdc8e5af767",
-    "assetSha256": "2c1a7c84bfdebc4aacb645143bdcc203f1461ee1acb6e160f6782607864f197e",
+    "sourceSha256": "ac334044565569c0cbad303563e8c1656e737a3e53a8b108ccf3c86ee6879ac6",
+    "assetSha256": "bc52cc24210ea0d61acdb3eb81915392533e2ea31a6a09f65af978d316e4d930",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Summer-6.webp",
-    "detailSha256": "d0b12dc01ca091900b49d4e7ca10ab33288f8c6fc723f38db17ecb8575551e98"
+    "detailSha256": "47ffde1bac4c5085ffc5064c7fc9ae5c1f5b920ce0216c25dba7604b1b167edc"
   },
   {
     "id": "season-Summer-11",
@@ -2496,11 +2496,11 @@
     "asset": "illustrations/season-Summer-10.webp",
     "scene": "Two adults sway together at a small summer outdoor concert, sharing a smile as a softly lit acoustic guitarist plays behind them; leafy trees and warm evening lanterns.",
     "reviewed": true,
-    "sourceSha256": "c8cc72a3c1b70f0d53eba1bd8edffe51830393882f76fd078413cb5ee1ef56be",
-    "assetSha256": "e4ec38f75772dbdf67947835d283d677e7197c941c105b954e29ae3f513f8ce2",
+    "sourceSha256": "99fe698a6a80b0521e8a5bdbb6597e121b516d464df6b076efbb01c7b59443b2",
+    "assetSha256": "3c3add543def43d319385607eeba82eaa5507bf20d85494dd97314cc2677b89d",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Summer-10.webp",
-    "detailSha256": "a8aa577a3c364b0f5732897fe5d29d6623ed0dae49778f310229c9e38a4b1b52"
+    "detailSha256": "640e100331fbfb585b16f7ca3cb71c2ad5f5e07ef5c3f40f973aa8266a42e536"
   },
   {
     "id": "season-Summer-12",
@@ -2522,11 +2522,11 @@
     "asset": "illustrations/season-Summer-16.webp",
     "scene": "A relieved adult lifeguard wearing a red shirt and holding a rescue float offers a dry towel to a seated adult on a sunny beach; no danger or distress, grateful eye contact.",
     "reviewed": true,
-    "sourceSha256": "01816fcbf7c646877536090a402486e106e6f0b44891ef9c20a2fe75760888a7",
-    "assetSha256": "1348f42c61fb8fb5775715a533db8e45120c060b495a3ffc3d3bd04a3e97c834",
+    "sourceSha256": "1c0e18331227982cbee0134f434cd99469751b84a71a18b1de8ba670da519be7",
+    "assetSha256": "027e9773e2d31284fc0338929b80445f7273e3cf2736341125fecb027dda6ee7",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Summer-16.webp",
-    "detailSha256": "5dc24d67a2936295173e9921978cb1ce5ae8611e0cfd977dfd98a05b73057de6"
+    "detailSha256": "04711593b2f7be6d34aa4677360fc3f64a8e7efb1831a569ab53a6fab9da200b"
   },
   {
     "id": "season-Summer-13",
@@ -2613,11 +2613,11 @@
     "asset": "illustrations/season-Summer-20.webp",
     "scene": "Two apron-clad rivals present separate tomato-and-basil salad bowls at a summer market while an older vendor tastes a sample as judge; separated hands and expressive competitive faces.",
     "reviewed": true,
-    "sourceSha256": "7e5f6fc8ea3aa90ac95e39cc699441b1394456b7d1f4f6c86dac0f8019dbb39b",
-    "assetSha256": "0508b185361d799d6fbb4e473074e68151d8c7109a792801fa024a398456b790",
+    "sourceSha256": "0178882452059b1494b14427201b08ae9ca9fc9a8761c976cd22179fd69dbf98",
+    "assetSha256": "b79c7c19e110318e9d2b30dbcc592761c158fcd06c768a23225e0d41b0675518",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Summer-20.webp",
-    "detailSha256": "dddee288551f2ab2b01e4a922cf38e4642db23e7f7ca261fdda902de9b05fa37"
+    "detailSha256": "8fd370d3bf9ff6bf4ba091a5cc67d89f0926937515694cbf7a2dddaac1da6430"
   },
   {
     "id": "season-Summer-21",
@@ -2665,10 +2665,10 @@
     "asset": "illustrations/season-Summer-24.webp",
     "scene": "Two adults share a gentle kiss at the edge of a calm summer lake, feet on a wooden landing, natural hands resting on each other's arms; golden reflected light and fresh green reeds.",
     "reviewed": true,
-    "sourceSha256": "c9616ebe7d4b1d4872109907570954fb4c3539b4e26b6a385a512ecc0f1fb664",
-    "assetSha256": "4820382df14758ebb907a5e51e21bb7b404440f3683081196804476ee18c0c5a",
+    "sourceSha256": "72912bb136ad58234733ec6d4b48a4f25dca664f13b398a2e8cefb742a2261f8",
+    "assetSha256": "2f3a884b028d435fdd84849b7a17be02e196a2ff8f43e62b8ee8282077681ea7",
     "generated": true,
     "detailAsset": "illustrations/detail/season-Summer-24.webp",
-    "detailSha256": "554204f467b1ea7c051e0fee373018bbfb4afaec9a4f226cb904df92b12b6829"
+    "detailSha256": "78ff07addeb64ae736554c735be644cfe66e26b7b2499fecbc21ba0bff872739"
   }
 ]
