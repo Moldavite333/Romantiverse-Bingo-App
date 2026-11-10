@@ -3,6 +3,7 @@ import {createServer} from 'node:http';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 import {chromium} from 'playwright';
+import {displayLabel} from '../src/engine/displayLabel.mjs';
 const entries=JSON.parse(await readFile('src/art/illustrations.json','utf8'));
 const active=entries.filter(e=>e.active&&e.id!=='free'),root=resolve('dist'),out=process.argv.find(arg=>arg.startsWith('--out='))?.slice('--out='.length)||'artifacts/refinement/boards';
 const allMarked=process.argv.includes('--all-marked');
@@ -48,7 +49,7 @@ try{
     assert.equal(g.overlap,false,`${width}: overlap ${g.id}`);
     assert.equal(g.filter,'none');
     if(width<=600)assert.ok(Math.abs(g.ratio-.7)<.015,`${width}: ratio ${JSON.stringify(g)}`);
-    const e=entries.find(e=>e.id===g.id);assert.ok(g.canonical.includes(e.label.replace(/(?<=[\p{L}\p{N}])[-‐‑](?=[\p{L}\p{N}])/gu,' ')),`Canonical name missing ${g.id}`);
+    const e=entries.find(e=>e.id===g.id);assert.ok(g.canonical.includes(displayLabel(e.label)),`Display name missing ${g.id}`);
     covered.add(g.id);
    }
    await page.locator('.board .square').nth(0).click();
