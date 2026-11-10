@@ -1,3 +1,4 @@
+import {weightedMoments} from '../supabase/functions/_shared/commonMoments.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -18,7 +19,7 @@ function makeServer(room = null) {
     }
     throw new Error('Unexpected database access in launch-scope test');
   };
-  runInNewContext(source, {
+  runInNewContext(source.replace(/^import .*;\r?\n/,''), {weightedMoments,
     Deno: {
       env: {get: name => name === 'SUPABASE_URL' ? 'https://unit.example' : 'test-service'},
       serve: fn => { handler = fn; }

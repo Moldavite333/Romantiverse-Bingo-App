@@ -25,7 +25,7 @@ try{
   await page.waitForFunction(()=>document.querySelectorAll('.board .square-art').length===25&&[...document.querySelectorAll('.board .square-art')].every(i=>i.complete&&i.naturalWidth===384));
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('romantiverse-v2')));
   assert.equal(saved.cardTheme,theme);assert.equal(saved.movie.season,'Unspecified');
-  assert.equal(saved.card.filter(t=>t.category==='seasonal').length,theme==='Romance'?0:12);
+  assert.equal(saved.card.filter(t=>t.category==='seasonal').length,theme==='Romance'?0:8);
   assert.equal(new Set(saved.card.map(t=>t.label)).size,25);
   assert.ok(saved.card.every(t=>t.id==='free'||t.id.startsWith('room-')||t.id.startsWith('season-'+theme+'-')));
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);

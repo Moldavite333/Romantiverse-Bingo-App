@@ -325,6 +325,7 @@ try{
  assert.match(await liveSquares.nth(24).getAttribute('aria-label'),/^O5: /,'Multiplayer bottom-right must announce O5');
  assert.match(await liveSquares.nth(12).getAttribute('aria-label'),/^N3: .*free center square/i,'Multiplayer free center must be identified');
  assert.equal(await liveSquares.nth(12).isDisabled(),true,'Multiplayer free center must not be toggled');
+ await multi.page.waitForFunction(()=>document.querySelector('.live-board .square')?.disabled===false);
  await liveSquares.first().focus();
  await multi.page.keyboard.press('Space');
  await multi.page.waitForFunction(()=>document.querySelector('.live-board .square')?.getAttribute('aria-pressed')==='true'&&document.querySelector('.live-board')?.getAttribute('aria-busy')==='false');

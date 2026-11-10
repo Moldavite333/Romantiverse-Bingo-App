@@ -1,3 +1,4 @@
+import {weightedMoments} from '../_shared/commonMoments.mjs';
 const BASE=Deno.env.get('SUPABASE_URL')||'';
 const SERVICE=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')||'';
 const allowed=['https://bingo.cheeselouisepod.com','https://moldavite333.github.io','http://localhost:5173','http://127.0.0.1:5173'];
@@ -20,20 +21,20 @@ const card=(season,existingCards=[])=>{
  const previous=new Set(existingCards.filter(Array.isArray).map(cardKey));
  for(let attempt=0;attempt<32;attempt++){
   const used=new Set();
-  const choose=(source,category)=>{
+  const choose=(source,category,count)=>{
    const labels=[];
-   for(const label of shuffle(source||[])){
+   for(const label of weightedMoments(source||[],()=>crypto.getRandomValues(new Uint32Array(1))[0]/4294967296,label=>label)){
     const key=labelKey(label);
     if(!key||used.has(key))continue;
     used.add(key);
     labels.push({id:'room-'+label.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),label,category});
-    if(labels.length===12)break;
+    if(labels.length===count)break;
    }
-   if(labels.length!==12)throw Error('Insufficient unique card tropes');
+   if(labels.length!==count)throw Error('Insufficient unique card tropes');
    return labels;
   };
   const source=['Romance','Spring','Summer'].includes(season)?themes.Romance:cheese;
-  const dealt=shuffle([...choose(source,'cheese'),...choose(themes[season],season==='Romance'?'cheese':'seasonal')]);
+  const dealt=shuffle([...choose(source,'cheese',16),...choose(themes[season],season==='Romance'?'cheese':'seasonal',8)]);
   dealt.splice(12,0,{id:'free',label:'CHEESE LOUISE POD',category:'free'});
   if(!previous.has(cardKey(dealt)))return dealt;
  }

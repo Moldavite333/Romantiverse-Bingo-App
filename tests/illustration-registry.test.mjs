@@ -1,3 +1,4 @@
+import {weightedMoments} from '../supabase/functions/_shared/commonMoments.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {illustrationRegistry,resolveIllustration,requireIllustration} from '../src/engine/illustrationRegistry.mjs';
@@ -36,8 +37,8 @@ test('every authoritative room label resolves both old positional and stable IDs
 });
 test('room deal assigns the same stable ID to a label across independent cards',()=>{
  const source=readFileSync(new URL('../supabase/functions/game-room/index.ts',import.meta.url),'utf8');
- const context={Deno:{env:{get:()=>''},serve:()=>{}},crypto:globalThis.crypto,URL,Request,Response,TextEncoder,Uint8Array,Uint32Array};
- vm.runInNewContext(source+'\nglobalThis.deal=card;',context);
+ const context={weightedMoments,Deno:{env:{get:()=>''},serve:()=>{}},crypto:globalThis.crypto,URL,Request,Response,TextEncoder,Uint8Array,Uint32Array};
+ vm.runInNewContext(source.replace(/^import .*;\r?\n/,'')+'\nglobalThis.deal=card;',context);
  const ids=new Map();
  for(let i=0;i<30;i++)for(const t of context.deal('Christmas')){
   if(ids.has(t.label))assert.equal(t.id,ids.get(t.label));else ids.set(t.label,t.id);

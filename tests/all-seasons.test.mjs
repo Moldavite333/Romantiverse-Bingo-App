@@ -1,3 +1,4 @@
+import {weightedMoments} from '../supabase/functions/_shared/commonMoments.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -34,8 +35,8 @@ test('chosen season survives invitations independently of catalog classification
 });
 test('shared games support new themes with independent cards and no seasonal squares for No Season',()=>{
  const source=readFileSync('supabase/functions/game-room/index.ts','utf8');
- const context={Deno:{env:{get:()=>''},serve:()=>{}},crypto:globalThis.crypto,URL,Request,Response,TextEncoder,Uint8Array,Uint32Array};
- vm.runInNewContext(source+'\nglobalThis.deal=card;globalThis.supports=isLaunchRoom;',context);
+ const context={weightedMoments,Deno:{env:{get:()=>''},serve:()=>{}},crypto:globalThis.crypto,URL,Request,Response,TextEncoder,Uint8Array,Uint32Array};
+ vm.runInNewContext(source.replace(/^import .*;\r?\n/,'')+'\nglobalThis.deal=card;globalThis.supports=isLaunchRoom;',context);
  for(const season of ['Spring','Summer','Romance']){
   assert.equal(context.supports(season,'Unspecified'),true);
   const a=context.deal(season),b=context.deal(season,[a]);assert.equal(a.length,25);assert.equal(new Set(a.map(visibleTropeKey)).size,25);assert.notDeepEqual(a,b);

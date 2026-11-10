@@ -3,7 +3,7 @@ const movie={title:'Holiday Reunion',season:'Christmas',synopsis:'A big-city exe
 test('evidence traces back to synopsis',()=>{const a=analyzeMovie(movie);assert.ok(a.cheese.some(t=>t.evidence==='synopsis'&&t.reason.includes('bakery')))});
 test('predictions never presented as verified',()=>assert.ok(analyzeMovie(movie).seasonal.every(t=>t.evidence==='prediction')));
 test('same seed creates same card',()=>assert.deepEqual(buildCard(movie,{seed:4}),buildCard(movie,{seed:4})));
-test('balanced 24-square card has 12 of each',()=>assert.deepEqual(balance(buildCard(movie,{seed:4})),{cheese:12,seasonal:12,total:24}));
+test('default card favors familiar story moments',()=>assert.deepEqual(balance(buildCard(movie,{seed:4})),{cheese:16,seasonal:8,total:24}));
 test('no-free 25-square card contains 25 items',()=>assert.equal(buildCard(movie,{seed:4,free:false}).length,25));
 test('no duplicate ids',()=>{const c=buildCard(movie,{seed:4});assert.equal(new Set(c.map(t=>t.id)).size,25)});
 test('free center cannot be edited',()=>assert.throws(()=>replaceSquare(buildCard(movie),12,{id:'x',label:'X'})));

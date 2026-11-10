@@ -1,3 +1,4 @@
+import {weightedMoments} from '../supabase/functions/_shared/commonMoments.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -8,9 +9,9 @@ const source = readFileSync(new URL('../supabase/functions/game-room/index.ts', 
 function loadCard(code = source, crypto = webcrypto) {
   const context = {
     Deno: {env: {get: () => ''}, serve: () => {}},
-    crypto, URL, Request, Response, TextEncoder, Uint8Array, Uint32Array
+    weightedMoments, crypto, URL, Request, Response, TextEncoder, Uint8Array, Uint32Array
   };
-  runInNewContext(code + '\nglobalThis.__dealRoomCard = card;', context);
+  runInNewContext(code.replace(/^import .*;\r?\n/,'') + '\nglobalThis.__dealRoomCard = card;', context);
   return context.__dealRoomCard;
 }
 const key = value => String(value).normalize('NFKC').trim().replace(/\s+/g, ' ').toLowerCase();
@@ -23,8 +24,8 @@ test('live room cards have 24 unique visible labels in all launch themes', () =>
       assert.equal(card.length, 25);
       assert.equal(card[12].category, 'free');
       assert.equal(card[12].label, 'CHEESE LOUISE POD', 'free center must carry podcast branding');
-      assert.equal(card.filter(t => t.category === 'cheese').length, theme==='Romance'?24:12);
-      assert.equal(card.filter(t => t.category === 'seasonal').length, theme==='Romance'?0:12);
+      assert.equal(card.filter(t => t.category === 'cheese').length, theme==='Romance'?24:16);
+      assert.equal(card.filter(t => t.category === 'seasonal').length, theme==='Romance'?0:8);
       assert.equal(new Set(card.map(t => key(t.label))).size, 25, theme + ' deal ' + n);
     }
   }

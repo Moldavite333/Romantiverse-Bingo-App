@@ -1,3 +1,4 @@
+import {weightedMoments} from '../supabase/functions/_shared/commonMoments.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash, webcrypto } from 'node:crypto';
@@ -45,7 +46,7 @@ function makeServer(initialStatus, patchSucceeds) {
     }
     throw Error('Unexpected storage operation: ' + options.method + ' ' + path);
   };
-  runInNewContext(source, {
+  runInNewContext(source.replace(/^import .*;\r?\n/,''), {weightedMoments,
     Deno: {
       env: { get: name => name === 'SUPABASE_URL' ? 'https://unit.example' : 'service-key' },
       serve: fn => { handler = fn; }
