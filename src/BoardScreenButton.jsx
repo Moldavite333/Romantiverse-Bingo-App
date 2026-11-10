@@ -3,7 +3,7 @@ import './board-screen.css';
 export default function BoardScreenButton(){
  const button=useRef(null),[active,setActive]=useState(false),scroll=useRef(0);
  useEffect(()=>{
-  const table=button.current?.closest('.game-table');
+  const table=button.current?.closest('.game-table,.live-game-table');
   if(!active||!table)return;
   table.classList.add('board-screen');
   const oldOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
@@ -21,7 +21,7 @@ export default function BoardScreenButton(){
   return()=>{table.classList.remove('board-screen');document.body.style.overflow=oldOverflow;document.removeEventListener('keydown',key);document.removeEventListener('fullscreenchange',change);if(document.fullscreenElement===table)document.exitFullscreen().catch(()=>{});window.scrollTo({top:scroll.current,behavior:'instant'});button.current?.focus()};
  },[active]);
  function toggle(){
-  const table=button.current.closest('.game-table');
+  const table=button.current.closest('.game-table,.live-game-table');
   if(active){setActive(false);return}
   scroll.current=window.scrollY;setActive(true);
   // Mobile browser fullscreen adds system overlays over the last row.

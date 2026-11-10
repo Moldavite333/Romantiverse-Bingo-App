@@ -1,22 +1,26 @@
 .board-screen-toggle{margin-left:auto;white-space:nowrap}
 .board-screen .board-screen-toggle{display:block}
 /* A dedicated laptop view: full screen area, with pictures beside labels. */
-.view-play .game-table.board-screen{position:fixed;inset:0;z-index:1000;width:100%;height:100dvh;max-width:none;margin:0;padding:10px;display:flex;flex-direction:column;gap:4px;border:0;border-radius:0;overflow:hidden;background:var(--rom-cream)}
-.view-play .board-screen .table-heading{margin:0;min-height:40px;flex:none}
-.view-play .board-screen .table-heading>span+span,.view-play .board-screen .card-caption,.view-play .board-screen .card-art-guide{display:none}
-.view-play .board-screen .score-strip{min-height:24px;padding:2px 0;margin:0;flex:none}
-.view-play .board-screen .board{flex:1;min-height:0;grid-template-rows:26px repeat(5,minmax(0,1fr));gap:4px;padding:5px}
-.view-play .board-screen .letter{font-size:22px;padding:0;line-height:26px}
-.view-play .board-screen .board .square{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);min-height:0;padding:3px;gap:5px}
-.view-play .board-screen .board .square-art{width:100%;height:100%;min-height:0;object-fit:contain;aspect-ratio:auto}
-.view-play .board-screen .board .square-label{font-size:clamp(10px,1.05vw,16px);min-height:0;padding:2px;overflow-wrap:normal}
+:is(.view-play,.view-together) .board-screen:is(.game-table,.live-game-table){position:fixed;inset:0;z-index:1000;width:100%;height:100dvh;max-width:none;margin:0;padding:10px;display:flex;flex-direction:column;gap:4px;border:0;border-radius:0;overflow:hidden;background:var(--rom-cream)}
+:is(.view-play,.view-together) .board-screen .table-heading{margin:0;min-height:40px;flex:none}
+:is(.view-play,.view-together) .board-screen .table-heading>span+span,:is(.view-play,.view-together) .board-screen .card-caption,:is(.view-play,.view-together) .board-screen .card-art-guide{display:none}
+:is(.view-play,.view-together) .board-screen .score-strip{min-height:24px;padding:2px 0;margin:0;flex:none}
+:is(.view-play,.view-together) .board-screen .board{flex:1;min-height:0;grid-template-rows:26px repeat(5,minmax(0,1fr));gap:4px;padding:5px}
+:is(.view-play,.view-together) .board-screen .letter{font-size:22px;padding:0;line-height:26px}
+:is(.view-play,.view-together) .board-screen .board .square{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);min-height:0;padding:3px;gap:5px}
+:is(.view-play,.view-together) .board-screen .board .square-art{width:100%;height:100%;min-height:0;object-fit:contain;aspect-ratio:auto}
+:is(.view-play,.view-together) .board-screen .board .square-label{font-size:clamp(10px,1.05vw,16px);min-height:0;padding:2px;overflow-wrap:normal}
 @media(max-width:899px){
  .board-screen-toggle{min-height:44px;padding:8px;font-size:11px}
- .view-play .table-heading>span+span{display:none}
- .view-play .game-table.board-screen{padding: max(4px,env(safe-area-inset-top)) max(4px,env(safe-area-inset-right)) max(4px,env(safe-area-inset-bottom)) max(4px,env(safe-area-inset-left));overflow:auto;overscroll-behavior:contain}
- .view-play .board-screen .table-heading{min-height:44px}
- .view-play .board-screen .board{flex:1 1 0;min-height:320px;gap:3px;padding:3px}
- .view-play .board-screen .board .square{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,7fr) minmax(0,3fr);aspect-ratio:auto;height:100%;padding:2px;gap:2px}
- .view-play .board-screen .board .square-art{object-fit:contain}
- .view-play .board-screen .board .square-label{font-size:9px;line-height:1.1;padding:0;overflow-wrap:anywhere}
+ :is(.view-play,.view-together) .table-heading>span+span{display:none}
+ :is(.view-play,.view-together) .board-screen:is(.game-table,.live-game-table){padding: max(4px,env(safe-area-inset-top)) max(4px,env(safe-area-inset-right)) max(4px,env(safe-area-inset-bottom)) max(4px,env(safe-area-inset-left));overflow:auto;overscroll-behavior:contain}
+ :is(.view-play,.view-together) .board-screen .table-heading{min-height:44px}
+ :is(.view-play,.view-together) .board-screen .board{flex:1 1 0;min-height:320px;gap:3px;padding:3px}
+ :is(.view-play,.view-together) .board-screen .board .square{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,7fr) minmax(0,3fr);aspect-ratio:auto;height:100%;padding:2px;gap:2px}
+ :is(.view-play,.view-together) .board-screen .board .square-art{object-fit:contain}
+ :is(.view-play,.view-together) .board-screen .board .square-label{font-size:9px;line-height:1.1;padding:0;overflow-wrap:anywhere}
 }
+
+.board-screen.live-game-table>.fineprint,.board-screen.live-game-table>.victory,.board-screen.live-game-table>button{display:none}
+.board-screen .room-play-progress{flex:none;margin:0;padding:3px;font-size:10px;line-height:1.3}
+.board-screen .live-board{margin:0}
