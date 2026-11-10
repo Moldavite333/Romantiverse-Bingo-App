@@ -24,7 +24,9 @@ export default function BoardScreenButton(){
   const table=button.current.closest('.game-table');
   if(active){setActive(false);return}
   scroll.current=window.scrollY;setActive(true);
-  table.requestFullscreen?.().catch(()=>{});
+  // Mobile browser fullscreen adds system overlays over the last row.
+  // Use the same edge-to-edge in-page view on phones without those overlays.
+  if(window.matchMedia('(min-width:900px)').matches)table.requestFullscreen?.().catch(()=>{});
  }
  return <button ref={button} type="button" className="board-screen-toggle" aria-pressed={active} onClick={toggle}>{active?'Exit full-screen board':'Full-screen board'}</button>;
 }

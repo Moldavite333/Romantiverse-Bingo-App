@@ -17,7 +17,7 @@ const movie={id:'game-feel-review',title:'A Little Movie-Night Magic',season:'Ch
 const results=[];
 try{
  for(const width of [320,360,390,430,1440]){
-  const page=await browser.newPage({viewport:{width,height:1000},serviceWorkers:'block'}),errors=[];
+  const page=await browser.newPage({viewport:{width,height:width===320?568:width<900?740:1000},serviceWorkers:'block'}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.route('https://*.supabase.co/**',r=>r.fulfill({json:[]}));
   await page.route('https://fonts.googleapis.com/**',r=>r.abort());await page.route('https://fonts.gstatic.com/**',r=>r.abort());
@@ -50,11 +50,16 @@ try{
   await page.screenshot({path:`${out}/${width}-celebration.png`,animations:'disabled'});
   await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
   {
-   if(width!==1440)await page.evaluate(()=>{Element.prototype.requestFullscreen=undefined});
+   if(width!==1440)await page.evaluate(()=>{window.nativeFullscreenRequests=0;Element.prototype.requestFullscreen=()=>{window.nativeFullscreenRequests++;return Promise.reject(new Error('Mobile native fullscreen should not be requested'))}});
    await page.getByRole('button',{name:'Full-screen board',exact:true}).click();
    await page.waitForFunction(()=>document.querySelector('.game-table.board-screen'));
    if(width===1440)assert.ok(await page.evaluate(()=>Boolean(document.fullscreenElement)));
    assert.equal(await page.locator('.board .square').count(),25);
+   if(width!==1440){
+    assert.equal(await page.evaluate(()=>window.nativeFullscreenRequests),0);
+    assert.ok(await page.locator('.board .square').nth(24).evaluate(e=>e.getBoundingClientRect().bottom<=innerHeight),'Bottom row fits within the visible phone screen');
+    await page.screenshot({path:`${out}/${width}-fullscreen-fitted.png`,animations:'disabled'});
+   }
    const saved=await stored();
    for(let replay=0;replay<2;replay++){
     const samples=await page.evaluate(()=>window.audioSamples);
