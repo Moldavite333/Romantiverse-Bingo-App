@@ -49,9 +49,12 @@ try{
   await page.screenshot({path:`${out}/${width}-star-burst.png`,animations:'allow'});
   await page.screenshot({path:`${out}/${width}-celebration.png`,animations:'disabled'});
   await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
-  if(width===1440){
+  {
+   if(width!==1440)await page.evaluate(()=>{Element.prototype.requestFullscreen=undefined});
    await page.getByRole('button',{name:'Full-screen board',exact:true}).click();
-   await page.waitForFunction(()=>document.fullscreenElement?.classList.contains('game-table'));
+   await page.waitForFunction(()=>document.querySelector('.game-table.board-screen'));
+   if(width===1440)assert.ok(await page.evaluate(()=>Boolean(document.fullscreenElement)));
+   assert.equal(await page.locator('.board .square').count(),25);
    const saved=await stored();
    for(let replay=0;replay<2;replay++){
     const samples=await page.evaluate(()=>window.audioSamples);
@@ -61,7 +64,7 @@ try{
     assert.deepEqual(await stored(),saved,'Fullscreen replay preserves the winning card and marks');
     if(replay===1){
      await page.locator('.board').evaluate(e=>{for(const a of e.getAnimations({subtree:true})){a.pause();a.currentTime=180}});
-     await page.screenshot({path:`${out}/1440-fullscreen-replay.png`,animations:'allow'});
+     await page.screenshot({path:`${out}/${width}-fullscreen-replay.png`,animations:'allow'});
     }
    }
    await page.getByRole('button',{name:'Exit full-screen board',exact:true}).click();
@@ -81,7 +84,7 @@ try{
   await page.getByRole('button',{name:'Replay reveal',exact:true}).click();
   assert.equal(await page.locator('.board .square').nth(0).evaluate(e=>getComputedStyle(e).animationName),'none');
   assert.equal(await page.locator('.board .square').nth(12).isDisabled(),true);assert.deepEqual(errors,[]);
-  results.push({width,audioOptIn:true,noAutoplay:true,revealPreservesCard:true,reducedMotion:true,winCue:true,mute:true,...(width===1440?{fullscreenWinningReplayTwice:true}:{})});await page.close();
+  results.push({width,audioOptIn:true,noAutoplay:true,revealPreservesCard:true,reducedMotion:true,winCue:true,mute:true,fullscreenWinningReplayTwice:true,mobileFullscreenFallback:width!==1440});await page.close();
  }
  const fallback=await browser.newPage();await fallback.route('https://*.supabase.co/**',r=>r.fulfill({json:[]}));await fallback.route('**/audio/*',r=>r.fulfill({status:404}));
  await fallback.addInitScript(game=>{window.fallbackNotes=0;const create=AudioContext.prototype.createOscillator;AudioContext.prototype.createOscillator=function(){const n=create.call(this),start=n.start.bind(n);n.start=(...a)=>{window.fallbackNotes++;return start(...a)};return n};localStorage.setItem('romantiverse-v2',JSON.stringify(game));sessionStorage.setItem('romantiverse-last-tab','play')},{movie,card,free:true,mode:'classic',marked:[12]});
@@ -93,3 +96,4 @@ try{
  await writeFile(`${out}/report.json`,JSON.stringify({origin,results,unsupportedAudioStillPlayable:true,unavailableRecordingsFallback:true},null,2)+'\n');
  console.log('Game feel: five viewports passed opt-in real Web Audio, no autoplay, confirmed win cues, mute/persistence, reduced motion, unchanged cards and unavailable-audio fallback.');
 }finally{await browser.close();await new Promise(r=>server.close(r))}
+
