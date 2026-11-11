@@ -1,9 +1,11 @@
 import assert from 'node:assert/strict';
+import {CHEESE} from '../src/engine/intelligence.mjs';
 import {createServer} from 'node:http';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {resolve,extname,sep} from 'node:path';
 import {chromium} from 'playwright';
 const root=resolve('dist'),out='artifacts/seasons/browser';
+const generalIds=new Set(CHEESE.map(t=>t.id));
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.webp':'image/webp','.json':'application/json'};
 const server=createServer(async(req,res)=>{try{const path=resolve(root,'.'+(new URL(req.url,'http://local').pathname==='/'?'/index.html':new URL(req.url,'http://local').pathname));if(!path.startsWith(root+sep))throw Error('Outside build');res.writeHead(200,{'Content-Type':mime[extname(path)]||'application/octet-stream'}).end(await readFile(path))}catch{res.writeHead(404).end()}});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
@@ -27,7 +29,7 @@ try{
   assert.equal(saved.cardTheme,theme);assert.equal(saved.movie.season,'Unspecified');
   assert.equal(saved.card.filter(t=>t.category==='seasonal').length,theme==='Romance'?0:8);
   assert.equal(new Set(saved.card.map(t=>t.label)).size,25);
-  assert.ok(saved.card.every(t=>t.id==='free'||t.id.startsWith('room-')||t.id.startsWith('season-'+theme+'-')));
+  assert.ok(saved.card.every(t=>t.id==='free'||t.id.startsWith('room-')||t.id.startsWith('season-'+theme+'-')||generalIds.has(t.id)));
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
   for(const tile of await page.locator('.board .square').all()){
    const label=await tile.evaluate(e=>{const label=e.querySelector('.square-label');return {id:e.querySelector('img').dataset.illustrationId,text:label.innerText,height:label.clientHeight,scroll:label.scrollHeight}});
