@@ -9,6 +9,17 @@ test('common-moment dealing favors everyday romance over specific set pieces',()
  for(let seed=1;seed<=1000;seed++)common+=weightedMoments(pool,seededRandom(seed)).slice(0,3).filter(t=>commonMomentWeight(t.label)===4).length;
  assert.ok(common>2400,'Common moments should occupy over 80% of these draws, versus 50% with equal dealing');
 });
+test('solo Romance cards vary in actual squares, not only their positions',()=>{
+ const movie={title:'Adventures in Love and Birdwatching',season:'Romance'};
+ const cards=Array.from({length:48},(_,n)=>buildCard(movie,{seed:n+1}));
+ const labels=card=>new Set(card.filter(t=>t.category!=='free').map(t=>t.label));
+ const initial=labels(cards[0]);
+ const meanOverlap=cards.slice(1).reduce((total,card)=>total+[...labels(card)].filter(label=>initial.has(label)).length,0)/(cards.length-1);
+ assert.ok(meanOverlap<20,'Independent solo cards should have meaningfully different selections, got average overlap '+meanOverlap);
+ assert.ok(cards.every(card=>card[12].category==='free'&&new Set(card.map(t=>t.label)).size===25));
+ assert.deepEqual(cards[0],buildCard(movie,{seed:1}),'Same seed must still reproduce a saved card');
+});
+
 test('new default cards have fewer seasonal requirements without changing wins or saved input',()=>{
  for(const season of ['Christmas','Fall','Spring','Summer'])for(let seed=0;seed<20;seed++){
   const movie={title:'A Romance',season};
