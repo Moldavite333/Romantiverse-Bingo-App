@@ -1,4 +1,10 @@
 /* One illustrated board-game set, from choosing a movie to the credits. */
+.site-return{display:flex;padding:12px 0 0}
+.home-link{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:9px 14px;border:1px solid var(--rom-deep);border-radius:5px;background:var(--rom-deep);color:var(--rom-paper);font-size:13px;font-weight:700;line-height:1.4;text-decoration:none}
+.home-link:hover{background:var(--rom-cranberry);border-color:var(--rom-cranberry)}
+.home-link:focus-visible{outline:3px solid var(--rom-cranberry);outline-offset:3px}
+.home-site-name{font-size:11px;font-weight:500}
+@media(max-width:480px){.site-return{padding-top:10px}.home-link{padding:9px 12px}}
 :root{--rom-deep:#193f35;--rom-cream:#f7f0e2;--rom-paper:#fffaf0;--rom-coral:#e8a18b;--rom-gold:#c49b52;--rom-cranberry:#873b4b;--rom-ink:#253d34;--rom-muted:#667064;--rom-rule:#d8ccb6;color:var(--rom-ink);background:#203f36;font-family:'DM Sans',system-ui,sans-serif}
 body{background:#203f36;color:var(--rom-ink);-webkit-font-smoothing:antialiased}
 button,input,select,textarea{font:inherit}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent;border:1px solid var(--rom-rule);border-radius:5px;background:var(--rom-paper);color:var(--rom-deep);padding:10px 14px;min-height:40px;font-size:12px;font-weight:700}
