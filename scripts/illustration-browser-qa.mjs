@@ -21,6 +21,9 @@ try{
   await page.addInitScript(game=>{if(!localStorage.getItem('romantiverse-v2'))localStorage.setItem('romantiverse-v2',JSON.stringify(game));sessionStorage.setItem('romantiverse-last-tab','play')},{movie,card,free:true,mode:'classic',difficulty:'balanced',ratio:50,marked:[12],completed:false,startedAt:'2026-11-01T12:00:00Z'});
   await page.goto(origin,{waitUntil:'domcontentloaded'});
   await page.locator('.board .square').first().waitFor();
+   // Artwork-guide and page-level audits run after leaving the default fullscreen board.
+   const exitScreen=async()=>{const exit=page.getByRole('button',{name:'Exit Full Screen',exact:true});if(await exit.count())await exit.click()};
+   await exitScreen();
   await page.waitForFunction(()=>document.querySelectorAll('.board .square-art').length===25&&[...document.querySelectorAll('.board .square-art')].every(i=>i.complete&&i.naturalWidth>0));
   const prefix=`artifacts/artwork/${before?'before':'after'}-${theme}-${width}`;
   await page.locator('.board').screenshot({animations:'disabled',path:prefix+'-unselected.png'});
@@ -53,6 +56,7 @@ try{
    assert.equal(await page.locator('.board .in-line').count(),5,'Autosave survives reload');
    assert.equal(await page.getByRole('dialog',{name:'Happily Ever After!',exact:true}).isVisible(),true,'Restored win has an accessible celebration');
    await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
+    await exitScreen();
    const center=page.locator('.board .square').nth(12);
    assert.equal(await center.isDisabled(),true,'Free center remains protected');
    assert.equal(await center.getAttribute('aria-pressed'),'true');

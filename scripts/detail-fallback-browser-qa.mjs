@@ -16,6 +16,8 @@ try{
   try{await page.waitForFunction(()=>{const a=[...document.querySelectorAll('.board .square-art')];return a.length===25&&a.every(i=>i.complete&&i.naturalWidth===384)})}catch(e){console.log(await page.locator('.board .square-art').evaluateAll(a=>a.map(i=>({id:i.dataset.illustrationId,width:i.naturalWidth,src:i.currentSrc,complete:i.complete}))));throw e}
   assert.equal(await page.locator('.square-art-missing').count(),0);
   assert.ok(await page.locator('.board .square-art').evaluateAll((imgs,failed)=>imgs.every(i=>i.dataset.illustrationId==='free'||i.currentSrc.includes('/illustrations/detail/')!==failed),failDetail));
+  // The large artwork guide is intentionally hidden until the player exits fullscreen.
+  await page.getByRole('button',{name:'Exit Full Screen',exact:true}).click();
   await page.locator('.card-art-guide>summary').click();await page.locator('.card-art-guide').screenshot({path:`${out}/${failDetail?'fallback':'detail'}-guide.png`});
   await page.evaluate(()=>navigator.serviceWorker.ready);await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
   // Simulate an uncached detail request offline: canonical art is precached.

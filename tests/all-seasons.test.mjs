@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
-import {analyzeMovie,buildCard,inferSeason,balance,visibleTropeKey} from '../src/engine/intelligence.mjs';
+import {analyzeMovie,buildCard,inferSeason,balance,visibleTropeKey,CHEESE} from '../src/engine/intelligence.mjs';
 import {resolveCardTheme,themeLabel} from '../src/engine/launchCollections.mjs';
 import {encodeInvitation,parseInvitation} from '../src/engine/invitations.mjs';
 import {roomInviteMessage} from '../src/engine/shareRoomInvite.mjs';
@@ -16,13 +16,14 @@ test('No Season is explicit and unclassified movies never default to Christmas',
  assert.equal(resolveCardTheme({season:'Summer'}),'Summer');
 });
 test('all new themes deal deterministic distinct cards across ratios, difficulty and free-center settings',()=>{
+ const generalIds=new Set(CHEESE.map(t=>t.id));
  for(const season of ['Spring','Summer','Romance'])for(const free of [true,false])for(const difficulty of ['easy','balanced','hard'])for(const cheeseRatio of [0,.5,1])for(let seed=0;seed<12;seed++){
   const settings={seed,free,difficulty,cheeseRatio},movie={title:'A Movie Night',season};
   const card=buildCard(movie,settings);assert.equal(card.length,25);assert.equal(new Set(card.map(visibleTropeKey)).size,25);
   assert.deepEqual(card,buildCard(movie,settings));assert.equal(card.filter(t=>t.category==='free').length,free?1:0);
   if(season==='Romance')assert.equal(balance(card).seasonal,0);
   else assert.equal(balance(card).seasonal,(free?24:25)-Math.round((free?24:25)*cheeseRatio));
-  for(const t of card)assert.ok(t.category==='free'||t.id.startsWith('room-')||t.id.startsWith('season-'+season+'-'));
+  for(const t of card)assert.ok(t.category==='free'||t.id.startsWith('room-')||t.id.startsWith('season-'+season+'-')||generalIds.has(t.id));
  }
  assert.equal(analyzeMovie({season:'Romance'}).seasonal.length,0);
 });

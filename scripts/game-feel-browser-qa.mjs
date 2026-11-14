@@ -27,6 +27,8 @@ try{
    if(!localStorage.getItem('romantiverse-v2'))localStorage.setItem('romantiverse-v2',JSON.stringify(game));sessionStorage.setItem('romantiverse-last-tab','play');
   },{movie,card,free:true,mode:'classic',marked:[12],completed:false,startedAt:'2026-11-07T12:00:00Z'});
   await page.goto(origin);await page.locator('.game-feel').waitFor();
+   const exitScreen=async()=>{const exit=page.getByRole('button',{name:'Exit Full Screen',exact:true});if(await exit.count())await exit.click()};
+   await exitScreen();
   assert.equal(await page.evaluate(()=>window.audioCreated),0,'Restoration cannot start audio');
   const stored=()=>page.evaluate(()=>{const g=JSON.parse(localStorage.getItem('romantiverse-v2'));return {card:g.card,marked:g.marked}});
   const before=await stored();
@@ -51,7 +53,7 @@ try{
   await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
   {
    if(width!==1440)await page.evaluate(()=>{window.nativeFullscreenRequests=0;Element.prototype.requestFullscreen=()=>{window.nativeFullscreenRequests++;return Promise.reject(new Error('Mobile native fullscreen should not be requested'))}});
-   await page.getByRole('button',{name:'Full-screen board',exact:true}).click();
+   await page.getByRole('button',{name:'Full Screen Board',exact:true}).click();
    await page.waitForFunction(()=>document.querySelector('.game-table.board-screen'));
    if(width===1440)assert.ok(await page.evaluate(()=>Boolean(document.fullscreenElement)));
    assert.equal(await page.locator('.board .square').count(),25);
@@ -72,7 +74,7 @@ try{
      await page.screenshot({path:`${out}/${width}-fullscreen-replay.png`,animations:'allow'});
     }
    }
-   await page.getByRole('button',{name:'Exit full-screen board',exact:true}).click();
+   await page.getByRole('button',{name:'Exit Full Screen',exact:true}).click();
    await page.waitForFunction(()=>!document.fullscreenElement);
   }
   await page.locator('.game-table').screenshot({path:`${out}/${width}-winning.png`,animations:'disabled'});
@@ -81,6 +83,7 @@ try{
   assert.equal(await page.getByRole('button',{name:'Sound on',exact:true}).getAttribute('aria-pressed'),'true','Sound choice survives reload');
   assert.equal(await page.evaluate(()=>window.audioCreated),0,'Enabled preference cannot autoplay on reload');
   await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
+   await exitScreen();
   await page.getByRole('button',{name:'Sound on',exact:true}).click();
   const notes=await page.evaluate(()=>window.audioNotes);
   await page.locator('.board .square').nth(0).click();

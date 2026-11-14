@@ -34,7 +34,10 @@ const card=(season,existingCards=[])=>{
    return labels;
   };
   const source=['Romance','Spring','Summer'].includes(season)?themes.Romance:cheese;
-  const dealt=shuffle([...choose(source,'cheese',16),...choose(themes[season],season==='Romance'?'cheese':'seasonal',8)]);
+  // Romance-only games blend familiar romance moments with the general cheese pool;
+  // dealing 24 of only 28 options made separate players' cards nearly identical.
+  const other=season==='Romance'?cheese:themes[season];
+  const dealt=shuffle([...choose(source,'cheese',16),...choose(other,season==='Romance'?'cheese':'seasonal',8)]);
   dealt.splice(12,0,{id:'free',label:'CHEESE LOUISE POD',category:'free'});
   if(!previous.has(cardKey(dealt)))return dealt;
  }

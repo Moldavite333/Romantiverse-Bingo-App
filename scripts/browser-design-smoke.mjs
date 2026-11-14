@@ -44,8 +44,12 @@ try{
   await page.locator('.game-setup').screenshot({path:`${out}/setup-${width}.png`,animations:'disabled'});
   const modeContrast=await contrast('.mode.chosen');
   await page.getByRole('button',{name:'Play This Movie'}).first().click();
+  await page.locator('.game-table.board-screen').waitFor();
+  const exitScreen=async()=>{const exit=page.getByRole('button',{name:'Exit Full Screen',exact:true});if(await exit.count())await exit.click()};
+  await exitScreen();
   if(await page.locator('.toast button').count())await page.locator('.toast button').click();
   await page.waitForFunction(()=>{const images=[...document.querySelectorAll('.board .square-art')];return images.length===25&&images.every(i=>i.complete&&i.naturalWidth===384)});
+  // New boards open fullscreen. Exit to inspect the normal page layout.
   await check('game',true);
   const squareContrast=await contrast('.square:not(.marked)');
   const layout=await page.locator('.game-layout').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);
@@ -56,7 +60,7 @@ try{
   if(width<900)assert.equal(layout,1,'Mobile stacks card and companion');
   if(width>=900){
    const prior=await page.locator('.board .square').evaluateAll(xs=>xs.map(x=>x.getAttribute('aria-pressed')));
-   await page.getByRole('button',{name:'Full-screen board',exact:true}).click();
+   await page.getByRole('button',{name:'Full Screen Board',exact:true}).click();
    await page.locator('.board-screen').waitFor();
    const fit=await page.locator('.board-screen .square').evaluateAll(xs=>xs.every(x=>{const r=x.getBoundingClientRect(),label=x.querySelector('.square-label');return r.top>=0&&r.bottom<=innerHeight&&r.left>=0&&r.right<=innerWidth&&label.scrollHeight<=label.clientHeight+1}));
    assert.ok(fit,'All 25 tiles and labels fit the laptop screen');
@@ -64,14 +68,14 @@ try{
    await page.locator('.board .square').first().click();
    assert.equal(await page.locator('.board .square').first().getAttribute('aria-pressed'),'true');
    await page.locator('.board .square').first().click();
-   await page.getByRole('button',{name:'Exit full-screen board',exact:true}).click();
+   await page.getByRole('button',{name:'Exit Full Screen',exact:true}).click();
    await page.waitForFunction(()=>!document.querySelector('.board-screen'));
    assert.deepEqual(await page.locator('.board .square').evaluateAll(xs=>xs.map(x=>x.getAttribute('aria-pressed'))),prior);
    if(width===1280)await page.evaluate(()=>{document.querySelector('.game-table').requestFullscreen=()=>Promise.reject(new Error('Fullscreen unavailable'))});
-   await page.getByRole('button',{name:'Full-screen board',exact:true}).click();
+   await page.getByRole('button',{name:'Full Screen Board',exact:true}).click();
    await page.locator('.board-screen').waitFor();await page.keyboard.press('Escape');
    await page.waitForFunction(()=>!document.querySelector('.board-screen'));
-  }else assert.equal(await page.getByRole('button',{name:'Full-screen board',exact:true}).isVisible(),true,'Mobile fullscreen control is available');
+  }else assert.equal(await page.getByRole('button',{name:'Full Screen Board',exact:true}).isVisible(),true,'Mobile fullscreen control is available');
   await page.locator('.board .square').first().click();
   await page.locator('.game-table').screenshot({path:`${out}/selected-${width}.png`,animations:'disabled'});
   const markedContrast=await contrast('.square.marked:not(.is-free)');
@@ -89,7 +93,7 @@ try{
   await page.getByRole('button',{name:'Play Together',exact:true}).click();await check('together',true);
   await page.getByRole('button',{name:'How to Play',exact:true}).click();await check('rules',true);
   await page.getByRole('button',{name:'Cheese Tray',exact:true}).click();await check('history',true);
-  await page.getByRole('button',{name:'My Card',exact:true}).click();await page.getByRole('button',{name:'Finish & Save Results',exact:true}).click();
+  await page.getByRole('button',{name:'My Card',exact:true}).click();await exitScreen();await page.getByRole('button',{name:'Finish & Save Results',exact:true}).click();
   await check('results',true);assert.deepEqual(errors,[]);
   results.push({width,height,checked:['discovery','selection','setup','game','marked','bingo','workshop','multiplayer-setup','rules','history','results'],contrast:{primary:primaryContrast,mode:modeContrast,square:squareContrast,marked:markedContrast,win:winContrast},browserErrors:0});
   console.log(`Whole-game visual and interaction QA passed at ${width}×${height}.`);await context.close();
