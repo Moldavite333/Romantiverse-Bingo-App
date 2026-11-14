@@ -232,6 +232,9 @@ try{
  await returned.waitForFunction(()=>document.querySelectorAll('.live-board .square')[7].getAttribute('aria-pressed')==='false');
  await returned.reload();await returned.locator('.live-board .square').first().waitFor();
  assert.equal(await returned.locator('.live-board .square').nth(5).getAttribute('aria-pressed'),'true','Newly confirmed mark survives reload');
+ // Fullscreen boards cover site navigation by design. Exit before changing tabs.
+ const exitBoard=async()=>{const exit=returned.getByRole('button',{name:'Exit Full Screen',exact:true});if(await exit.count())await exit.click()};
+ await exitBoard();
  await returned.getByRole('button',{name:'Discover',exact:true}).click();
  await returned.getByRole('button',{name:'Cheese Tray',exact:true}).click();
  await returned.getByRole('region',{name:'Saved games'}).getByRole('button',{name:'Resume shared game',exact:true}).click();
@@ -241,10 +244,12 @@ try{
  assert.deepEqual(returnErrors,[]);assert.ok(!(await returned.locator('body').innerText()).includes('a'.repeat(64)),'Private player token stays out of the UI');
  await returned.screenshot({path:'artifacts/artwork/mobile-room-resumed.png',fullPage:true,animations:'disabled'});
  assert.ok(await returned.evaluate(()=>document.querySelector('.live-board').getBoundingClientRect().top>=document.querySelector('.room-play-progress').getBoundingClientRect().bottom),'Progress feedback must not obscure the Bingo header');
+ await exitBoard();
  returned.once('dialog',dialog=>dialog.dismiss());await returned.getByRole('button',{name:'Finish Movie (host only)',exact:true}).click();assert.equal(room.status,'playing','Cancelling end-game confirmation keeps everyone playing');
  returned.once('dialog',dialog=>dialog.accept());await returned.getByRole('button',{name:'Finish Movie (host only)',exact:true}).click();
  await returned.getByText('Movie night complete. Your card and marks remain in Your saved games on this device.').waitFor();
  assert.equal(await returned.locator('.live-board .square').first().isDisabled(),true,'Completed room remains reviewable and read-only');
+ await exitBoard();
  await returned.getByRole('button',{name:'Cheese Tray',exact:true}).click();assert.ok(await returned.getByRole('button',{name:'Review shared game',exact:true}).isVisible());
  await returned.close();
  console.log('Verified rapid taps, undo, host-only controls, end-game confirmation and completed shared-game history.');
