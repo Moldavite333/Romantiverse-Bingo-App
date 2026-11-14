@@ -35,6 +35,8 @@ try{
    await page.goto(origin,{waitUntil:'domcontentloaded'});
    await page.waitForFunction(()=>document.querySelectorAll('.board .square-art').length===25&&[...document.querySelectorAll('.board .square-art')].every(i=>i.complete&&i.naturalWidth));
    await page.locator('.board .square-art').evaluateAll(images=>Promise.all(images.map(i=>i.decode())));
+   // Normal card proportions are assessed outside the default fullscreen view.
+   const exit=page.getByRole('button',{name:'Exit Full Screen',exact:true});if(await exit.count())await exit.click();
    if(dpr>=2)assert.ok(await page.locator('.board .square-art').evaluateAll(images=>images.every(i=>i.dataset.illustrationId==='free'||i.currentSrc.includes('/illustrations/detail/'))),'High-density display must select the original-source detail exports');
    const prefix=`${out}/${width}-batch-${offset/24+1}`;
    await page.locator('.board').screenshot({animations:'disabled',path:prefix+'-unselected.png'});
