@@ -47,7 +47,7 @@ const [remoteMovies,setRemoteMovies]=useState([]),[remoteLoading,setRemoteLoadin
 const [liveMovies,setLiveMovies]=useState([]),[catalogError,setCatalogError]=useState(''),[catalogLoading,setCatalogLoading]=useState(true);
 const [publishedMovies,setPublishedMovies]=useState([]),[resolvedMovies,setResolvedMovies]=useState([]);
 const [game,setGame]=useState(()=>refreshUntouchedCard(read(KEY,null))),[history,setHistory]=useState(()=>read(HISTORY,[])),[favorites,setFavorites]=useState(()=>read(FAVORITES,[]));
-const [tab,setTab]=useState(()=>initialGameTab({roomInvite:parseRoomInvite(window.location.search),search:readDiscoverySearch(window.location.search),game:read(KEY,null)})),[query,setQuery]=useState(()=>readDiscoverySearch(window.location.search)),[season,setSeason]=useState('Auto'),[custom,setCustom]=useState(''),[free,setFree]=useState(true),[mode,setMode]=useState('classic'),[difficulty,setDifficulty]=useState('balanced'),[ratio,setRatio]=useState(67),[notice,setNotice]=useState(''),[editIndex,setEditIndex]=useState(null),[filter,setFilter]=useState('All'),[showClues,setShowClues]=useState(false);
+const [tab,setTab]=useState(()=>new URLSearchParams(location.search).has('invite')||/^#(?:invite|card)=/.test(location.hash)?'discover':initialGameTab({roomInvite:parseRoomInvite(window.location.search),search:readDiscoverySearch(window.location.search),game:read(KEY,null)})),[query,setQuery]=useState(()=>readDiscoverySearch(window.location.search)),[season,setSeason]=useState('Auto'),[custom,setCustom]=useState(''),[free,setFree]=useState(true),[mode,setMode]=useState('classic'),[difficulty,setDifficulty]=useState('balanced'),[ratio,setRatio]=useState(67),[notice,setNotice]=useState(''),[editIndex,setEditIndex]=useState(null),[filter,setFilter]=useState('All'),[showClues,setShowClues]=useState(false);
 useEffect(()=>{const ctrl=new AbortController();Promise.allSettled([loadStaticCatalog({signal:ctrl.signal}),searchCatalog('',{limit:100,signal:ctrl.signal})]).then(results=>{if(ctrl.signal.aborted)return;const items=mergeMovieListings(results.map(r=>r.status==='fulfilled'?r.value.items:[]));setLiveMovies(items.filter(isLaunchMovie).map(m=>({...m,story_facts:m.story_facts||{setting:[],relationship:[],conflict:[],event:[]},kind:'CATALOG MOVIE · SCENES UNVERIFIED'})));setCatalogError(items.length?'':'Movie catalog temporarily unavailable. You can still play any title.')}).finally(()=>{if(!ctrl.signal.aborted)setCatalogLoading(false)});return()=>ctrl.abort()},[]);
 useEffect(()=>{
  // HQ changes propagate automatically on page load, when returning to the tab,
@@ -87,10 +87,12 @@ useEffect(()=>{
 },[query]);
 useEffect(()=>{
  const openInvite=()=>{
-  const hash=window.location.hash;
-  if(!hash.startsWith('#invite=')&&!hash.startsWith('#card='))return;
-  const invite=parseInvitation(hash);
-  if(!invite){setNotice('This game invitation could not be opened.');return}
+  const url=new URL(window.location.href);
+  const tokens=url.searchParams.getAll('invite');
+  const hash=url.hash;
+  if(!tokens.length&&!hash.startsWith('#invite=')&&!hash.startsWith('#card='))return;
+  const invite=tokens.length===1?parseInvitation('#invite='+tokens[0]):tokens.length?null:parseInvitation(hash);
+  if(!invite){setTab('discover');setNotice('This Bingo invitation is incomplete. Ask for a fresh link or search for the movie.');return}
   try{
    const movie={id:'invite-'+invite.movie.title,title:invite.movie.title,season:invite.movie.season,...(invite.movie.release_year?{release_year:invite.movie.release_year}:{}),story_facts:{setting:[],relationship:[],conflict:[],event:[]}};
    const cardTheme=invite.cardTheme||invite.movie.season;
@@ -100,12 +102,17 @@ useEffect(()=>{
     setGame({movie,cardTheme,card,marked:invite.free?[12]:[],free:invite.free,mode:invite.mode,difficulty:invite.difficulty,ratio:invite.ratio,startedAt:new Date().toISOString(),completed:false});
     window.clWebsiteTrack?.('bingo_card_started');
    setTab('play');setNotice('Your own randomized Bingo card is ready.');
-   window.history.replaceState(null,'',window.location.pathname+window.location.search);
+   url.searchParams.delete('invite');
+   window.history.replaceState(window.history.state,'',url.pathname+url.search);
   }catch{setNotice('This game invitation could not be opened.')}
  };
  openInvite();
  window.addEventListener('hashchange',openInvite);
- return()=>window.removeEventListener('hashchange',openInvite);
+ window.addEventListener('popstate',openInvite);
+ return()=>{
+  window.removeEventListener('hashchange',openInvite);
+  window.removeEventListener('popstate',openInvite);
+ };
 },[]);
 useEffect(()=>{
  // Browsers may restore a stale scroll position on reload, particularly on Android.
@@ -151,7 +158,11 @@ async function share(){
  let url;
  try{
   // Keep a selectable link visible even if the native share sheet or clipboard is unavailable.
-  url=location.origin+location.pathname+'#invite='+encodeInvitation(game);
+  const invitation=new URL(location.pathname,location.origin);
+  const token=encodeInvitation(game);
+  invitation.searchParams.set('invite',token);
+  invitation.hash='invite='+token;
+  url=invitation.href;
   setShareUrl(url);
  }catch{setNotice('Could not create a secure invitation link.');return}
  const text='Play Romantiverse Bingo with me for '+game.movie.title+'! You get a fresh randomized card.';

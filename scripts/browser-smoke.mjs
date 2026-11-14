@@ -103,6 +103,7 @@ try{
     const url=new URL(link);
     assert.equal(url.origin,origin);
     assert.ok(url.hash.startsWith('#invite='));
+    assert.equal(url.searchParams.get('invite'),url.hash.slice(8),'The invitation survives apps that remove the URL fragment');
     const payload=JSON.parse(Buffer.from(url.hash.slice(8),'base64url').toString('utf8'));
     assert.equal(payload.v,3);
     assert.equal(typeof payload.invite_id,'string');
@@ -117,7 +118,7 @@ try{
    const manual=page.getByRole('textbox',{name:'Direct game invitation link'});
    await manual.waitFor();
    const fallback=await manual.inputValue();
-   assert.ok(fallback.startsWith(appUrl+'#invite='),'Manual link must point directly to this game');
+   assert.ok(fallback.startsWith(appUrl+'?invite='),'Manual link must point directly to this game');
    assert.notEqual(fallback,links[0],'Each share attempt must get a new invitation');
    assert.notEqual(fallback,links[1],'Fallback invitation must also be unique');
    assert.match(await page.locator('.toast').innerText(),/Select and copy your invitation link/);
@@ -129,7 +130,17 @@ try{
   await context.close();
  }
  const {page,context,errors}=await newPage(390);
- await page.goto(invitation,{waitUntil:'domcontentloaded'});
+ const stripped=new URL(invitation);
+ const payload=JSON.parse(Buffer.from(stripped.searchParams.get('invite'),'base64url').toString('utf8'));
+ stripped.hash='';
+ await page.addInitScript(()=>{
+  if(location.search.includes('invite=')){
+   localStorage.setItem('romantiverse-v2',JSON.stringify({movie:{title:'Falling Together',season:'Fall'},completed:true}));
+   localStorage.setItem('romantiverse-last-tab','play');
+  }
+ });
+ await page.goto(stripped.href,{waitUntil:'domcontentloaded'});
+ await page.getByRole('heading',{name:payload.movie.title,exact:true}).waitFor();
  await page.locator('.board .square').first().waitFor();
  const guestSquares=await page.locator('.board .square .square-label').allTextContents();
  assert.equal(guestSquares.length,25);
