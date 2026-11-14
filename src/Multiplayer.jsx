@@ -89,6 +89,17 @@ async function shareInviteLink(){
   if(result==='manual'){setManualInvite(true);setNotice('Sharing and copying are unavailable here. Long-press the invitation text below to copy it.');}
  }catch{setError('Share unavailable. Long-press the link to copy it.')}
 }
+const trackedRoom = useRef(null);
+useEffect(() => {
+ if (!session?.code || !card || room?.status !== 'playing' || trackedRoom.current === session.code) return;
+ trackedRoom.current = session.code;
+ const key = 'cl-counted-room:' + session.code;
+ try {
+  if (localStorage.getItem(key)) return;
+  localStorage.setItem(key,'1');
+ } catch {}
+ window.clWebsiteTrack?.('bingo_card_started');
+}, [session?.code, card, room?.status]);
 const update=(data,credentials=session)=>{if(data.room){latestRoom.current=nextRoomState(latestRoom.current,data.room);setRoom(latestRoom.current);}if(data.card)setCard(data.card);const next=nextPlayerSnapshot(latestSnapshot.current,data);if(next!==latestSnapshot.current){latestSnapshot.current=next;setMarks(next.marked);setRevision(next.revision)}if(credentials){const stored=rememberRoom(credentials,{room:latestRoom.current,card:data.card||card,...next},undefined,{activate:false});setMemoryError(stored?'':'This browser could not save your game on this device. Keep this window open until storage is available.');}setConnected(true)};
 async function call(action,payload={}){if(action==='finish'&&!window.confirm('End this shared game for everyone? Your card and marks will stay in saved games.'))return null;setError('');setBusy(true);try{const data=await roomRequest({action,...payload,...(session?{code:session.code,token:session.token}:{})});let credentials=session;if(['create','join'].includes(action)){credentials={code:data.room.code,token:data.token,player_id:data.player_id};latestSnapshot.current={revision:-1,marked:[]};rememberRoom(credentials);setSession(credentials)}update(data,credentials);return data}catch(e){setError(e.message);return null}finally{setBusy(false)}}
 useEffect(()=>{if(!session)return;return startRoomPolling({read:signal=>roomRequest({action:'state',code:session.code,token:session.token},{signal}),onData:data=>{update(data);setError('')},onReconnect:()=>setConnected(false),onError:e=>{setConnected(false);setError('Connection interrupted: '+e.message)}})},[session?.code,session?.token]);

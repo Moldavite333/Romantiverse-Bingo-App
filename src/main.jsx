@@ -98,6 +98,7 @@ useEffect(()=>{
    const card=buildCard({...movie,season:cardTheme},{seed:seed(),free:invite.free,difficulty:invite.difficulty,cheeseRatio:invite.ratio/100});
    setShareUrl('');
     setGame({movie,cardTheme,card,marked:invite.free?[12]:[],free:invite.free,mode:invite.mode,difficulty:invite.difficulty,ratio:invite.ratio,startedAt:new Date().toISOString(),completed:false});
+    window.clWebsiteTrack?.('bingo_card_started');
    setTab('play');setNotice('Your own randomized Bingo card is ready.');
    window.history.replaceState(null,'',window.location.pathname+window.location.search);
   }catch{setNotice('This game invitation could not be opened.')}
@@ -139,7 +140,8 @@ const activePoster=active?approvedMoviePoster(mergeMovieListings([[active],liveM
 function create(movie,selectedTheme=season){try{if(selectedTheme==='Horror'||!isLaunchMovie(movie))throw Error('Horror is reserved for a future standalone game.');const unclassified=movie.season==='Unspecified';const cardTheme=resolveCardTheme(movie,selectedTheme);const playable={...movie,season:cardTheme};let card=buildCard(playable,{seed:seed(),free,difficulty,cheeseRatio:ratio/100});
  const editorial=buildSharedCheeseSuggestions(playable,sharedPackage?.traits);
  if(editorial.length&&!['Romance','Spring','Summer'].includes(cardTheme))card=applyEditorialToCard(card,editorial);
-setShareUrl('');setGame({movie,cardTheme,card,marked:free?[12]:[],free,mode,difficulty,ratio,startedAt:new Date().toISOString(),completed:false});setTab('play');setEditIndex(null);setNotice(unclassified?'The movie season is unverified. Using the '+themeLabel(cardTheme)+' card theme.':'Your movie night starts here. Card saved on this device.')}catch(e){setNotice(e.message)}}
+setShareUrl('');setGame({movie,cardTheme,card,marked:free?[12]:[],free,mode,difficulty,ratio,startedAt:new Date().toISOString(),completed:false});
+    window.clWebsiteTrack?.('bingo_card_started');setTab('play');setEditIndex(null);setNotice(unclassified?'The movie season is unverified. Using the '+themeLabel(cardTheme)+' card theme.':'Your movie night starts here. Card saved on this device.')}catch(e){setNotice(e.message)}}
 function mark(i){if(!game||game.completed)return;setGame(g=>({...g,marked:toggle(g.marked,i,g.free)}))}
 function edit(i,item){try{setGame(g=>({...g,card:replaceSquare(g.card,i,item)}));setEditIndex(null);setNotice('Square updated.')}catch(e){setNotice(e.message)}}
 function finish(){if(!game)return;const entry={id:Date.now(),title:game.movie.title,release_year:game.movie.release_year,season:game.movie.season,mode:game.mode,lines:lines.length,marked:game.marked.length-(game.free?1:0),won:Boolean(won),date:new Date().toISOString(),card:game.card.map(t=>t.label)};setHistory(h=>[entry,...h].slice(0,250));setGame(g=>({...g,completed:true}));setTab('results')}
