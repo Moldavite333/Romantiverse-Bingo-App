@@ -31,10 +31,20 @@ test('live room cards have 24 unique visible labels in all launch themes', () =>
   }
 });
 
+test('shared Romance cards use genuinely different trope selections',()=>{
+ const deal=loadCard();
+ const cards=Array.from({length:60},()=>deal('Romance'));
+ const labels=card=>new Set(card.filter(t=>t.category!=='free').map(t=>key(t.label)));
+ const first=labels(cards[0]);
+ const meanOverlap=cards.slice(1).reduce((total,card)=>total+[...labels(card)].filter(label=>first.has(label)).length,0)/(cards.length-1);
+ assert.ok(meanOverlap<20,'Shared rooms must deal different tropes, not only rearrangements: '+meanOverlap);
+ assert.ok(cards.some(card=>card.some(t=>t.label==='First meeting')),'Draws should include the newly available general-romance pool');
+});
+
 test('room cards reject same visible label across base and seasonal pools', () => {
   const duplicated = source.replace(
     '"Second chance at love","Unexpected reunion"',
-    '" Unexpected   reunion ","Unexpected reunion"'
+    '"A misunderstanding","Unexpected reunion"'
   );
   assert.notEqual(duplicated, source);
   const card = loadCard(duplicated)('Romance');
