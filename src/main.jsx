@@ -87,10 +87,12 @@ useEffect(()=>{
 },[query]);
 useEffect(()=>{
  const openInvite=()=>{
-  const hash=window.location.hash;
-  if(!hash.startsWith('#invite=')&&!hash.startsWith('#card='))return;
-  const invite=parseInvitation(hash);
-  if(!invite){setNotice('This game invitation could not be opened.');return}
+  const url=new URL(window.location.href);
+  const tokens=url.searchParams.getAll('invite');
+  const hash=url.hash;
+  if(!tokens.length&&!hash.startsWith('#invite=')&&!hash.startsWith('#card='))return;
+  const invite=tokens.length===1?parseInvitation('#invite='+tokens[0]):tokens.length?null:parseInvitation(hash);
+  if(!invite){setTab('discover');setNotice('This Bingo invitation is incomplete. Ask for a fresh link or search for the movie.');return}
   try{
    const movie={id:'invite-'+invite.movie.title,title:invite.movie.title,season:invite.movie.season,...(invite.movie.release_year?{release_year:invite.movie.release_year}:{}),story_facts:{setting:[],relationship:[],conflict:[],event:[]}};
    const cardTheme=invite.cardTheme||invite.movie.season;
@@ -100,7 +102,8 @@ useEffect(()=>{
     setGame({movie,cardTheme,card,marked:invite.free?[12]:[],free:invite.free,mode:invite.mode,difficulty:invite.difficulty,ratio:invite.ratio,startedAt:new Date().toISOString(),completed:false});
     window.clWebsiteTrack?.('bingo_card_started');
    setTab('play');setNotice('Your own randomized Bingo card is ready.');
-   window.history.replaceState(null,'',window.location.pathname+window.location.search);
+   url.searchParams.delete('invite');
+   window.history.replaceState(window.history.state,'',url.pathname+url.search);
   }catch{setNotice('This game invitation could not be opened.')}
  };
  openInvite();
@@ -151,7 +154,11 @@ async function share(){
  let url;
  try{
   // Keep a selectable link visible even if the native share sheet or clipboard is unavailable.
-  url=location.origin+location.pathname+'#invite='+encodeInvitation(game);
+  const invitation=new URL(location.pathname,location.origin);
+  const token=encodeInvitation(game);
+  invitation.searchParams.set('invite',token);
+  invitation.hash='invite='+token;
+  url=invitation.href;
   setShareUrl(url);
  }catch{setNotice('Could not create a secure invitation link.');return}
  const text='Play Romantiverse Bingo with me for '+game.movie.title+'! You get a fresh randomized card.';
