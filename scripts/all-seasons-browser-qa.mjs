@@ -25,6 +25,8 @@ try{
   await selector.selectOption(theme);
   await page.getByRole('button',{name:'Create Card',exact:true}).click();
   await page.waitForFunction(()=>document.querySelectorAll('.board .square-art').length===25&&[...document.querySelectorAll('.board .square-art')].every(i=>i.complete&&i.naturalWidth===384));
+  // Sharing controls and normal board review are below the automatically fullscreen card.
+  await page.getByRole('button',{name:'Exit Full Screen',exact:true}).click();
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('romantiverse-v2')));
   assert.equal(saved.cardTheme,theme);assert.equal(saved.movie.season,'Unspecified');
   assert.equal(saved.card.filter(t=>t.category==='seasonal').length,theme==='Romance'?0:8);
@@ -46,7 +48,7 @@ try{
   await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
   await page.locator('.game-table').screenshot({path:`${out}/${width}-${theme}-winning.png`,animations:'disabled'});
   assert.equal(await page.locator('.board .square.in-line').count()>=5,true);
-  if(width===1440){await page.getByRole('button',{name:'Full-screen board',exact:true}).click();await page.waitForFunction(()=>Boolean(document.fullscreenElement));await page.screenshot({path:`${out}/1440-${theme}-fullscreen.png`,animations:'disabled'});await page.getByRole('button',{name:'Exit full-screen board',exact:true}).click()}
+  if(width===1440){await page.getByRole('button',{name:'Full Screen Board',exact:true}).click();await page.waitForFunction(()=>Boolean(document.fullscreenElement));await page.screenshot({path:`${out}/1440-${theme}-fullscreen.png`,animations:'disabled'});await page.getByRole('button',{name:'Exit Full Screen',exact:true}).click()}
   await page.reload();await page.locator('.board .square').first().waitFor();
   const restored=await page.evaluate(()=>JSON.parse(localStorage.getItem('romantiverse-v2')));assert.equal(restored.cardTheme,theme);assert.deepEqual([...restored.marked].sort((a,b)=>a-b),[0,1,2,3,4,12]);assert.deepEqual(errors,[]);
   results.push({width,theme,cardImages:25,normal:true,winning:true,sharing:true,reload:true,noOverflow:true});await context.close();
