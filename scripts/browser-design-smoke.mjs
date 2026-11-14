@@ -44,11 +44,12 @@ try{
   await page.locator('.game-setup').screenshot({path:`${out}/setup-${width}.png`,animations:'disabled'});
   const modeContrast=await contrast('.mode.chosen');
   await page.getByRole('button',{name:'Play This Movie'}).first().click();
+  await page.locator('.game-table.board-screen').waitFor();
+  const exitScreen=async()=>{const exit=page.getByRole('button',{name:'Exit Full Screen',exact:true});if(await exit.count())await exit.click()};
+  await exitScreen();
   if(await page.locator('.toast button').count())await page.locator('.toast button').click();
   await page.waitForFunction(()=>{const images=[...document.querySelectorAll('.board .square-art')];return images.length===25&&images.every(i=>i.complete&&i.naturalWidth===384)});
   // New boards open fullscreen. Exit to inspect the normal page layout.
-  const exitScreen=async()=>{const exit=page.getByRole('button',{name:'Exit Full Screen',exact:true});if(await exit.count())await exit.click()};
-  await exitScreen();
   await check('game',true);
   const squareContrast=await contrast('.square:not(.marked)');
   const layout=await page.locator('.game-layout').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);
