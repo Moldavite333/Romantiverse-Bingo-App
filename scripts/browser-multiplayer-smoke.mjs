@@ -190,16 +190,15 @@ try{
  await host.page.getByRole('button',{name:'Start Movie (host only)'}).click();
  await mkdir('artifacts/multiplayer-fullscreen',{recursive:true});
  for(const [name,fixture] of [['host',host],['guest',guest]]){
-  await fixture.page.getByRole('button',{name:'Full-screen board',exact:true}).click();
   await fixture.page.locator('.live-game-table.board-screen').waitFor();
   assert.ok(await fixture.page.locator('.live-board .square').nth(24).evaluate(e=>e.getBoundingClientRect().bottom<=innerHeight),'All rows fit in multiplayer fullscreen');
   await fixture.page.screenshot({path:`artifacts/multiplayer-fullscreen/${name}.png`,animations:'disabled'});
  }
  assert.equal(await host.page.evaluate(()=>Boolean(document.fullscreenElement)),false,'Mobile uses in-page fullscreen');
- assert.equal(await guest.page.evaluate(()=>Boolean(document.fullscreenElement)),true,'Desktop supports native fullscreen');
- await host.page.getByRole('button',{name:'Exit full-screen board',exact:true}).click();
+ assert.equal(await guest.page.evaluate(()=>Boolean(document.fullscreenElement)),false,'Desktop opens in page full screen automatically');
+ await host.page.getByRole('button',{name:'Exit Full Screen',exact:true}).click();
  assert.equal(await guest.page.locator('.board-screen').count(),1,'Host exit does not close guest fullscreen');
- await guest.page.getByRole('button',{name:'Exit full-screen board',exact:true}).click();
+ await guest.page.getByRole('button',{name:'Exit Full Screen',exact:true}).click();
  assert.equal(await guest.page.getByRole('button',{name:'Finish Movie (host only)',exact:true}).count(),0,'Guests must not see host-only end controls');
  for(const index of [0,1,2,3,4])await host.page.locator('.live-board .square').nth(index).click();
  await host.page.locator('.live-board.winner').waitFor();

@@ -70,6 +70,7 @@ try{
 
   assert.ok(await page.getByRole('button',{name:'Play This Movie'}).count()>0,'Bundled movie catalog must work without network');
   await page.getByRole('button',{name:'Play This Movie'}).first().click();
+  await page.locator('.game-table.board-screen').waitFor();
   const squares=page.locator('.board .square');
   assert.equal(await squares.count(),25,'Expected complete 5×5 Bingo card');
   // Screen readers need square coordinates to understand five-in-a-row wins.
@@ -90,6 +91,7 @@ try{
   assert.ok(dimensions.document<=dimensions.viewport+2,'Horizontal overflow at '+width+'px: '+JSON.stringify(dimensions));
   assert.deepEqual(errors,[],'Unexpected browser errors at '+width+'px');
   await page.screenshot({path:'artifacts/bingo-'+width+'.png',fullPage:true});
+  await page.getByRole('button',{name:'Exit Full Screen',exact:true}).click();
   if(width===390){
    originalSquares=await squares.locator('.square-label').allTextContents();
    await page.getByRole('button',{name:/Share Card/}).click();
@@ -248,6 +250,7 @@ try{
  await result.getByRole('button',{name:'Play This Movie'}).click();
  assert.match(await unknown.page.locator('.play-heading').innerText(),/FALL CARD.*MOVIE SEASON UNVERIFIED/,'Chosen theme must not become verified movie metadata');
  assert.equal(await unknown.page.locator('.board .square').count(),25);
+ await unknown.page.getByRole('button',{name:'Exit Full Screen',exact:true}).click();
  await unknown.page.getByRole('button',{name:/Share Card/}).click();
  await unknown.page.waitForFunction(()=>window.__testShares?.length===1);
  const unknownLink=await unknown.page.evaluate(()=>window.__testShares[0].url);
@@ -274,6 +277,7 @@ try{
  await customCheck.page.getByLabel('Card theme for movies with no verified season').selectOption('Fall');
  await unlisted.click();
  assert.match(await customCheck.page.locator('.play-heading').innerText(),/FALL CARD.*MOVIE SEASON UNVERIFIED/);
+ await customCheck.page.getByRole('button',{name:'Exit Full Screen',exact:true}).click();
  await customCheck.page.getByRole('button',{name:/Share Card/}).click();
  await customCheck.page.waitForFunction(()=>window.__testShares?.length===1);
  const customInvite=await customCheck.page.evaluate(()=>window.__testShares[0].url);
