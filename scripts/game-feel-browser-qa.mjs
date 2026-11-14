@@ -80,10 +80,10 @@ try{
   await page.locator('.game-table').screenshot({path:`${out}/${width}-winning.png`,animations:'disabled'});
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
   await page.reload();await page.locator('.game-feel').waitFor();
-   await exitScreen();
   assert.equal(await page.getByRole('button',{name:'Sound on',exact:true}).getAttribute('aria-pressed'),'true','Sound choice survives reload');
   assert.equal(await page.evaluate(()=>window.audioCreated),0,'Enabled preference cannot autoplay on reload');
   await page.getByRole('button',{name:'Keep Playing',exact:true}).click();
+   await exitScreen();
   await page.getByRole('button',{name:'Sound on',exact:true}).click();
   const notes=await page.evaluate(()=>window.audioNotes);
   await page.locator('.board .square').nth(0).click();
