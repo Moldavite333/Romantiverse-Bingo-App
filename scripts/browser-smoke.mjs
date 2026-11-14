@@ -140,8 +140,6 @@ try{
   }
  });
  await page.goto(stripped.href,{waitUntil:'domcontentloaded'});
-  await page.waitForTimeout(500);
-  console.log('INVITE DIAGNOSTIC',JSON.stringify(await page.evaluate(()=>({heading:document.querySelector('.play-heading h2')?.textContent||null,currentMovie:JSON.parse(localStorage.getItem('romantiverse-v2')||'null')?.movie?.title,bodyClass:document.body.className,notice:document.querySelector('.toast')?.textContent,gameTable:!!document.querySelector('.game-table'),firstHeading:document.querySelector('h2')?.textContent,location:location.href}))));
  await page.getByRole('heading',{name:payload.movie.title,exact:true}).waitFor();
  await page.locator('.board .square').first().waitFor();
  const guestSquares=await page.locator('.board .square .square-label').allTextContents();
