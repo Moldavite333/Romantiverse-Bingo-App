@@ -16,8 +16,8 @@ export function readActiveRoom(storage=browserRoomStorage()){
 }
 export function rememberRoom(session,snapshot={},storage=browserRoomStorage(),{activate=true}={}){
  const credentials=roomCredentials(session);if(!credentials)return false;
- if(activate||!roomCredentials(parse(storage.tab,ROOM_KEY)))put(storage.tab,ROOM_KEY,credentials);
- const device=activate||!roomCredentials(parse(storage.device,ROOM_KEY))?put(storage.device,ROOM_KEY,credentials):true;
+ if(activate)put(storage.tab,ROOM_KEY,credentials);
+ const device=!activate||put(storage.device,ROOM_KEY,credentials);
  let snapshotSaved=true;
  if(snapshot.room?.code===credentials.code&&Array.isArray(snapshot.card)&&snapshot.card.length===25&&Number.isInteger(snapshot.revision)&&snapshot.revision>=0&&Array.isArray(snapshot.marked)&&snapshot.marked.every(i=>Number.isInteger(i)&&i>=0&&i<25)){
   const previous=rememberedRooms(storage),old=previous.find(r=>r.code===credentials.code&&r.player_id===credentials.player_id);
@@ -29,8 +29,11 @@ export function rememberRoom(session,snapshot={},storage=browserRoomStorage(),{a
  }
  return device&&snapshotSaved;
 }
-export function forgetRoom(session,storage=browserRoomStorage()){
+export function deactivateRoom(session,storage=browserRoomStorage()){
  for(const store of [storage.tab,storage.device])try{const active=parse(store,ROOM_KEY);if(active?.code===session?.code&&active?.player_id===session?.player_id)store?.removeItem(ROOM_KEY)}catch{}
+}
+export function forgetRoom(session,storage=browserRoomStorage()){
+ deactivateRoom(session,storage);
  put(storage.device,ROOM_HISTORY_KEY,rememberedRooms(storage).filter(r=>r.code!==session?.code||r.player_id!==session?.player_id));
 }
 export function initialGameTab({roomInvite,search,game,storage=browserRoomStorage()}={}){
