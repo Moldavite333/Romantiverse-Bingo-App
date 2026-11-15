@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {ROOM_KEY,ROOM_HISTORY_KEY,readActiveRoom,rememberRoom,rememberedRooms,forgetRoom,initialGameTab} from '../src/engine/roomMemory.mjs';
+import {ROOM_KEY,ROOM_HISTORY_KEY,readActiveRoom,rememberRoom,rememberedRooms,deactivateRoom,forgetRoom,initialGameTab} from '../src/engine/roomMemory.mjs';
 const store=()=>{const data=new Map();return {getItem:k=>data.get(k)||null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k),clear:()=>data.clear()}};
 const session={code:'ABC2345',token:'private-player-token',player_id:'player-a'};
 const snapshot={room:{code:session.code,movie_title:'Autumn Dreams',status:'playing'},card:Array.from({length:25},(_,i)=>({id:String(i),label:'Trope '+i})),marked:[0,4,12],revision:2};
@@ -42,4 +42,16 @@ test('a full snapshot store reports failed saving even if small credentials stil
 test('a late same-revision poll cannot reopen a finished room in saved history',()=>{
  const storage={tab:store(),device:store()};rememberRoom(session,{...snapshot,room:{...snapshot.room,status:'finished'}},storage);
  rememberRoom(session,snapshot,storage,{activate:false});assert.equal(readActiveRoom(storage).room.status,'finished');
+});
+
+test('leaving a finished game preserves its card and late snapshots cannot reopen it',()=>{
+ const storage={tab:store(),device:store()};
+ const finished={...snapshot,room:{...snapshot.room,status:'finished'}};
+ rememberRoom(session,finished,storage);
+ deactivateRoom(session,storage);
+ rememberRoom(session,snapshot,storage,{activate:false});
+ assert.equal(readActiveRoom(storage),null);
+ assert.equal(rememberedRooms(storage)[0].room.status,'finished');
+ assert.deepEqual(rememberedRooms(storage)[0].card,snapshot.card);
+ assert.deepEqual(rememberedRooms(storage)[0].marked,snapshot.marked);
 });
