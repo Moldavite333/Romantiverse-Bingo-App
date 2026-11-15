@@ -4,7 +4,7 @@ import {feedbackCue,gameProgress} from './engine/gameFeel.mjs';
 import './game-feel.css';
 
 export default function GameFeel({cardKey,marked,free=true,mode='classic',active=true}){
- const anchor=useRef(null),previous=useRef(null),timer=useRef(null);
+ const anchor=useRef(null),previous=useRef(null),timer=useRef(null),audioReady=useRef(null);
  const enabled=useSyncExternalStore(gameAudio.subscribe,()=>gameAudio.enabled,()=>false);
  const [audioNotice,setAudioNotice]=useState('');
  const progress=gameProgress(marked,free);
@@ -16,7 +16,7 @@ export default function GameFeel({cardKey,marked,free=true,mode='classic',active
  }
  useEffect(()=>{
   const table=anchor.current?.closest('.game-table,.live-game-table'),board=table?.querySelector('.board');
-  const gesture=e=>{if(e.target.closest('.square,.card-art-guide-square'))gameAudio.unlock()};
+  const gesture=e=>{if(e.target.closest('.square,.card-art-guide-square'))audioReady.current=gameAudio.unlock()};
   const hidden=()=>{if(document.hidden)gameAudio.hush()};
   table?.addEventListener('click',gesture,true);document.addEventListener('visibilitychange',hidden);
   return()=>{clearTimeout(timer.current);board?.classList.remove('reel-reveal');table?.removeEventListener('click',gesture,true);document.removeEventListener('visibilitychange',hidden);gameAudio.hush()};
@@ -24,7 +24,14 @@ export default function GameFeel({cardKey,marked,free=true,mode='classic',active
  useEffect(()=>{
   const old=previous.current;previous.current={key:cardKey,marked:[...marked]};
   if(!old||old.key!==cardKey){reveal();return;}
-  if(active){const cue=feedbackCue(old.marked,marked,{free,mode});if(cue)gameAudio.play(cue);}
+  const cue=feedbackCue(old.marked,marked,{free,mode});
+  if(!cue||!gameAudio.enabled)return;
+  if(cue==='win'||cue==='blackout'){
+   // The browser unlock starts on the tap, before a server-confirmed mark arrives.
+   const ready=audioReady.current;
+   if(ready)void ready.then(ok=>{if(ok&&anchor.current&&previous.current?.key===cardKey)void gameAudio.play(cue)});
+   else void gameAudio.play(cue);
+  }else if(active)void gameAudio.play(cue);
  },[cardKey,marked,free,mode,active]);
  async function toggleSound(){
   const on=gameAudio.setEnabled(!enabled);setAudioNotice('');

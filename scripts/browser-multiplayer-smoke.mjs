@@ -82,6 +82,15 @@ async function contextFor(width,mobile){
  await context.route('https://fonts.googleapis.com/**',r=>r.abort());
  await context.route('https://fonts.gstatic.com/**',r=>r.abort());
  await page.addInitScript(()=>{
+  const Audio=window.AudioContext;
+  window.winSounds=0;
+  if(Audio)window.AudioContext=class extends Audio{
+   createBufferSource(){
+    const voice=super.createBufferSource(),start=voice.start.bind(voice);
+    voice.start=(...args)=>{if(Math.abs((voice.buffer?.duration||0)-5.2)<.02)window.winSounds++;return start(...args)};
+    return voice;
+   }
+  };
   Object.defineProperty(navigator,'share',{configurable:true,value:async data=>{window.__shares=(window.__shares||[]).concat([data])}});
   Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw Error('Samsung clipboard denied')}}});
  });
@@ -200,7 +209,17 @@ try{
  assert.equal(await guest.page.locator('.board-screen').count(),1,'Host exit does not close guest fullscreen');
  await guest.page.getByRole('button',{name:'Exit Full Screen',exact:true}).click();
  assert.equal(await guest.page.getByRole('button',{name:'Finish Movie (host only)',exact:true}).count(),0,'Guests must not see host-only end controls');
+ await host.page.getByRole('button',{name:'Full Screen Board',exact:true}).click();
+ await host.page.locator('.live-game-table.board-screen').waitFor();
+ await host.page.getByRole('button',{name:'Sound off',exact:true}).click();
+ await host.page.getByRole('button',{name:'Sound on',exact:true}).waitFor();
  for(const index of [0,1,2,3,4])await host.page.locator('.live-board .square').nth(index).click();
+ const celebration=host.page.getByRole('dialog',{name:'Happily Ever After!',exact:true});
+ await celebration.waitFor();
+ await host.page.waitForFunction(()=>window.winSounds===1);
+ assert.equal(await guest.page.getByRole('dialog',{name:'Happily Ever After!',exact:true}).count(),0);
+ await celebration.getByRole('button',{name:'Keep Playing',exact:true}).click();
+ await host.page.getByRole('button',{name:'Exit Full Screen',exact:true}).click();
  await host.page.locator('.live-board.winner').waitFor();
  assert.equal(await host.page.locator('.live-board .square.in-line').count(),5);
  assert.match(await host.page.locator('.multiplayer .victory').innerText(),/BINGO!/);
