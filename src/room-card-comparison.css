@@ -1,0 +1,11 @@
+.room-card-comparison { padding: 1rem 0; }
+.room-card-comparison h3, .room-card-comparison h4 { margin: 0 0 .5rem; }
+.room-card-comparison p { margin: .5rem 0 .85rem; }
+.room-winning-key { margin-inline-start: .8rem; }
+.room-final-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr)); gap: 1rem; }
+.room-final-cards article { min-width: 0; }
+.room-final-cards h4 small { margin-inline-start: .4rem; font-weight: normal; }
+.room-final-cards table { width: 100%; table-layout: fixed; border-spacing: .18rem; }
+.room-final-cards th { text-align: center; }
+.room-final-cards td { padding: .3rem .2rem; height: 3rem; text-align: center; font-size: .73rem; line-height: 1.2; overflow-wrap: anywhere; border: 1px solid currentColor; border-radius: .25rem; }
+.room-final-cards .room-winning-square { background: #f5d69b; color: #3e2718; border-color: #8b5e36; font-weight: 700; }
