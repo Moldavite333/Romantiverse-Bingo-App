@@ -267,12 +267,12 @@ setShareUrl('');setGame({movie,cardTheme,card,marked:free?[12]:[],free,mode,diff
 function mark(i){if(!game||game.completed)return;setGame(g=>({...g,marked:toggle(g.marked,i,g.free)}))}
 function edit(i,item){try{setGame(g=>({...g,card:replaceSquare(g.card,i,item)}));setEditIndex(null);setNotice('Square updated.')}catch(e){setNotice(e.message)}}
 function deleteSoloCard(){
- if(!game||game.completed||!window.confirm('Delete this unfinished card and its marks?'))return;
+ if(!game||!window.confirm('Delete this card from Saved Games? Any recorded score stays in the Cheese Tray.'))return;
  write(KEY,null);
  setGame(null);
  setShareUrl('');
  setEditIndex(null);
- setNotice('Unfinished card deleted.');
+ setNotice('Card deleted from Saved Games.');
 }
 function finish(){if(!game)return;const entry={id:Date.now(),title:game.movie.title,release_year:game.movie.release_year,season:game.movie.season,mode:game.mode,lines:lines.length,marked:game.marked.length-(game.free?1:0),won:Boolean(won),date:new Date().toISOString(),card:game.card.map(t=>t.label)};setHistory(h=>[entry,...h].slice(0,250));setGame(g=>({...g,completed:true}));setTab('results')}
 function restart(){if(!game)return;if(window.confirm('Start a new card for this movie? Your current marks will be replaced.'))create(game.movie,game.cardTheme||season)}
