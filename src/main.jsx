@@ -144,6 +144,7 @@ const [sharedPackage,setSharedPackage]=useState(null);
 const [shareUrl,setShareUrl]=useState('');
 const [remoteMovies,setRemoteMovies]=useState([]),[remoteLoading,setRemoteLoading]=useState(false),[remoteError,setRemoteError]=useState('');
 const [liveMovies,setLiveMovies]=useState([]),[catalogError,setCatalogError]=useState(''),[catalogLoading,setCatalogLoading]=useState(true);
+const [showMovies,setShowMovies]=useState([]);
 const [publishedMovies,setPublishedMovies]=useState([]),[resolvedMovies,setResolvedMovies]=useState([]);
 const [game,setGame]=useState(()=>refreshUntouchedCard(read(KEY,null))),[history,setHistory]=useState(()=>read(HISTORY,[])),[favorites,setFavorites]=useState(()=>read(FAVORITES,[]));
 const [tab,setTab]=useState(()=>new URLSearchParams(location.search).has('invite')||/^#(?:invite|card)=/.test(location.hash)?'discover':initialGameTab({roomInvite:parseRoomInvite(window.location.search),search:readDiscoverySearch(window.location.search),game:read(KEY,null)})),[query,setQuery]=useState(()=>readDiscoverySearch(window.location.search)),[season,setSeason]=useState('Auto'),[custom,setCustom]=useState(''),[free,setFree]=useState(true),[mode,setMode]=useState('classic'),[difficulty,setDifficulty]=useState('balanced'),[ratio,setRatio]=useState(67),[notice,setNotice]=useState(''),[editIndex,setEditIndex]=useState(null),[filter,setFilter]=useState('All'),[showClues,setShowClues]=useState(false);
@@ -154,8 +155,14 @@ useEffect(()=>{
  let controller=null;
  const refresh=async()=>{
   controller?.abort();const next=new AbortController();controller=next;
-  try{const items=await loadPublishedMoviePosters({signal:next.signal});if(!next.signal.aborted)setPublishedMovies(items)}
-  catch(error){if(!next.signal.aborted)console.warn('Public HQ artwork refresh unavailable',error)}
+  const results=await Promise.allSettled([
+   loadPublishedMoviePosters({signal:next.signal}),
+   loadPublishedMoviePosters({signal:next.signal,showOnly:true})
+  ]);
+  if(next.signal.aborted)return;
+  const [artwork,show]=results;
+  if(artwork.status==='fulfilled')setPublishedMovies(artwork.value);
+  if(show.status==='fulfilled')setShowMovies(show.value);
  };
  const onVisible=()=>{if(document.visibilityState==='visible')refresh()};
  refresh();
@@ -238,19 +245,20 @@ const premiereListings=schedule.filter(entry=>{
  const days=(Date.parse(entry.airdate)-Date.parse(today))/86400000;
  return days>=-60&&days<=30;
 }).map(premiereMovie);
-const multiplayerCatalog=mergeMovieListings([liveMovies,resolvedMovies,publishedMovies,premiereListings]).filter(isLaunchMovie);
+const multiplayerCatalog=mergeMovieListings([liveMovies,resolvedMovies,publishedMovies,showMovies,premiereListings]).filter(isLaunchMovie);
 const resolveDiscoverMovie=movie=>multiplayerCatalog.find(entry=>
  entry.release_year===movie.release_year&&entry.title.trim().toLowerCase()===movie.title.trim().toLowerCase())||movie;
-const hqPicks=mergeMovieListings([publishedMovies.map(resolveDiscoverMovie)]).filter(isLaunchMovie);
+const hqPicks=mergeMovieListings([showMovies.map(resolveDiscoverMovie)]).filter(isLaunchMovie);
 const available=orderMoviesForBrowsing(mergeMovieListings([
  (sharedPackage?.movies||[]).map(m=>({...m,kind:'CHEESE LOUISE CURATED'})),
  liveMovies.map(m=>({...m,kind:'REAL MOVIE · SCENES UNVERIFIED'})),
  remoteMovies,
  resolvedMovies,
  publishedMovies,
+ showMovies,
  premiereListings
- ]).filter(m=>(query.trim()||m.title.trim().toLowerCase()!=='christmas in the rockies')&&isLaunchMovie(m)&&(filter==='All'||m.season===filter)&&matchesDiscoverQuery(m,query)&&(!hqOnly||hqPicks.some(p=>p.id===m.id||p.title===m.title&&p.release_year===m.release_year))),query);
-const activePoster=active?approvedMoviePoster(mergeMovieListings([[active],liveMovies,resolvedMovies,publishedMovies])[0]):null;
+ ]).filter(m=>(query.trim()||m.title.trim().toLowerCase()!=='christmas in the rockies')&&isLaunchMovie(m)&&(filter==='All'||m.season===filter)&&matchesDiscoverQuery(m,query)&&(!hqOnly||!hqPicks.length||hqPicks.some(p=>p.id===m.id||p.title===m.title&&p.release_year===m.release_year))),query);
+const activePoster=active?approvedMoviePoster(mergeMovieListings([[active],liveMovies,resolvedMovies,publishedMovies,showMovies])[0]):null;
 function create(movie,selectedTheme=season){try{if(selectedTheme==='Horror'||!isLaunchMovie(movie))throw Error('Horror is reserved for a future standalone game.');const unclassified=movie.season==='Unspecified';const cardTheme=resolveCardTheme(movie,selectedTheme);const playable={...movie,season:cardTheme};let card=buildCard(playable,{seed:seed(),free,difficulty,cheeseRatio:ratio/100});
  const editorial=buildSharedCheeseSuggestions(playable,sharedPackage?.traits);
  if(editorial.length&&!['Romance','Spring','Summer'].includes(cardTheme))card=applyEditorialToCard(card,editorial);
