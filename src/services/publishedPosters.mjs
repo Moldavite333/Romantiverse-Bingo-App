@@ -1,7 +1,6 @@
-// Read-only public projection from HQ. The RPC includes ONLY movies that have
-// deliberately published Bingo cards; private workspace tables remain RLS-protected.
+// Read-only public Bingo projections from HQ. Private workspace tables stay protected.
 import {approvedMoviePoster} from '../engine/posters.mjs';
-const URL='https://wgvsnmukiaobcbyqhkkt.supabase.co/rest/v1/rpc/published_movie_posters';
+const URL='https://wgvsnmukiaobcbyqhkkt.supabase.co/rest/v1/rpc/';
 const KEY='sb_publishable_3xcqfNu-mJPuDWivmlBXug_3Tw60QoM';
 export function normalizePublishedPosters(rows){
  if(!Array.isArray(rows))throw Error('Invalid public HQ artwork response');
@@ -25,8 +24,9 @@ export function normalizePublishedPosters(rows){
  }
  return out;
 }
-export async function loadPublishedMoviePosters({signal,fetcher=fetch}={}){
- const response=await fetcher(URL,{headers:{apikey:KEY,Accept:'application/json'},signal,cache:'no-store'});
+export async function loadPublishedMoviePosters({signal,fetcher=fetch,showOnly=false}={}){
+ const path=showOnly?'show_bingo_movies':'published_movie_posters';
+ const response=await fetcher(URL+path,{headers:{apikey:KEY,Accept:'application/json'},signal,cache:'no-store'});
  if(!response.ok)throw Error('Published HQ movie artwork unavailable ('+response.status+')');
  return normalizePublishedPosters(await response.json());
 }
