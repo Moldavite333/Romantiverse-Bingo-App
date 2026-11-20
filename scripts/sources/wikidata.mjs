@@ -90,7 +90,16 @@ export async function discoverWikidata({
 }={}){
  const url=ENDPOINT+'?format=json&query='+encodeURIComponent(QUERY);
  for(let attempt=0;attempt<2;attempt++){
-  const res=await fetcher(url,{headers:{Accept:'application/sparql-results+json','User-Agent':userAgent},signal:AbortSignal.timeout(20000)});
+  let res;
+  try{
+   // The public query service can be slow. A timeout is transient, not a reason
+   // to abandon this week's catalog update without one bounded retry.
+   res=await fetcher(url,{headers:{Accept:'application/sparql-results+json','User-Agent':userAgent},signal:AbortSignal.timeout(attempt===0?25000:35000)});
+  }catch(error){
+   if(attempt===1)throw new Error('Wikidata could not be reached after two bounded attempts; catalog left unchanged',{cause:error});
+   await sleep(1500);
+   continue;
+  }
   if(res.ok)return normalizeWikidataResults(await res.json());
   if(attempt===1||!RETRYABLE_STATUS.has(res.status))
    throw Error('Wikidata returned '+res.status+'; retry later, do not hammer the endpoint');
