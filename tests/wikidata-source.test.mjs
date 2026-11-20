@@ -113,3 +113,24 @@ test('HTTP-date Retry-After is respected without real waiting',async()=>{
  });
  assert.deepEqual(waits,[5000]);
 });
+
+test('temporary network timeouts retry once without duplicating discovery',async()=>{
+ let attempts=0;const waits=[];
+ const films=await discoverWikidata({
+  fetcher:async()=>{
+   attempts++;
+   if(attempts===1)throw new Error('temporary timeout');
+   return {ok:true,json:async()=>example};
+  },
+  sleep:async ms=>waits.push(ms)
+ });
+ assert.equal(attempts,2);
+ assert.deepEqual(waits,[1500]);
+ assert.equal(films.length,1);
+ attempts=0;
+ await assert.rejects(discoverWikidata({
+  fetcher:async()=>{attempts++;throw new Error('service unavailable');},
+  sleep:async()=>{}
+ }),/after two bounded attempts/);
+ assert.equal(attempts,2);
+});
