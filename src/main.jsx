@@ -130,7 +130,7 @@ function CheeseLouisePicks({movies,onPlay,onBrowse}){
  return <section className="panel" aria-labelledby="cheese-louise-picks">
   <div className="section-heading"><h2 id="cheese-louise-picks">From Cheese Louise</h2>
    <button onClick={onBrowse}>See all picks</button></div>
-  <ul>{movies.slice(0,6).map(movie=><li key={movie.id}>{movie.title} <button onClick={()=>onPlay(movie)} aria-label={'Play '+movie.title}>Play Bingo</button></li>)}</ul>
+  <ul>{movies.slice(0,6).map(movie=><li key={movie.id}>{movie.title} <button onClick={()=>onPlay(movie,'Auto')} aria-label={'Play '+movie.title}>Play Bingo</button></li>)}</ul>
  </section>;
 }
 function matchesDiscoverQuery(movie,query){
