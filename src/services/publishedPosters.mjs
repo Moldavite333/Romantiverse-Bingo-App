@@ -1,5 +1,6 @@
 // Read-only public Bingo projections from HQ. Private workspace tables stay protected.
 import {approvedMoviePoster} from '../engine/posters.mjs';
+import {seasonalThemeFromTitle} from '../engine/seasonalTitle.mjs';
 const URL='https://wgvsnmukiaobcbyqhkkt.supabase.co/rest/v1/rpc/';
 const KEY='sb_publishable_3xcqfNu-mJPuDWivmlBXug_3Tw60QoM';
 export function normalizePublishedPosters(rows){
@@ -11,7 +12,10 @@ export function normalizePublishedPosters(rows){
   const title=row.title.trim().slice(0,250);
   if(!title)continue;
   const release_year=Number.isInteger(row.release_year)&&row.release_year>=1900&&row.release_year<=2200?row.release_year:null;
-  const season=['Christmas','Fall','Spring','Summer','Romance'].includes(row.season)?row.season:'Unspecified';
+  const rawSeason=String(row.season||'').trim();
+  const season=rawSeason==='Winter'?'Christmas':
+   ['Christmas','Fall','Spring','Summer','Romance'].includes(rawSeason)?rawSeason:
+   seasonalThemeFromTitle(title)||'Unspecified';
   const poster_url=approvedMoviePoster({poster_url:row.poster_url})?.url||null;
   out.push({
    id:'hq-published-'+(release_year||'unknown')+'-'+title.toLowerCase().replace(/[^a-z0-9]+/g,'-'),
