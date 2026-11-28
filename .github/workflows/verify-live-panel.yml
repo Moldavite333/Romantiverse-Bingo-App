@@ -1,0 +1,39 @@
+name: Verify live public Bingo panel removal
+on: pull_request
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Check deployed Bingo bundle
+        run: |
+          node <<'NODE'
+          const assert = require('node:assert/strict');
+          const {setTimeout: wait} = require('node:timers/promises');
+          const root = 'https://bingo.cheeselouisepod.com/';
+          async function read(url) {
+            const response = await fetch(url, {headers: {'Cache-Control':'no-cache'}, signal: AbortSignal.timeout(10000)});
+            assert.equal(response.status, 200);
+            return response.text();
+          }
+          (async () => {
+            for (let attempt = 0; attempt < 32; attempt++) {
+              try {
+                const page = await read(root + '?verify=' + Date.now());
+                const path = page.match(/<script[^>]*type="module"[^>]*src="([^"]+)"/)?.[1];
+                assert.ok(path, 'Bingo application module is present');
+                const script = await read(new URL(path, root));
+                assert.ok(script.includes('From Cheese Louise'));
+                assert.ok(script.includes('Choose Your Movie'));
+                assert.ok(!script.includes('hallmark-premiere-heading'));
+                console.log('Public Bingo serves movie search and show picks without the premiere panel.');
+                return;
+              } catch (error) {
+                if (attempt === 31) throw error;
+                await wait(10000);
+              }
+            }
+          })().catch(error => { console.error(error.message); process.exitCode = 1; });
+          NODE
