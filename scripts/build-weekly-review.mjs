@@ -2,10 +2,13 @@
 // No third-party site is fetched or scraped; no movie is auto-published.
 import fs from 'node:fs';
 import {HALLMARK_FEEDS,LISTING_SOURCES,candidateQuality} from './sources/hallmark-discovery.mjs';
+import {buildPremiereReview} from './sources/premiere-review.mjs';
 const body=JSON.parse(fs.readFileSync('public/catalog/movies.json','utf8'));
+const premieres=JSON.parse(fs.readFileSync(new URL('./sources/verified-premieres.json',import.meta.url),'utf8'));
 const report={
  generated_at:new Date().toISOString(),movie_count:body.movies.length,
- goal:'Discover Hallmark movies and permitted synopses through editorial review',
+ goal:'Review upcoming TV romance premieres and verify catalog coverage',
+ premiere_review:buildPremiereReview(premieres,body,{from:new Date().toISOString()}),
  sources:[...LISTING_SOURCES,...HALLMARK_FEEDS],
  existing_movies:body.movies.map(m=>({id:m.id,title:m.title,year:m.release_year,season:m.season,verification_status:m.verification_status,quality:candidateQuality({title:m.title,year:m.release_year,network:m.network,source_url:m.source_url,synopsis:m.synopsis})})),
  next_steps:['Review upcoming premieres and the two-week schedule','Confirm exact title, year and Hallmark affiliation from independent sources','Find authorized or editorially original synopsis','Record source URL and reuse permission','Merge approved records; validate and compile card predictions'],
