@@ -1,0 +1,23 @@
+{
+  "checked_on": "2026-11-27",
+  "market": "US",
+  "sources": {
+    "hallmark_weekend": {"network":"Hallmark Channel","url":"https://www.hallmarkchannel.com/christmas/thanksgiving-weekend-2026-movie-premieres","next_day_provider":"Hallmark+","access":"subscription"},
+    "hallmark_season": {"network":"Hallmark Channel","url":"https://www.hallmarkchannel.com/christmas/countdown-to-christmas-2026-preview/"},
+    "lifetime_season": {"network":"Lifetime","url":"https://www.mylifetime.com/articles/lifetime-holiday-movie-schedule-2026","next_day_provider":"Lifetime TVE/VOD","access":"TV provider / VOD; verify access"}
+  },
+  "premieres": [
+    {"title":"Return to Santa","at":"2026-11-27T20:00:00-05:00","source":"hallmark_weekend","cast":["Paul Campbell","Rachel Boston"]},
+    {"title":"The Most Wonderful Secret","at":"2026-11-28T18:00:00-05:00","source":"hallmark_weekend","cast":["Tammin Sursok","Peter Porte"]},
+    {"title":"Holiday Ever After: A Disney World Wish Come True","at":"2026-11-28T20:00:00-05:00","source":"hallmark_weekend","cast":["Lacey Chabert","Travis Van Winkle"]},
+    {"title":"Christmas Everyday: Married and Bright","at":"2026-11-28T20:00:00-05:00","source":"lifetime_season","cast":["Brandy Norwood","Robert C. Riley"]},
+    {"title":"Checking Inn for Christmas","at":"2026-11-28T22:00:00-05:00","source":"lifetime_season","cast":["Vivica A. Fox","Jackée Harry"]},
+    {"title":"Eight Nights for Love","at":"2026-11-29T18:00:00-05:00","source":"hallmark_weekend","cast":["Hunter King","Dan Jeannotte"]},
+    {"title":"Miles to Christmas","at":"2026-11-29T20:00:00-05:00","source":"hallmark_weekend","cast":["Ashley Williams","Steve Lund","Alison Sweeney"]},
+    {"title":"A Grand Biltmore Christmas","at":"2026-12-05T20:00:00-05:00","source":"hallmark_season","cast":["Holland Roden","Niall Matter","Andie MacDowell","Jonathan Frakes"]},
+    {"title":"A Very Merry Detour","at":"2026-12-12T22:00:00-05:00","source":"lifetime_season","cast":["Rebecca Dalton","Jinesea Bianca Lewis"]},
+    {"title":"Letters from Christmas Past","at":"2026-12-13T20:00:00-05:00","source":"lifetime_season","cast":["Kelly Tappan","James French"]},
+    {"title":"Love on the Christmas List","at":"2026-12-19T20:00:00-05:00","source":"lifetime_season","cast":["Jana Kramer","Ignacyo Matynia"]},
+    {"title":"Christmas at Mistletoe Hall","at":"2026-12-20T20:00:00-05:00","source":"lifetime_season","cast":["Kathryn Davis","Jonathan Stoddard"]}
+  ]
+}
