@@ -1729,7 +1729,32 @@
       },
       "facts_status": "title_only_unverified",
       "source_url": "https://www.hallmarkchannel.com/return-to-santa",
-      "network": "Hallmark Channel"
+      "network": "Hallmark Channel",
+      "premiere_date": "2026-11-27",
+      "premiere": {
+        "verified": true,
+        "at": "2026-11-27T20:00:00-05:00",
+        "timezone": "America/New_York",
+        "market": "US",
+        "platform": "Hallmark Channel",
+        "type": "first_broadcast",
+        "source_url": "https://www.hallmarkchannel.com/christmas/thanksgiving-weekend-2026-movie-premieres"
+      },
+      "cast": [
+        {"name": "Paul Campbell", "character": "Jake"},
+        {"name": "Rachel Boston", "character": "Julie"}
+      ],
+      "availability": [
+        {
+          "provider": "Hallmark+",
+          "access_type": "Subscription",
+          "market": "US",
+          "available_from": "2026-11-28",
+          "verified": true,
+          "verified_on": "2026-11-27",
+          "source_url": "https://www.hallmarkchannel.com/christmas/thanksgiving-weekend-2026-movie-premieres"
+        }
+      ]
     },
     {
       "id": "wikidata-q96776822",
