@@ -130,14 +130,25 @@ test('weekly CLI refresh persists enrichment-only changes and safely skips no-op
   const candidate={...movie,source_id:'Q77777',title:'Holiday at Home',
    release_year:2025,network:'Lifetime'};
   const first=await refreshCatalogFile({catalogPath,discover:async()=>[candidate],today:()=> '2026-10-30'});
-  assert.deepEqual(first,{added:0,enriched:1});
+  assert.deepEqual(first,{added:0,enriched:1,fetched:1,skipped:0,duplicateCandidates:1,identityConflicts:0});
   const updated=JSON.parse(fs.readFileSync(catalogPath,'utf8'));
   assert.equal(updated.movies.length,1);
   assert.equal(updated.movies[0].network,'Lifetime');
   assert.equal(updated.updated_at,'2026-10-30');
   const before=fs.readFileSync(catalogPath,'utf8');
   const second=await refreshCatalogFile({catalogPath,discover:async()=>[candidate],today:()=> '2026-10-31'});
-  assert.deepEqual(second,{added:0,enriched:0});
+  assert.deepEqual(second,{added:0,enriched:0,fetched:1,skipped:1,duplicateCandidates:1,identityConflicts:0});
   assert.equal(fs.readFileSync(catalogPath,'utf8'),before,'No-op refresh must not rewrite the catalog');
  }finally{fs.rmSync(dir,{recursive:true,force:true});}
+});
+
+test('punctuation variants are skipped and conflicting Wikidata identities remain separate evidence',()=>{
+ const first={...movie,source_id:'Q12345',title:'Love, Fall & Order'};
+ const second={...movie,source_id:'Q23456',title:'Love Fall and Order'};
+ const firstRun=mergeSourceQualifiedMetadata({version:1,movies:[]},[first,second]);
+ assert.equal(firstRun.catalog.movies.length,1);
+ assert.equal(firstRun.added,1);
+ assert.equal(firstRun.duplicateCandidates,1);
+ assert.equal(firstRun.identityConflicts,1);
+ assert.equal(firstRun.catalog.movies[0].id,'wikidata-q12345');
 });

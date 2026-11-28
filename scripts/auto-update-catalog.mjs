@@ -1,6 +1,7 @@
 // Automatic conservative import from open Wikidata metadata only.
 // Do not import synopsis prose, speculative networks, or unverified plot details.
 import fs from 'node:fs';
+import {pathToFileURL} from 'node:url';
 import {discoverWikidata} from './sources/wikidata.mjs';
 import {extractStoryFacts} from '../src/engine/storyFacts.mjs';
 import {seasonalThemeFromTitle} from '../src/engine/seasonalTitle.mjs';
@@ -40,17 +41,22 @@ export function prepareOpenDataMovie(candidate){
 }
 export function mergeSourceQualifiedMetadata(catalog,candidates){
  const byId=new Map(catalog.movies.map(m=>[m.id,m]));
- const movieKey=m=>m.title.toLowerCase().trim()+'|'+m.release_year;
+ const movieKey=m=>m.title.normalize('NFKD').replace(/\p{M}/gu,'').toLowerCase()
+  .replace(/[’‘']/g,'').replace(/&/g,' and ').replace(/[^\p{L}\p{N}]+/gu,' ').trim()+'|'+m.release_year;
  const idsByKey=new Map(catalog.movies.map(m=>[movieKey(m),m.id]));
- let added=0,enriched=0;
+ let added=0,enriched=0,duplicateCandidates=0,identityConflicts=0;
  for(const candidate of candidates){
   const m=prepareOpenDataMovie(candidate);if(!m)continue;
   const key=movieKey(m);
   const existing=byId.get(m.id)||byId.get(idsByKey.get(key));
   if(existing){
+   duplicateCandidates++;
    // Do not attach source metadata to an ID that now names another movie,
    // nor rewrite curated fields, posters, or existing network/producer values.
-   if(movieKey(existing)!==key||existing.is_demo)continue;
+   if(movieKey(existing)!==key||existing.is_demo||(existing.id.startsWith('wikidata-')&&existing.id!==m.id)){
+    identityConflicts++;
+    continue;
+   }
    const patch={};
    if(!existing.network&&m.network)patch.network=m.network;
    if(!existing.production_company&&m.production_company)
@@ -63,7 +69,8 @@ export function mergeSourceQualifiedMetadata(catalog,candidates){
   }
   byId.set(m.id,m);idsByKey.set(key,m.id);added++;
  }
- return {catalog:{...catalog,movies:[...byId.values()].sort((a,b)=>a.title.localeCompare(b.title))},added,enriched};
+ return {catalog:{...catalog,movies:[...byId.values()].sort((a,b)=>a.title.localeCompare(b.title))},
+  added,enriched,fetched:candidates.length,skipped:candidates.length-added-enriched,duplicateCandidates,identityConflicts};
 }
 // Retain the earlier export for downstream scripts that imported this helper.
 export const mergeVerifiedNetworkMetadata=mergeSourceQualifiedMetadata;
@@ -76,14 +83,25 @@ export async function refreshCatalogFile({
 }={}){
  const current=JSON.parse(fs.readFileSync(catalogPath,'utf8'));
  const candidates=await discover();
- const {catalog,added,enriched}=mergeSourceQualifiedMetadata(current,candidates);
- if(added||enriched){
+ const {catalog,...counts}=mergeSourceQualifiedMetadata(current,candidates);
+ if(counts.added||counts.enriched){
   catalog.updated_at=today();
   fs.writeFileSync(catalogPath,JSON.stringify(catalog,null,2)+'\n');
  }
- return {added,enriched};
+ return counts;
 }
-if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
- const {added,enriched}=await refreshCatalogFile();
- console.log('Source-qualified TV movies added: '+added+', metadata-enriched: '+enriched+'. Unknown seasons remain Unspecified; no synopsis stored.');
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
+ const attemptedAt=new Date().toISOString();
+ function report(result){
+  const line=JSON.stringify({source:'Wikidata',attemptedAt,...result});
+  console.log(line);
+  if(process.env.GITHUB_STEP_SUMMARY)fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'\nWikidata refresh\n\n`'+line+'`\n');
+ }
+ try{
+  const counts=await refreshCatalogFile();
+  report({status:'success',checkedAt:new Date().toISOString(),...counts});
+ }catch(error){
+  report({status:'failed',error:error.message});
+  process.exitCode=1;
+ }
 }

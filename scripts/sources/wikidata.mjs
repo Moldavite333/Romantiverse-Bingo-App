@@ -2,40 +2,37 @@
 // Use original release years, not later regional releases or rebroadcasts.
 // Respect query budgets, 429/Retry-After, and Wikimedia User-Agent policy.
 const ENDPOINT='https://query.wikidata.org/sparql';
-export const QUERY=`SELECT ?item ?itemLabel ?date ?networkLabel ?productionCompanyLabel ?tvFilmEvidence WHERE {
+const names={
+ network:['Hallmark Channel','Hallmark Movies & Mysteries','Hallmark Movies and Mysteries','Hallmark Mystery',
+  'Hallmark Family','Lifetime','Lifetime Movie Network','LMN'],
+ company:['MarVista Entertainment','Reel One Entertainment']
+};
+const properties={network:'P449',company:'P272'};
+const MAX_PROVIDERS=16, MAX_TITLES=500;
+export const PROVIDER_QUERY=`SELECT DISTINCT ?provider ?name ?kind WHERE {
+ ${Object.entries(names).map(([kind,labels])=>`{
+  VALUES ?name { ${labels.map(label=>JSON.stringify(label)+'@en').join(' ')} }
+  ?provider rdfs:label ?name.
+  FILTER EXISTS { ?item wdt:${properties[kind]} ?provider. }
+  BIND("${kind}" AS ?kind)
+ }`).join(' UNION ')}
+} LIMIT ${MAX_PROVIDERS+1}`;
+
+export function providerQuery(id,kind){
+ if(!/^Q\d+$/.test(id)||!Object.hasOwn(properties,kind))throw Error('Invalid Wikidata provider');
+ const type=kind==='network'?'Q11424':'Q506240';
+ return `SELECT ?item ?itemLabel ?date WHERE {
   {
-    SELECT ?item (MIN(?released) AS ?date)
-      (SAMPLE(?networkName) AS ?networkLabel)
-      (SAMPLE(?companyName) AS ?productionCompanyLabel)
-      (SAMPLE(?tvFilmType) AS ?tvFilmEvidence) WHERE {
-      ?item wdt:P577 ?released.
-      {
-        # Only a film's *original* broadcaster, not a later rerun channel.
-        VALUES ?networkName {
-          "Hallmark Channel"@en "Hallmark Movies & Mysteries"@en
-          "Hallmark Movies and Mysteries"@en "Hallmark Mystery"@en
-          "Hallmark Family"@en "Lifetime"@en
-          "Lifetime Movie Network"@en "LMN"@en
-        }
-        ?item wdt:P31/wdt:P279* wd:Q11424;
-              wdt:P449 ?network.
-        ?network rdfs:label ?networkName.
-      } UNION {
-        # MarVista/Reel One also distribute theatrical films. Only explicitly
-        # made-for-TV films qualify for the Romantiverse catalog.
-        VALUES ?companyName {
-          "MarVista Entertainment"@en "Reel One Entertainment"@en
-        }
-        ?item wdt:P31/wdt:P279* wd:Q506240;
-              wdt:P272 ?company.
-        ?company rdfs:label ?companyName.
-        BIND("television film" AS ?tvFilmType)
-      }
-    } GROUP BY ?item
+   SELECT ?item (MIN(?released) AS ?date) WHERE {
+    ?item wdt:${properties[kind]} wd:${id}; wdt:P577 ?released.
+    FILTER EXISTS { ?item wdt:P31/wdt:P279* wd:${type}. }
+   } GROUP BY ?item
+   HAVING(MIN(?released) >= "2000-01-01T00:00:00Z"^^xsd:dateTime)
+   ORDER BY DESC(?date) ?item LIMIT ${MAX_TITLES}
   }
-  FILTER(?date >= "2000-01-01T00:00:00Z"^^xsd:dateTime)
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-} ORDER BY DESC(?date) LIMIT 500`;
+ } ORDER BY DESC(?date) ?item`;
+}
 // Query is intentionally narrow; metadata completeness and film coverage are not guaranteed.
 export function normalizeWikidataResults(data){
  if(!Array.isArray(data?.results?.bindings))throw Error('Unexpected Wikidata SPARQL response');
@@ -82,13 +79,8 @@ function retryDelayMs(response,now){
  const timestamp=Date.parse(raw);
  return Number.isFinite(timestamp)?Math.max(0,timestamp-now):1500;
 }
-export async function discoverWikidata({
- fetcher=fetch,
- userAgent='RomantiverseBingoCatalog/1.0 (https://github.com/Moldavite333/Romantiverse-Bingo-App)',
- sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms)),
- now=()=>Date.now()
-}={}){
- const url=ENDPOINT+'?format=json&query='+encodeURIComponent(QUERY);
+async function requestWikidata(query,{fetcher,userAgent,sleep,now,budget}){
+ const url=ENDPOINT+'?format=json&query='+encodeURIComponent(query);
  for(let attempt=0;attempt<2;attempt++){
   let res;
   try{
@@ -96,17 +88,51 @@ export async function discoverWikidata({
    // to abandon this week's catalog update without one bounded retry.
    res=await fetcher(url,{headers:{Accept:'application/sparql-results+json','User-Agent':userAgent},signal:AbortSignal.timeout(attempt===0?25000:35000)});
   }catch(error){
-   if(attempt===1)throw new Error('Wikidata could not be reached after two bounded attempts; catalog left unchanged',{cause:error});
+   if(attempt===1||!budget.retries)throw new Error('Wikidata could not be reached after bounded attempts; catalog left unchanged',{cause:error});
+   budget.retries--;
    await sleep(1500);
    continue;
   }
-  if(res.ok)return normalizeWikidataResults(await res.json());
-  if(attempt===1||!RETRYABLE_STATUS.has(res.status))
+  if(res.ok){
+   const bindings=(await res.json())?.results?.bindings;
+   if(!Array.isArray(bindings))throw Error('Unexpected Wikidata SPARQL response');
+   return bindings;
+  }
+  if(attempt===1||!budget.retries||!RETRYABLE_STATUS.has(res.status))
    throw Error('Wikidata returned '+res.status+'; retry later, do not hammer the endpoint');
   const wait=retryDelayMs(res,now());
   if(!Number.isFinite(wait)||wait>MAX_RETRY_WAIT_MS)
    throw Error('Wikidata returned '+res.status+'; Retry-After exceeds bounded retry window');
+  budget.retries--;
   await sleep(Math.max(0,wait));
  }
  throw Error('Wikidata retry exhausted');
+}
+
+export async function discoverWikidata({
+ fetcher=fetch,
+ userAgent='RomantiverseBingoCatalog/1.0 (https://github.com/Moldavite333/Romantiverse-Bingo-App)',
+ sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms)),
+ now=()=>Date.now()
+}={}){
+ const options={fetcher,userAgent,sleep,now,budget:{retries:1}};
+ const index=await requestWikidata(PROVIDER_QUERY,options);
+ if(!index.length||index.length>MAX_PROVIDERS)throw Error('Wikidata provider index is empty or exceeds its request budget');
+ const bindings=[],releaseDates=new Map();
+ for(const row of index){
+  const id=/\/entity\/(Q\d+)$/.exec(row.provider?.value||'')?.[1],kind=row.kind?.value,label=row.name?.value;
+  if(!id||!Object.hasOwn(names,kind)||!names[kind].includes(label))throw Error('Unexpected Wikidata provider index entry');
+  const films=await requestWikidata(providerQuery(id,kind),options);
+  for(const film of films){
+   const item=film.item?.value,date=film.date?.value;
+   if(date&&(!releaseDates.has(item)||date<releaseDates.get(item)))releaseDates.set(item,date);
+   bindings.push({...film,...(kind==='network'?{networkLabel:{value:label}}:{
+    productionCompanyLabel:{value:label},tvFilmEvidence:{value:'television film'}
+   })});
+  }
+ }
+ return normalizeWikidataResults({results:{bindings}}).sort((a,b)=>{
+  const date=id=>releaseDates.get('http://www.wikidata.org/entity/'+id)||releaseDates.get('https://www.wikidata.org/entity/'+id)||'';
+  return date(b.source_id).localeCompare(date(a.source_id))||a.source_id.localeCompare(b.source_id);
+ }).slice(0,MAX_TITLES);
 }

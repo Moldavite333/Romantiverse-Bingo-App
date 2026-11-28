@@ -1,20 +1,24 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {QUERY,normalizeWikidataResults,discoverWikidata} from '../scripts/sources/wikidata.mjs';
+import {PROVIDER_QUERY,providerQuery,normalizeWikidataResults,discoverWikidata} from '../scripts/sources/wikidata.mjs';
 const example={results:{bindings:[{item:{value:'http://www.wikidata.org/entity/Q123'},itemLabel:{value:'Example Film'},date:{value:'2024-11-12T00:00:00Z'},networkLabel:{value:'Example Channel'}}]}};
+const provider=(id,name,kind)=>({provider:{value:'http://www.wikidata.org/entity/'+id},name:{value:name},kind:{value:kind}});
+const respond=(url,providers=[provider('Q1','Hallmark Channel','network')])=>({
+ ok:true,json:async()=>decodeURIComponent(url).includes(PROVIDER_QUERY)?{results:{bindings:providers}}:example
+});
 test('Wikidata movie leads do not claim a plot synopsis or verified network',()=>{
  const [m]=normalizeWikidataResults(example);assert.equal(m.source_id,'Q123');assert.equal(m.release_year,2024);
  assert.equal(m.synopsis,'');assert.equal(m.suitable_for_auto_import,false);
 });
 test('Wikidata fetch uses an identified user agent and rejects rate limits',async()=>{
- const [m]=await discoverWikidata({fetcher:async(url,options)=>{assert.match(url,/format=json/);assert.match(options.headers['User-Agent'],/RomantiverseBingo/);return {ok:true,json:async()=>example}}});
+ const [m]=await discoverWikidata({fetcher:async(url,options)=>{assert.match(url,/format=json/);assert.match(options.headers['User-Agent'],/RomantiverseBingo/);return respond(url)}});
  assert.equal(m.title,'Example Film');
  await assert.rejects(discoverWikidata({fetcher:async()=>({ok:false,status:429}),sleep:async()=>{}}),/429/);
 });
 
 test('release-year discovery uses first release and collapses later rebroadcast dates',()=>{
- assert.ok(QUERY.includes('MIN(?released)'));
- assert.match(QUERY,/2000-01-01/);
+ assert.ok(providerQuery('Q1','network').includes('MIN(?released)'));
+ assert.match(providerQuery('Q1','network'),/2000-01-01/);
  const binding=(date)=>({
   item:{value:'http://www.wikidata.org/entity/Q123'},
   itemLabel:{value:'Example Film'},
@@ -28,15 +32,13 @@ test('release-year discovery uses first release and collapses later rebroadcast 
 });
 
 test('Wikidata discovery scopes Lifetime broadcasts and MarVista/Reel One to TV films',()=>{
- assert.match(QUERY,/Lifetime Movie Network/);
- assert.match(QUERY,/"Lifetime"@en/);
- assert.match(QUERY,/"MarVista Entertainment"@en/);
- assert.match(QUERY,/"Reel One Entertainment"@en/);
- assert.match(QUERY,/wdt:P449/); // Original broadcaster, not any later channel.
- assert.match(QUERY,/wdt:P272/); // Production company.
- assert.match(QUERY,/wd:Q506240/); // Made-for-TV only on producer branch.
- assert.match(QUERY,/SAMPLE\(\?tvFilmType\)/);
- assert.match(QUERY,/MIN\(\?released\)/);
+ assert.match(PROVIDER_QUERY,/Lifetime Movie Network/);
+ assert.match(PROVIDER_QUERY,/"Lifetime"@en/);
+ assert.match(PROVIDER_QUERY,/"MarVista Entertainment"@en/);
+ assert.match(PROVIDER_QUERY,/"Reel One Entertainment"@en/);
+ assert.match(providerQuery('Q1','network'),/wdt:P449 wd:Q1/);
+ assert.match(providerQuery('Q2','company'),/wdt:P272 wd:Q2/);
+ assert.match(providerQuery('Q2','company'),/wd:Q506240/);
 });
 test('producer-only leads carry TV-film evidence without inventing a broadcaster',()=>{
  const binding={item:{value:'http://www.wikidata.org/entity/Q888'},
@@ -65,15 +67,15 @@ test('duplicate Wikidata releases preserve source evidence and earliest year',()
 test('temporary rate limits retry once after the requested short cooldown',async()=>{
  let calls=0;const waits=[];
  const result=await discoverWikidata({
-  fetcher:async()=>{
+  fetcher:async url=>{
    calls++;
    return calls===1
     ?{ok:false,status:429,headers:{get:()=> '2'}}
-    :{ok:true,json:async()=>example};
+    :respond(url);
   },
   sleep:async ms=>{waits.push(ms);}
  });
- assert.equal(calls,2);
+ assert.equal(calls,3);
  assert.deepEqual(waits,[2000]);
  assert.equal(result[0].source_id,'Q123');
 });
@@ -105,9 +107,9 @@ test('long Retry-After defers to a future run rather than hammering Wikidata',as
 test('HTTP-date Retry-After is respected without real waiting',async()=>{
  const waits=[];
  await discoverWikidata({
-  fetcher:(()=>{let count=0;return async()=>++count===1
+  fetcher:(()=>{let count=0;return async url=>++count===1
    ?{ok:false,status:503,headers:{get:()=> 'Sat, 31 Oct 2026 12:00:05 GMT'}}
-   :{ok:true,json:async()=>example};})(),
+   :respond(url);})(),
   now:()=>Date.parse('2026-10-31T12:00:00Z'),
   sleep:async ms=>{waits.push(ms);}
  });
@@ -117,20 +119,36 @@ test('HTTP-date Retry-After is respected without real waiting',async()=>{
 test('temporary network timeouts retry once without duplicating discovery',async()=>{
  let attempts=0;const waits=[];
  const films=await discoverWikidata({
-  fetcher:async()=>{
+  fetcher:async url=>{
    attempts++;
    if(attempts===1)throw new Error('temporary timeout');
-   return {ok:true,json:async()=>example};
+   return respond(url);
   },
   sleep:async ms=>waits.push(ms)
  });
- assert.equal(attempts,2);
+ assert.equal(attempts,3);
  assert.deepEqual(waits,[1500]);
  assert.equal(films.length,1);
  attempts=0;
  await assert.rejects(discoverWikidata({
   fetcher:async()=>{attempts++;throw new Error('service unavailable');},
   sleep:async()=>{}
- }),/after two bounded attempts/);
+ }),/after bounded attempts/);
  assert.equal(attempts,2);
+});
+
+test('provider partitions preserve broadcaster and production evidence for the same film',async()=>{
+ const films=await discoverWikidata({fetcher:async url=>respond(url,[
+  provider('Q1','Hallmark Channel','network'),provider('Q2','MarVista Entertainment','company')
+ ])});
+ assert.equal(films.length,1);
+ assert.equal(films[0].network,'Hallmark Channel');
+ assert.equal(films[0].production_company,'MarVista Entertainment');
+ assert.equal(films[0].tv_film_evidence,true);
+});
+
+test('a failed provider partition rejects the whole refresh',async()=>{
+ await assert.rejects(discoverWikidata({fetcher:async url=>decodeURIComponent(url).includes('wd:Q2')
+  ?{ok:false,status:400}:respond(url,[provider('Q1','Hallmark Channel','network'),provider('Q2','MarVista Entertainment','company')])
+ }),/Wikidata returned 400/);
 });
