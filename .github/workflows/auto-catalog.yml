@@ -5,6 +5,7 @@ on:
     - cron: '41 11 * * 1,3,5' # Monday, Wednesday, Friday, UTC
 permissions:
   contents: write
+  actions: write
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -24,6 +25,7 @@ jobs:
       - run: node scripts/validate-catalog.mjs
       - run: npm run build
       - name: Commit catalog changes only if validated and different
+        id: catalog_commit
         run: |
           git add public/catalog/movies.json
           if git diff --cached --quiet; then
@@ -31,4 +33,10 @@ jobs:
           else
             git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "chore: refresh eligible open-data Hallmark titles"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+      - name: Queue the existing Pages build for a changed main catalog
+        if: github.ref == 'refs/heads/main' && steps.catalog_commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --repo "$GITHUB_REPOSITORY" --ref main
