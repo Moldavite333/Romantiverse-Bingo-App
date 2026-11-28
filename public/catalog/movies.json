@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-08",
+  "updated_at": "2026-11-27",
   "source": "Editorial title listings; release years, distributors and seasons require independent verification. No inferred scene evidence.",
   "movies": [
     {
@@ -1712,6 +1712,24 @@
       "source_url": "https://www.hallmarkmystery.com/christmas/miracles-of-christmas-2018-preview/",
       "network": "Hallmark Mystery",
       "is_demo": false
+    },
+    {
+      "id": "catalog-return-to-santa-2026",
+      "title": "Return to Santa",
+      "release_year": 2026,
+      "season": "Christmas",
+      "source_name": "Hallmark Channel official movie page",
+      "verification_status": "metadata_verified",
+      "is_demo": false,
+      "story_facts": {
+        "setting": [],
+        "relationship": [],
+        "conflict": [],
+        "event": []
+      },
+      "facts_status": "title_only_unverified",
+      "source_url": "https://www.hallmarkchannel.com/return-to-santa",
+      "network": "Hallmark Channel"
     },
     {
       "id": "wikidata-q96776822",
